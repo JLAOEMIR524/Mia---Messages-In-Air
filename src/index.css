@@ -290,19 +290,30 @@ a:focus {
   height: min-content;
 
   display: flex;
-  gap: var(--space-sm);
+  gap: var(--space-xs);
   align-items: center;
 
   background-color: var(--color-primary);
   color: white;
 
-  img {
-    height: 30px
+  .icon-span {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-image: url('./icons/arrow-right-white.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
   }
 }
 
 .button--image:hover {
-  background-color: var(--color-blue-800);
+  background-color: var(--color-button-primary-bg-hover);
+  color: var(--color-primary);
+  border: var(--border-width) solid var(--color-primary);
+}
+
+.button--image:hover .icon-span {
+  background-image: url('./icons/arrow-right-blue.svg');
 }
 
 /* Form Inputs */
@@ -393,6 +404,8 @@ select:valid {
   width: 240px;
   min-width: 240px;
   max-width: 240px;
+  position: sticky;
+  top: 0;
 
   display: flex;
   flex-direction: column;
@@ -536,16 +549,19 @@ select:valid {
 .questCard {
   height: min-content;
   width: 100%;
-
-  padding: var(--space-lg);
+  max-width: 900px;
+  padding: var(--space-md);
   display: flex;
-  gap: var(--space-lg);
+  gap: var(--space-xl);
   border-radius: var(--border-radius);
   border-width: 1px;
   box-sizing: border-box;
 
   border-style: solid;
   border-color: var(--color-border);
+  background-color: white;
+  margin-top: var(--space-md);
+  box-shadow: var(--shadow-md);
 
   hgroup {
     display: flex;
@@ -559,6 +575,17 @@ select:valid {
       padding: 0;
     }
   }
+
+  .questCard.selected {
+    border-color: var(--color-black);
+    background-color: #2c0606;
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+main>.button:last-of-type {
+  margin-top: var(--space-lg);
 }
 
 /* Statistics Card */
@@ -794,7 +821,7 @@ select:valid {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  min-width: 800px;
+  min-width: 900px;
 
   border-radius: var(--border-radius);
   background: linear-gradient(267deg, #38C871 5.75%, #2A93CC 94.25%);
@@ -803,9 +830,9 @@ select:valid {
     display: flex;
     width: 100%;
     justify-content: space-between;
-  
-    h4{
-      color:white;
+
+    h4 {
+      color: white;
       margin: 0;
       padding-top: 0.5rem;
     }
@@ -823,7 +850,7 @@ select:valid {
 
       img {
         height: 40px;
-        color:white;
+        color: white;
       }
 
       &:hover {
@@ -933,6 +960,8 @@ select:valid {
     border-width: 1px;
     border-radius: 15px;
     border-color: var(--color-black);
+    background-color: var(--color-white);
+
   }
 
   p {
@@ -1289,6 +1318,10 @@ ol {
 @media (width < 1200px) {
   .loadQuestCard {
     min-width: 0;
+  }
+
+  .questCard {
+    max-width: 600px;
   }
 }
 

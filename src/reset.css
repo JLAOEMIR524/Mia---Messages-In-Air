@@ -25,7 +25,6 @@ input, button, textarea, select{
 h1, h2,
 h3, h4 {
     text-wrap: balance;
-    text-align: center;
 }
 
 p {
