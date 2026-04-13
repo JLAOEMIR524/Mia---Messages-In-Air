@@ -43,6 +43,7 @@
   --color-success: #03BB0A;
   --color-warning: #FFBF00;
   --color-error: #F71100;
+  --color-background: #F0FCFF;
 
   /* Light/Dark Colors */
   --color-primary-light: var(--color-blue-50);
@@ -146,6 +147,10 @@
 ::selection {
   background: var(--color-primary);
   color: var(--color-white);
+}
+
+main {
+  padding: var(--space-md);
 }
 
 /* Links */
@@ -392,6 +397,7 @@ select:valid {
   border-right-width: 1px;
 
   border-right-color: var(--color-border);
+  background-color: var(--color-white);
 
   .topContainer {
     display: flex;
@@ -412,7 +418,7 @@ select:valid {
 
     nav {
 
-      .nav-item.active a{
+      .nav-item.active a {
         border-bottom-color: var(--color-black);
       }
 
@@ -429,9 +435,7 @@ select:valid {
     }
   }
 
-  main {
-    width: 70vw;
-  }
+
 
   .logout {
     display: flex;
@@ -1113,6 +1117,7 @@ body {
   font-size: var(--base-font-size);
   line-height: var(--base-line-height);
   color: var(--color-text);
+  background-color: var(--color-background);
 }
 
 h1,
@@ -1268,18 +1273,23 @@ ol {
     flex-direction: column;
   }
 
+  main {
+    padding: 0 var(--space-lg);
+  }
+
+
   /* Navbar */
   .navtTextFlex {
     flex-direction: column;
   }
 
   .sidebar {
-   width: 100%;
+    width: 100%;
     min-width: 0;
-    max-width: none; 
+    max-width: none;
     height: auto;
     min-height: 0;
-   
+
     .topContainer {
       width: 100%;
       flex-direction: row;
@@ -1435,6 +1445,9 @@ ol {
 }
 
 @media (width < 400px) {
+    main{
+  padding: 0 var(--space-sm);
+}
   .sidebar .topContainer .mobileBar {
     padding: var(--space-sm) var(--space-md);
 

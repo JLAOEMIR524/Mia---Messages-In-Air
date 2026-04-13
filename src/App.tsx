@@ -20,7 +20,6 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
-      <div style={{ padding: "2rem" }}>
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/dashboard" element={<Dashboard />} />
@@ -38,7 +37,6 @@ function App() {
           <Route path="/send" element={<Send />} />
           <Route path="*" element={<Home/>} />
         </Routes>
-      </div>
     </BrowserRouter>
 
   )

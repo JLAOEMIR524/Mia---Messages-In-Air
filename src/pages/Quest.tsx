@@ -1,5 +1,7 @@
 export function Quest() {
   return (
-    <p>Quest</p>
+    <main>
+      <p>Quest</p>
+    </main>
   );
 }
