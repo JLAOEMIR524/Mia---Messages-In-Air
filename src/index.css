@@ -150,8 +150,14 @@
 }
 
 main {
-  padding: var(--space-md);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-lg) var(--space-md);
+  box-sizing: border-box;
 }
+
 
 /* Links */
 a {
@@ -198,7 +204,7 @@ a:focus {
   cursor: pointer;
   transition: background-color var(--transition-medium),
     transform var(--transition-medium);
-  padding: var(--space-sm) calc(var(--space-md) * 0.8);
+  padding: var(--space-xs) calc(var(--space-md) * 0.8);
   cursor: pointer;
   margin-bottom: var(--space-sm);
   transition: all var(--transition-slow)
@@ -783,10 +789,12 @@ select:valid {
 /* Load Quest Card */
 .loadQuestCard {
   padding: var(--space-md);
+  margin: var(--space-lg) 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  min-width: 800px;
 
   border-radius: var(--border-radius);
   background: linear-gradient(267deg, #38C871 5.75%, #2A93CC 94.25%);
@@ -795,6 +803,12 @@ select:valid {
     display: flex;
     width: 100%;
     justify-content: space-between;
+  
+    h4{
+      color:white;
+      margin: 0;
+      padding-top: 0.5rem;
+    }
 
 
     button {
@@ -802,13 +816,14 @@ select:valid {
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: transparent;
+      background-color: var;
       transition: background-color 0.4s ease;
       border: none;
       border-radius: var(--border-radius);
 
       img {
-        height: 30px;
+        height: 40px;
+        color:white;
       }
 
       &:hover {
@@ -819,13 +834,15 @@ select:valid {
 
   .button {
     width: max-content;
-
+    box-sizing: border-box;
     margin: 0;
-
     color: var(--color-primary-dark);
+    border: 3px solid transparent;
+    background-color: var(--color-white);
 
     &:hover {
-      background-color: var(--color-gray-200);
+      background-color: rgb(231, 231, 231);
+      border: 3px solid var(--color-primary)
     }
   }
 
@@ -908,13 +925,13 @@ select:valid {
   justify-content: center;
 
   .stepDisplay {
-    padding: var(--space-sm);
+    padding: var(--space-xs) var(--space-sm);
     display: flex;
     align-items: center;
     gap: var(--space-sm);
     border-style: solid;
     border-width: 1px;
-    border-radius: 20px;
+    border-radius: 15px;
     border-color: var(--color-black);
   }
 
@@ -1129,6 +1146,8 @@ h5 {
   color: var(--color-text);
   line-height: var(--heading-line-height);
   font-weight: 400;
+  margin: 0;
+  margin-top: var(--space-sm);
 }
 
 h1 {
@@ -1247,7 +1266,7 @@ ol {
 
 
   .button {
-    padding: calc(var(--space-sm) * 0.8) calc(var(--space-md) * 0.8);
+    padding: calc(var(--space-sm) * 0.5) calc(var(--space-md) * 0.8);
     font-size: 0.95rem;
   }
 
@@ -1267,6 +1286,12 @@ ol {
   }
 }
 
+@media (width < 1200px) {
+  .loadQuestCard {
+    min-width: 0;
+  }
+}
+
 @media (width < 900px) {
 
   #root {
@@ -1274,7 +1299,7 @@ ol {
   }
 
   main {
-    padding: 0 var(--space-lg);
+    padding: var(--space-md) var(--space-lg);
   }
 
 
@@ -1429,7 +1454,7 @@ ol {
   }
 
   .button {
-    padding: calc(var(--space-xs)*1.5) var(--space-sm);
+    padding: var(--space-xs) var(--space-sm);
     font-size: 0.9rem;
   }
 
@@ -1445,9 +1470,10 @@ ol {
 }
 
 @media (width < 400px) {
-    main{
-  padding: 0 var(--space-sm);
-}
+  main {
+    padding: var(--space-md) var(--space-sm);
+  }
+
   .sidebar .topContainer .mobileBar {
     padding: var(--space-sm) var(--space-md);
 
