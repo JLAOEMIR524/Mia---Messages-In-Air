@@ -30,11 +30,13 @@ export function NavBar() {
     <div className={`sidebar ${isOpen ? "is-open" : ""}`}>
       <div className="topContainer">
         <div className="mobileBar">
+          <Link to="/dashboard">
           <img
             className="logo"
             src={isMobile ? "./Logo_without_text.png" : "./Logo.png"}
             alt="Mia Logo"
           />
+          </Link>
 
           <div
             className={`hamburger-menu ${isOpen ? "active" : ""}`}
