@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 export function NavBar() {
@@ -25,7 +25,6 @@ export function NavBar() {
     { name: "Imprint & Privacy", path: "/imprint", icon: "./icons/info.svg" },
   ];
 
-  const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
     <div className={`sidebar ${isOpen ? "is-open" : ""}`}>

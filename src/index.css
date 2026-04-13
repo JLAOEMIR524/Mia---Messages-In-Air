@@ -365,6 +365,13 @@ select:valid {
   border-color: var(--color-input-success-border);
 }
 
+#root {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  width: 100%;
+}
+
 /* Navbar */
 .navtTextFlex {
   display: flex;
@@ -1257,15 +1264,21 @@ ol {
 
 @media (width < 900px) {
 
+  #root {
+    flex-direction: column;
+  }
+
   /* Navbar */
   .navtTextFlex {
     flex-direction: column;
   }
 
   .sidebar {
-    width: 100%;
+   width: 100%;
     min-width: 0;
     max-width: none; 
+    height: auto;
+    min-height: 0;
    
     .topContainer {
       width: 100%;
