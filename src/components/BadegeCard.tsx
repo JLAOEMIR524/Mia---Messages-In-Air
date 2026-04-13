@@ -1,6 +1,8 @@
+import { type ReactNode } from 'react';
+
 interface BadgeCardProps {
   title: string;
-  description: string;
+  description: ReactNode;
   icon?: string;
   isSelected?: boolean;
   onSelect?: () => void;
