@@ -833,6 +833,12 @@ main>.button:last-of-type {
   }
 }
 
+
+/*Imprint und Privacy*/
+.imprint-privacy-container{
+  width: 100%;
+}
+
 /* Sticker Container */
 .stickerComponent {
   display: block;
