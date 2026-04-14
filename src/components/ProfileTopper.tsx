@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 interface ProfileTopperProps {
   initials: string;
   name: string;
@@ -17,16 +19,27 @@ export function ProfileTopper({
   postcardsSent,
   currentXp,
   progressPercent,
-  onEdit
+  onEdit,
 }: ProfileTopperProps) {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <div className="profileTopper">
       <div className="imageBlock">
         <div className="profileFrame">
           <p className="profileText">{initials}</p>
         </div>
-        <button className="button button--image" onClick={onEdit}>
-          <img alt="Edit icon" src="./icons/edit.svg" />
+        <button
+          className="button button--image"
+          onClick={onEdit}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <img
+            aria-hidden="true"
+            alt="Edit icon"
+            src={isHovered ? "./icons/edit-blue.svg" : "./icons/edit-white.svg"}
+          />
           Edit
         </button>
       </div>
@@ -39,9 +52,20 @@ export function ProfileTopper({
             <p>Member Since: {memberSince}</p>
             <p>Postcards Sent {postcardsSent}</p>
           </hgroup>
-          
-          <button className="button button--image" onClick={onEdit}>
-            <img aria-hidden="true" alt="Edit icon" src="./icons/edit.svg" />
+
+          <button
+            className="button button--image"
+            onClick={onEdit}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            <img
+              aria-hidden="true"
+              alt="Edit icon"
+              src={
+                isHovered ? "./icons/edit-blue.svg" : "./icons/edit-white.svg"
+              }
+            />
             Edit
           </button>
         </div>
@@ -52,8 +76,8 @@ export function ProfileTopper({
             <p>{currentXp} XP</p>
           </div>
           <div className="progressBar">
-            <div 
-              className="progressFill" 
+            <div
+              className="progressFill"
               style={{ width: `${progressPercent}%` }}
             ></div>
           </div>

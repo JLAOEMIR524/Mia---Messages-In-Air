@@ -646,7 +646,7 @@ input#fsrch:focus {
   max-width: 900px;
   padding: var(--space-md);
   display: flex;
-  gap: var(--space-xl);
+  gap: var(--space-md);
   border-radius: var(--border-radius);
   border-width: 1px;
   box-sizing: border-box;
@@ -656,6 +656,10 @@ input#fsrch:focus {
   background-color: white;
   margin-top: var(--space-md);
   box-shadow: var(--shadow-md);
+
+  img {
+    width: 30px;
+  }
 
   hgroup {
     display: flex;
@@ -680,6 +684,22 @@ input#fsrch:focus {
 
 main>.button:last-of-type {
   margin-top: var(--space-lg);
+}
+
+.profile {
+  .questCard {
+    width: 100%;
+    max-width: 3000px;
+  }
+
+  .questCard:first-of-type {
+    margin: 0;
+  }
+}
+
+.margin {
+  margin-top: var(--space-lg);
+  margin-bottom: -10px;
 }
 
 /* Statistics Card */
@@ -819,7 +839,9 @@ main>.button:last-of-type {
   width: 100%;
   margin-top: 0.5rem;
 
-  h3, h4, p {
+  h3,
+  h4,
+  p {
     margin: 0;
     padding: 0;
   }
@@ -836,7 +858,7 @@ main>.button:last-of-type {
 }
 
 .swap {
-  width: 100%; 
+  width: 100%;
   aspect-ratio: 1 / 1;
   position: relative;
 }
@@ -856,13 +878,12 @@ main>.button:last-of-type {
   border-radius: var(--border-radius);
   transition: opacity 0.3s ease-in-out;
   cursor: pointer;
-   inset: 0;
+  inset: 0;
 }
-
 
 .stickerCard {
   background-color: var(--color-primary-light);
-  
+
   .sticker {
     font-size: 2rem;
   }
@@ -870,7 +891,7 @@ main>.button:last-of-type {
   .description {
     text-align: center;
   }
-  
+
   &--locked {
     background-color: var(--color-gray-200);
     filter: grayscale(1);
@@ -878,7 +899,7 @@ main>.button:last-of-type {
 }
 
 .xpCard {
-  background-color: var(--color-blue-50);
+  background-color: var(--color-blue-10);
   opacity: 0;
 
   img {
@@ -888,19 +909,24 @@ main>.button:last-of-type {
   }
 }
 
-.stickerCard--locked{
+.stickerCard--locked {
   background-color: var(--color-gray-100);
 }
 
-.stickerCard--locked-2{
+.stickerCard--locked-2 {
   background-color: var(--color-gray-200);
 }
 
 
 
 .swap:hover {
-  .stickerCard { opacity: 0; }
-  .xpCard { opacity: 1; }
+  .stickerCard {
+    opacity: 0;
+  }
+
+  .xpCard {
+    opacity: 1;
+  }
 }
 
 
@@ -1484,23 +1510,23 @@ ol {
       display: none;
     }
 
-    .profileFrame{
+    .profileFrame {
       width: 200px;
       aspect-ratio: 1;
-      
+
       display: flex;
       justify-content: center;
       align-items: center;
-      
+
       overflow: hidden;
       border-radius: 90%;
       background-color: var(--color-blue-50);
 
       .profileText {
-       font-size: 3rem;
-       font-style: italic;
-       padding-right: 4px;
-       cursor: default;
+        font-size: 3rem;
+        font-style: italic;
+        padding-right: 4px;
+        cursor: default;
       }
     }
   }
@@ -1527,7 +1553,7 @@ ol {
       display: flex;
       flex-direction: column;
       gap: var(--space-xs);
-      
+
       .progressTitle {
         display: flex;
         justify-content: space-between;
@@ -1544,18 +1570,19 @@ ol {
         border-width: 2px;
         border-style: solid;
         border-color: var(--color-blue-950);
-        
+
         .progressFill {
           height: 100%;
 
           background-color: var(--color-blue-950);
         }
       }
-      
+
     }
   }
 
-  h3, p{
+  h3,
+  p {
     margin: 0;
     padding: 0;
     color: white;
@@ -1568,14 +1595,14 @@ ol {
 }
 
 /*Map*/
-.leaflet-container{
+.leaflet-container {
   height: 500px;
   width: 100%;
   margin-top: 0.8rem;
 }
 
 /*CityWrapper*/
-.cityWrapper{
+.cityWrapper {
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
@@ -1583,7 +1610,7 @@ ol {
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
   padding: var(--space-md) var(--space-lg);
-  width:100%;
+  width: 100%;
   margin-top: var(--space-lg)
 }
 
@@ -1596,7 +1623,7 @@ ol {
   row-gap: 2rem;
   border-radius: var(--border-radius);
   white-space: nowrap;
-  width:100%;
+  width: 100%;
 }
 
 .city__icon {
@@ -1722,6 +1749,10 @@ ol {
 
   .card-grid .card {
     flex: 0 0 calc(50% - (var(--space-md) / 2));
+  }
+
+  .margin {
+    margin-top: var(--space-md);
   }
 }
 
@@ -1857,15 +1888,15 @@ ol {
       transform: rotate(-45deg);
     }
   }
-  
-.cityWrapper{
-  margin-top: var(--space-md);
-  gap: var(--space-sm);
-}
 
-.city {
-  padding: var(--space-xs) var(--space-sm);
-}
+  .cityWrapper {
+    margin-top: var(--space-md);
+    gap: var(--space-sm);
+  }
+
+  .city {
+    padding: var(--space-xs) var(--space-sm);
+  }
 }
 
 /*Mobile*/
@@ -1925,11 +1956,12 @@ ol {
   .card-grid .card {
     flex: 0 0 100%;
   }
-  .cityWrapper{
+
+  .cityWrapper {
     padding: var(--space-md) var(--space-md);
   }
 
-  
+
   /* Profile Topper */
   .profileTopper {
     flex-direction: column;
@@ -1954,7 +1986,7 @@ ol {
 
       div {
         width: 100%;
-        
+
         .button--image {
           display: none;
         }

@@ -1,9 +1,10 @@
+import { BadgeCard } from "../components/BadegeCard";
 import { ProfileTopper } from "../components/ProfileTopper";
 import SwapCard from "../components/SwapCard";
 
 export function Profile() {
   return (
-    <main className="left">
+    <main className="left profile">
       <h2>Your Profile 👤</h2>
 
       <ProfileTopper
@@ -287,9 +288,44 @@ export function Profile() {
             extraClass="stickerCard--locked"
             extraClass2="stickerCard--locked-2"
           />
-
-          </div>
+        </div>
       </div>
+      <h4 className="margin">Quests</h4>
+      <BadgeCard
+        icon="./icons/star_shine.svg"
+        title="Tiny Story"
+        description="Tell a complete story in exactly 4 sentences."
+      />
+      <BadgeCard
+        icon="./icons/star_shine.svg"
+        title="Tiny Story"
+        description="Tell a complete story in exactly 4 sentences."
+      />
+      <BadgeCard
+        icon="./icons/star_shine.svg"
+        title="Tiny Story"
+        description="Tell a complete story in exactly 4 sentences."
+      />
+      <BadgeCard
+        icon="./icons/star_shine.svg"
+        title="Tiny Story"
+        description="Tell a complete story in exactly 4 sentences."
+      />
+      <BadgeCard
+        icon="./icons/star_shine.svg"
+        title="Tiny Story"
+        description="Tell a complete story in exactly 4 sentences."
+      />
+      <BadgeCard
+        icon="./icons/star_shine.svg"
+        title="Tiny Story"
+        description="Tell a complete story in exactly 4 sentences."
+      />
+      <BadgeCard
+        icon="./icons/star_shine.svg"
+        title="Tiny Story"
+        description="Tell a complete story in exactly 4 sentences."
+      />
     </main>
   );
 }
