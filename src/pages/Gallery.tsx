@@ -1,6 +1,11 @@
+import { MapContainer } from "react-leaflet";
 import { Card } from "../components/Card";
+import type { LatLngExpression } from "leaflet";
+import { CityBadge } from "../components/CityBadge";
 
 export function Gallery() {
+  const position: LatLngExpression = [47.8, 13.04];
+
   return (
     <main className="left">
       <h2>Your Gallery 🖼️</h2>
@@ -19,10 +24,57 @@ export function Gallery() {
           Send
         </button>
       </div>
-      <Card
-        image="https://placehold.co/400x250"
-        description="Nur eine kurze Info ohne Überschrift."
-      />
+      <div className="card-grid">
+        <Card
+          image="https://placehold.co/400x250"
+          description={
+            <>
+              <p> From: Susanne Musterfrau</p>
+              <p>📍San Francisco, USA</p>
+            </>
+          }
+        />
+        <Card
+          image="https://placehold.co/400x250"
+          description={
+            <>
+              <p> From: Susanne Musterfrau</p>
+              <p>📍San Francisco, USA</p>
+            </>
+          }
+        />
+        <Card
+          image="https://placehold.co/400x250"
+          description={
+            <>
+              <p> From: Susanne Musterfrau</p>
+              <p>📍San Francisco, USA</p>
+            </>
+          }
+        />
+        <Card
+          image="https://placehold.co/400x250"
+          description={
+            <>
+              <p> From: Susanne Musterfrau</p>
+              <p>📍San Francisco, USA</p>
+            </>
+          }
+        />
+      </div>
+      <h3>Postcard Map</h3>
+      <MapContainer center={position} zoom={13}></MapContainer>
+      <div className="cityWrapper">
+        <CityBadge city="Vienna" country="Austria" />
+        <CityBadge city="Vienna" country="Austria" />
+        <CityBadge city="Vienna" country="Austria" />
+        <CityBadge city="Vienna" country="Austria" />
+        <CityBadge city="Vienna" country="Austria" />
+        <CityBadge city="Vienna" country="Austria" />
+        <CityBadge city="Vienna" country="Austria" />
+        <CityBadge city="Vienna" country="Austria" />
+
+      </div>
     </main>
   );
 }

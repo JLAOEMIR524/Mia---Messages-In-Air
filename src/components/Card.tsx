@@ -1,7 +1,7 @@
 interface CardProps {
   image?: string;
   title?: string;
-  description?: string;
+  description?: React.ReactNode;
   buttonText?: string;
   onButtonClick?: () => void;
   className?: string;

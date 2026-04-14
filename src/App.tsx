@@ -1,6 +1,7 @@
 import './index.css'
 import './fonts.css'
 import './reset.css'
+import 'leaflet/dist/leaflet.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { NavBar } from './components/Navbar'
 import { ForgotPassword } from './pages/ForgotPassword'
