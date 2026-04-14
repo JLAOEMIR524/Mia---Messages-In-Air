@@ -432,6 +432,47 @@ input#fsrch:focus {
   width: 100%;
 }
 
+/*Navbar not sidebar*/
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 var(--space-xl);
+  height: 140px;
+
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+a {
+  border: none;
+}
+
+a:hover {
+  border: none;
+}
+
+.nav-logo img {
+  height: 60px;
+  width: auto;
+  display: block;
+}
+
+.nav-login img {
+  width: 40px;
+  height: 40px;
+  display: block;
+  transition: transform 0.2s ease;
+
+}
+
+
 /* Navbar */
 .navtTextFlex {
   display: flex;
@@ -833,9 +874,41 @@ main>.button:last-of-type {
   }
 }
 
+.home {
+  background-image: url('background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-md);
+
+  .email-icon {
+    width: 100px;
+  }
+
+  h1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  p {
+    padding: 0.1rem;
+  }
+
+  span {
+    color: var(--color-primary);
+  }
+}
 
 /*Imprint und Privacy*/
-.imprint-privacy-container{
+.imprint-privacy-container {
   width: 100%;
 }
 
@@ -1128,13 +1201,16 @@ main>.button:last-of-type {
 
 /* Finished Container */
 .feedbackContainer {
-  width: 400px;
+  width: 30vw;
   max-width: 90vw;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-md);
+  background-color: white;
+  padding: var(--space-md) var(--space-sm);
+  border-radius: var(--border-radius-large);
 
   .xpDisplay>img {
     height: 45px;
@@ -1380,7 +1456,7 @@ h5 {
 }
 
 h1 {
-  font-size: 3.5rem;
+  font-size: 5rem;
 }
 
 h2 {
@@ -1691,6 +1767,27 @@ ol {
   .margin {
     margin-top: var(--space-md);
   }
+
+  .navbar {
+    padding: 0 var(--space-lg);
+      height: 120px;
+
+
+  }
+    .nav-logo img {
+      height: 50px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-login img {
+      width: 30px;
+      height: 30px;
+      display: block;
+      transition: transform 0.2s ease;
+
+    
+  }
 }
 
 @media (width < 900px) {
@@ -1833,6 +1930,18 @@ ol {
 
   .city {
     padding: var(--space-xs) var(--space-sm);
+  }
+
+   .navbar {
+    padding: 0 var(--space-md);
+      height: 120px;
+  }
+
+  .home{
+    .button-flex{
+      flex-direction: column;
+      margin-top: 0rem;
+    }
   }
 }
 
