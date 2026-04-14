@@ -1,0 +1,37 @@
+@font-face {
+  font-family: "RethinkSans";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./fonts/RethinkSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "RethinkSans";
+  font-style: normal;
+  font-weight: 700;
+  src: url("./fonts/RethinkSans-Bold.ttf") format("truetype");
+}
+
+/* Regular */
+@font-face {
+  font-family: "Quicksand";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./fonts/Quicksand-Regular.ttf") format("truetype");
+}
+
+/* Light / Thin */
+@font-face {
+  font-family: "Quicksand";
+  font-style: normal;
+  font-weight: 300;
+  src: url("./fonts/Quicksand-Light.ttf") format("truetype");
+}
+
+/* Bold */
+@font-face {
+  font-family: "Quicksand";
+  font-style: normal;
+  font-weight: 700;
+  src: url("./fonts/Quicksand-Bold.ttf") format("truetype");
+}
