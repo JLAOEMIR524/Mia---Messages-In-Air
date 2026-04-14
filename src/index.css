@@ -444,6 +444,7 @@ input#fsrch:focus {
   max-width: 240px;
   position: sticky;
   top: 0;
+  z-index: 1000;
 
   display: flex;
   flex-direction: column;
@@ -645,7 +646,7 @@ input#fsrch:focus {
   max-width: 900px;
   padding: var(--space-md);
   display: flex;
-  gap: var(--space-xl);
+  gap: var(--space-md);
   border-radius: var(--border-radius);
   border-width: 1px;
   box-sizing: border-box;
@@ -655,6 +656,10 @@ input#fsrch:focus {
   background-color: white;
   margin-top: var(--space-md);
   box-shadow: var(--shadow-md);
+
+  img {
+    width: 30px;
+  }
 
   hgroup {
     display: flex;
@@ -679,6 +684,22 @@ input#fsrch:focus {
 
 main>.button:last-of-type {
   margin-top: var(--space-lg);
+}
+
+.profile {
+  .questCard {
+    width: 100%;
+    max-width: 3000px;
+  }
+
+  .questCard:first-of-type {
+    margin: 0;
+  }
+}
+
+.margin {
+  margin-top: var(--space-lg);
+  margin-bottom: -10px;
 }
 
 /* Statistics Card */
@@ -713,11 +734,13 @@ main>.button:last-of-type {
 /* Profile Topper */
 .profileTopper {
   width: 100%;
-
   box-sizing: border-box;
   padding: var(--space-md);
   display: flex;
+  align-items: flex-start;
+  flex-direction: row;
   gap: var(--space-lg);
+  margin: var(--space-sm) 0 var(--space-md) 0;
 
   background: var(--Gradient, linear-gradient(267deg, #38C871 5.75%, #2A93CC 94.25%));
   border-radius: var(--border-radius);
@@ -725,13 +748,14 @@ main>.button:last-of-type {
   .imageBlock {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
 
     button {
       display: none;
     }
 
     .profileFrame {
-      width: 200px;
+      width: 150px;
       aspect-ratio: 1;
 
       display: flex;
@@ -809,11 +833,11 @@ main>.button:last-of-type {
   }
 }
 
-/* Sticker Component */
+/* Sticker Container */
 .stickerComponent {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  display: block;
+  width: 100%;
+  margin-top: 0.5rem;
 
   h3,
   h4,
@@ -824,79 +848,76 @@ main>.button:last-of-type {
 }
 
 .stickerBox {
-  width: 100%;
-
-  box-sizing: border-box;
-  padding: var(--space-sm);
   display: grid;
-  grid-template-columns: repeat(auto-fill, 120px);
-  justify-content: space-between;
-  gap: var(--space-xs);
-  border-radius: var(--border-radius);
-  border-style: solid;
-  border-color: var(--color-border);
-  border-width: 1px;
-}
-
-.stickerCard {
-  width: 120px;
-  height: 120px;
-
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  background-color: white;
   padding: var(--space-sm);
-
+  border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
-  background-color: var(--color-primary-light);
-  opacity: 1;
-
-  .sticker {
-    font-size: 3rem;
-  }
-
-  .description {
-    font-size: 1.5rem;
-  }
-}
-
-.stickerCard--locked {
-  background-color: var(--color-gray-200);
-}
-
-.xpCard {
-  width: 120px;
-  aspect-ratio: 1;
-
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: var(--space-sm);
-
-  border-radius: var(--border-radius);
-  background-color: var(--color-blue-50);
-  opacity: 0;
-
-  p {
-    font-size: 1.5rem;
-  }
 }
 
 .swap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
   position: relative;
-  display: grid;
 }
 
 .xpCard,
 .stickerCard {
   grid-area: 1 / 1;
-  transition: opacity 0.4s ease;
-  cursor: default;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-xs);
+  border-radius: var(--border-radius);
+  transition: opacity 0.3s ease-in-out;
+  cursor: pointer;
+  inset: 0;
 }
+
+.stickerCard {
+  background-color: var(--color-primary-light);
+
+  .sticker {
+    font-size: 2rem;
+  }
+
+  .description {
+    text-align: center;
+  }
+
+  &--locked {
+    background-color: var(--color-gray-200);
+    filter: grayscale(1);
+  }
+}
+
+.xpCard {
+  background-color: var(--color-blue-10);
+  opacity: 0;
+
+  img {
+    width: 30px;
+    height: auto;
+    margin-bottom: 4px;
+  }
+}
+
+.stickerCard--locked {
+  background-color: var(--color-gray-100);
+}
+
+.stickerCard--locked-2 {
+  background-color: var(--color-gray-200);
+}
+
+
 
 .swap:hover {
   .stickerCard {
@@ -907,6 +928,7 @@ main>.button:last-of-type {
     opacity: 1;
   }
 }
+
 
 /* Load Quest Card */
 .loadQuestCard {
@@ -1401,32 +1423,100 @@ ol {
 
 /* Profile Topper */
 .profileTopper {
-  flex-direction: column;
+  width: 100%;
+
+  box-sizing: border-box;
+  padding: var(--space-md);
+  display: flex;
+  gap: var(--space-lg);
+
+  background: var(--Gradient, linear-gradient(267deg, #38C871 5.75%, #2A93CC 94.25%));
+  border-radius: var(--border-radius);
 
   .imageBlock {
-    justify-content: space-between;
-    align-items: start;
+    display: flex;
+    align-items: center;
 
-    .profileFrame {
-      width: 150px;
-      aspect-ratio: 1;
+    button {
+      display: none;
     }
 
-    .button--image {
+    .profileFrame {
+      width: 200px;
+      aspect-ratio: 1;
+
       display: flex;
+      justify-content: center;
+      align-items: center;
+
+      overflow: hidden;
+      border-radius: 90%;
+      background-color: var(--color-blue-50);
+
+      .profileText {
+        font-size: 3rem;
+        font-style: italic;
+        padding-right: 4px;
+        cursor: default;
+      }
     }
   }
 
   .profile {
+    width: 100%;
+    display: flex;
     flex-direction: column;
+    gap: var(--space-md);
 
     div {
-      width: 100%;
+      display: flex;
+      justify-content: space-between;
 
-      .button--image {
-        display: none;
+      .profileInfos {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: var(--space-sm);
       }
     }
+
+    .progress {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+
+      .progressTitle {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .progressBar {
+        width: 100%;
+        height: 10px;
+
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-sizing: border-box;
+
+        border-width: 2px;
+        border-style: solid;
+        border-color: var(--color-blue-950);
+
+        .progressFill {
+          height: 100%;
+
+          background-color: var(--color-blue-950);
+        }
+      }
+
+    }
+  }
+
+  h3,
+  p {
+    margin: 0;
+    padding: 0;
+    color: white;
   }
 }
 
@@ -1436,14 +1526,14 @@ ol {
 }
 
 /*Map*/
-.leaflet-container{
+.leaflet-container {
   height: 500px;
   width: 100%;
   margin-top: 0.8rem;
 }
 
 /*CityWrapper*/
-.cityWrapper{
+.cityWrapper {
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
@@ -1451,7 +1541,7 @@ ol {
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
   padding: var(--space-md) var(--space-lg);
-  width:100%;
+  width: 100%;
   margin-top: var(--space-lg)
 }
 
@@ -1464,7 +1554,7 @@ ol {
   row-gap: 2rem;
   border-radius: var(--border-radius);
   white-space: nowrap;
-  width:100%;
+  width: 100%;
 }
 
 .city__icon {
@@ -1590,6 +1680,10 @@ ol {
 
   .card-grid .card {
     flex: 0 0 calc(50% - (var(--space-md) / 2));
+  }
+
+  .margin {
+    margin-top: var(--space-md);
   }
 }
 
@@ -1725,15 +1819,15 @@ ol {
       transform: rotate(-45deg);
     }
   }
-  
-.cityWrapper{
-  margin-top: var(--space-md);
-  gap: var(--space-sm);
-}
 
-.city {
-  padding: var(--space-xs) var(--space-sm);
-}
+  .cityWrapper {
+    margin-top: var(--space-md);
+    gap: var(--space-sm);
+  }
+
+  .city {
+    padding: var(--space-xs) var(--space-sm);
+  }
 }
 
 /*Mobile*/
@@ -1793,10 +1887,43 @@ ol {
   .card-grid .card {
     flex: 0 0 100%;
   }
-  .cityWrapper{
-  
-  padding: var(--space-md) var(--space-md);
-}
+
+  .cityWrapper {
+    padding: var(--space-md) var(--space-md);
+  }
+
+
+  /* Profile Topper */
+  .profileTopper {
+    flex-direction: column;
+
+    .imageBlock {
+      justify-content: space-between;
+      width: 100%;
+      align-items: start;
+
+      .profileFrame {
+        width: 150px;
+        aspect-ratio: 1;
+      }
+
+      .button--image {
+        display: flex;
+      }
+    }
+
+    .profile {
+      flex-direction: column;
+
+      div {
+        width: 100%;
+
+        .button--image {
+          display: none;
+        }
+      }
+    }
+  }
 
 }
 
