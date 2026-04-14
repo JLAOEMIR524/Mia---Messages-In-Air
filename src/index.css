@@ -713,10 +713,11 @@ main>.button:last-of-type {
 /* Profile Topper */
 .profileTopper {
   width: 100%;
-
   box-sizing: border-box;
   padding: var(--space-md);
   display: flex;
+  align-items: flex-start;
+  flex-direction: row;
   gap: var(--space-lg);
 
   background: var(--Gradient, linear-gradient(267deg, #38C871 5.75%, #2A93CC 94.25%));
@@ -725,13 +726,14 @@ main>.button:last-of-type {
   .imageBlock {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
 
     button {
       display: none;
     }
 
     .profileFrame {
-      width: 200px;
+      width: 150px;
       aspect-ratio: 1;
 
       display: flex;
@@ -800,7 +802,7 @@ main>.button:last-of-type {
 
     }
   }
-
+  
   h3,
   p {
     margin: 0;
