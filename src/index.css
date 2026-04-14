@@ -1472,32 +1472,99 @@ ol {
 
 /* Profile Topper */
 .profileTopper {
-  flex-direction: column;
+  width: 100%;
+
+  box-sizing: border-box;
+  padding: var(--space-md);
+  display: flex;
+  gap: var(--space-lg);
+
+  background: var(--Gradient, linear-gradient(267deg, #38C871 5.75%, #2A93CC 94.25%));
+  border-radius: var(--border-radius);
 
   .imageBlock {
-    justify-content: space-between;
-    align-items: start;
+    display: flex;
+    align-items: center;
 
-    .profileFrame {
-      width: 150px;
-      aspect-ratio: 1;
+    button {
+      display: none;
     }
 
-    .button--image {
+    .profileFrame{
+      width: 200px;
+      aspect-ratio: 1;
+      
       display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      overflow: hidden;
+      border-radius: 90%;
+      background-color: var(--color-blue-50);
+
+      .profileText {
+       font-size: 3rem;
+       font-style: italic;
+       padding-right: 4px;
+       cursor: default;
+      }
     }
   }
 
   .profile {
+    width: 100%;
+    display: flex;
     flex-direction: column;
+    gap: var(--space-md);
 
     div {
-      width: 100%;
+      display: flex;
+      justify-content: space-between;
 
-      .button--image {
-        display: none;
+      .profileInfos {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: var(--space-sm);
       }
     }
+
+    .progress {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      
+      .progressTitle {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .progressBar {
+        width: 100%;
+        height: 10px;
+
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-sizing: border-box;
+
+        border-width: 2px;
+        border-style: solid;
+        border-color: var(--color-blue-950);
+        
+        .progressFill {
+          height: 100%;
+
+          background-color: var(--color-blue-950);
+        }
+      }
+      
+    }
+  }
+
+  h3, p{
+    margin: 0;
+    padding: 0;
+    color: white;
   }
 }
 
@@ -1865,9 +1932,41 @@ ol {
     flex: 0 0 100%;
   }
   .cityWrapper{
+    padding: var(--space-md) var(--space-md);
+  }
+
   
-  padding: var(--space-md) var(--space-md);
-}
+  /* Profile Topper */
+  .profileTopper {
+    flex-direction: column;
+
+    .imageBlock {
+      justify-content: space-between;
+      width: 100%;
+      align-items: start;
+
+      .profileFrame {
+        width: 150px;
+        aspect-ratio: 1;
+      }
+
+      .button--image {
+        display: flex;
+      }
+    }
+
+    .profile {
+      flex-direction: column;
+
+      div {
+        width: 100%;
+        
+        .button--image {
+          display: none;
+        }
+      }
+    }
+  }
 
 }
 
