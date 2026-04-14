@@ -1,4 +1,5 @@
 import { ProfileTopper } from "../components/ProfileTopper";
+import SwapCard from "../components/SwapCard";
 
 export function Profile() {
   return (
@@ -16,7 +17,29 @@ export function Profile() {
         onEdit={() => console.log("Edit clicked")}
       />
 
-      
+      <h4>Your Stickers</h4>
+      <h5>Unlocked</h5>
+      <div className="stickerComponent">
+      <SwapCard
+        sticker="🚀"
+        description="Rocket"
+        xpAmount={2500}
+        iconSrc="./icons/check.svg"
+      />
+      <SwapCard
+        sticker="🚀"
+        description="Rocket"
+        xpAmount={2500}
+        iconSrc="./icons/check.svg"
+      />
+      <SwapCard
+        sticker="🚀"
+        description="Rocket"
+        xpAmount={2500}
+        iconSrc="./icons/check.svg"
+      />
+      </div>
+      <h5>Upcoming</h5>
     </main>
   );
 }
