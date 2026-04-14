@@ -444,6 +444,7 @@ input#fsrch:focus {
   max-width: 240px;
   position: sticky;
   top: 0;
+  z-index: 1000;
 
   display: flex;
   flex-direction: column;
@@ -719,6 +720,7 @@ main>.button:last-of-type {
   align-items: flex-start;
   flex-direction: row;
   gap: var(--space-lg);
+  margin: var(--space-sm) 0 var(--space-md) 0;
 
   background: var(--Gradient, linear-gradient(267deg, #38C871 5.75%, #2A93CC 94.25%));
   border-radius: var(--border-radius);
@@ -813,9 +815,9 @@ main>.button:last-of-type {
 
 /* Sticker Container */
 .stickerComponent {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: block;
+  width: 100%;
+  margin-top: 0.5rem;
 
   h3, h4, p {
     margin: 0;
@@ -824,27 +826,25 @@ main>.button:last-of-type {
 }
 
 .stickerBox {
-  box-sizing: border-box;
-  padding: var(--space-sm);
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); 
-  gap: var(--space-xs);
-  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  background-color: white;
+  padding: var(--space-sm);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
 }
 
 .swap {
-  position: relative;
-  display: grid;
-  aspect-ratio: 1 / 1; 
   width: 100%; 
-  max-width: 150px; 
+  aspect-ratio: 1 / 1;
+  position: relative;
 }
 
 .xpCard,
 .stickerCard {
   grid-area: 1 / 1;
+  position: absolute;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
@@ -856,7 +856,9 @@ main>.button:last-of-type {
   border-radius: var(--border-radius);
   transition: opacity 0.3s ease-in-out;
   cursor: pointer;
+   inset: 0;
 }
+
 
 .stickerCard {
   background-color: var(--color-primary-light);
@@ -885,6 +887,16 @@ main>.button:last-of-type {
     margin-bottom: 4px;
   }
 }
+
+.stickerCard--locked{
+  background-color: var(--color-gray-100);
+}
+
+.stickerCard--locked-2{
+  background-color: var(--color-gray-200);
+}
+
+
 
 .swap:hover {
   .stickerCard { opacity: 0; }
