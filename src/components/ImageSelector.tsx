@@ -96,7 +96,7 @@ export function PhotoUploader() {
                     onClick={handlePlaceholderClick}
                     disabled={images.length >= MAX_SLOTS}
                     >
-                    <img src="./icons/star_full.svg" alt="" aria-hidden="true" />
+                    <img src="./icons/add_circle.svg" alt="" aria-hidden="true" />
                     <p>Add image</p>
                 </button>
             </div>

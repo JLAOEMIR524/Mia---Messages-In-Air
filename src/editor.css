@@ -1,9 +1,22 @@
 /* Editor Gallery Element */
+.imageEditor {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .galleryContainer {
   width: 100%;
+  max-width: 60vw;
 
+  padding: var(--space-md);
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
+  border-radius: var(--border-radius);
+
+  background-color: var(--color-blue-10);
 
   .gallery {
 
@@ -11,13 +24,12 @@
     min-width: 0;
     display: flex;
     gap: var(--space-md);
-    /* justify-content: space-between; */
     overflow-x: auto;
     overflow-y: hidden;
 
     .barItem {
-      width: 150px;
-      height: 150px;
+      width: 125px;
+      height: 125px;
       flex-shrink: 0;
 
       overflow: hidden;
@@ -42,8 +54,8 @@
   }
 
   .addButton {
-    width: 150px;
-    height: 150px;
+    width: 125px;
+    height: 125px;
     flex-shrink: 0;
 
     padding: var(--space-md);
@@ -55,18 +67,38 @@
     justify-content: center;
     border-radius: var(--border-radius);
     border: none;
+    transition: 0.5s;
 
     background-color: var(--color-primary);
 
     p {
       margin: 0;
       padding: 0;
+
+      color: var(--color-white);
     }
 
     img {
       width: 30px;
     }
+
+    &:hover {
+      background-color: var(--color-blue-700);
+    }
   }
+}
+
+.editActions {
+  display: flex;
+  gap: var(--space-md);
+}
+
+/* Bar Selector */
+.barSelector {
+  display: flex;
+  gap: var(--space-md);
+  width: 100%;
+  justify-content: center;
 }
 
 /* Tablet */
