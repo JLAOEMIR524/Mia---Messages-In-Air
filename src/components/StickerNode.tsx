@@ -12,7 +12,7 @@ interface Props {
 }
 
 export function StickerNode({ element, isSelected, onSelect, onChange }: Props) {
-    const [img] = useImage(element.src, "unknown");
+    const [img] = useImage(element.src);
     const shapeRef = useRef<Konva.Image>(null);
     const transformRef = useRef<Konva.Transformer>(null);
 

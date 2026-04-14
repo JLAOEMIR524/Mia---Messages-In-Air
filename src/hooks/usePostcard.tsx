@@ -7,7 +7,7 @@ export function usePostcard() {
     const [elements, setElements] = useState<CanvasElement[]>([]);
     const [selectedId, setSelectedId] = useState<string | null>(null);
 
-    const selecteElement = useCallback((id: string | null) => {
+    const selectElement = useCallback((id: string | null) => {
         setSelectedId(id);
     }, [])
 
@@ -59,6 +59,6 @@ export function usePostcard() {
     }, [selectedId]);
 
     return {
-        elements, selecteElement, addElementDrop, updateElement, deleteSelected,
+        elements, selectedId, selectElement, addElementDrop, updateElement, deleteSelected,
     };
 }

@@ -50,7 +50,7 @@ export function Canvas({elements, selectedId, onSelect, onUpdate, onDrop, stageR
             container.removeEventListener("dragover", handleDragOver);
             container.removeEventListener("drop", handleDrop);
         };
-    }, [ondrop]);
+    }, [onDrop]);
 
     const handleStageClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
         if(e.target === e.target.getStage()){
@@ -71,7 +71,7 @@ export function Canvas({elements, selectedId, onSelect, onUpdate, onDrop, stageR
         >
         <Stage ref={stageRef} width={800} height={600} onClick={handleStageClick}>
             <Layer>
-                {elements.map(elem => {
+                {elements.map(elem => (
                     elem.type === "image" ? (
                         <ImageNode
                             key={elem.id}
@@ -89,7 +89,7 @@ export function Canvas({elements, selectedId, onSelect, onUpdate, onDrop, stageR
                             onChange={(u) => onUpdate(elem.id, u)}
                         />
                     )
-                })}
+                ))}
             </Layer>
         </Stage>
     </div>

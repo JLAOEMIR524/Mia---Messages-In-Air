@@ -3,16 +3,22 @@ import type { DragPayload } from "../types/CanvasTypes";
 
 const MAX_SLOTS = 5;
 
-function getImageSize(src: string): Promise<{w: number; h: number}> {
+interface UploadedImage {
+    src: string;
+    width: number;
+    height: number;
+}
+
+function loadImage(src: string): Promise<UploadedImage> {
     return new Promise((resolve) => {
         const img = new window.Image();
-        img.onload = () => resolve({w: img.naturalWidth, h: img. naturalHeight});
+        img.onload = () => resolve({src, width: img.naturalWidth, height: img. naturalHeight});
         img.src = src;
     });
 }
 
 export function PhotoUploader() {
-    const [images, setImage] = useState<string[]>([]);
+    const [images, setImages] = useState<UploadedImage[]>([]);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -21,11 +27,12 @@ export function PhotoUploader() {
             if(images.length >= MAX_SLOTS) return;
 
             const reader = new FileReader();
-            reader.onload = () => {
+            reader.onload = async () => {
                 if (typeof reader.result === "string") {
-                    setImage((prev) => {
+                    const uploaded = await loadImage(reader.result)
+                    setImages((prev) => {
                         if (prev.length >= MAX_SLOTS) return prev;
-                        return [...prev, reader.result as string];
+                        return [...prev, uploaded];
                     })
                 }
             };
@@ -34,16 +41,15 @@ export function PhotoUploader() {
         e.target.value = "";
     };
 
-    const handleDragStart = async (e: React.DragEvent<HTMLImageElement>, src: string) => {
-        const { w, h } = await getImageSize(src);
+    const handleDragStart = async (e: React.DragEvent<HTMLImageElement>, image: UploadedImage) => {
 
         const maxW = 250;
-        const scale = w > maxW ? maxW / w : 1;
+        const scale = image.width > maxW ? maxW / image.width : 1;
 
         const payload: DragPayload = {
             type: "image",
-            src, 
-            width: w * scale, height: h * scale,
+            src: image.src, 
+            width: image.width * scale, height: image.height * scale,
         };
 
         e.dataTransfer.setData("application/postcard-element", JSON.stringify(payload));
@@ -51,7 +57,7 @@ export function PhotoUploader() {
     };
 
     const handleRemove = (index: number) => {
-        setImage(prev => prev.filter((_, i) => i !== index));
+        setImages(prev => prev.filter((_, i) => i !== index));
     };
 
     const handlePlaceholderClick = () => {
@@ -63,13 +69,13 @@ export function PhotoUploader() {
     return (
         <div className="galleryContainer">
             <div className="gallery">
-                {images.map((src, i) => (
+                {images.map((image, i) => (
                     <div className="barItem image" key={i}>
                         <img 
-                            src={src}
+                            src={image.src}
                             alt={"Uploaded Image"} 
                             draggable
-                            onDragStart={(e) => handleDragStart(e, src)}
+                            onDragStart={(e) => handleDragStart(e, image)}
                         />
                     </div>
                     //Functionality for image removal still missing
