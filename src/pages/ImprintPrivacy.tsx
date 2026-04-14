@@ -2,7 +2,7 @@ export function ImprintPrivacy() {
   return (
     <main className="left">
     <div className="imprint-privacy-container">
-      <h2>📜 Imprint & Privacy</h2>
+      <h2>Imprint & Privacy 📜</h2>
 
       <section className="imprint">
         <p>This website is a project of the MMT degree program at Salzburg University of Applied Sciences.</p>
