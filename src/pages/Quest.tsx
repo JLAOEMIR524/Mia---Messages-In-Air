@@ -2,6 +2,7 @@ import { Step } from "../components/Step";
 import { QuestCard } from "../components/QuestCard";
 import { BadgeCard } from "../components/BadegeCard";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export function Quest() {
   const [selectedBadge, setSelectedBadge] = useState<string | null>(null);
@@ -47,10 +48,12 @@ export function Quest() {
         onSelect={() => setSelectedBadge("third")}
       />
 
-      <button className="button button--image">
-        Continue to Editor
-        <span className="icon-span"></span>
-      </button>
+      <Link to="/editor" style={{ textDecoration: "none", border: "none", marginTop: "2.5rem" }}>
+        <button className="button button--image">
+          Continue to Editor
+          <span className="icon-span"></span>
+        </button>
+      </Link>
     </main>
   );
 }

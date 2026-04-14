@@ -154,10 +154,17 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: var(--space-lg) var(--space-md);
+  padding: var(--space-lg) var(--space-xl);
   box-sizing: border-box;
 }
 
+main.left {
+  align-items: flex-start;
+}
+
+main.left * {
+  text-align: left;
+}
 
 /* Links */
 a {
@@ -541,12 +548,53 @@ input#fsrch:focus {
   align-self: flex-start;
 }
 
+/*LinkHeader*/
+.linkHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: var(--space-sm);
+}
+
+.linkHeader__group,
+.linkHeader__link {
+  display: flex;
+  align-items: center;
+}
+
+.linkHeader__group {
+  gap: var(--space-xs);
+}
+
+.linkHeader__group h5 {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.linkHeader__link {
+  gap: var(--space-xs);
+  text-decoration: none;
+}
+
+.linkHeader__icon {
+  width: 20px;
+  object-fit: contain;
+}
+
+.linkHeader__link-icon {
+  width: 20px;
+  object-fit: contain;
+}
+
+
 /* New Postcard Component */
 .newPostcard {
   height: min-content;
   width: 100%;
 
   padding: 30px 146px;
+  margin-bottom: var(--space-lg);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -621,18 +669,20 @@ main>.button:last-of-type {
 
 /* Statistics Card */
 .statisticCard {
+  flex: 1;
   width: 100%;
 
-  padding: var(--space-md);
+  padding: calc(var(--space-md)*1.3) var(--space-md);
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--space-sm);
   box-sizing: border-box;
 
   border-style: solid;
   border-width: 1px;
   border-radius: var(--border-radius);
   border-color: var(--color-border);
+  background-color: var(--color-white);
 
   div {
     display: flex;
@@ -915,65 +965,97 @@ main>.button:last-of-type {
 /* Message Preview */
 .messagePreview {
   width: 500px;
-
   padding: var(--space-sm);
   box-sizing: border-box;
   display: flex;
   gap: 14px;
   border-radius: var(--border-radius);
-
-  border-color: var(--color-border);
-  border-style: solid;
-  border-width: 1px;
-  background-color: transparent;
+  border: 1px solid var(--color-border);
+  
+  background-color: var(--color-white); 
   transition: background-color 0.4s ease;
+  cursor: pointer;
 
+  transition: 
+    background-color 0.3s ease, 
+    border-color 0.3s ease, 
+    transform 0.2s ease;
+}
 
-  .icon {
-    height: 70px;
-    aspect-ratio: 1;
+.messagePreview__icon-wrapper {
+  height: 70px;
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  align-self: center;
+  border-radius: var(--border-radius);
+  background: var(--Gradient, linear-gradient(267deg, #38C871 5.75%, #2A93CC 94.25%));
+
+  img {
+    width: 30px;
+    height: auto;
+  }
+}
+
+.messagePreview__infos {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+  }
+  p{
+    color: black;
+  }
+
+  .messagePreview__country {
     display: flex;
-    justify-content: center;
+    gap: var(--space-xs);
     align-items: center;
-    align-self: center;
-    border-radius: var(--border-radius);
-    background: var(--Gradient, linear-gradient(267deg, #38C871 5.75%, #2A93CC 94.25%));
+    margin: 2px 0;
 
     img {
-      width: 30px;
+      width: 15px;
+      height: auto;
     }
   }
+}
 
-  .infos {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+.messagePreview__text{
+  padding: 0;
+}
 
-    h3 {
-      font-size: 1.5rem;
-    }
+.messagePreview__country p{
+  padding: 0;
+}
 
-    .country {
-      display: flex;
-      gap: var(--space-xs);
-      justify-content: flex-start;
-      align-items: center;
-    }
-  }
+.messagePreview:hover {
+  background-color: rgb(247, 247, 247);
+  border: 2px solid var(--color-primary);
+}
 
-  &.preview--new {
-    border-color: var(--color-warning);
-  }
+/*Grid MEssageCard*/
+.dashboard-grid {
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-xl);
+  width: 100%;
+}
 
-  &:hover {
-    background-color: var(--color-gray-100);
-  }
+.dashboard-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  flex: 1;
+}
 
-  p,
-  h3 {
-    margin: 0;
-    padding: 0;
-  }
+.linkHeader + .messagePreview {
+  margin-top: -20px; 
 }
 
 /* Step Display */
@@ -1156,6 +1238,15 @@ main>.button:last-of-type {
   gap: 0.3rem;
 }
 
+.flexbox-statisticCard {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  width: 100%;
+  margin-bottom: var(--space-lg)
+}
+
 .button-flex {
   margin-top: var(--space-lg);
   display: flex;
@@ -1282,6 +1373,10 @@ h4 {
   font-size: 1.5rem;
 }
 
+h5 {
+  font-size: 1.25rem;
+}
+
 
 p {
   font-family: var(--font-body);
@@ -1399,6 +1494,34 @@ ol {
 }
 
 @media (width < 1200px) {
+
+  main {
+    padding: var(--space-lg) var(--space-lg);
+  }
+
+  .newPostcard {
+    margin-bottom: var(--space-md);
+  }
+
+  .flexbox-statisticCard {
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .statisticCard {
+    flex: 0 0 calc(50% - (var(--space-md) / 2));
+    gap: var(--space-xs);
+
+    img {
+      width: 25px;
+      height: auto;
+    }
+  }
+
+  .statisticCard:nth-child(3) {
+    flex: 0 0 100%;
+  }
+
   .loadQuestCard {
     min-width: 0;
   }
@@ -1413,6 +1536,21 @@ ol {
 
   .questCard {
     max-width: 600px;
+  }
+
+   .dashboard-grid {
+    flex-direction: column;
+    align-items: stretch;
+    align-items: flex-start;
+  }
+
+  .dashboard-column {
+    width: 100%;
+  }
+
+  .messagePreview {
+    width: 100%; 
+    max-width: none;
   }
 }
 
@@ -1595,9 +1733,13 @@ ol {
   .container-messages {
     margin-top: var(--space-xs);
   }
+
+  .statisticCard {
+    padding: var(--space-sm) var(--space-sm);
+  }
 }
 
-@media (width < 400px) {
+@media (width < 450px) {
   main {
     padding: var(--space-md) var(--space-sm);
   }
@@ -1613,6 +1755,25 @@ ol {
         padding: var(--space-md);
 
       }
+    }
+  }
+
+  .statisticCard {
+    h4 {
+      font-size: 1.2rem;
+    }
+
+    img {
+      height: 17px;
+      margin-top: 0.2rem;
+    }
+  }
+}
+
+@media (width < 300px) {
+  .statisticCard {
+    div {
+      gap: var(--space-xs);
     }
   }
 }
