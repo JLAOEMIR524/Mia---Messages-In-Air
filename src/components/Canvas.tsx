@@ -1,4 +1,4 @@
-import { Stage, Layer, Rect } from "react-konva";
+import { Stage, Layer } from "react-konva";
 import type { CanvasElement, DragPayload } from "../types/CanvasTypes";
 import type React from "react";
 import type Konva from "konva";

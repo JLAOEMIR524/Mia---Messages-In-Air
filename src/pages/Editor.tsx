@@ -2,8 +2,9 @@ import type Konva from 'konva';
 import { Canvas } from '../components/Canvas'
 import { PhotoUploader } from '../components/ImageSelector';
 import { usePostcard } from '../hooks/usePostcard';
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useCallback } from 'react';
 import { useResponsiveScale } from '../hooks/useResponsiveScale';
+import { StickerSelector } from '../components/StickerSelector';
 
 const CANVAS_WIDTH = 800;
 
@@ -34,6 +35,7 @@ export function Editor() {
         <>
             <img src="Logo.png" alt="random draggable image"/>
             <PhotoUploader/>
+            <StickerSelector/>
             <Canvas
                 elements={elements}
                 selectedId={selectedId}
