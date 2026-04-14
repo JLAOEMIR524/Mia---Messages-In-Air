@@ -3,10 +3,13 @@ import { Canvas } from '../components/Canvas'
 import { PhotoUploader } from '../components/ImageSelector';
 import { usePostcard } from '../hooks/usePostcard';
 import { useRef, useEffect, useCallback } from 'react';
+import { useResponsiveScale } from '../hooks/useResponsiveScale';
 
+const CANVAS_WIDTH = 800;
 
 export function Editor() {
     const stageRef = useRef<Konva.Stage | null>(null);
+    const { scale } = useResponsiveScale(CANVAS_WIDTH);
 
     const {
         elements, selectedId, selectElement, addElementDrop, updateElement, deleteSelected,
@@ -31,8 +34,6 @@ export function Editor() {
         <>
             <img src="Logo.png" alt="random draggable image"/>
             <PhotoUploader/>
-            <button onClick={deleteSelected} disabled={!selectedId}>Delete</button>
-            <button onClick={handleExport}>Export</button>
             <Canvas
                 elements={elements}
                 selectedId={selectedId}
@@ -40,7 +41,10 @@ export function Editor() {
                 onUpdate={updateElement}
                 onDrop={addElementDrop}
                 stageRef={stageRef}
+                scale={scale}
             />
+            <button className="button" onClick={deleteSelected} disabled={!selectedId}>Delete</button>
+            <button className="button" onClick={handleExport}>Export</button>
         </>
     );
 }

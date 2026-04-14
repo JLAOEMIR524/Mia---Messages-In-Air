@@ -89,6 +89,14 @@ export function PhotoUploader() {
                         <p>Add Images</p>
                     </div>
                 ))}
+                <button
+                    className="addButton"
+                    onClick={handlePlaceholderClick}
+                    disabled={images.length >= MAX_SLOTS}
+                    >
+                    <img src="./icons/star_full.svg" alt="" aria-hidden="true" />
+                    <p>Add image</p>
+                </button>
             </div>
             <input
                 ref={fileInputRef}
@@ -98,14 +106,7 @@ export function PhotoUploader() {
                 onChange={handleUpload}
                 style={{ display: 'none' }}
             />
-            <button
-                className="addButton"
-                onClick={handlePlaceholderClick}
-                disabled={images.length >= MAX_SLOTS}
-                >
-                <img src="./icons/Plus.svg" alt="" aria-hidden="true" />
-                <p>Add image</p>
-            </button>
+            
         </div>
     )
 }

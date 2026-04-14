@@ -6,6 +6,8 @@ import { useEffect, useRef } from "react";
 import { ImageNode } from "./ImageNode";
 import { StickerNode } from "./StickerNode";
 
+const CANVAS_WIDTH = 800;
+const CANVAS_HEIGHT = 500;
 
 interface Props {
     elements: CanvasElement[];
@@ -14,9 +16,10 @@ interface Props {
     onUpdate: (id: string, updates: Partial<CanvasElement>) => void;
     onDrop: (payload: DragPayload, x: number, y: number) => void;
     stageRef: React.RefObject<Konva.Stage | null>;
+    scale: number;
 }
 
-export function Canvas({elements, selectedId, onSelect, onUpdate, onDrop, stageRef}: Props) {
+export function Canvas({elements, selectedId, onSelect, onUpdate, onDrop, stageRef, scale}: Props) {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -38,8 +41,8 @@ export function Canvas({elements, selectedId, onSelect, onUpdate, onDrop, stageR
             const payload: DragPayload = JSON.parse(rawData);
 
             const rect = container.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+            const x = e.clientX - rect.left /scale;
+            const y = e.clientY - rect.top /scale;
 
             onDrop(payload, x, y);
         };
@@ -58,18 +61,29 @@ export function Canvas({elements, selectedId, onSelect, onUpdate, onDrop, stageR
         }
     };
 
-
     return (
         <div
             ref={containerRef}
             style={{
+                width: CANVAS_WIDTH * scale,
+                height: CANVAS_HEIGHT * scale,
+                margin: "25px",
+                boxSizing: "border-box",
                 display: 'inline-block',
-                border: '2px solid #ccc',
+                border: '1px solid #ccc',
                 borderRadius: 8,
                 boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
             }}
         >
-        <Stage ref={stageRef} width={800} height={600} onClick={handleStageClick}>
+            <div
+                style={{
+                    transform: `scale(${scale})`,
+                    transformOrigin: 'top left',
+                    width: CANVAS_WIDTH,
+                    height: CANVAS_HEIGHT,
+                }}
+            >
+        <Stage ref={stageRef} width={CANVAS_WIDTH} height={CANVAS_HEIGHT} onClick={handleStageClick}>
             <Layer>
                 {elements.map(elem => (
                     elem.type === "image" ? (
@@ -92,6 +106,7 @@ export function Canvas({elements, selectedId, onSelect, onUpdate, onDrop, stageR
                 ))}
             </Layer>
         </Stage>
+        </div>
     </div>
     );
 }
