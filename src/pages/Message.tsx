@@ -4,8 +4,16 @@ import { Step } from "../components/Step";
 import { type Quest as QuestType } from "../api/mockQuest";
 
 export function Message() {
-  const [questText, setQuestText] = useState("");
+  const [questText, setQuestText] = useState(() => {
+    return localStorage.getItem("currentPostcardText") || "";
+  });
   const [selectedQuest, setSelectedQuest] = useState<QuestType | null>(null);
+
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newText = e.target.value;
+    setQuestText(newText);
+    localStorage.setItem("currentPostcardText", newText);
+  };
 
   useEffect(() => {
     const savedQuest = localStorage.getItem("selectedQuest");
@@ -38,7 +46,7 @@ export function Message() {
           <textarea
             className="quest-textarea"
             value={questText}
-            onChange={(e) => setQuestText(e.target.value)}
+            onChange={handleTextChange}
             placeholder="Write something ..."
             rows={5}
             required
