@@ -1,59 +1,113 @@
 import { Step } from "../components/Step";
 import { QuestCard } from "../components/QuestCard";
 import { BadgeCard } from "../components/BadegeCard";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { fetchQuests, type Quest as QuestType } from "../api/mockQuest";
 
 export function Quest() {
-  const [selectedBadge, setSelectedBadge] = useState<string | null>(null);
+  const [allQuests, setAllQuests] = useState<QuestType[]>([]);
+  const [activeQuest, setActiveQuest] = useState<QuestType | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const [selectedQuest, setSelectedQuest] = useState<QuestType | null>(null);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const data = await fetchQuests();
+
+        const shuffledData = [...data].sort(() => 0.5 - Math.random());
+
+        setAllQuests(shuffledData);
+        const initial = shuffledData[0];
+
+        setActiveQuest(initial);
+        setSelectedQuest(null);
+      } catch (error) {
+        console.error("Fehler beim Laden der Quests:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
 
   const handleReload = () => {
-    console.log("Quest wird neu geladen...");
+    const randomIndex = Math.floor(Math.random() * allQuests.length);
+    const newQuest = allQuests[randomIndex];
+    setActiveQuest(newQuest);
+    setSelectedQuest(null);
   };
-
   const handleContinue = () => {
-    console.log("Quest wurde ausgewählt!");
+    if (selectedQuest) {
+      localStorage.setItem("selectedQuest", JSON.stringify(selectedQuest));
+      navigate("/editor");
+    } else {
+      console.warn("Please select a quest first!");
+    }
   };
+  if (loading || !activeQuest) {
+    return (
+      <p
+        style={{
+          margin: "auto",
+          textAlign: "center",
+          fontSize: "1.5rem",
+        }}
+      >
+        Loading Quests...
+      </p>
+    );
+  }
+
+  const otherQuests = allQuests
+    .filter((q) => q.id !== activeQuest.id)
+    .slice(0, 3);
 
   return (
     <main>
       <Step currentStep={1} totalSteps={3} />
+
       <h2>Choose Your Creative Quest ✨</h2>
       <p>Each quest inspires your postcard and makes it special</p>
 
       <QuestCard
-        title="Same Start"
-        description="Write a postcard where at least 5 words start with the same letter."
+        title={activeQuest.title}
+        description={activeQuest.description}
         onReload={handleReload}
-        onContinue={handleContinue}
+        isSelected={selectedQuest?.id === activeQuest.id}
+        onSelect={() => setSelectedQuest(activeQuest)}
+        onContinue={() => {
+          localStorage.setItem("selectedQuest", JSON.stringify(activeQuest));
+          navigate("/editor");
+        }}
       />
-
       <h2>Or choose from other quests:</h2>
-      <BadgeCard
-        title="Three Must-Haves"
-        description="Use these 3 words somewhere in your postcard: sun, window, train."
-        isSelected={selectedBadge === "first"}
-        onSelect={() => setSelectedBadge("first")}
-      />
-      <BadgeCard
-        title="Tiny Story"
-        description="Tell a complete story in exactly 4 sentences."
-        isSelected={selectedBadge === "second"}
-        onSelect={() => setSelectedBadge("second")}
-      />
-      <BadgeCard
-        title="Question Mark"
-        description="Include at least 2 questions in your postcard."
-        isSelected={selectedBadge === "third"}
-        onSelect={() => setSelectedBadge("third")}
-      />
 
-      <Link to="/editor" style={{ textDecoration: "none", border: "none", marginTop: "2.5rem" }}>
-        <button className="button button--image">
-          Continue to Editor
-          <span className="icon-span"></span>
-        </button>
-      </Link>
+      <div className="badge-list">
+        {otherQuests.map((q) => (
+          <BadgeCard
+            key={q.id}
+            title={q.title}
+            description={q.description}
+            isSelected={selectedQuest?.id === q.id}
+            onSelect={() => setSelectedQuest(q)}
+          />
+        ))}
+      </div>
+
+      <button
+        className="button button--image"
+        onClick={handleContinue}
+        disabled={!selectedQuest}
+      >
+        Continue to Editor
+        <span className="icon-span"></span>
+      </button>
     </main>
   );
 }

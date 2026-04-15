@@ -69,7 +69,7 @@ export function Message() {
           Full Screen Preview
         </button>
         <button className="button button--image">
-          Continue to Text
+          Send Postcard
           <span className="icon-span"></span>
         </button>
       </div>

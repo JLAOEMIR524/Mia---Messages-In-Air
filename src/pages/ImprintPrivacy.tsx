@@ -60,7 +60,7 @@ export function ImprintPrivacy() {
         <p>
           <strong>Julian Obermeier and Sonja Schorn</strong><br />
           Urstein S 1, 5412 Salzburg, Austria<br />
-          <a href="mailto:sschorn.mmt-b24@fh-salzburg.ac.at">sschorn.mmt-b24@fh-salzburg.ac.at</a><br />
+          <a href="mailto:sschorn.mmt-b2024@fh-salzburg.ac.at">sschorn.mmt-b2024@fh-salzburg.ac.at</a><br />
           <a href="mailto:jobermeier.mmt-b2024@fh-salzburg.ac.at">jobermeier.mmt-b2024@fh-salzburg.ac.at</a>
         </p>
       </section>
