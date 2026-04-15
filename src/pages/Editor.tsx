@@ -6,7 +6,7 @@ import { useRef, useCallback, useState } from 'react';
 import { useResponsiveScale } from '../hooks/useResponsiveScale';
 import { StickerSelector } from '../components/StickerSelector';
 import { Step } from '../components/Step';
-import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router";
 
 const CANVAS_WIDTH = 800;
 
@@ -15,6 +15,7 @@ export function Editor() {
     const [currentBar, setBar] = useState<string>("image")
     const [focus, setFocus] = useState<string | null>(null);
     const { scale } = useResponsiveScale(CANVAS_WIDTH);
+    const navigate = useNavigate();
 
     const {
         elements, selectedId, selectElement, addElementDrop, updateElement, deleteSelected,
@@ -27,13 +28,19 @@ export function Editor() {
         selectElement(null);
 
         setTimeout(() => {
-            const uri = stage.toDataURL({ pixelRatio: 2, mimeType: "image/png"});
-            const link = document.createElement("a");
-            link.download = "postkarte.png";
-            link.href = uri;
-            link.click();
-        }, 100)
-    }, [selectElement])
+            const dataUrl = stage.toDataURL({ pixelRatio: 2, mimeType: "image/png" });
+            
+            // Debug
+            console.log("Größe:", (dataUrl.length / 1024 / 1024).toFixed(2), "MB");
+            
+            try {
+                localStorage.setItem("card", dataUrl);
+                console.log("✅ Succesfully saved!");
+            } catch (e) {
+                console.error("Error:", e);
+            }
+        }, 100);
+    }, [selectElement]);
 
     function getBar() {
         return currentBar === "image" ? <PhotoUploader/> 
@@ -41,8 +48,16 @@ export function Editor() {
         : <p>Text</p>;
     }
 
+    async function handlePageSwitch(){
+        await handleExport();
+        navigate("/message");
+    }
+
     return (
         <main className='imageEditor'>
+            <button onClick={() => navigate(-1)} className="StepBack left">
+                <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+            </button>
             <Step currentStep={2}/>
             <h2>Create Your Photo Collage 📸</h2>
             <p>Upload pictures and use stickers to create a unique collage.</p>
@@ -79,15 +94,18 @@ export function Editor() {
                 />
                 <div className='editActions'>
                     <button className="button button--primary" onClick={deleteSelected} disabled={!selectedId}>Delete Selected</button>
-                    <button className="button button--primary" onClick={handleExport}>Export</button>
+                    {/* Insert layer up/down */}
                 </div>
             </div>
-            <Link to="/message" style={{ textDecoration: "none", border: "none", marginTop: "2.5rem" }}>
+            <a 
+                style={{ textDecoration: "none", border: "none", marginTop: "2.5rem" }}
+                onClick={() => handlePageSwitch()}
+            >
                 <button className="button button--image">
-                Continue to message
+                    Continue to message
                 <span className="icon-span"></span>
                 </button>
-            </Link>
+            </a>
         </main>
     );
 }

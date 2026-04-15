@@ -16,7 +16,7 @@ export function Details() {
   return (
     <main className="heaven">
       <button onClick={() => navigate("/dashboard")} className="arrowBack">
-        <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+        <img src="./icons/close.svg" alt="Arrow Back Icon" />
       </button>
 
       <FeedbackCard

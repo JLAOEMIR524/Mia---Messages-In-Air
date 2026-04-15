@@ -16,15 +16,15 @@ export function Send() {
   return (
     <main className="heaven">
       <button onClick={() => navigate("/dashboard")} className="arrowBack">
-        <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+        <img src="./icons/close.svg" alt="Arrow Back Icon" />
       </button>
       <FeedbackCard
         title="Postcard Sent! 🎉"
         message={<>Quest Rating</>}
         rating={2}
         xpAmount={30}
-        onContinue={() => (window.location.href = "/dashboard")}
-        onSeeDetails={() => (window.location.href = "/details")}
+        onContinue={() => (navigate("/dashboard"))}
+        onSeeDetails={() => (navigate("/details"))}
       />
     </main>
   );
