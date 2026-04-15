@@ -16,7 +16,7 @@ export function Send() {
   return (
     <main className="heaven">
       <button onClick={() => navigate("/dashboard")} className="arrowBack">
-        <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+        <img src="./icons/close.svg" alt="Arrow Back Icon" />
       </button>
       <FeedbackCard
         title="Postcard Sent! 🎉"

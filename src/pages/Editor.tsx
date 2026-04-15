@@ -55,6 +55,9 @@ export function Editor() {
 
     return (
         <main className='imageEditor'>
+            <button onClick={() => navigate(-1)} className="StepBack left">
+                <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+            </button>
             <Step currentStep={2}/>
             <h2>Create Your Photo Collage 📸</h2>
             <p>Upload pictures and use stickers to create a unique collage.</p>
