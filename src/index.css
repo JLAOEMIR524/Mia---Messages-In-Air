@@ -330,6 +330,13 @@ a:focus {
   border: var(--border-width) solid var(--color-primary);
 }
 
+.warning{
+  margin-top: var(--space-sm);
+  margin-bottom: -50px;
+  font-weight: 600;
+  color: var(--color-primary)
+}
+
 /* Form Inputs */
 input,
 textarea,
