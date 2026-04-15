@@ -1108,6 +1108,29 @@ main>.button:last-of-type {
   }
 }
 
+/*Arrow-Back*/
+.arrowBack {
+  position: absolute;
+  top: var(--space-lg);
+  left: var(--space-xl);
+
+  img {
+    width: 35px;
+  }
+}
+
+/*Step Back*/
+.StepBack{
+  img{
+    width: 35px;
+    margin-bottom: var(--space-sm);
+  }
+}
+
+.StepBack.left {
+  margin-right: auto;
+}
+
 /* Message Preview */
 .messagePreview {
   width: 500px;
@@ -1301,8 +1324,8 @@ main>.button:last-of-type {
       background-color: transparent;
     }
 
-    .xpExpand:hover{
-      color:var(--color-blue-700);
+    .xpExpand:hover {
+      color: var(--color-blue-700);
     }
   }
 
@@ -2121,6 +2144,12 @@ ol {
   .feedbackContainer {
     padding: var(--space-md) var(--space-lg);
   }
+
+  .arrowBack {
+    position: absolute;
+    top: var(--space-lg);
+    left: var(--space-lg);
+  }
 }
 
 @media (width < 450px) {
@@ -2160,14 +2189,22 @@ ol {
   .feedbackContainer {
     padding: var(--space-sm) var(--space-md);
   }
-.topComponent {
-  .topIcon {
+
+  .topComponent {
+    .topIcon {
       width: 120px;
-    img {
-      width: 60px;
+
+      img {
+        width: 60px;
+      }
     }
   }
-}
+
+  .arrowBack {
+    position: absolute;
+    top: var(--space-lg);
+    left: var(--space-md);
+  }
 }
 
 @media (width < 300px) {

@@ -1,10 +1,24 @@
+import { useNavigate } from "react-router-dom";
 import { FeedbackCard } from "../components/SendCards";
+import { useEffect } from "react";
 
 export function Details() {
-  document.body.classList.add("background-heaven");
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    document.body.classList.add("background-heaven");
+
+    return () => {
+      document.body.classList.remove("background-heaven");
+    };
+  }, []);
+  
   return (
     <main className="heaven">
+      <button onClick={() => navigate("/dashboard")} className="arrowBack">
+        <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+      </button>
+
       <FeedbackCard
         title="Rating - Details"
         topIconSrc="./icons/grading-white.svg"
@@ -21,7 +35,7 @@ export function Details() {
           </>
         }
         xpAmount={30}
-        onContinue={() => window.location.href = "/dashboard"}
+        onContinue={() => (window.location.href = "/dashboard")}
       />
     </main>
   );
