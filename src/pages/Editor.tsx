@@ -12,6 +12,7 @@ const CANVAS_WIDTH = 800;
 export function Editor() {
     const stageRef = useRef<Konva.Stage | null>(null);
     const [currentBar, setBar] = useState<string>("image")
+    const [focus, setFocus] = useState<string | null>(null);
     const { scale } = useResponsiveScale(CANVAS_WIDTH);
 
     const {
@@ -39,12 +40,6 @@ export function Editor() {
         : <p>Text</p>;
     }
 
-    function getImg() {
-        return currentBar === "image" ? <PhotoUploader/> 
-        : currentBar === "sticker" ? <StickerSelector/>
-        : <p>Text</p>;
-    }
-
     return (
         <main className='imageEditor'>
             <Step currentStep={2}/>
@@ -53,26 +48,32 @@ export function Editor() {
             <div className='imageEditor'>
                 <div className='barSelector'>
                     <button 
-                        className='button button--image'
+                        className={`button button--image ${ "image" === currentBar ? 'button--selected' : '' }`}
                         onClick={() => setBar("image")}
+                        onMouseOver={() => setFocus("image")}
+                        onMouseOut={() => setFocus(null)}
                     >
-                        <img src="./icons/image_w.svg" alt="image icon" aria-hidden="true"/>
+                        <img src={`./icons/image${"image" === currentBar || focus === "image" ? "_b" : "_w"}.svg`} alt="image icon" aria-hidden="true"/>
                         Photos
                     </button>
                     <button 
-                        className='button button--image'
+                        className={`button button--image ${ "sticker" === currentBar ? 'button--selected' : '' }`}
                         onClick={() => setBar("sticker")}
+                        onMouseOver={() => setFocus("sticker")}
+                        onMouseOut={() => setFocus(null)}
                     >
-                        <img src="./icons/star_shine_w.svg" alt="image icon" aria-hidden="true"/>
+                        <img src={`./icons/star_shine${"sticker" === currentBar || focus === "sticker" ? "_b" : "_w"}.svg`} alt="image icon" aria-hidden="true"/>
                         Stickers
                     </button>
-                    <button 
-                        className='button button--image'
+                    {/* <button 
+                        className={`button button--image ${ "text" === currentBar ? 'button--selected' : '' }`}
                         onClick={() => setBar("text")}
+                        onMouseOver={() => setFocus("text")}
+                        onMouseOut={() => setFocus(null)}
                     >
-                        <img src="./icons/text_w.svg" alt="image icon" aria-hidden="true"/>
+                        <img src={`./icons/text${"text" === currentBar || focus === "text" ? "_b" : "_w"}.svg`} alt="image icon" aria-hidden="true"/>
                         Text
-                    </button>
+                    </button> */}
                 </div>
                 {getBar()}
                 <Canvas
@@ -85,7 +86,7 @@ export function Editor() {
                     scale={scale}
                 />
                 <div className='editActions'>
-                    <button className="button button--primary" onClick={deleteSelected} disabled={!selectedId}>Delete</button>
+                    <button className="button button--primary" onClick={deleteSelected} disabled={!selectedId}>Delete Selected</button>
                     <button className="button button--primary" onClick={handleExport}>Export</button>
                 </div>
             </div>
