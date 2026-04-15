@@ -489,12 +489,26 @@ a:hover {
   display: block;
 }
 
+.nav-logo-top img{
+  height: 60px;
+  width: auto;
+  display: block;
+}
+
 .nav-login img {
   width: 40px;
   height: 40px;
   display: block;
   transition: transform 0.2s ease;
 
+}
+
+.nav-logo {
+  display: block;
+}
+
+.StepBackNav{
+  display: none;
 }
 
 
@@ -2036,6 +2050,23 @@ ol {
       margin-top: 0rem;
     }
   }
+
+  .StepBack{
+    display: none;
+  }
+
+   .nav-logo {
+    display: none;
+  }
+
+  .StepBackNav {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+
 }
 
 /*Mobile*/
