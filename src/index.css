@@ -121,9 +121,9 @@
 
 
   /* Secondary Button */
-  --color-button-secondary-bg: var(--color-secondary);
-  --color-button-secondary-bg-hover: var(--color-white);
-  --color-button-secondary-text: var(--color-text-on-accent);
+  --color-button-secondary-bg: var(--color-white);
+  --color-button-secondary-bg-hover: var(--color-primary);
+  --color-button-secondary-text: var(--color-primary);
 
   /* Inputs */
   --color-input-bg: var(--color-surface);
@@ -252,14 +252,14 @@ a:focus {
 /* Secondary variant */
 .button--secondary {
   background-color: var(--color-button-secondary-bg);
-  color: var(--color-button-primary-text);
-  border: var(--border-width) solid var(--color-secondary);
+  color: var(--color-primary);
+  border: var(--border-width) solid var(--color-primary);
 }
 
 .button--secondary:hover {
-  background-color: var(--color-button-secondary-bg-hover);
-  color: var(--color-secondary);
-  border: var(--border-width) solid var(--color-secondary);
+  background-color: var(--color-gray-100);
+  color: var(--color-primary);
+  border: var(--border-width) solid var(--color-blue-700);
 
 }
 
@@ -649,14 +649,13 @@ a:hover {
   height: min-content;
   width: 100%;
 
-  padding: 30px 146px;
+  padding: var(--space-md) var(--space-xxl);
   margin-bottom: var(--space-lg);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5px;
   box-sizing: border-box;
-
   border-radius: var(--border-radius);
   border-bottom: none;
   background: var(--Gradient, linear-gradient(267deg, #38C871 5.75%, #2A93CC 94.25%));
@@ -680,11 +679,14 @@ a:hover {
   }
 }
 
+.newPostcard:hover{
+  border: 3px solid var(--color-primary);
+}
 /* Quest Card */
 .questCard {
   height: min-content;
   width: 100%;
-  max-width: 900px;
+  min-width: 900px;
   padding: var(--space-md);
   display: flex;
   gap: var(--space-md);
@@ -715,9 +717,9 @@ a:hover {
     }
   }
 
-  .questCard.selected {
+  &.selected {
     border-color: var(--color-black);
-    background-color: #2c0606;
+    background-color: #f2f2f2;
     transform: scale(1.02);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
@@ -1321,12 +1323,16 @@ main>.button:last-of-type {
   }
 
   button.button--image:first-child:hover .icon-span {
-    background-image: url('./icons/email-blue.svg');
+    background-image: url('./icons/eye-blue.svg');
   }
 }
 
 .gallery .button--image:nth-child(1) .icon-span {
   background-image: url('./icons/email-white.svg');
+}
+
+.button-flex.gallery button:first-child:hover .icon-span {
+  background-image: url('./icons/email-blue.svg');
 }
 
 .gallery .button--image:nth-child(2) .icon-span {
@@ -1732,7 +1738,11 @@ ol {
   }
 
   .loadQuestCard {
-    min-width: 0;
+    min-width: 600px;
+  }
+
+  .questCard {
+   min-width: 600px;
   }
 
   .container-messages {
@@ -2040,6 +2050,15 @@ ol {
         }
       }
     }
+  }
+
+  
+  .loadQuestCard {
+    min-width: 0;
+  }
+
+  .questCard {
+   min-width: 0;
   }
 
 }

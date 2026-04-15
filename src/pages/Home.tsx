@@ -17,7 +17,7 @@ export function Home() {
         <button className="button button--primary">
           Start now
         </button>
-        <button className="button button--primary">
+        <button className="button button--secondary">
           Find out more
         </button>
       </div>
