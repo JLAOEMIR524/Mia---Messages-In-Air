@@ -912,7 +912,7 @@ main>.button:last-of-type {
   text-align: center; 
 }
 
-.home {
+.heaven {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1184,6 +1184,28 @@ main>.button:last-of-type {
 .messagePreview:hover {
   background-color: rgb(247, 247, 247);
   border: 1px solid var(--color-primary);
+}
+
+/*SearchCity*/
+.search-results{
+  border: 2px solid var(--color-border);
+  border-top: none;
+  margin-top: -30px;
+  padding: var(--space-sm) 0;
+  border-radius: var(--border-radius);
+
+  li{
+    padding-left: 8px;
+  }
+  li:first-of-type{
+    margin-top: var(--space-sm);
+  }
+
+  li:hover{
+    background-color: #e2e2e2;
+    cursor: pointer;
+
+  }
 }
 
 /*Grid MEssageCard*/

@@ -46,8 +46,6 @@ export function Quest() {
     if (selectedQuest) {
       localStorage.setItem("selectedQuest", JSON.stringify(selectedQuest));
       navigate("/editor");
-    } else {
-      console.warn("Please select a quest first!");
     }
   };
   if (loading || !activeQuest) {

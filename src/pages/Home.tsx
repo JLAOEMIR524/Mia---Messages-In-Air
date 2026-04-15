@@ -3,7 +3,7 @@ import { NavBarTop } from "../components/NavbarTop";
 export function Home() {
   document.body.classList.add("background-heaven");
   return (
-    <main className="home">
+    <main className="heaven">
       <NavBarTop />
       <h1>
         Mia <span>Messages in Air</span>
