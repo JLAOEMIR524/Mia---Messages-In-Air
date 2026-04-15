@@ -334,6 +334,13 @@ a:focus {
   background-image: url('./icons/arrow-right-blue.svg');
 }
 
+/* Button Selected */
+.button--selected {
+  background-color: var(--color-button-primary-bg-hover);
+  color: var(--color-primary);
+  border: var(--border-width) solid var(--color-primary);
+}
+
 .warning{
   margin-top: var(--space-sm);
   margin-bottom: -50px;

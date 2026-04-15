@@ -1,7 +1,7 @@
 import { useRef, useState, type ChangeEvent } from "react";
 import type { DragPayload } from "../types/CanvasTypes";
 
-const MAX_SLOTS = 5;
+const MAX_PLACEHOLDER_SLOTS = 1;
 
 interface UploadedImage {
     src: string;
@@ -24,14 +24,12 @@ export function PhotoUploader() {
     const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
         const files = Array.from(e.target.files ?? []);
         files.forEach((file) => {
-            if(images.length >= MAX_SLOTS) return;
 
             const reader = new FileReader();
             reader.onload = async () => {
                 if (typeof reader.result === "string") {
                     const uploaded = await loadImage(reader.result)
                     setImages((prev) => {
-                        if (prev.length >= MAX_SLOTS) return prev;
                         return [...prev, uploaded];
                     })
                 }
@@ -64,7 +62,7 @@ export function PhotoUploader() {
         fileInputRef.current?.click();
     }
 
-    const emptySlots = Math.max(0, MAX_SLOTS - images.length);
+    const emptySlots = Math.max(0, MAX_PLACEHOLDER_SLOTS - images.length);
 
     return (
         <div className="galleryContainer">
@@ -77,8 +75,6 @@ export function PhotoUploader() {
                             draggable
                             onDragStart={(e) => handleDragStart(e, image)}
                         />
-                        
-                        {/* //Image removal functionality still needs styling */}
                         <button onClick={() => handleRemove(i)} className="button">×</button>
                     </div>
                 ))}
@@ -94,9 +90,8 @@ export function PhotoUploader() {
                 <button
                     className="addButton"
                     onClick={handlePlaceholderClick}
-                    disabled={images.length >= MAX_SLOTS}
                     >
-                    <img src="./icons/star_full.svg" alt="" aria-hidden="true" />
+                    <img src="./icons/add_circle.svg" alt="" aria-hidden="true" />
                     <p>Add image</p>
                 </button>
             </div>

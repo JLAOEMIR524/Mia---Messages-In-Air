@@ -1,9 +1,9 @@
 interface StepProps {
   currentStep: number;
-  totalSteps: number;
+  totalSteps?: number;
 }
 
-export function Step({ currentStep, totalSteps }: StepProps) {
+export function Step({ currentStep, totalSteps = 3}: StepProps) {
   return (
     <div className="stepDisplayBox">
       <div className="stepDisplay">
