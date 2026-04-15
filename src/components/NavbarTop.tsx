@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-export const NavBarSecond = () => {
+export const NavBarTop = () => {
   return (
     <nav className="navbar">
       <Link to="/home" className="nav-logo">
