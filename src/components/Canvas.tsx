@@ -5,7 +5,6 @@ import type Konva from "konva";
 import { useEffect, useRef } from "react";
 import { ImageNode } from "./ImageNode";
 import { StickerNode } from "./StickerNode";
-import { canvas } from "leaflet";
 
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 500;
