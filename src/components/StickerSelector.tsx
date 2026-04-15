@@ -1,17 +1,17 @@
 import type { DragPayload } from "../types/CanvasTypes";
 
 const STICKERS = [
-    { src: "./icons/add.svg", label: "⭐" },
-    { src: "./icons/info.svg", label: "⭐" },
-    { src: "./icons/letter.svg", label: "⭐" },
-    { src: "./icons/right.svg", label: "⭐" },
-    { src: "./icons/reload.svg", label: "⭐" },
-    { src: "./icons/edit.svg", label: "⭐" },
-    { src: "./icons/home.svg", label: "⭐" },
-    { src: "./icons/pin.svg", label: "⭐" },
-    { src: "./icons/profile.svg", label: "⭐" },
-    { src: "./icons/text.svg", label: "⭐" },
-    { src: "./icons/search.svg", label: "⭐" },
+    { src: "./icons/stickers/100.avif"},
+    { src: "./icons/stickers/airplane.avif", label: "⭐" },
+    { src: "./icons/stickers/bee.avif", label: "⭐" },
+    { src: "./icons/stickers/books.avif", label: "⭐" },
+    { src: "./icons/stickers/computer.avif", label: "⭐" },
+    { src: "./icons/stickers/hamburger.avif", label: "⭐" },
+    { src: "./icons/stickers/hankey.avif", label: "⭐" },
+    { src: "./icons/stickers/hole.avif", label: "⭐" },
+    { src: "../icons/stickers/frog.avif", label: "⭐" },
+    { src: "./icons/stickers/bug.avif", label: "⭐" },
+    { src: "./icons/stickers/grinning.avif", label: "⭐" },
 ];
 
 const STICKER_SIZE = 80;
