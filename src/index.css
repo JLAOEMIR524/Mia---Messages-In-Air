@@ -573,7 +573,7 @@ a:hover {
 
   a {
     color: var(--color-black);
-    border-bottom-color: transparent;
+    border-bottom: 2px solid transparent;
 
     &.active,
     &:hover {
