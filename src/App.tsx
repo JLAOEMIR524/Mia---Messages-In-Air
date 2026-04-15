@@ -1,47 +1,69 @@
-import './index.css'
-import './fonts.css'
-import './reset.css'
-import 'leaflet/dist/leaflet.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { NavBar } from './components/Navbar'
-import { ForgotPassword } from './pages/ForgotPassword'
-import { ImprintPrivacy } from './pages/ImprintPrivacy'
-import { Register } from './pages/Register'
-import { Send } from './pages/Send'
-import { Home } from './pages/Home'
-import { Profile } from './pages/Profile'
-import { Quest } from './pages/Quest'
-import { Message } from './pages/Message'
-import { Login } from './pages/Login'
-import { Gallery } from './pages/Gallery'
-import { Editor } from './pages/Editor'
-import { Details } from './pages/Details'
-import { Dashboard } from './pages/Dashboard'
+import "./index.css";
+import "./fonts.css";
+import "./reset.css";
+import "leaflet/dist/leaflet.css";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { NavBar } from "./components/Navbar";
+import { ForgotPassword } from "./pages/ForgotPassword";
+import { ImprintPrivacy } from "./pages/ImprintPrivacy";
+import { Register } from "./pages/Register";
+import { Send } from "./pages/Send";
+import { Home } from "./pages/Home";
+import { Profile } from "./pages/Profile";
+import { Quest } from "./pages/Quest";
+import { Message } from "./pages/Message";
+import { Login } from "./pages/Login";
+import { Gallery } from "./pages/Gallery";
+import { Editor } from "./pages/Editor";
+import { Details } from "./pages/Details";
+import { Dashboard } from "./pages/Dashboard";
 
-function App() {
+function AppContent() {
+  const location = useLocation();
+
+  // Hier trägst du NUR die Pfade ein, bei denen die NavBar sichtbar sein soll
+  const showNavbarPaths = [
+    "/dashboard",
+    "/editor",
+    "/gallery",
+    "/imprint",
+    "/message",
+    "/profile",
+    "/quest"
+  ];
+
+  const shouldShowNavbar = showNavbarPaths.includes(location.pathname);
 
   return (
+    <>
+      {shouldShowNavbar && <NavBar />}
+      
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/details" element={<Details />} />
+        <Route path="/editor" element={<Editor />} />
+        <Route path="/password" element={<ForgotPassword />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/imprint" element={<ImprintPrivacy />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/message" element={<Message />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/quest" element={<Quest />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/send" element={<Send />} />
+        <Route path="*" element={<Home />} />
+      </Routes>
+    </>
+  );
+}
+function App() {
+  return (
     <BrowserRouter>
-      <NavBar />
-        <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/details" element={<Details />} />
-          <Route path="/editor" element={<Editor />} />
-          <Route path="/password" element={<ForgotPassword />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/imprint" element={<ImprintPrivacy />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/message" element={<Message />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/quest" element={<Quest />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/send" element={<Send />} />
-          <Route path="*" element={<Home/>} />
-        </Routes>
+      <AppContent />
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -14,9 +14,9 @@ export function Dashboard() {
       </a>
 
       <div className="flexbox-statisticCard">
-        <StatisticCard title="Sendt" value="349" icon="./icons/letter.svg" />
-        <StatisticCard title="Recived" value="349" icon="./icons/check.svg" />
-        <StatisticCard title="Countrys" value="349" icon="./icons/flag.svg" />
+        <StatisticCard title="Sent" value="349" icon="./icons/letter.svg" />
+        <StatisticCard title="Recieved" value="349" icon="./icons/check.svg" />
+        <StatisticCard title="Countries" value="349" icon="./icons/flag.svg" />
       </div>
       
       <div className="dashboard-grid">
