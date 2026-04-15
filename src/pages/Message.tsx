@@ -1,9 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BadgeCard } from "../components/BadegeCard";
 import { Step } from "../components/Step";
+import { type Quest as QuestType } from "../api/mockQuest";
 
 export function Message() {
   const [questText, setQuestText] = useState("");
+  const [selectedQuest, setSelectedQuest] = useState<QuestType | null>(null);
+
+  useEffect(() => {
+    const savedQuest = localStorage.getItem("selectedQuest");
+    if (savedQuest) {
+      try {
+        setSelectedQuest(JSON.parse(savedQuest));
+      } catch (error) {
+        console.error("Error parsing quest from localStorage", error);
+      }
+    }
+  }, []);
 
   return (
     <main>
@@ -12,10 +25,14 @@ export function Message() {
       <p>Share your thoughts with a stranger somewhere in the world</p>
 
       <div className="container-messages">
-        <BadgeCard
-          title="Same Start"
-          description="Write a postcard where at least 5 words start with the same letter."
-        />
+        {selectedQuest ? (
+          <BadgeCard
+            title={selectedQuest.title}
+            description={selectedQuest.description}
+          />
+        ) : (
+          <p>No quest selected.</p>
+        )}
         <div className="flexbox">
           <h4>Your Message</h4>
           <textarea
