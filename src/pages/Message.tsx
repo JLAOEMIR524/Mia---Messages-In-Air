@@ -159,7 +159,7 @@ export function Message() {
 
         <Link to="/send" style={{ textDecoration: "none", border: "none" }}>
           <button
-            className="button button--image"
+            className="button button--image message"
             disabled={!selectedLocation || questText.length < 100}
           >
             Send Postcard

@@ -489,7 +489,7 @@ a:hover {
   display: block;
 }
 
-.nav-logo-top img{
+.nav-logo-top img {
   height: 60px;
   width: auto;
   display: block;
@@ -507,7 +507,7 @@ a:hover {
   display: block;
 }
 
-.StepBackNav{
+.StepBackNav {
   display: none;
 }
 
@@ -759,10 +759,18 @@ a:hover {
   }
 
   &.selected {
-    border-color: var(--color-black);
+    border-color: var(--color-primary);
     background-color: #f2f2f2;
     transform: scale(1.02);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.badge-list {
+  .questCard {
+    &:hover {
+      background-color: #f8f8f8;
+    }
   }
 }
 
@@ -1134,8 +1142,8 @@ main>.button:last-of-type {
 }
 
 /*Step Back*/
-.StepBack{
-  img{
+.StepBack {
+  img {
     width: 35px;
     margin-bottom: var(--space-sm);
   }
@@ -1427,6 +1435,14 @@ main>.button:last-of-type {
 
 .button-flex.gallery button:first-child:hover .icon-span {
   background-image: url('./icons/email-blue.svg');
+}
+
+.button-flex .message .icon-span {
+  background-image: url('./icons/arrow-right-white.svg') !important;
+}
+
+.button-flex .message:hover .icon-span {
+  background-image: url('./icons/arrow-right-blue.svg') !important;
 }
 
 .gallery .button--image:nth-child(2) .icon-span {
@@ -2051,11 +2067,11 @@ ol {
     }
   }
 
-  .StepBack{
+  .StepBack {
     display: none;
   }
 
-   .nav-logo {
+  .nav-logo {
     display: none;
   }
 
