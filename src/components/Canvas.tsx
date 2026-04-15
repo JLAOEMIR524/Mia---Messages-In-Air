@@ -1,10 +1,11 @@
-import { Stage, Layer } from "react-konva";
+import { Stage, Layer, Rect } from "react-konva";
 import type { CanvasElement, DragPayload } from "../types/CanvasTypes";
 import type React from "react";
 import type Konva from "konva";
 import { useEffect, useRef } from "react";
 import { ImageNode } from "./ImageNode";
 import { StickerNode } from "./StickerNode";
+import { canvas } from "leaflet";
 
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 500;
@@ -85,6 +86,13 @@ export function Canvas({elements, selectedId, onSelect, onUpdate, onDrop, stageR
             >
         <Stage ref={stageRef} width={CANVAS_WIDTH} height={CANVAS_HEIGHT} onClick={handleStageClick}>
             <Layer>
+                <Rect
+                    fill={"white"}
+                    width={CANVAS_WIDTH-5}
+                    height={CANVAS_HEIGHT-5}
+                    cornerRadius={20}
+                    
+                />
                 {elements.map(elem => (
                     elem.type === "image" ? (
                         <ImageNode

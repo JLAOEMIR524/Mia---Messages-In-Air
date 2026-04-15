@@ -43,7 +43,7 @@
       border-width: 1px;
       border-radius: var(--border-radius);
 
-      border-color: var(--color-border);
+      border-color: var(--color-black);
     }
 
     img {
@@ -103,12 +103,26 @@
 
 /* Tablet */
 @media (640px < width < 1280px) {
-
+  .galleryContainer {
+    width: min-content;
+    max-width: 90vw;
+  }
 
 }
 
 /*Mobile*/
 @media (width < 640px) {
+  .imageEditor{
+    .galleryContainer {
+      width: min-content;
+      max-width: 90vw;
+    }
+
+    p, h2 {
+      text-align: center;
+    }
+  }
+  
 
 
 }

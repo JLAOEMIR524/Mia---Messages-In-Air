@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import  useImage  from "use-image";
 import Konva from "konva";
 import type { ImageElement } from "../types/CanvasTypes";

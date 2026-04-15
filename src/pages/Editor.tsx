@@ -6,6 +6,7 @@ import { useRef, useCallback, useState } from 'react';
 import { useResponsiveScale } from '../hooks/useResponsiveScale';
 import { StickerSelector } from '../components/StickerSelector';
 import { Step } from '../components/Step';
+import { Link } from 'react-router-dom';
 
 const CANVAS_WIDTH = 800;
 
@@ -65,15 +66,6 @@ export function Editor() {
                         <img src={`./icons/star_shine${"sticker" === currentBar || focus === "sticker" ? "_b" : "_w"}.svg`} alt="image icon" aria-hidden="true"/>
                         Stickers
                     </button>
-                    {/* <button 
-                        className={`button button--image ${ "text" === currentBar ? 'button--selected' : '' }`}
-                        onClick={() => setBar("text")}
-                        onMouseOver={() => setFocus("text")}
-                        onMouseOut={() => setFocus(null)}
-                    >
-                        <img src={`./icons/text${"text" === currentBar || focus === "text" ? "_b" : "_w"}.svg`} alt="image icon" aria-hidden="true"/>
-                        Text
-                    </button> */}
                 </div>
                 {getBar()}
                 <Canvas
@@ -90,6 +82,12 @@ export function Editor() {
                     <button className="button button--primary" onClick={handleExport}>Export</button>
                 </div>
             </div>
+            <Link to="/message" style={{ textDecoration: "none", border: "none", marginTop: "2.5rem" }}>
+                <button className="button button--image">
+                Continue to message
+                <span className="icon-span"></span>
+                </button>
+            </Link>
         </main>
     );
 }
