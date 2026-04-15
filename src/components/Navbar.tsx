@@ -3,8 +3,9 @@ import { Link, useLocation } from "react-router-dom";
 
 export function NavBar() {
   const location = useLocation();
-  const [isOpen, setIsOpen] = useState(false);
+  const isDashboard = location.pathname === "/dashboard";
   const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -17,6 +18,10 @@ export function NavBar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleBack = () => {
+    window.history.back();
+  };
+
   const navItems = [
     { name: "Dashboard", path: "/dashboard", icon: "./icons/home.svg" },
     { name: "Profile", path: "/profile", icon: "./icons/profile.svg" },
@@ -25,18 +30,32 @@ export function NavBar() {
     { name: "Imprint & Privacy", path: "/imprint", icon: "./icons/info.svg" },
   ];
 
-
   return (
     <div className={`sidebar ${isOpen ? "is-open" : ""}`}>
       <div className="topContainer">
         <div className="mobileBar">
-          <Link to="/dashboard">
-          <img
-            className="logo"
-            src={isMobile ? "./Logo_without_text.png" : "./Logo.png"}
-            alt="Mia Logo"
-          />
-          </Link>
+          {!isMobile ? (
+            <Link to="/dashboard">
+              <img className="logo" src="./Logo.png" alt="Mia Logo" />
+            </Link>
+          ) : isDashboard ? (
+            <Link to="/dashboard">
+              <img
+                className="logo"
+                src="./Logo_without_text.png"
+                alt="Mia Logo"
+              />
+            </Link>
+          ) : (
+            <button onClick={handleBack} className="StepBackNav">
+              <img
+                className="backIconSmall"
+                src="/icons/arrow-back.svg"
+                alt="Back"
+                style={{width: "30px", margin: "var(--space-xs) 0"}}
+              />
+            </button>
+          )}
 
           <div
             className={`hamburger-menu ${isOpen ? "active" : ""}`}
