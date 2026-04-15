@@ -143,7 +143,7 @@ export function Message() {
       <div className="button-flex">
         <button className="button button--image">
           <span className="icon-span"></span>
-          Full Screen Preview
+          Preview
         </button>
         
         <Link to="/send" style={{ textDecoration: "none", border: "none" }}>

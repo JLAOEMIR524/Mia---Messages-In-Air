@@ -1,47 +1,56 @@
-import React from 'react';
+import React from "react";
 
 interface FeedbackCardProps {
   title?: string;
   message: string | React.ReactNode;
-  rating: number;
+  rating?: number;
   xpAmount: number;
   onContinue: () => void;
   onSeeDetails?: () => void;
+  topIconSrc?: string;
 }
 
-export function FeedbackCard({ 
-  title = "Postcard Sent", 
-  message, 
-  rating, 
-  xpAmount, 
-  onContinue, 
-  onSeeDetails 
+export function FeedbackCard({
+  title = "Postcard Sent! 🎉",
+  message,
+  rating,
+  xpAmount,
+  onContinue,
+  onSeeDetails,
+  topIconSrc = "./icons/star_shine_w.svg",
 }: FeedbackCardProps) {
-  
-  const stars = Array.from({ length: 5 }, (_, i) => i < rating);
+  const totalStars = 5;
+  const starArray =
+    rating !== undefined
+      ? Array.from({ length: totalStars }, (_, index) => index < rating)
+      : [];
 
   return (
     <div className="feedbackContainer">
       <div className="topComponent">
         <div className="topIcon">
-          <img src="./icons/star_shine.svg" alt="Star icon" />
+          <img src={topIconSrc} alt="Top icon" />{" "}
         </div>
         <h3>{title}</h3>
         <p>{message}</p>
       </div>
-
-      <div className="xpDisplay" aria-label={`You scored ${rating} of 5 Stars.`}>
-        {stars.map((isFilled, index) => (
+      {starArray.length > 0 ? (<div
+        className="xpDisplay"
+        aria-label={`You scored ${rating} of 5 Stars.`}
+      >
+        {starArray.length > 0 && starArray.map((isFilled, index) => (
           <img
             key={index}
-            src="./icons/star_full.svg"
+            src={
+              isFilled ? "./icons/star_full.svg" : "./icons/star_unfilled.svg"
+            }
             alt={isFilled ? "filled star icon" : "unfilled star icon"}
             aria-hidden="true"
-            className={isFilled ? "" : "star--empty"} 
+            className={isFilled ? "star--full" : "star--empty"}
           />
         ))}
-      </div>
-
+      </div>) : ""
+          }
       <div className="xpDetails">
         <div className="xpCount">
           <p>+{xpAmount} XP</p>
@@ -52,9 +61,8 @@ export function FeedbackCard({
           </button>
         )}
       </div>
-
       <button className="button button--primary" onClick={onContinue}>
-        Continue
+        Back to Dashboard
       </button>
     </div>
   );

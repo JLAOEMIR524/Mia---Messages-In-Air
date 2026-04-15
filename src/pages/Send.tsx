@@ -6,18 +6,17 @@ export function Send() {
   return (
     <main className="heaven">
       <FeedbackCard
-        title="Postcard Sent"
+        title="Postcard Sent! 🎉"
         message={
           <>
-            Here comes a different text
-            <br />
-            depending on the score.
+            Quest Rating
           </>
         }
-        rating={3}
+        rating={2}
         xpAmount={30}
-        onContinue={() => console.log("Weiter geht's!")}
-        onSeeDetails={() => console.log("Details anzeigen...")}
+        onContinue={() => window.location.href = "/dashboard"}
+        onSeeDetails={() => window.location.href = "/details"}
+
       />
     </main>
   );
