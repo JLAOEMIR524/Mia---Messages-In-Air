@@ -14,6 +14,10 @@ export function Quest() {
 
   const navigate = useNavigate();
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -68,6 +72,9 @@ export function Quest() {
 
   return (
     <main>
+      <button onClick={handleBack} className="StepBack left">
+        <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+      </button>
       <Step currentStep={1} totalSteps={3} />
 
       <h2>Choose Your Creative Quest ✨</h2>
@@ -98,7 +105,9 @@ export function Quest() {
         ))}
       </div>
 
-      {!selectedQuest && <p className="warning">Please select a quest to continue</p>}
+      {!selectedQuest && (
+        <p className="warning">Please select a quest to continue</p>
+      )}
       <button
         className="button button--image"
         onClick={handleContinue}

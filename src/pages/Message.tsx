@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { BadgeCard } from "../components/BadegeCard";
 import { Step } from "../components/Step";
 import data from "../api/cities.json";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Message() {
   const [questText, setQuestText] = useState("");
@@ -11,6 +11,12 @@ export function Message() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   useEffect(() => {
     const savedQuest = localStorage.getItem("selectedQuest");
@@ -57,6 +63,9 @@ export function Message() {
 
   return (
     <main>
+      <button onClick={handleBack} className="StepBack left">
+        <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+      </button>
       <Step currentStep={3} totalSteps={3} />
       <h2>Write Your Message 💌</h2>
       <p>Share your thoughts with a stranger somewhere in the world</p>
@@ -139,21 +148,23 @@ export function Message() {
           }
         />
       </div>
-      {questText.length < 100 && <p className="warning">Your Message is too short :(</p>}
+      {questText.length < 100 && (
+        <p className="warning">Your Message is too short :(</p>
+      )}
       <div className="button-flex">
         <button className="button button--image">
           <span className="icon-span"></span>
-          Full Screen Preview
+          Preview
         </button>
-        
+
         <Link to="/send" style={{ textDecoration: "none", border: "none" }}>
-        <button
-          className="button button--image"
-          disabled={!selectedLocation || questText.length < 100}
-        >
-          Send Postcard
-          <span className="icon-span"></span>
-        </button>
+          <button
+            className="button button--image"
+            disabled={!selectedLocation || questText.length < 100}
+          >
+            Send Postcard
+            <span className="icon-span"></span>
+          </button>
         </Link>
       </div>
     </main>

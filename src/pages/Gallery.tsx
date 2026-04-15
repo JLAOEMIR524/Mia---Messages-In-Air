@@ -2,12 +2,21 @@ import { MapContainer } from "react-leaflet";
 import { Card } from "../components/Card";
 import type { LatLngExpression } from "leaflet";
 import { CityBadge } from "../components/CityBadge";
+import { useNavigate } from "react-router-dom";
 
 export function Gallery() {
   const position: LatLngExpression = [47.8, 13.04];
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
     <main className="left">
+      <button onClick={handleBack} className="StepBack">
+        <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+      </button>
       <h2>Your Gallery 🖼️</h2>
       <p>All the postcards you've sent and received</p>
       <div className="button-flex gallery">
@@ -73,7 +82,6 @@ export function Gallery() {
         <CityBadge city="Vienna" country="Austria" />
         <CityBadge city="Vienna" country="Austria" />
         <CityBadge city="Vienna" country="Austria" />
-
       </div>
     </main>
   );

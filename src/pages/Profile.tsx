@@ -1,10 +1,20 @@
 import { BadgeCard } from "../components/BadegeCard";
 import { ProfileTopper } from "../components/ProfileTopper";
 import SwapCard from "../components/SwapCard";
+import { useNavigate } from "react-router-dom";
 
 export function Profile() {
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   return (
     <main className="left profile">
+      <button onClick={handleBack} className="StepBack">
+        <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+      </button>
       <h2>Your Profile 👤</h2>
 
       <ProfileTopper
