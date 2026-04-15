@@ -1181,7 +1181,7 @@ main>.button:last-of-type {
 
 .messagePreview:hover {
   background-color: rgb(247, 247, 247);
-  border: 2px solid var(--color-primary);
+  border: 1px solid var(--color-primary);
 }
 
 /*Grid MEssageCard*/
