@@ -1,17 +1,18 @@
 import { StatisticCard } from "../components/StatisticCard";
 import { LinkHeader } from "../components/LinkHeader";
 import { MessagePreview } from "../components/MessagePreviewCard";
+import { Link } from "react-router-dom";
 
 export function Dashboard() {
   return (
     <main className="left">
       <h2>Hello Sonja ✨</h2>
       <p>Welcome back to Mia. </p>
-      <a className="newPostcard" href="/quest">
+      <Link className="newPostcard" to="/quest">
         <img src="./icons/add_circle.svg" alt="Plus icon" />
         <h4>New Postcard</h4>
         <p>Write a postcard and make someone smile</p>
-      </a>
+      </Link>
 
       <div className="flexbox-statisticCard">
         <StatisticCard title="Sent" value="349" icon="./icons/letter.svg" />

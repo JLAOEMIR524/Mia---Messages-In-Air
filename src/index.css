@@ -683,10 +683,11 @@ a:hover {
   box-sizing: border-box;
   border-radius: var(--border-radius);
   border-bottom: none;
-  background: var(--Gradient, linear-gradient(267deg, #38C871 5.75%, #2A93CC 94.25%));
+  background-image: linear-gradient(267deg, #38C871 5.75%, #2A93CC 94.25%);
   color: white;
 
-  &:hover {
+  &:visited {
+    color: white;
     border-bottom: none;
   }
 
@@ -704,9 +705,10 @@ a:hover {
   }
 }
 
-.newPostcard:hover{
-  border: 3px solid var(--color-primary);
+.newPostcard:hover {
+  background-image:linear-gradient(267deg, #2ebd67 5.75%, #2b8fc4 94.25%);
 }
+
 /* Quest Card */
 .questCard {
   height: min-content;
