@@ -100,6 +100,7 @@ export function Quest() {
         ))}
       </div>
 
+      {!selectedQuest && <p className="warning">Please select a quest to continue</p>}
       <button
         className="button button--image"
         onClick={handleContinue}

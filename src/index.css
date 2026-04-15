@@ -319,8 +319,26 @@ a:focus {
   border: var(--border-width) solid var(--color-primary);
 }
 
-.button--image:hover .icon-span {
+.button--image:disabled {
+  background-color: var(--color-disabled);
+  color: var(--color-input-disabled-text);
+  border-color: var(--color-gray-300);
+  cursor: not-allowed;
+}
+
+.button--image:disabled .icon-span {
+    background-image: url('./icons/arrow-right.svg');
+}
+
+.button--image:not(:disabled):hover .icon-span {
   background-image: url('./icons/arrow-right-blue.svg');
+}
+
+.warning{
+  margin-top: var(--space-sm);
+  margin-bottom: -50px;
+  font-weight: 600;
+  color: var(--color-primary)
 }
 
 /* Form Inputs */
