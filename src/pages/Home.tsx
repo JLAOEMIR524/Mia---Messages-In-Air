@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { NavBarTop } from "../components/NavbarTop";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Home() {
   useEffect(() => {
@@ -28,11 +28,13 @@ export function Home() {
         <button className="button button--primary" onClick={() => navigate("/login")}>Start now</button>
         <button className="button button--secondary">Find out more</button>
       </div>
+      <Link to="/login">
       <img
         src="./icons/letter-blue.svg"
         alt="Icon Mail"
         className="email-icon"
-      />
+              />
+      </Link>
     </main>
   );
 }

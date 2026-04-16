@@ -1126,9 +1126,11 @@ main>.button:last-of-type {
   align-items: center;
   gap: var(--space-sm);
 
-  .email-icon {
-    width: 100px;
-  }
+    .email-icon {
+      margin-top: 2rem;
+      width: 100px;
+      animation: bounce 2s infinite;
+    }
 
   h1 {
     display: flex;
@@ -1144,6 +1146,24 @@ main>.button:last-of-type {
     color: var(--color-primary);
   }
 }
+  @keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+      transform: translateY(0);
+    }
+
+    40% {
+      transform: translateY(-30px);
+    }
+
+    60% {
+      transform: translateY(-15px);
+    }
+  }
 
 /*Imprint und Privacy*/
 .imprint-privacy-container {
@@ -2126,7 +2146,7 @@ ol {
 
   .postcardFront {
     width: 100%;
-    
+
     border-radius: var(--border-radius);
     border: 1px var(--color-border-strong) solid;
 
@@ -2137,7 +2157,7 @@ ol {
   .postcardBack {
     width: 100%;
     aspect-ratio: 2;
-   
+
     display: grid;
     grid-template-columns: 1.3fr 0.7fr;
     grid-template-rows: 1fr 1fr;
@@ -2178,7 +2198,8 @@ ol {
     }
   }
 
-  h2, p {
+  h2,
+  p {
     margin: 0;
     padding: 0;
   }
@@ -2236,12 +2257,12 @@ ol {
     padding: 30px 30px;
   }
 
-    .galleryContainer {
+  .galleryContainer {
     width: min-content;
     max-width: 90vw;
   }
 
-  .previewContainer{
+  .previewContainer {
     .postcardBack {
       gap: var(--space-md);
       aspect-ratio: 1.5;
@@ -2680,18 +2701,19 @@ ol {
   }
 
 
-  .imageEditor{
+  .imageEditor {
     .galleryContainer {
       width: min-content;
       max-width: 90vw;
     }
 
-    p, h2 {
+    p,
+    h2 {
       text-align: center;
     }
   }
 
-  .previewContainer{
+  .previewContainer {
     .preview {
       padding: var(--space-md);
 
@@ -2699,7 +2721,7 @@ ol {
         font-size: 1.5rem;
       }
 
-      .previewTop > img {
+      .previewTop>img {
         width: 20px;
       }
     }
