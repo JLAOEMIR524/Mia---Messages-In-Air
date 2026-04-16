@@ -66,7 +66,7 @@
 
   /* Border */
   --color-border: var(--color-gray-300);
-  --color-border-strong: var(--color-gray-900);
+  --color-border-strong: var(--color-gray-700);
 
   /* States */
   --color-hover: var(--color-blue-500);
@@ -1413,15 +1413,26 @@ main>.button:last-of-type {
   flex-wrap: wrap;
   gap: var(--space-sm);
   row-gap: 0;
+  &:not(.gallery) {
 
-  button:first-child .icon-span {
+  & > button:first-child {
+    color: var(--color-primary);
+    background-color: white;
+    border: 1px solid var(--color-primary); 
+  }
+   & > button:first-child .icon-span {
     width: 20px;
     height: 19px;
     display: inline-block;
-    background-image: url('./icons/eye-white.svg');
+    background-image: url('./icons/eye-blue.svg');
     background-size: contain;
     background-repeat: no-repeat;
   }
+
+   & > button:first-child:hover {
+    background-color: rgb(239, 239, 239);
+  }
+}
 
   button.button--image:first-child:hover .icon-span {
     background-image: url('./icons/eye-blue.svg');
@@ -1798,16 +1809,14 @@ ol {
 
   .button {
     padding: calc(var(--space-sm) * 0.5) calc(var(--space-md) * 0.8);
-    font-size: 0.95rem;
   }
 
   .button--small {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     padding: calc(var(--space-sm) * 0.6) var(--space-sm);
   }
 
   .button--large {
-    font-size: 1rem;
     padding: calc(var(--space-sm) * 0.8) calc(var(--space-md) * 1.1);
   }
 
