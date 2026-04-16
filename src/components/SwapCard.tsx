@@ -1,5 +1,5 @@
 const SwapCard = ({ 
-  sticker = "🍍", 
+  stickerSrc = "./icons/heart.avif",
   description = "Star", 
   xpAmount = 800, 
   iconSrc = "./icons/Check.svg", 
@@ -9,8 +9,14 @@ const SwapCard = ({
 }) => {
   return (
     <div className="swap">
-        <div className={`stickerCard ${extraClass2}`}>
-        <p className="sticker">{sticker}</p>
+      <div className={`stickerCard ${extraClass2}`}>
+        <div className="sticker-container">
+          <img 
+            src={stickerSrc} 
+            alt={description} 
+            className="sticker-img" 
+          />
+        </div>
         <p className="description">{description}</p>
       </div>
 

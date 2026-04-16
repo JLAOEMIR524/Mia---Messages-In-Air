@@ -20,7 +20,7 @@ export function Home() {
         <p>No likes. No followers. No feed.</p>
         <p>Just real, unexpected messages.</p>
       </div>
-      <div className="button-flex">
+      <div className="button-flex gallery">
         <button className="button button--primary">Start now</button>
         <button className="button button--secondary">Find out more</button>
       </div>
