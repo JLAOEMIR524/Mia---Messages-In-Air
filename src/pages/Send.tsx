@@ -25,7 +25,7 @@ export function Send() {
         rating={2}
         xpAmount={30}
         onContinue={() => navigate("/dashboard")}
-        onSeeDetails={() => navigate("/details")}
+        onSeeDetails={() => navigate("/details", { state: { fromSend: true } })}
       />
       <Confetti numberOfPieces={450} recycle={false} />
     </main>
