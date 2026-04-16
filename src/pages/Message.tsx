@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect  } from "react";
 import { BadgeCard } from "../components/BadegeCard";
 import { Step } from "../components/Step";
 import data from "../api/cities.json";
@@ -8,6 +8,7 @@ import { Preview } from "../components/Preview";
 export function Message() {
   const [questText, setQuestText] = useState("");
   const [selectedQuest, setSelectedQuest] = useState<any>(null);
+  const [showPreview, setShowPreview] = useState(false);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
@@ -154,7 +155,10 @@ export function Message() {
           <p className="warning">Your Message is too short :(</p>
         )}
         <div className="button-flex">
-          <button className="button button--image">
+          <button 
+            className="button button--image"
+            onClick={() => setShowPreview(true)}
+          >
             <span className="icon-span"></span>
             Preview
           </button>
@@ -170,7 +174,10 @@ export function Message() {
           </Link>
         </div>
       </main>
-      <Preview/>
+      <Preview 
+        isOpen={showPreview}
+        onClose={()=> setShowPreview(false)}
+      />
     </>
   );
 }
