@@ -1137,7 +1137,7 @@ main>.button:last-of-type {
       }
 
       &:hover {
-        background-color: var(--color-hover);
+        background-color: rgba(251, 251, 251, 0.503)
       }
     }
   }
