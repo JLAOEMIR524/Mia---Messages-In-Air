@@ -46,12 +46,6 @@ export function Editor() {
         
     }, [selectElement]);
 
-    function getBar() {
-        return currentBar === "image" ? <PhotoUploader/> 
-        : currentBar === "sticker" ? <StickerSelector/>
-        : <p>Text</p>;
-    }
-
     async function handlePageSwitch(){
         await handleExport();
         navigate("/message", { state: { fromEditor: true } });
@@ -86,7 +80,13 @@ export function Editor() {
                         Stickers
                     </button>
                 </div>
-                {getBar()}
+                <div style={{ display: currentBar === "image" ? "block" : "none" }}>
+                    <PhotoUploader />
+                </div>
+                <div style={{ display: currentBar === "sticker" ? "block" : "none" }}>
+                    <StickerSelector />
+                </div>
+                {currentBar === "text" && <p>Text</p>}
                 <Canvas
                     elements={elements}
                     selectedId={selectedId}
@@ -101,15 +101,15 @@ export function Editor() {
                     {/* Insert layer up/down */}
                 </div>
             </div>
-            <a 
-                style={{ textDecoration: "none", border: "none", marginTop: "2.5rem" }}
+            <div 
+                style={{ cursor: "pointer", marginTop: "2.5rem" }}
                 onClick={() => handlePageSwitch()}
             >
                 <button className="button button--image">
                     Continue to message
-                <span className="icon-span"></span>
+                    <span className="icon-span"></span>
                 </button>
-            </a>
+            </div>
         </main>
     );
 }
