@@ -1014,7 +1014,7 @@ main>.button:last-of-type {
   box-sizing: border-box;
   padding: var(--space-md);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: row;
   gap: var(--space-lg);
   margin: var(--space-sm) 0 var(--space-md) 0;
