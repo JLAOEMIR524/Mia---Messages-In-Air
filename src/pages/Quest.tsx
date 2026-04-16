@@ -49,7 +49,7 @@ export function Quest() {
   const handleContinue = () => {
     if (selectedQuest) {
       localStorage.setItem("selectedQuest", JSON.stringify(selectedQuest));
-      navigate("/editor");
+      navigate("/editor", { state: { fromQuest: true } });
     }
   };
   if (loading || !activeQuest) {
@@ -88,7 +88,7 @@ export function Quest() {
         onSelect={() => setSelectedQuest(activeQuest)}
         onContinue={() => {
           localStorage.setItem("selectedQuest", JSON.stringify(activeQuest));
-          navigate("/editor");
+          navigate("/editor", { state: { fromQuest: true } });
         }}
       />
       <h2>Or choose from other quests:</h2>
