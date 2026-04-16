@@ -792,7 +792,7 @@ a:hover {
       outline: var(--border-width) solid var(--color-blue-700);
     }
 
-    &:active{
+    &:active {
       outline: var(--border-width) solid var(--color-blue-800);
       transform: 0.99;
     }
@@ -847,6 +847,78 @@ main>.button:last-of-type {
     margin: 0;
     padding: 0;
   }
+}
+
+/*Login COntainer*/
+.LoginContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0;
+  background-color: white;
+  padding: calc(var(--space-lg)*0.5) var(--space-lg);
+  border-radius: var(--border-radius-large);
+  min-width: 600px;
+
+  img {
+    width: 150px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    label {
+      text-align: left;
+      width: 100%;
+    }
+  }
+
+  button {
+    width: 100%;
+  }
+
+  a {
+    align-self: flex-end;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: var(--color-blue-700);
+    margin: var(--space-sm) 0;
+  }
+
+  p {
+    margin: var(--space-xs) 0;
+  }
+
+  .divider span {
+    color: black;
+  }
+
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin: var(--space-sm) 0;
+  color: var(--color-gray-500);
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--color-gray-900);
+}
+
+.divider:not(:empty)::before {
+  margin-right: var(--space-sm);
+}
+
+.divider:not(:empty)::after {
+  margin-left: var(--space-sm);
 }
 
 /* Profile Topper */
@@ -1104,7 +1176,7 @@ main>.button:last-of-type {
   border-radius: var(--border-radius);
   background: linear-gradient(267deg, #38C871 5.75%, #2A93CC 94.25%);
 
-  &.selected{
+  &.selected {
     outline: var(--border-width) solid var(--color-blue-800);
     transform: scale(1.01);
   }
@@ -2139,7 +2211,10 @@ ol {
     cursor: pointer;
   }
 
+  .LoginContainer {
+    min-width: 500px;
 
+  }
 }
 
 /*Mobile*/
@@ -2254,6 +2329,12 @@ ol {
     top: var(--space-lg);
     left: var(--space-lg);
   }
+
+  .LoginContainer {
+    min-width: 400px;
+    padding: var(--space-md);
+    margin-top: calc(var(--space-lg)*1.5)
+  }
 }
 
 @media (width < 450px) {
@@ -2308,6 +2389,11 @@ ol {
     position: absolute;
     top: var(--space-lg);
     left: var(--space-md);
+  }
+
+  .LoginContainer {
+    min-width: 320px;
+
   }
 }
 

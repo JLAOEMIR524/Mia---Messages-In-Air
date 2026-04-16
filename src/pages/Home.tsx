@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { NavBarTop } from "../components/NavbarTop";
+import { useNavigate } from "react-router-dom";
 
 export function Home() {
   useEffect(() => {
@@ -9,6 +10,9 @@ export function Home() {
       document.body.classList.remove("background-heaven");
     };
   }, []);
+
+    const navigate = useNavigate();
+    
   return (
     <main className="heaven">
       <NavBarTop />
@@ -21,7 +25,7 @@ export function Home() {
         <p>Just real, unexpected messages.</p>
       </div>
       <div className="button-flex gallery">
-        <button className="button button--primary">Start now</button>
+        <button className="button button--primary" onClick={() => navigate("/login")}>Start now</button>
         <button className="button button--secondary">Find out more</button>
       </div>
       <img
