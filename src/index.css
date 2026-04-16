@@ -921,6 +921,43 @@ main>.button:last-of-type {
   margin-left: var(--space-sm);
 }
 
+
+/*Register Container*/
+.RegisterContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0;
+  background-color: white;
+  padding: calc(var(--space-lg)*0.5) var(--space-lg);
+  border-radius: var(--border-radius-large);
+  min-width: 600px;
+
+  img {
+    width: 100px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    label {
+      text-align: left;
+      width: 100%;
+    }
+  }
+
+  button {
+    width: 100%;
+    margin-top: var(--space-sm);
+  }
+
+  p {
+    margin: var(--space-xs) 0;
+  }
+}
+
 /* Profile Topper */
 .profileTopper {
   width: 100%;

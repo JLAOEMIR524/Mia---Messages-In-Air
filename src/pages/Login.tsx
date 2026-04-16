@@ -22,7 +22,7 @@ export function Login() {
         <p>Nice to see you again ✨ </p>
         <form>
           <label htmlFor="emailUser">E-Mail:</label>
-          <input id="emailUser" name="emailUser" type="email" required />
+          <input id="emailUser" name="emailUser" type="email" placeholder="Type here..." required />
           <label htmlFor="password">Password</label>
           <input id="password" name="password" type="password" required />
         </form>
