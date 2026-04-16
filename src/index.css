@@ -517,7 +517,6 @@ a:hover {
   height: 40px;
   display: block;
   transition: transform 0.2s ease;
-
 }
 
 .nav-logo {
@@ -894,7 +893,6 @@ main>.button:last-of-type {
   .divider span {
     color: black;
   }
-
 }
 
 .divider {
@@ -1098,7 +1096,6 @@ main>.button:last-of-type {
           background-color: var(--color-blue-950);
         }
       }
-
     }
   }
 
@@ -1462,7 +1459,6 @@ main>.button:last-of-type {
   li:hover {
     background-color: var(--color-hover);
     cursor: pointer;
-
   }
 }
 
@@ -1501,7 +1497,6 @@ main>.button:last-of-type {
     border-radius: 15px;
     border-color: var(--color-black);
     background-color: var(--color-white);
-
   }
 
   p {
@@ -1837,7 +1832,6 @@ ol {
   font-size: var(--base-font-size);
   font-weight: 400;
   line-height: var(--base-line-height);
-
 }
 
 
@@ -1856,7 +1850,6 @@ ol {
   &:active {
     transform: scale(0.99);
     outline: var(--border-width) solid var(--color-blue-800);
-
   }
 }
 
@@ -1947,7 +1940,6 @@ ol {
           background-color: var(--color-blue-950);
         }
       }
-
     }
   }
 
@@ -2023,7 +2015,6 @@ ol {
   background-color: var(--color-blue-10);
 
   .gallery {
-
     flex: 1;
     min-width: 0;
     display: flex;
@@ -2035,8 +2026,8 @@ ol {
     .barItem {
       width: 125px;
       height: 125px;
-      flex-shrink: 0;
 
+      flex-shrink: 0;
       overflow: hidden;
     }
 
@@ -2181,7 +2172,6 @@ ol {
       width: 300px;
       justify-self: end;
       align-self: start;
-
     }
 
     p {
@@ -2327,8 +2317,6 @@ ol {
     min-width: 0px;
     padding: var(--space-lg) var(--space-md);
     margin-top: var(--space-md);
-
-
   }
 
   .questCard {
@@ -2361,8 +2349,6 @@ ol {
   .navbar {
     padding: 0 var(--space-lg);
     height: 120px;
-
-
   }
 
   .nav-logo img {
@@ -2376,14 +2362,13 @@ ol {
     height: 30px;
     display: block;
     transition: transform 0.2s ease;
-
-
   }
 
   /* Image Editor */
   .galleryContainer {
-    width: 60vw;
+    max-width: 65vw;
   }
+  
 }
 
 @media (width < 900px) {
@@ -2771,7 +2756,6 @@ ol {
     & .topContainer {
       nav {
         padding: var(--space-md);
-
       }
     }
   }
