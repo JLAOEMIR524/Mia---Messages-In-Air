@@ -19,7 +19,6 @@ export function QuestCard({
     <div
       className={`loadQuestCard ${isSelected ? "selected" : ""}`}
       onClick={onSelect}
-      style={{ cursor: "pointer" }}
     >
       <div className="reloadHeadline">
         <h4>{title}</h4>
