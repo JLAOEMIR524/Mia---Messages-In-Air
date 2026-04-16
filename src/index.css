@@ -69,7 +69,7 @@
   --color-border-strong: var(--color-gray-700);
 
   /* States */
-  --color-hover: var(--color-blue-500);
+  --color-hover: var(--color-gray-100);
   --color-focus: var(--color-blue-400);
   --color-active: var(--color-blue-800);
   --color-visited: var(--color-blue-950);
@@ -351,6 +351,11 @@ a:focus {
   background-color: var(--color-button-primary-bg-hover);
   color: var(--color-primary);
   border: var(--border-width) solid var(--color-primary);
+}
+
+.button--selected:hover {
+  background-color: var(--color-gray-100);
+
 }
 
 .warning {
@@ -731,10 +736,6 @@ a:hover {
   }
 }
 
-.newPostcard:hover {
-  background-image: linear-gradient(267deg, #2ebd67 5.75%, #2b8fc4 94.25%);
-}
-
 /* Quest Card */
 .questCard {
   height: min-content;
@@ -752,6 +753,7 @@ a:hover {
   background-color: white;
   margin-top: var(--space-md);
   box-shadow: var(--shadow-md);
+  cursor: pointer;
 
   img {
     width: 30px;
@@ -771,6 +773,7 @@ a:hover {
   }
 
   &.selected {
+    border-width: var(--border-width);
     border-color: var(--color-primary);
     background-color: #f2f2f2;
     transform: scale(1.02);
@@ -780,8 +783,18 @@ a:hover {
 
 .badge-list {
   .questCard {
+    transition: background-color 0.3s ease, outline 0.3s ease;
+
+    outline: var(--border-width) solid transparent;
+
     &:hover {
-      background-color: #f8f8f8;
+      background-color: rgb(247, 247, 247);
+      outline: var(--border-width) solid var(--color-blue-700);
+    }
+
+    &:active{
+      outline: var(--border-width) solid var(--color-blue-900);
+      transform: 0.99;
     }
   }
 }
@@ -794,6 +807,7 @@ main>.button:last-of-type {
   .questCard {
     width: 100%;
     max-width: 3000px;
+    cursor: default;
   }
 
   .questCard:first-of-type {
@@ -1072,7 +1086,7 @@ main>.button:last-of-type {
   }
 }
 
-.sticker-img{
+.sticker-img {
   width: 50px;
 }
 
@@ -1089,6 +1103,11 @@ main>.button:last-of-type {
 
   border-radius: var(--border-radius);
   background: linear-gradient(267deg, #38C871 5.75%, #2A93CC 94.25%);
+
+  &.selected{
+    outline: var(--border-width) solid var(--color-blue-800);
+    transform: scale(1.01);
+  }
 
   .reloadHeadline {
     display: flex;
@@ -1118,7 +1137,7 @@ main>.button:last-of-type {
       }
 
       &:hover {
-        background-color: #efefef5c;
+        background-color: var(--color-hover);
       }
     }
   }
@@ -1132,7 +1151,7 @@ main>.button:last-of-type {
     background-color: var(--color-white);
 
     &:hover {
-      background-color: rgb(231, 231, 231);
+      background-color: var(--color-hover);
       border: 3px solid var(--color-primary)
     }
   }
@@ -1179,13 +1198,10 @@ main>.button:last-of-type {
   border: 1px solid var(--color-border);
 
   background-color: var(--color-white);
-  transition: background-color 0.4s ease;
+  transition: background-color 0.4s ease, outline-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
   cursor: pointer;
 
-  transition:
-    background-color 0.3s ease,
-    border-color 0.3s ease,
-    transform 0.2s ease;
+  outline: var(--border-width) solid transparent;
 }
 
 .messagePreview__icon-wrapper {
@@ -1242,8 +1258,9 @@ main>.button:last-of-type {
 }
 
 .messagePreview:hover {
-  background-color: rgb(247, 247, 247);
-  border: 1px solid var(--color-primary);
+  background-color: var(--color-hover);
+  outline-color: var(--color-blue-700);
+
 }
 
 /*SearchCity*/
@@ -1263,7 +1280,7 @@ main>.button:last-of-type {
   }
 
   li:hover {
-    background-color: #e2e2e2;
+    background-color: var(--color-hover);
     cursor: pointer;
 
   }
@@ -1429,26 +1446,28 @@ main>.button:last-of-type {
   flex-wrap: wrap;
   gap: var(--space-sm);
   row-gap: 0;
+
   &:not(.gallery) {
 
-  & > button:first-child {
-    color: var(--color-primary);
-    background-color: white;
-    border: 1px solid var(--color-primary); 
-  }
-   & > button:first-child .icon-span {
-    width: 20px;
-    height: 19px;
-    display: inline-block;
-    background-image: url('./icons/eye-blue.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
+    &>button:first-child {
+      color: var(--color-primary);
+      background-color: white;
+      border: 1px solid var(--color-primary);
+    }
 
-   & > button:first-child:hover {
-    background-color: rgb(239, 239, 239);
+    &>button:first-child .icon-span {
+      width: 20px;
+      height: 19px;
+      display: inline-block;
+      background-image: url('./icons/eye-blue.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    &>button:first-child:hover {
+      background-color: var(--color-hover);
+    }
   }
-}
 
   button.button--image:first-child:hover .icon-span {
     background-image: url('./icons/eye-blue.svg');
@@ -1645,6 +1664,20 @@ ol {
 /* New Postcard Component */
 .newPostcard {
   padding: 30px 30px;
+  cursor: pointer;
+}
+
+.newPostcard:hover {
+  background-image: linear-gradient(267deg, #2ebd67 5.75%, #2b8fc4 94.25%);
+  outline: var(--border-width) solid var(--color-blue-800);
+}
+
+.newPostcard {
+  &:active {
+    transform: scale(0.99);
+    outline: var(--border-width) solid var(--color-blue-900);
+
+  }
 }
 
 /* Profile Topper */
