@@ -251,7 +251,7 @@ a:focus {
 
 /* Secondary variant */
 .button--secondary {
-  background-color: var(--color-button-secondary-bg);
+  background-color: var(--color-white);
   color: var(--color-primary);
   border: var(--border-width) solid var(--color-primary);
 }
@@ -264,13 +264,25 @@ a:focus {
 }
 
 .button--secondary:active {
-  background-color: var(--color-green-800);
-  color: var(--color-text-inverse);
-  transform: scale(0.98);
+  background-color: var(--color-gray-200);
+  color: var(--color-primary);
+  transform: scale(0.95);
 }
 
 .button--secondary:focus {
-  outline: var(--border-width) solid var(--color-green-600);
+  outline: var(--border-width) solid var(--color-blue-900);
+  outline-offset: 2px;
+}
+
+
+.button--image:active {
+  background-color: var(--color-gray-200);
+  color: var(--color-primary);
+  transform: scale(0.95);
+}
+
+.button--image:focus {
+  outline: var(--border-width) solid var(--color-blue-900);
   outline-offset: 2px;
 }
 
@@ -1058,6 +1070,10 @@ main>.button:last-of-type {
   .xpCard {
     opacity: 1;
   }
+}
+
+.sticker-img{
+  width: 50px;
 }
 
 

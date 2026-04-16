@@ -1,17 +1,17 @@
 import type { DragPayload } from "../types/CanvasTypes";
 
 const STICKERS = [
-    { src: "./stickers/blue_car.avif", label: "icon car"},
-    { src: "./stickers/airplane.avif", label: "icon plane" },
-    { src: "./stickers/four_leaf_clover.avif", label: "icon four leaf clover" },
-    { src: "./stickers/books.avif", label: "icon books" },
-    { src: "./stickers/computer.avif", label: "icon computer" },
-    { src: "./stickers/hamburger.avif", label: "icon hamburger" },
-    { src: "./stickers/joy.avif", label: "icon joy" },
-    { src: "./stickers/soccer.avif", label: "icon soccer" },
-    { src: "./stickers/frog.avif", label: "icon frog" },
-    { src: "./stickers/star2.avif", label: "icon star" },
-    { src: "./stickers/heart.avif", label: "icon heart" },
+    { src: "./stickers/4.avif", label: "icon car"},
+    { src: "./stickers/2.avif", label: "icon plane" },
+    { src: "./stickers/11.avif", label: "icon four leaf clover" },
+    { src: "./stickers/5.avif", label: "icon books" },
+    { src: "./stickers/8.avif", label: "icon computer" },
+    { src: "./stickers/15.avif", label: "icon hamburger" },
+    { src: "./stickers/21.avif", label: "icon joy" },
+    { src: "./stickers/34.avif", label: "icon soccer" },
+    { src: "./stickers/13.avif", label: "icon frog" },
+    { src: "./stickers/35.avif", label: "icon star" },
+    { src: "./stickers/18.avif", label: "icon heart" },
 ];
 
 const STICKER_SIZE = 80;
