@@ -92,9 +92,9 @@ export function Message() {
               rows={5}
               required
               minLength={100}
-              maxLength={500}
+              maxLength={700}
             />
-            <p>Characters: {questText.length}/500</p>
+            <p>Characters: {questText.length}/700</p>
           </div>
           <div className="flexbox">
             <h4>Where are you writing from?</h4>
