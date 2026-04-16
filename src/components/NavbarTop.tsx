@@ -7,7 +7,7 @@ export const NavBarTop = () => {
         <img src="/Logo_without_text.png" alt="Mia Logo" />
       </Link>
 
-      <Link to="/login" className="nav-login">
+      <Link to="/dashboard" className="nav-login">
         <img src="/icons/login.svg" alt="Login" />
       </Link>
     </nav>
