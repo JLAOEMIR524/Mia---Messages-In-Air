@@ -21,25 +21,29 @@ export function Editor() {
         elements, selectedId, selectElement, addElementDrop, updateElement, deleteSelected,
     } = usePostcard();
 
-    const handleExport = useCallback(() => {
-        const stage = stageRef.current;
-        if(!stage) return;
+    const handleExport = useCallback((): Promise<void> => {
+        return new Promise((resolve, reject) => {
+            const stage = stageRef.current;
+            if(!stage) {
+                reject("No stage Detected")
+                return
+            };
 
-        selectElement(null);
+            selectElement(null);
 
-        setTimeout(() => {
-            const dataUrl = stage.toDataURL({ pixelRatio: 2, mimeType: "image/png" });
-            
-            // Debug
-            console.log("Größe:", (dataUrl.length / 1024 / 1024).toFixed(2), "MB");
-            
-            try {
-                localStorage.setItem("card", dataUrl);
-                console.log("✅ Succesfully saved!");
-            } catch (e) {
-                console.error("Error:", e);
-            }
-        }, 100);
+            setTimeout(() => {
+                try {
+                    const dataUrl = stage.toDataURL({ pixelRatio: 2, mimeType: "image/png" });                
+                
+                    localStorage.setItem("card", dataUrl);
+                    resolve();
+                } catch (e) {
+                    console.error("Error:", e);
+                    reject(e);
+                }
+            }, 150);
+        })
+        
     }, [selectElement]);
 
     function getBar() {
