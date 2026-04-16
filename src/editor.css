@@ -209,7 +209,11 @@
       gap: var(--space-md);
 
       p {
-        font-size: var(--base-font-size);
+        font-size: 0.8rem;
+      }
+
+      .adress {
+        gap: 5px;
       }
 
       img {
@@ -236,6 +240,7 @@
     .postcardBack {
       padding: var(--space-sm);
       gap: var(--space-md);
+      column-gap: 10px;
 
       .adress {
         gap: 5px;
@@ -247,7 +252,7 @@
       }
 
       p {
-        font-size: 0.4rem;
+        font-size: 0.3rem;
       }
 
       img {
