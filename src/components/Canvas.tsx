@@ -6,8 +6,8 @@ import { useEffect, useRef } from "react";
 import { ImageNode } from "./ImageNode";
 import { StickerNode } from "./StickerNode";
 
-const CANVAS_WIDTH = 800;
-const CANVAS_HEIGHT = 500;
+const CANVAS_WIDTH = 700;
+const CANVAS_HEIGHT = 400;
 
 interface Props {
     elements: CanvasElement[];
