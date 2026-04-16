@@ -13,7 +13,6 @@ export function BadgeCard({ title, description, icon, isSelected, onSelect }: Ba
     <div 
       className={`questCard ${isSelected ? "selected" : ""}`} 
       onClick={onSelect}
-      style={{ cursor: 'pointer' }}
     >
       {icon && (
         <img src={icon} alt={`${title} icon`} aria-hidden="true" />

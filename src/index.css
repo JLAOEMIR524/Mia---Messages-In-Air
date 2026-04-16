@@ -66,10 +66,10 @@
 
   /* Border */
   --color-border: var(--color-gray-300);
-  --color-border-strong: var(--color-gray-900);
+  --color-border-strong: var(--color-gray-700);
 
   /* States */
-  --color-hover: var(--color-blue-500);
+  --color-hover: var(--color-gray-100);
   --color-focus: var(--color-blue-400);
   --color-active: var(--color-blue-800);
   --color-visited: var(--color-blue-950);
@@ -251,7 +251,7 @@ a:focus {
 
 /* Secondary variant */
 .button--secondary {
-  background-color: var(--color-button-secondary-bg);
+  background-color: var(--color-white);
   color: var(--color-primary);
   border: var(--border-width) solid var(--color-primary);
 }
@@ -264,13 +264,25 @@ a:focus {
 }
 
 .button--secondary:active {
-  background-color: var(--color-green-800);
-  color: var(--color-text-inverse);
-  transform: scale(0.98);
+  background-color: var(--color-gray-200);
+  color: var(--color-primary);
+  transform: scale(0.95);
 }
 
 .button--secondary:focus {
-  outline: var(--border-width) solid var(--color-green-600);
+  outline: var(--border-width) solid var(--color-blue-900);
+  outline-offset: 2px;
+}
+
+
+.button--image:active {
+  background-color: var(--color-gray-200);
+  color: var(--color-primary);
+  transform: scale(0.95);
+}
+
+.button--image:focus {
+  outline: var(--border-width) solid var(--color-blue-900);
   outline-offset: 2px;
 }
 
@@ -339,6 +351,11 @@ a:focus {
   background-color: var(--color-button-primary-bg-hover);
   color: var(--color-primary);
   border: var(--border-width) solid var(--color-primary);
+}
+
+.button--selected:hover {
+  background-color: var(--color-gray-100);
+
 }
 
 .warning {
@@ -489,12 +506,26 @@ a:hover {
   display: block;
 }
 
+.nav-logo-top img {
+  height: 60px;
+  width: auto;
+  display: block;
+}
+
 .nav-login img {
   width: 40px;
   height: 40px;
   display: block;
   transition: transform 0.2s ease;
 
+}
+
+.nav-logo {
+  display: block;
+}
+
+.StepBackNav {
+  display: none;
 }
 
 
@@ -705,10 +736,6 @@ a:hover {
   }
 }
 
-.newPostcard:hover {
-  background-image: linear-gradient(267deg, #2ebd67 5.75%, #2b8fc4 94.25%);
-}
-
 /* Quest Card */
 .questCard {
   height: min-content;
@@ -726,6 +753,7 @@ a:hover {
   background-color: white;
   margin-top: var(--space-md);
   box-shadow: var(--shadow-md);
+  cursor: pointer;
 
   img {
     width: 30px;
@@ -745,10 +773,29 @@ a:hover {
   }
 
   &.selected {
-    border-color: var(--color-black);
+    border-width: var(--border-width);
+    border-color: var(--color-primary);
     background-color: #f2f2f2;
     transform: scale(1.02);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.badge-list {
+  .questCard {
+    transition: background-color 0.3s ease, outline 0.3s ease;
+
+    outline: var(--border-width) solid transparent;
+
+    &:hover {
+      background-color: rgb(247, 247, 247);
+      outline: var(--border-width) solid var(--color-blue-700);
+    }
+
+    &:active {
+      outline: var(--border-width) solid var(--color-blue-800);
+      transform: 0.99;
+    }
   }
 }
 
@@ -760,6 +807,7 @@ main>.button:last-of-type {
   .questCard {
     width: 100%;
     max-width: 3000px;
+    cursor: default;
   }
 
   .questCard:first-of-type {
@@ -801,13 +849,172 @@ main>.button:last-of-type {
   }
 }
 
+/*Login COntainer*/
+.LoginContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0;
+  background-color: white;
+  padding: calc(var(--space-lg)*0.5) var(--space-lg);
+  border-radius: var(--border-radius-large);
+  min-width: 600px;
+
+  img {
+    width: 150px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    label {
+      text-align: left;
+      width: 100%;
+    }
+  }
+
+  button {
+    width: 100%;
+  }
+
+  a {
+    align-self: flex-end;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: var(--color-blue-700);
+    margin: var(--space-sm) 0;
+  }
+
+  p {
+    margin: var(--space-xs) 0;
+  }
+
+  .divider span {
+    color: black;
+  }
+
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin: var(--space-sm) 0;
+  color: var(--color-gray-500);
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--color-gray-900);
+}
+
+.divider:not(:empty)::before {
+  margin-right: var(--space-sm);
+}
+
+.divider:not(:empty)::after {
+  margin-left: var(--space-sm);
+}
+
+
+/*Register Container*/
+.RegisterContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0;
+  background-color: white;
+  padding: calc(var(--space-lg)*0.5) var(--space-lg);
+  border-radius: var(--border-radius-large);
+  min-width: 600px;
+
+  img {
+    width: 100px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    label {
+      text-align: left;
+      width: 100%;
+    }
+  }
+
+  button {
+    width: 100%;
+    margin-top: var(--space-sm);
+  }
+
+  p {
+    margin: var(--space-xs) 0;
+  }
+}
+
+/*Password Container*/
+.PasswordContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0;
+  background-color: white;
+  padding: calc(var(--space-lg)*0.5) var(--space-lg);
+  border-radius: var(--border-radius-large);
+  min-width: 600px;
+
+  img {
+    width: 100px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    label {
+      text-align: left;
+      width: 100%;
+    }
+  }
+
+  button {
+    width: 100%;
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  p {
+    margin: var(--space-xs) 0;
+  }
+
+  .LinkContainer {
+    display: flex;
+    gap: var(--space-xs);
+
+    img {
+      width: 30px;
+    }
+  }
+
+  a {
+    border-bottom: 1px solid var(--color-blue-900);
+  }
+}
+
 /* Profile Topper */
 .profileTopper {
   width: 100%;
   box-sizing: border-box;
   padding: var(--space-md);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: row;
   gap: var(--space-lg);
   margin: var(--space-sm) 0 var(--space-md) 0;
@@ -917,7 +1124,7 @@ main>.button:last-of-type {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
 
   .email-icon {
     width: 100px;
@@ -1039,6 +1246,10 @@ main>.button:last-of-type {
   }
 }
 
+.sticker-img {
+  width: 50px;
+}
+
 
 /* Load Quest Card */
 .loadQuestCard {
@@ -1052,6 +1263,11 @@ main>.button:last-of-type {
 
   border-radius: var(--border-radius);
   background: linear-gradient(267deg, #38C871 5.75%, #2A93CC 94.25%);
+
+  &.selected {
+    outline: var(--border-width) solid var(--color-blue-800);
+    transform: scale(1.01);
+  }
 
   .reloadHeadline {
     display: flex;
@@ -1081,7 +1297,7 @@ main>.button:last-of-type {
       }
 
       &:hover {
-        background-color: #efefef5c;
+        background-color: rgba(251, 251, 251, 0.503)
       }
     }
   }
@@ -1095,7 +1311,7 @@ main>.button:last-of-type {
     background-color: var(--color-white);
 
     &:hover {
-      background-color: rgb(231, 231, 231);
+      background-color: var(--color-hover);
       border: 3px solid var(--color-primary)
     }
   }
@@ -1120,8 +1336,8 @@ main>.button:last-of-type {
 }
 
 /*Step Back*/
-.StepBack{
-  img{
+.StepBack {
+  img {
     width: 35px;
     margin-bottom: var(--space-sm);
   }
@@ -1142,13 +1358,10 @@ main>.button:last-of-type {
   border: 1px solid var(--color-border);
 
   background-color: var(--color-white);
-  transition: background-color 0.4s ease;
+  transition: background-color 0.4s ease, outline-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
   cursor: pointer;
 
-  transition:
-    background-color 0.3s ease,
-    border-color 0.3s ease,
-    transform 0.2s ease;
+  outline: var(--border-width) solid transparent;
 }
 
 .messagePreview__icon-wrapper {
@@ -1205,8 +1418,9 @@ main>.button:last-of-type {
 }
 
 .messagePreview:hover {
-  background-color: rgb(247, 247, 247);
-  border: 1px solid var(--color-primary);
+  background-color: var(--color-hover);
+  outline-color: var(--color-blue-700);
+
 }
 
 /*SearchCity*/
@@ -1226,7 +1440,7 @@ main>.button:last-of-type {
   }
 
   li:hover {
-    background-color: #e2e2e2;
+    background-color: var(--color-hover);
     cursor: pointer;
 
   }
@@ -1393,13 +1607,26 @@ main>.button:last-of-type {
   gap: var(--space-sm);
   row-gap: 0;
 
-  button:first-child .icon-span {
-    width: 20px;
-    height: 19px;
-    display: inline-block;
-    background-image: url('./icons/eye-white.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
+  &:not(.gallery) {
+
+    &>button:first-child {
+      color: var(--color-primary);
+      background-color: white;
+      border: 1px solid var(--color-primary);
+    }
+
+    &>button:first-child .icon-span {
+      width: 20px;
+      height: 19px;
+      display: inline-block;
+      background-image: url('./icons/eye-blue.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    &>button:first-child:hover {
+      background-color: var(--color-hover);
+    }
   }
 
   button.button--image:first-child:hover .icon-span {
@@ -1413,6 +1640,14 @@ main>.button:last-of-type {
 
 .button-flex.gallery button:first-child:hover .icon-span {
   background-image: url('./icons/email-blue.svg');
+}
+
+.button-flex .message .icon-span {
+  background-image: url('./icons/arrow-right-white.svg') !important;
+}
+
+.button-flex .message:hover .icon-span {
+  background-image: url('./icons/arrow-right-blue.svg') !important;
 }
 
 .gallery .button--image:nth-child(2) .icon-span {
@@ -1589,6 +1824,20 @@ ol {
 /* New Postcard Component */
 .newPostcard {
   padding: 30px 30px;
+  cursor: pointer;
+}
+
+.newPostcard:hover {
+  background-image: linear-gradient(267deg, #2ebd67 5.75%, #2b8fc4 94.25%);
+  outline: var(--border-width) solid var(--color-blue-700);
+}
+
+.newPostcard {
+  &:active {
+    transform: scale(0.99);
+    outline: var(--border-width) solid var(--color-blue-800);
+
+  }
 }
 
 /* Profile Topper */
@@ -1769,16 +2018,14 @@ ol {
 
   .button {
     padding: calc(var(--space-sm) * 0.5) calc(var(--space-md) * 0.8);
-    font-size: 0.95rem;
   }
 
   .button--small {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     padding: calc(var(--space-sm) * 0.6) var(--space-sm);
   }
 
   .button--large {
-    font-size: 1rem;
     padding: calc(var(--space-sm) * 0.8) calc(var(--space-md) * 1.1);
   }
 
@@ -2036,6 +2283,33 @@ ol {
       margin-top: 0rem;
     }
   }
+
+  .StepBack {
+    display: none;
+  }
+
+  .nav-logo {
+    display: none;
+  }
+
+  .StepBackNav {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .LoginContainer {
+    min-width: 500px;
+  }
+
+  .RegisterContainer {
+    min-width: 500px;
+  }
+
+  .PasswordContainer {
+    min-width: 500px;
+  }
 }
 
 /*Mobile*/
@@ -2150,6 +2424,25 @@ ol {
     top: var(--space-lg);
     left: var(--space-lg);
   }
+
+  .LoginContainer {
+    min-width: 400px;
+    padding: var(--space-md);
+    margin-top: calc(var(--space-lg)*1.5)
+  }
+
+
+  .RegisterContainer {
+    min-width: 400px;
+    padding: var(--space-md);
+    margin-top: calc(var(--space-lg)*1.5)
+  }
+
+  .PasswordContainer {
+    min-width: 400px;
+    padding: var(--space-md);
+    margin-top: calc(var(--space-lg)*1.5)
+  }
 }
 
 @media (width < 450px) {
@@ -2205,12 +2498,36 @@ ol {
     top: var(--space-lg);
     left: var(--space-md);
   }
+
+  .LoginContainer {
+    min-width: 320px;
+  }
+
+  .RegisterContainer {
+    min-width: 320px;
+  }
+
+  .PasswordContainer {
+    min-width: 320px;
+  }
 }
 
 @media (width < 300px) {
   .statisticCard {
     div {
       gap: var(--space-xs);
+    }
+
+    .LoginContainer {
+      min-width: 0px;
+    }
+
+    .RegisterContainer {
+      min-width: 0px;
+    }
+
+    .PasswordContainer {
+      min-width: 0px;
     }
   }
 }

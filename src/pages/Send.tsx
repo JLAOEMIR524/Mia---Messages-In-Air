@@ -1,16 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { FeedbackCard } from "../components/SendCards";
 import { useEffect } from "react";
+import Confetti from "react-confetti";
 
 export function Send() {
-    useEffect(() => {
-      document.body.classList.add("background-heaven");
-  
-      return () => {
-        document.body.classList.remove("background-heaven");
-      };
-    }, []);
-    
+  useEffect(() => {
+    document.body.classList.add("background-heaven");
+
+    return () => {
+      document.body.classList.remove("background-heaven");
+    };
+  }, []);
+
   const navigate = useNavigate();
 
   return (
@@ -23,9 +24,10 @@ export function Send() {
         message={<>Quest Rating</>}
         rating={2}
         xpAmount={30}
-        onContinue={() => (navigate("/dashboard"))}
-        onSeeDetails={() => (navigate("/details"))}
+        onContinue={() => navigate("/dashboard")}
+        onSeeDetails={() => navigate("/details", { state: { fromSend: true } })}
       />
+      <Confetti numberOfPieces={450} recycle={false} />
     </main>
   );
 }

@@ -54,7 +54,7 @@ export function Editor() {
 
     async function handlePageSwitch(){
         await handleExport();
-        navigate("/message");
+        navigate("/message", { state: { fromEditor: true } });
     }
 
     return (
