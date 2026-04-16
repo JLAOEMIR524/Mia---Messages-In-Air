@@ -793,7 +793,7 @@ a:hover {
     }
 
     &:active{
-      outline: var(--border-width) solid var(--color-blue-900);
+      outline: var(--border-width) solid var(--color-blue-800);
       transform: 0.99;
     }
   }
@@ -1669,13 +1669,13 @@ ol {
 
 .newPostcard:hover {
   background-image: linear-gradient(267deg, #2ebd67 5.75%, #2b8fc4 94.25%);
-  outline: var(--border-width) solid var(--color-blue-800);
+  outline: var(--border-width) solid var(--color-blue-700);
 }
 
 .newPostcard {
   &:active {
     transform: scale(0.99);
-    outline: var(--border-width) solid var(--color-blue-900);
+    outline: var(--border-width) solid var(--color-blue-800);
 
   }
 }
