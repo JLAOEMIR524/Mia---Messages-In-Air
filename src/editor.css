@@ -26,6 +26,7 @@
     gap: var(--space-md);
     overflow-x: auto;
     overflow-y: hidden;
+    padding-bottom: 1rem;
 
     .barItem {
       width: 125px;
