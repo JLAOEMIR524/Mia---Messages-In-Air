@@ -44,9 +44,17 @@ export function ImageNode({element, isSelected, onSelect, onChange}: Props) {
                 onTransformEnd={() => {
                     const node = shapeRef.current;
                     if(!node) return;
+
+                    const scaleX = node.scaleX();
+                    const scaleY = node.scaleY();
+
+                    node.scaleX(1);
+                    node.scaleY(1);
+
                     onChange({
                         x: node.x(), y: node.y(), 
-                        width: Math.max(30, node.width() * node.scaleX()), height: Math.max(30, node.height() * node.scaleY()),
+                        width: Math.max(30, node.width() * scaleX), 
+                        height: Math.max(30, node.height() * scaleY),
                         rotation: node.rotation(),
                         scaleX: 1, scaleY: 1,
                     });

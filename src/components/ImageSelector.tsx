@@ -75,7 +75,7 @@ export function PhotoUploader() {
                             draggable
                             onDragStart={(e) => handleDragStart(e, image)}
                         />
-                        <button onClick={() => handleRemove(i)} className="button">×</button>
+                        <button onClick={() => handleRemove(i)} className="button--delete">X</button>
                     </div>
                 ))}
                 {Array.from({length: emptySlots }).map((_, i) => (

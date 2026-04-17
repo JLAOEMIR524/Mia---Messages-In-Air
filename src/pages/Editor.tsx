@@ -154,9 +154,9 @@ export function Editor() {
             </div>
             <div 
                 style={{ cursor: "pointer", marginTop: "2.5rem" }}
-                onClick={() => handlePageSwitch()}
+                onClick={() => !IsPostcardEmpty && handlePageSwitch()}
             >
-                <button className="button button--image">
+                <button className="button button--image" disabled={IsPostcardEmpty}>
                     Continue to message
                     <span className="icon-span"></span>
                 </button>
