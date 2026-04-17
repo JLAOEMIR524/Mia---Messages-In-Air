@@ -27,7 +27,12 @@ export function Send() {
         onContinue={() => navigate("/dashboard")}
         onSeeDetails={() => navigate("/details", { state: { fromSend: true } })}
       />
-      <Confetti numberOfPieces={450} recycle={false} />
+      <Confetti
+        numberOfPieces={450}
+        recycle={false}
+        width={window.innerWidth}
+        height={window.innerHeight}
+      />
     </main>
   );
 }

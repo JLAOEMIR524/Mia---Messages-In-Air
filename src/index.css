@@ -1114,7 +1114,7 @@ main>.button:last-of-type {
   background-size: cover;
   background-position: center;
   min-height: 100dvh;
-  text-align: center;
+  margin: 0;
 }
 
 .heaven {
