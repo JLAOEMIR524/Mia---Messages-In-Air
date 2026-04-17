@@ -50,7 +50,7 @@ export function ProfileTopper({
             <h3>{name}</h3>
             <p>Email: {email}</p>
             <p>Member Since: {memberSince}</p>
-            <p>Postcards Sent {postcardsSent}</p>
+            <p>Postcards Sent: {postcardsSent}</p>
           </hgroup>
 
           <button
