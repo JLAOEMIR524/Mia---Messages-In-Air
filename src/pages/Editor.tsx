@@ -1,8 +1,8 @@
-import type Konva from 'konva';
+import Konva from 'konva';
 import { Canvas } from '../components/Canvas'
 import { PhotoUploader } from '../components/ImageSelector';
 import { usePostcard } from '../hooks/usePostcard';
-import { useRef, useCallback, useState } from 'react';
+import React, { useRef, useCallback, useState, useEffect } from 'react';
 import { useResponsiveScale } from '../hooks/useResponsiveScale';
 import { StickerSelector } from '../components/StickerSelector';
 import { Step } from '../components/Step';
@@ -50,6 +50,27 @@ export function Editor() {
         await handleExport();
         navigate("/message", { state: { fromEditor: true } });
     }
+
+    useEffect(() => {
+        const handleKeyDown =(e: KeyboardEvent) => {
+            if(e.key === "Delete" || e.key === "Backspace"){
+                deleteSelected();
+            }
+            if(e.key === "ArrowUp"){
+                upSelected();
+            }
+            if(e.key === "ArrowDown"){
+                downSelected();
+            }
+            if(e.key === "Escape"){
+                e.preventDefault();
+                selectElement(null)
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown);
+        return() => window.removeEventListener("keydown", handleKeyDown);
+    }, [deleteSelected, upSelected, downSelected, selectElement])
 
     const IsPostcardEmpty = elements.length === 0;
 

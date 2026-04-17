@@ -58,7 +58,7 @@ export function Canvas({elements, selectedId, onSelect, onUpdate, onDrop, stageR
     const handleStageClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
         if(e.target === e.target.getStage()){
             onSelect(null);
-        }
+        } 
     };
 
     return (
@@ -90,7 +90,8 @@ export function Canvas({elements, selectedId, onSelect, onUpdate, onDrop, stageR
                     width={CANVAS_WIDTH-5}
                     height={CANVAS_HEIGHT-5}
                     cornerRadius={20}
-                    
+                    onClick={() => onSelect(null)}
+                    onTap={() => onSelect(null)}
                 />
                 {elements.map(elem => (
                     elem.type === "image" ? (
