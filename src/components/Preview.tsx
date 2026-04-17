@@ -25,6 +25,7 @@ export function Preview({isOpen, onClose}: PreviewProps) {
     
         loadData();
     }, []);
+
     useEffect(() => {
         if (!isOpen) return;
         
@@ -44,8 +45,19 @@ export function Preview({isOpen, onClose}: PreviewProps) {
 
     }, [isOpen, onClose]);
 
-   
+    useEffect(() => {
+        const handleKeyDown =(e: KeyboardEvent) => {
+            if(e.key === "Escape"){
+                e.preventDefault()
+                onClose();
+            }
+        }
 
+        window.addEventListener("keydown", handleKeyDown);
+        return() => window.removeEventListener("keydown", handleKeyDown);
+    }, [onClose])
+
+   
     if(!isOpen) return null;
 
     return (
