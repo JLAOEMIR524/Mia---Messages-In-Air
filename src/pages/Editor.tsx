@@ -72,6 +72,7 @@ export function Editor() {
         return() => window.removeEventListener("keydown", handleKeyDown);
     }, [deleteSelected, upSelected, downSelected, selectElement])
 
+    const IsPostcardEmpty = elements.length === 0;
 
     return (
         <main className='imageEditor'>
