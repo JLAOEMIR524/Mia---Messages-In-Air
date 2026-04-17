@@ -641,6 +641,8 @@ a:hover {
 
 .card img {
   width: 100%;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
 }
 
 .card button {
