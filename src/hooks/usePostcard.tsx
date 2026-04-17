@@ -58,7 +58,29 @@ export function usePostcard() {
         setSelectedId(null);
     }, [selectedId]);
 
+    const upSelected = useCallback(() => {
+        if(!selectedId) return;
+        setElements((prev) => {
+            const index = prev.findIndex((element) => element.id === selectedId);
+            if(index < 0 || index >= prev.length - 1) return prev;
+            const newArray = [...prev];
+            [newArray[index + 1], newArray[index]] = [newArray[index], newArray[index + 1]]
+            return newArray;
+        })
+    }, [selectedId])
+
+    const downSelected = useCallback(() => {
+        if(!selectedId) return;
+        setElements((prev) => {
+            const index = prev.findIndex((element) => element.id === selectedId);
+            if(index <= 0) return prev;
+            const newArray = [...prev];
+            [newArray[index - 1], newArray[index]] = [newArray[index], newArray[index - 1]]
+            return newArray;
+        })
+    }, [selectedId])
+
     return {
-        elements, selectedId, selectElement, addElementDrop, updateElement, deleteSelected,
+        elements, selectedId, selectElement, addElementDrop, updateElement, deleteSelected, upSelected, downSelected,
     };
 }

@@ -18,7 +18,7 @@ export function Editor() {
     const navigate = useNavigate();
 
     const {
-        elements, selectedId, selectElement, addElementDrop, updateElement, deleteSelected,
+        elements, selectedId, selectElement, addElementDrop, updateElement, deleteSelected, upSelected, downSelected
     } = usePostcard();
 
     const handleExport = useCallback((): Promise<void> => {
@@ -97,8 +97,36 @@ export function Editor() {
                     scale={scale}
                 />
                 <div className='editActions'>
-                    <button className="button button--primary" onClick={deleteSelected} disabled={!selectedId}>Delete Selected</button>
-                    {/* Insert layer up/down */}
+                    <button 
+                        className={`button button--image ${ "up" === currentBar ? 'button--selected' : '' }`}
+                        onMouseOver={() => setFocus("up")}
+                        onMouseOut={() => setFocus(null)}
+                        onClick={upSelected} 
+                        disabled={!selectedId}
+                    > 
+                        <img src={`./icons/flip_front${ selectedId ? focus === "up" ? "" : "_w" : "_b"}.svg`} alt="flip front icon" aria-hidden="true"/>
+                        Up
+                    </button>
+                    <button 
+                        className={`button button--image ${ "down" === currentBar ? 'button--selected' : '' }`}
+                        onMouseOver={() => setFocus("down")}
+                        onMouseOut={() => setFocus(null)}
+                        onClick={downSelected} 
+                        disabled={!selectedId}
+                    > 
+                        <img src={`./icons/flip_back${ selectedId ? focus === "down" ? "" : "_w" : "_b"}.svg`} alt="flip front icon" aria-hidden="true"/>
+                        Down
+                    </button>
+                    <button 
+                        className={`button button--image  ${ "delete" === currentBar ? 'button--selected' : '' }`}
+                        onMouseOver={() => setFocus("delete")}
+                        onMouseOut={() => setFocus(null)}
+                        onClick={deleteSelected} 
+                        disabled={!selectedId}
+                    > 
+                        <img src={`./icons/trash${ selectedId ? focus === "delete" ? "" : "_w" : "_b"}.svg`} alt="delete icon icon" aria-hidden="true"/>
+                        Delete
+                    </button>
                 </div>
             </div>
             <div 
