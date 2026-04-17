@@ -2,7 +2,7 @@ import Konva from 'konva';
 import { Canvas } from '../components/Canvas'
 import { PhotoUploader } from '../components/ImageSelector';
 import { usePostcard } from '../hooks/usePostcard';
-import React, { useRef, useCallback, useState, useEffect } from 'react';
+import { useRef, useCallback, useState, useEffect } from 'react';
 import { useResponsiveScale } from '../hooks/useResponsiveScale';
 import { StickerSelector } from '../components/StickerSelector';
 import { Step } from '../components/Step';
