@@ -1734,6 +1734,10 @@ main>.button:last-of-type {
   }
 }
 
+.center{
+  text-align: center;
+}
+
 /* Country Card */
 .countryCard {
   height: min-content;

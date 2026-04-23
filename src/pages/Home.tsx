@@ -19,7 +19,7 @@ export function Home() {
       <h1>
         Mia <span>Messages in Air</span>
       </h1>
-      <div>
+      <div className="center">
         <p>A postcard to a stranger.</p>
         <p>No likes. No followers. No feed.</p>
         <p>Just real, unexpected messages.</p>
