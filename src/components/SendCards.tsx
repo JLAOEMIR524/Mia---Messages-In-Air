@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface FeedbackCardProps {
   title?: string;
@@ -64,14 +65,19 @@ export function FeedbackCard({
           <p>+{xpAmount} XP</p>
         </div>
         {onSeeDetails && (
-          <button className="xpExpand" onClick={onSeeDetails}>
-            See details
-          </button>
+          <Link
+            to="/details"
+            state={{ fromSend: true }}
+            className="xpExpand"
+            onClick={onSeeDetails}
+          >
+            View Details
+          </Link>
         )}
       </div>
-      <button className="button button--primary" onClick={onContinue}>
+      <Link to="/dashboard" className="button button--primary" onClick={onContinue}>
         Back to Dashboard
-      </button>
+      </Link>
     </div>
   );
 }

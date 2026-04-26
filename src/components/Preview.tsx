@@ -68,7 +68,7 @@ export function Preview({isOpen, onClose}: PreviewProps) {
             <div className="preview" ref={ref}>
                 <div className="previewTop">
                     <h2>Preview</h2>
-                    <img 
+                    <img             
                         src="./icons/close.svg" 
                         alt="Close icon"
                         onClick={onClose}

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FeedbackCard } from "../components/SendCards";
 import { useEffect } from "react";
 
@@ -16,9 +16,9 @@ export function Details() {
   
   return (
     <main className="heaven">
-      <button onClick={() => navigate(-1)} className="arrowBack">
+      <Link to="#" onClick={() => navigate(-1)} className="arrowBack">
         <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
-      </button>
+      </Link>
 
       <FeedbackCard
         title="Rating - Details"

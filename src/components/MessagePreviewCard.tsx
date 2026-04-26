@@ -1,10 +1,12 @@
+import { Link } from "react-router-dom";
+
 interface MessagePreviewProps {
   titel: string;
   country: string;
   previewText: string;
   statusIcon?: string;
   flagIcon?: string;
-  onClick?: () => void;
+  to: string;
 }
 
 export function MessagePreview({ 
@@ -13,10 +15,10 @@ export function MessagePreview({
   previewText, 
   statusIcon = "./icons/paper-plane-white.svg", 
   flagIcon = "./icons/flag.svg",
-  onClick 
+  to, 
 }: MessagePreviewProps) {
   return (
-    <button className="messagePreview preview--from" onClick={onClick}>
+    <Link to={to} className="messagePreview preview--from">
       <div className="messagePreview__icon-wrapper">
         <img src={statusIcon} alt="Status" />
       </div>
@@ -31,6 +33,6 @@ export function MessagePreview({
         
         <p className="messagePreview__text">{previewText}</p>
       </div>
-    </button>
+    </Link>
   );
 }

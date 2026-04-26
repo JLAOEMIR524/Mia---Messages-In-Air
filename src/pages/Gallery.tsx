@@ -2,7 +2,7 @@ import { MapContainer } from "react-leaflet";
 import { Card } from "../components/Card";
 import type { LatLngExpression } from "leaflet";
 import { CityBadge } from "../components/CityBadge";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 export function Gallery() {
@@ -19,9 +19,9 @@ export function Gallery() {
 
   return (
     <main className="left">
-      <button onClick={handleBack} className="StepBack">
+      <Link to="#" onClick={handleBack} className="StepBack" aria-label="Back">
         <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
-      </button>
+      </Link>
       <h1 className="text-l">Your Gallery 🖼️</h1>
       <p>All the postcards you've sent and received</p>
       <div className="button-flex gallery">

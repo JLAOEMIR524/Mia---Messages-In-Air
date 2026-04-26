@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 export function ForgotPassword() {
   useEffect(() => {
     document.body.classList.add("background-heaven");
-    document.title = "Mia | Forgot Password"
+    document.title = "Mia | Forgot Password";
 
     return () => {
       document.body.classList.remove("background-heaven");
@@ -14,14 +14,17 @@ export function ForgotPassword() {
   const navigate = useNavigate();
   return (
     <main className="heaven">
-      <button onClick={() => navigate("/home")} className="arrowBack">
+      <Link to="/home" className="arrowBack" aria-label="Back">
         <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
-      </button>
+      </Link>
       <div className="PasswordContainer">
         <img src="Logo_without_text.png" alt="Logo Mia" />
         <h1 className="text-s">Forgot your password?</h1>
         <p>No problem! We're here to help 🔑</p>
-        <p className="limitParagraph">Enter your email address and we'll send you a link to reset your password.</p>
+        <p className="limitParagraph">
+          Enter your email address and we'll send you a link to reset your
+          password.
+        </p>
         <form>
           <label htmlFor="emailUser">E-Mail:</label>
           <input
