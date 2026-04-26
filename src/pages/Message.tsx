@@ -40,10 +40,10 @@ export function Message() {
   }, []);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setQuestText(e.target.value);
-    localStorage.setItem("currentPostcardText", questText);
+    const newText = e.target.value;
+    setQuestText(newText);
+    localStorage.setItem("currentPostcardText", newText);
   };
-
   const allLocations = [
     ...data.cities.map((c) => ({ name: c.name, type: "City" })),
     ...data.countries.map((c) => ({ name: c.name, type: "Country" })),
@@ -75,7 +75,10 @@ export function Message() {
         <h1 className="text-l">Write Your Message 💌</h1>
         <p>Share your thoughts with a stranger somewhere in the world</p>
 
-        <div className="container-messages">
+        <form
+          className="container-messages"
+          onSubmit={(e) => e.preventDefault()}
+        >
           {selectedQuest ? (
             <BadgeCard
               headingLevel="h2"
@@ -86,13 +89,17 @@ export function Message() {
             <p>No quest selected.</p>
           )}
           <div className="flexbox">
-            <h2 className="text-s">
-              Your Message <span>(min. 100 Characters)</span>
-            </h2>
+            <label htmlFor="message-text">
+              <h2 className="text-s">
+                Your Message <span>(min. 100 Characters)</span>
+              </h2>
+            </label>
             <textarea
+              id="message-text"
               className="quest-textarea"
               value={questText}
               onChange={handleTextChange}
+              autoComplete="off"
               placeholder="Write something ..."
               rows={5}
               required
@@ -102,11 +109,15 @@ export function Message() {
             <p>Characters: {questText.length}/700</p>
           </div>
           <div className="flexbox">
-            <h2 className="text-s">Where are you writing from?</h2>
+            <label htmlFor="location-search">
+              <h2 className="text-s">Where are you writing from?</h2>
+            </label>
             <div className="search-container" style={{ position: "relative" }}>
               <div className="input-wrapper">
                 <input
+                  id="location-search"
                   type="text"
+                  autoComplete="off"
                   value={searchTerm}
                   onChange={(e) => {
                     setSearchTerm(e.target.value);
@@ -125,9 +136,20 @@ export function Message() {
               </div>
 
               {showDropdown && filteredResults.length > 0 && (
-                <ul className="search-results">
+                <ul className="search-results" role="listbox">
                   {filteredResults.map((loc, index) => (
-                    <li key={index} onClick={() => handleSelect(loc.name)}>
+                    <li
+                      key={index}
+                      role="option"
+                      tabIndex={0}
+                      onClick={() => handleSelect(loc.name)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          handleSelect(loc.name);
+                        }
+                      }}
+                      className="search-result-item"
+                    >
                       {loc.name} <small>({loc.type})</small>
                     </li>
                   ))}
@@ -158,7 +180,7 @@ export function Message() {
               </ul>
             }
           />
-        </div>
+        </form>
         {questText.length < 100 && (
           <p className="warning">Your Message is too short :(</p>
         )}

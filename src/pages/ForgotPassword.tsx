@@ -32,6 +32,7 @@ export function ForgotPassword() {
             name="emailUser"
             type="email"
             placeholder="mia@email.com"
+            autoComplete="email"
             required
           />
         </form>

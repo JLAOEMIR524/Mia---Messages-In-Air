@@ -35,11 +35,11 @@ export function NavBar() {
       <div className="topContainer">
         <div className="mobileBar">
           {!isMobile ? (
-            <Link to="/dashboard">
+            <Link to="/dashboard" aria-hidden="true" tabIndex={-1}>
               <img className="logo" src="./Logo.png" alt="Mia Logo" />
             </Link>
           ) : isDashboard ? (
-            <Link to="/dashboard">
+            <Link to="/dashboard" aria-hidden="true" tabIndex={-1}>
               <img
                 className="logo"
                 src="./Logo_without_text.png"
@@ -52,7 +52,7 @@ export function NavBar() {
                 className="backIconSmall"
                 src="/icons/arrow-back.svg"
                 alt="Back"
-                style={{width: "30px", margin: "var(--space-xs) 0"}}
+                style={{ width: "30px", margin: "var(--space-xs) 0" }}
               />
             </button>
           )}
