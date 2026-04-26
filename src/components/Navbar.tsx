@@ -35,11 +35,11 @@ export function NavBar() {
       <div className="topContainer">
         <div className="mobileBar">
           {!isMobile ? (
-            <Link to="/dashboard">
+            <Link to="/dashboard" tabIndex={-1}>
               <img className="logo" src="./Logo.png" alt="Mia Logo" />
             </Link>
           ) : isDashboard ? (
-            <Link to="/dashboard">
+            <Link to="/dashboard" tabIndex={-1}>
               <img
                 className="logo"
                 src="./Logo_without_text.png"

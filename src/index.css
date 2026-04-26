@@ -807,18 +807,29 @@ a:hover {
 
 .badge-list {
   .questCard {
-    transition: background-color 0.3s ease, outline 0.3s ease;
-
-    outline: var(--border-width) solid transparent;
+    transition: background-color 0.3s ease, outline 0.3s ease, transform 0.1s ease;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
 
     &:hover {
       background-color: rgb(247, 247, 247);
       outline: var(--border-width) solid var(--color-blue-700);
     }
 
+    &:focus-visible {
+      outline: 3px solid var(--color-blue-700);
+      outline-offset: 4px;
+      background-color: rgb(247, 247, 247);
+    }
+
     &:active {
       outline: var(--border-width) solid var(--color-blue-800);
-      transform: 0.99;
+      transform: scale(0.98);
+    }
+
+    &.selected {
+       outline: 2px solid var(--color-blue-700);
+       background-color: #f0f0f0;
     }
   }
 }
@@ -1387,6 +1398,10 @@ main>.button:last-of-type {
     width: 35px;
     margin-bottom: var(--space-sm);
   }
+}
+
+.closePreview {
+    padding: 8px;
 }
 
 .StepBack.left {
