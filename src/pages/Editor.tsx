@@ -188,26 +188,31 @@ export function Editor() {
             Delete
           </button>
         </div>
+        {IsPostcardEmpty && (
+          <p className="warning fixed">
+            Please add some content to your postcard to continue.
+          </p>
+        )}
       </div>
       <div
         style={{ cursor: "pointer", marginTop: "2.5rem" }}
         onClick={() => !IsPostcardEmpty && handlePageSwitch()}
       >
         {IsPostcardEmpty ? (
-        <button className="button button--image" disabled>
-          Continue to Editor
-          <span className="icon-span"></span>
-        </button>
-      ) : (
-        <Link
-          to="/editor"
-          state={{ fromQuest: true }}
-          className="button button--image"
-        >
-          Continue to Message
-          <span className="icon-span"></span>
-        </Link>
-      )}
+          <button className="button button--image" disabled>
+            Continue to Editor
+            <span className="icon-span"></span>
+          </button>
+        ) : (
+          <Link
+            to="/editor"
+            state={{ fromQuest: true }}
+            className="button button--image"
+          >
+            Continue to Message
+            <span className="icon-span"></span>
+          </Link>
+        )}
       </div>
     </main>
   );

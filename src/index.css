@@ -2209,7 +2209,11 @@ ol {
 .editActions {
   display: flex;
   gap: var(--space-md);
-  margin-bottom: 1.5rem;
+  margin-bottom: -1.5rem;
+}
+
+.fixed{
+  margin-bottom: 2rem;
 }
 
 /* Bar Selector */
