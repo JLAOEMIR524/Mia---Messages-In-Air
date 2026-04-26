@@ -346,6 +346,14 @@ a:focus {
   background-image: url('./icons/arrow-right-blue.svg');
 }
 
+main.imageEditor > div:last-child .button--image {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    
+}
+
+
 /* Button Selected */
 .button--selected {
   background-color: var(--color-button-primary-bg-hover);
