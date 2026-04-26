@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { NavBarTop } from "../components/NavbarTop";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function Home() {
   useEffect(() => {
@@ -11,8 +11,6 @@ export function Home() {
       document.body.classList.remove("background-heaven");
     };
   }, []);
-
-    const navigate = useNavigate();
     
   return (
     <main className="heaven">
@@ -26,7 +24,7 @@ export function Home() {
         <p>Just real, unexpected messages.</p>
       </div>
       <div className="button-flex gallery">
-        <button className="button button--primary" onClick={() => navigate("/login")}>Start now</button>
+        <Link to="/login" className="button button--primary">Start now</Link>
         <button className="button button--secondary">Find out more</button>
       </div>
       <Link to="/login">

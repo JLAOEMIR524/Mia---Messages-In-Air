@@ -1,4 +1,4 @@
-import { useState, useEffect  } from "react";
+import { useState, useEffect } from "react";
 import { BadgeCard } from "../components/BadegeCard";
 import { Step } from "../components/Step";
 import data from "../api/cities.json";
@@ -21,7 +21,7 @@ export function Message() {
   };
 
   useEffect(() => {
-    document.title = "Mia | Writing Message"
+    document.title = "Mia | Writing Message";
 
     const savedQuest = localStorage.getItem("selectedQuest");
     if (savedQuest) {
@@ -68,9 +68,9 @@ export function Message() {
   return (
     <>
       <main>
-        <button onClick={handleBack} className="StepBack left">
+        <Link to="#" onClick={handleBack} className="StepBack left">
           <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
-        </button>
+        </Link>
         <Step currentStep={3} totalSteps={3} />
         <h1 className="text-l">Write Your Message 💌</h1>
         <p>Share your thoughts with a stranger somewhere in the world</p>
@@ -78,7 +78,7 @@ export function Message() {
         <div className="container-messages">
           {selectedQuest ? (
             <BadgeCard
-            headingLevel="h2"
+              headingLevel="h2"
               title={selectedQuest.title}
               description={selectedQuest.description}
             />
@@ -86,7 +86,9 @@ export function Message() {
             <p>No quest selected.</p>
           )}
           <div className="flexbox">
-            <h2 className="text-s">Your Message <span>(min. 100 Characters)</span></h2>
+            <h2 className="text-s">
+              Your Message <span>(min. 100 Characters)</span>
+            </h2>
             <textarea
               className="quest-textarea"
               value={questText}
@@ -135,14 +137,16 @@ export function Message() {
               {!selectedLocation &&
                 searchTerm.length > 2 &&
                 filteredResults.length === 0 && (
-                  <p style={{ color: "var(--color-primary)", fontSize: "1rem" }}>
+                  <p
+                    style={{ color: "var(--color-primary)", fontSize: "1rem" }}
+                  >
                     Location not found.
                   </p>
                 )}
             </div>
           </div>
           <BadgeCard
-          headingLevel="h2"
+            headingLevel="h2"
             title="✨ Tips for more XP:"
             description={
               <ul style={{ listStyle: "none", padding: 0 }}>
@@ -159,7 +163,7 @@ export function Message() {
           <p className="warning">Your Message is too short :(</p>
         )}
         <div className="button-flex">
-          <button 
+          <button
             className="button button--image"
             onClick={() => setShowPreview(true)}
           >
@@ -167,21 +171,22 @@ export function Message() {
             Preview
           </button>
 
-         <Link to="/send" state={{ fromMessage: true }} style={{ textDecoration: "none", border: "none" }}>
-          <button
-            className="button button--image message"
-            disabled={!selectedLocation || questText.length < 100}
-            >
-              Send Postcard
-              <span className="icon-span"></span>
-            </button>
+          <Link
+            to="/send"
+            state={{ fromMessage: true }}
+            className={`button button--image message ${!selectedLocation || questText.length < 100 ? "is-disabled" : ""}`}
+            onClick={(e) => {
+              if (!selectedLocation || questText.length < 100) {
+                e.preventDefault();
+              }
+            }}
+          >
+            Send Postcard
+            <span className="icon-span"></span>
           </Link>
         </div>
       </main>
-      <Preview 
-        isOpen={showPreview}
-        onClose={()=> setShowPreview(false)}
-      />
+      <Preview isOpen={showPreview} onClose={() => setShowPreview(false)} />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FeedbackCard } from "../components/SendCards";
 import { useEffect } from "react";
 import Confetti from "react-confetti";
@@ -17,9 +17,9 @@ export function Send() {
 
   return (
     <main className="heaven">
-      <button onClick={() => navigate("/dashboard")} className="arrowBack">
+      <Link to="/dashboard" className="arrowBack">
         <img src="./icons/close.svg" alt="Arrow Back Icon" />
-      </button>
+      </Link>
       <FeedbackCard
         title="Postcard Sent! 🎉"
         message={<>Quest Rating</>}

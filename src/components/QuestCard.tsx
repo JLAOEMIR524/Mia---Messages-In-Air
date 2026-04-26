@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 interface QuestCardProps {
   title: string;
   description: string;
@@ -36,9 +38,9 @@ export function QuestCard({
 
       <p>{description}</p>
 
-      <button className="button" onClick={onContinue}>
+      <Link to="/editor" state={{ fromQuest: true }}  className="button" onClick={onContinue}>
         Choose This Quest
-      </button>
+      </Link>
     </div>
   );
 }

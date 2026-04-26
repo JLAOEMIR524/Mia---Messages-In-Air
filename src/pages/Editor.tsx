@@ -6,7 +6,7 @@ import { useRef, useCallback, useState, useEffect } from "react";
 import { useResponsiveScale } from "../hooks/useResponsiveScale";
 import { StickerSelector } from "../components/StickerSelector";
 import { Step } from "../components/Step";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const CANVAS_WIDTH = 800;
 
@@ -85,13 +85,17 @@ export function Editor() {
     document.title = "Mia | Editor";
   }, []);
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   const IsPostcardEmpty = elements.length === 0;
 
   return (
     <main className="imageEditor">
-      <button onClick={() => navigate(-1)} className="StepBack left">
+      <Link to="#" onClick={handleBack} className="StepBack left">
         <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
-      </button>
+      </Link>
       <Step currentStep={2} />
       <h1 className="text-l">Create Your Photo Collage 📸</h1>
       <p>Upload pictures and use stickers to create a unique collage.</p>
@@ -189,10 +193,21 @@ export function Editor() {
         style={{ cursor: "pointer", marginTop: "2.5rem" }}
         onClick={() => !IsPostcardEmpty && handlePageSwitch()}
       >
-        <button className="button button--image" disabled={IsPostcardEmpty}>
-          Continue to message
+        {IsPostcardEmpty ? (
+        <button className="button button--image" disabled>
+          Continue to Editor
           <span className="icon-span"></span>
         </button>
+      ) : (
+        <Link
+          to="/editor"
+          state={{ fromQuest: true }}
+          className="button button--image"
+        >
+          Continue to Message
+          <span className="icon-span"></span>
+        </Link>
+      )}
       </div>
     </main>
   );

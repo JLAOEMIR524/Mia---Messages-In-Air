@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function ImprintPrivacy() {
   const navigate = useNavigate();
@@ -14,9 +14,9 @@ export function ImprintPrivacy() {
 
   return (
     <main className="left">
-      <button onClick={handleBack} className="StepBack">
+      <Link to="#" onClick={handleBack} className="StepBack" aria-label="Back">
         <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
-      </button>
+      </Link>
 
       <div className="imprint-privacy-container">
         <h1 className="text-l">Imprint & Privacy 📜</h1>

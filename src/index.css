@@ -70,7 +70,7 @@
 
   /* States */
   --color-hover: var(--color-gray-100);
-  --color-focus: var(--color-blue-400);
+  --color-focus: var(--color-blue-500);
   --color-active: var(--color-blue-800);
   --color-visited: var(--color-blue-950);
   --color-disabled: var(--color-gray-100);
@@ -192,8 +192,7 @@ a:visited {
 
 a:focus {
   color: var(--color-focus);
-  border-bottom: var(--border-width) solid var(--color-focus);
-  outline: none;
+  outline: var(--border-width) solid var(--color-focus);
 }
 
 .text--small {
@@ -782,7 +781,7 @@ a:hover {
       padding: 0;
     }
 
-    h2{
+    h2 {
       font-size: 2rem;
     }
   }
@@ -898,16 +897,19 @@ main>.button:last-of-type {
     }
   }
 
-  button {
-    width: 100%;
-  }
-
   a {
     align-self: flex-end;
     font-size: 0.9rem;
     text-decoration: none;
     color: var(--color-blue-700);
     margin: var(--space-sm) 0;
+  }
+
+  .button {
+    width: 100%;
+    font-size: 1.1rem;
+    text-decoration: none;
+    text-align: center;
   }
 
   p {
@@ -1389,6 +1391,24 @@ main>.button:last-of-type {
   margin-right: auto;
 }
 
+a.messagePreview {
+  border-bottom: 1px solid var(--color-border);
+}
+
+a.button--primary {
+  border-bottom: 2px solid var(--color-primary);
+  color: white;
+}
+
+a.button--secondary {
+  border-bottom: 2px solid var(--color-primary);
+}
+
+a.button--image {
+  border-bottom: 2px solid var(--color-primary);
+  color: white;
+}
+
 /* Message Preview */
 .messagePreview {
   width: 500px;
@@ -1576,6 +1596,7 @@ main>.button:last-of-type {
 
       color: var(--color-blue-400);
       background-color: transparent;
+      margin: 0 auto;
     }
 
     .xpExpand:hover {
@@ -1583,8 +1604,9 @@ main>.button:last-of-type {
     }
   }
 
-  button {
+  .button--primary {
     width: 100%;
+    text-align: center;
   }
 
   h3,
@@ -1658,7 +1680,7 @@ main>.button:last-of-type {
     &>button:first-child {
       color: var(--color-primary);
       background-color: white;
-      border: 1px solid var(--color-primary);
+      border: 2px solid var(--color-primary);
     }
 
     &>button:first-child .icon-span {
@@ -2170,6 +2192,7 @@ ol {
 .editActions {
   display: flex;
   gap: var(--space-md);
+  margin-bottom: 1.5rem;
 }
 
 /* Bar Selector */
@@ -2910,7 +2933,7 @@ ol {
     font-size: 2.5rem;
   }
 
-  .text-xl{
+  .text-xl {
     font-size: 2.5rem;
   }
 

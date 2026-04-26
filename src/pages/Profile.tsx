@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { BadgeCard } from "../components/BadegeCard";
 import { ProfileTopper } from "../components/ProfileTopper";
 import SwapCard from "../components/SwapCard";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Profile() {
   const navigate = useNavigate();
@@ -17,9 +17,9 @@ export function Profile() {
 
   return (
     <main className="left profile">
-      <button onClick={handleBack} className="StepBack">
+      <Link to="#" onClick={handleBack} className="StepBack" aria-label="Back">
         <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
-      </button>
+      </Link>
       <h1 className="text-l">Your Profile 👤</h1>
 
       <ProfileTopper

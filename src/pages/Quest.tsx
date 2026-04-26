@@ -2,7 +2,7 @@ import { Step } from "../components/Step";
 import { QuestCard } from "../components/QuestCard";
 import { BadgeCard } from "../components/BadegeCard";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchQuests, type Quest as QuestType } from "../api/mockQuest";
 
 export function Quest() {
@@ -19,7 +19,7 @@ export function Quest() {
   };
 
   useEffect(() => {
-    document.title = "Mia | Quest"
+    document.title = "Mia | Quest";
     const loadData = async () => {
       try {
         const data = await fetchQuests();
@@ -47,12 +47,6 @@ export function Quest() {
     setActiveQuest(newQuest);
     setSelectedQuest(null);
   };
-  const handleContinue = () => {
-    if (selectedQuest) {
-      localStorage.setItem("selectedQuest", JSON.stringify(selectedQuest));
-      navigate("/editor", { state: { fromQuest: true } });
-    }
-  };
   if (loading || !activeQuest) {
     return (
       <p
@@ -73,9 +67,9 @@ export function Quest() {
 
   return (
     <main>
-      <button onClick={handleBack} className="StepBack left">
+      <Link to="#" onClick={handleBack} className="StepBack left">
         <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
-      </button>
+      </Link>
       <Step currentStep={1} totalSteps={3} />
 
       <h1 className="text-l">Choose Your Creative Quest ✨</h1>
@@ -109,14 +103,24 @@ export function Quest() {
       {!selectedQuest && (
         <p className="warning">Please select a quest to continue</p>
       )}
-      <button
-        className="button button--image"
-        onClick={handleContinue}
-        disabled={!selectedQuest}
-      >
-        Continue to Editor
-        <span className="icon-span"></span>
-      </button>
+      {!selectedQuest ? (
+        <button className="button button--image" disabled>
+          Continue to Editor
+          <span className="icon-span"></span>
+        </button>
+      ) : (
+        <Link
+          to="/editor"
+          state={{ fromQuest: true }}
+          className="button button--image"
+          onClick={() =>
+            localStorage.setItem("selectedQuest", JSON.stringify(selectedQuest))
+          }
+        >
+          Continue to Editor
+          <span className="icon-span"></span>
+        </Link>
+      )}
     </main>
   );
 }
