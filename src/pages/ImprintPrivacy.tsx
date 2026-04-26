@@ -19,7 +19,7 @@ export function ImprintPrivacy() {
       </button>
 
       <div className="imprint-privacy-container">
-        <h2>Imprint & Privacy 📜</h2>
+        <h1 className="text-l">Imprint & Privacy 📜</h1>
 
         <section className="imprint">
           <p>
@@ -46,7 +46,7 @@ export function ImprintPrivacy() {
         </section>
 
         <section className="privacy-policy">
-          <h3>Privacy Policy</h3>
+          <h2 className="text-m">Privacy Policy</h2>
 
           <div className="note">
             <p>
@@ -56,7 +56,7 @@ export function ImprintPrivacy() {
             </p>
           </div>
 
-          <h4>Personal Data</h4>
+          <h3 className="text-s">Personal Data</h3>
           <p>
             We collect, process, and use your personal data only with your
             consent or authorization, or in order to fulfill agreed purposes, or
@@ -71,7 +71,7 @@ export function ImprintPrivacy() {
             recordings, and biometric data such as fingerprints.
           </p>
 
-          <h4>Access and Deletion</h4>
+          <h3 className="text-s">Access and Deletion</h3>
           <p>
             As a customer or data subject, you have the right at any time to
             obtain information about your stored personal data, its origin and
@@ -93,7 +93,7 @@ export function ImprintPrivacy() {
             Austria, this is the Data Protection Authority.
           </p>
 
-          <h4>Data Security</h4>
+          <h3 className="text-s">Data Security</h3>
           <p>
             The protection of your personal data is ensured through appropriate
             organizational and technical measures. These measures are intended
@@ -107,7 +107,7 @@ export function ImprintPrivacy() {
             hacking of email accounts or telephones, interception of faxes).
           </p>
 
-          <h4>Use of Data</h4>
+          <h3 className="text-s">Use of Data</h3>
           <p>
             We will not process the data provided to us for purposes other than
             those covered by your request, your consent, or other provisions in
@@ -115,7 +115,7 @@ export function ImprintPrivacy() {
             statistical purposes, provided the data has been anonymized.
           </p>
 
-          <h4>Transfer of Data to Third Parties</h4>
+          <h3 className="text-s">Transfer of Data to Third Parties</h3>
           <p>
             To fulfill your request, it may be necessary to forward your data to
             third parties (e.g. content delivery networks, software providers,
@@ -128,7 +128,7 @@ export function ImprintPrivacy() {
             determined an adequate level of data protection.
           </p>
 
-          <h4>Notification of Data Breaches</h4>
+          <h3 className="text-s">Notification of Data Breaches</h3>
           <p>
             We strive to ensure that data breaches are identified early and,
             where necessary, promptly reported to you and/or the competent
@@ -136,14 +136,14 @@ export function ImprintPrivacy() {
             data.
           </p>
 
-          <h4>Data Retention</h4>
+          <h3 className="text-s">Data Retention</h3>
           <p>
             We do not retain data longer than necessary to fulfill our
             contractual or legal obligations or to defend against potential
             liability claims.
           </p>
 
-          <h4>Cookies</h4>
+          <h3 className="text-s">Cookies</h3>
           <p>
             This website uses cookies. These are small text files stored on your
             device via your browser. They do not cause any harm. Cookies are
@@ -155,7 +155,7 @@ export function ImprintPrivacy() {
             limit the functionality of this website.
           </p>
 
-          <h4>Contact Details</h4>
+          <h3 className="text-s">Contact Details</h3>
           <p>
             The protection of your data is very important to us. You can contact
             us at any time using the details below for questions or to withdraw

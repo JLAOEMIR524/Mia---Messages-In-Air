@@ -19,7 +19,7 @@ export function Register() {
       </button>
       <div className="RegisterContainer">
         <img src="Logo_without_text.png" alt="Logo Mia" />
-        <h5>Join the Mia community!</h5>
+        <h1 className="text-s">Join the Mia community!</h1>
         <p>Send your first digital message in a bottle 💌</p>
         <form>
           <label htmlFor="firstName">Firstname</label>

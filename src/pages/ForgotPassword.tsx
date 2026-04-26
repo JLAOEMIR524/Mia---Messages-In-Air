@@ -19,7 +19,7 @@ export function ForgotPassword() {
       </button>
       <div className="PasswordContainer">
         <img src="Logo_without_text.png" alt="Logo Mia" />
-        <h5>Forgot your password?</h5>
+        <h1 className="text-s">Forgot your password?</h1>
         <p>No problem! We're here to help 🔑</p>
         <p className="limitParagraph">Enter your email address and we'll send you a link to reset your password.</p>
         <form>

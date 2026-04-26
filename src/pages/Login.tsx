@@ -19,7 +19,7 @@ export function Login() {
       </button>
       <div className="LoginContainer">
         <img src="Logo_without_text.png" alt="Logo Mia" />
-        <h5>Welcome Back!</h5>
+        <h1 className="text-s">Welcome Back!</h1>
         <p>Nice to see you again ✨ </p>
         <form>
           <label htmlFor="emailUser">E-Mail:</label>

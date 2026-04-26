@@ -11,7 +11,7 @@ export function StatisticCard({ title, value, icon }: StatisticCardProps) {
         <img src={icon} alt={`${title} icon`} aria-hidden="true" />
         <p>{title}</p>
       </div>
-      <h4>{value}</h4>
+      <p className="text-s">{value}</p>
     </div>
   );
 }

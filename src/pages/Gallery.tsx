@@ -22,7 +22,7 @@ export function Gallery() {
       <button onClick={handleBack} className="StepBack">
         <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
       </button>
-      <h2>Your Gallery 🖼️</h2>
+      <h1 className="text-l">Your Gallery 🖼️</h1>
       <p>All the postcards you've sent and received</p>
       <div className="button-flex gallery">
         <button className="button button--image">
@@ -76,7 +76,7 @@ export function Gallery() {
           }
         />
       </div>
-      <h3>Postcard Map</h3>
+      <h2 className="text-m" >Postcard Map</h2>
       <MapContainer center={position} zoom={13}></MapContainer>
       <div className="cityWrapper">
         <CityBadge city="Vienna" country="Austria" />

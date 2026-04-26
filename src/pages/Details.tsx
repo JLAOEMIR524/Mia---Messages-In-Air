@@ -29,7 +29,7 @@ export function Details() {
             <p>Bad words: 1/5</p>
             <p>Capitalisation: 4/5</p>
             <p>Punctuation: 2/5</p>
-            <h5>Quest Fullfillment:</h5>
+            <h2 className="text-xs">Quest Fullfillment:</h2>
             <p>Punkt 1: 4/5</p>
             <p>Punkt 2: 2/5</p>
             <p>Punkt 3: 3/5</p>
@@ -41,3 +41,4 @@ export function Details() {
     </main>
   );
 }
+

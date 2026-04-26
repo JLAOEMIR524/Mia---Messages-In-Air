@@ -47,7 +47,7 @@ export function ProfileTopper({
       <div className="profile">
         <div className="profile-header-row">
           <hgroup className="profileInfos">
-            <h3>{name}</h3>
+            <p className="text-s">{name}</p>
             <p>Email: {email}</p>
             <p>Member Since: {memberSince}</p>
             <p>Postcards Sent: {postcardsSent}</p>

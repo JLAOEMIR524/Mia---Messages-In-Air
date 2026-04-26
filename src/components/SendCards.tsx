@@ -31,7 +31,7 @@ export function FeedbackCard({
         <div className="topIcon">
           <img src={topIconSrc} alt="Top icon" />{" "}
         </div>
-        <h3>{title}</h3>
+        <h1 className="text-m">{title}</h1>
         <section className="message-content" aria-label="Feedback message">
           {message}
         </section>

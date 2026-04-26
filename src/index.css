@@ -353,7 +353,7 @@ main.imageEditor>div:last-child .button--image {
 
 }
 
-.flexbox h4 span {
+.flexbox h2 span {
   font-size: 1rem;
 }
 
@@ -690,7 +690,7 @@ a:hover {
   gap: var(--space-xs);
 }
 
-.linkHeader__group h5 {
+.linkHeader__group .text-xs {
   margin: 0;
   white-space: nowrap;
 }
@@ -733,7 +733,7 @@ a:hover {
     border-bottom: none;
   }
 
-  h4,
+  h2,
   p {
     margin: 0;
     padding: 0;
@@ -776,10 +776,14 @@ a:hover {
     justify-content: center;
     gap: var(--space-xs);
 
-    h4,
+    h2,
     p {
       margin: 0;
       padding: 0;
+    }
+
+    h2{
+      font-size: 2rem;
     }
   }
 
@@ -789,6 +793,14 @@ a:hover {
     background-color: #f2f2f2;
     transform: scale(1.02);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.container-messages {
+  & .questCard:first-child {
+    hgroup h2 {
+      color: white;
+    }
   }
 }
 
@@ -1304,7 +1316,7 @@ main>.button:last-of-type {
     width: 100%;
     justify-content: space-between;
 
-    h4 {
+    h2 {
       color: white;
       margin: 0;
       padding-top: 0.5rem;
@@ -1840,6 +1852,26 @@ h5 {
   font-size: 1.25rem;
 }
 
+.text-xl {
+  font-size: 5rem;
+}
+
+.text-l {
+  font-size: 3rem;
+}
+
+.text-m {
+  font-size: 2.5rem;
+}
+
+.text-s {
+  font-size: 2rem;
+}
+
+.text-xs {
+  font-size: 1.5rem;
+}
+
 
 p {
   font-family: var(--font-body);
@@ -2288,6 +2320,28 @@ ol {
   }
 
 
+  .text-xl {
+    font-size: 4rem;
+  }
+
+  .text-l {
+    font-size: 2.4rem;
+  }
+
+  .text-m {
+    font-size: 2rem;
+  }
+
+  .text-s {
+    font-size: 1.8rem;
+  }
+
+  .text-s {
+    font-size: 1.5rem;
+  }
+
+
+
   .button {
     padding: calc(var(--space-sm) * 0.5) calc(var(--space-md) * 0.8);
   }
@@ -2639,6 +2693,28 @@ ol {
     font-size: 1.25rem;
   }
 
+  .text-xl {
+    font-size: 3rem;
+  }
+
+  .text-l {
+    font-size: 2.25rem;
+  }
+
+  .text-m {
+    font-size: 1.875rem;
+  }
+
+  .text-s {
+    font-size: 1.5625rem;
+  }
+
+  .text-xs {
+    font-size: 1.25rem;
+  }
+
+
+
   .button {
     padding: calc(var(--space-sm)*0.7) calc(var(--space-sm)*1.3);
     font-size: var(--base-font-size);
@@ -2831,6 +2907,10 @@ ol {
   }
 
   h1 {
+    font-size: 2.5rem;
+  }
+
+  .text-xl{
     font-size: 2.5rem;
   }
 
