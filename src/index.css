@@ -346,11 +346,15 @@ a:focus {
   background-image: url('./icons/arrow-right-blue.svg');
 }
 
-main.imageEditor > div:last-child .button--image {
-    position: fixed;
-    bottom: 2rem;
-    left: 50%;
-    
+main.imageEditor>div:last-child .button--image {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+
+}
+
+.flexbox h4 span {
+  font-size: 1rem;
 }
 
 
@@ -1600,6 +1604,12 @@ main>.button:last-of-type {
       width: 80px;
     }
   }
+
+  .message-content {
+    width: 100%;
+    text-align: center;
+
+  }
 }
 
 
@@ -1742,7 +1752,7 @@ main>.button:last-of-type {
   }
 }
 
-.center{
+.center {
   text-align: center;
 }
 
@@ -2431,16 +2441,16 @@ ol {
   }
 
   @keyframes fadeInItem {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
 
-  to {
-    opacity: 1;
-    transform: translateX(0);
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
-}
 
 
   /* Navbar */
