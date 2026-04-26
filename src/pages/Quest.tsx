@@ -19,6 +19,7 @@ export function Quest() {
   };
 
   useEffect(() => {
+    document.title = "Mia | Quest"
     const loadData = async () => {
       try {
         const data = await fetchQuests();

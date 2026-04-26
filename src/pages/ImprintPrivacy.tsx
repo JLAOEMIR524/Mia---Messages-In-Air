@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export function ImprintPrivacy() {
@@ -6,6 +7,10 @@ export function ImprintPrivacy() {
   const handleBack = () => {
     navigate(-1);
   };
+
+  useEffect(() => {
+    document.title = "Mia | Imprint & Privavy";
+  }, []);
 
   return (
     <main className="left">

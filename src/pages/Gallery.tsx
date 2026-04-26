@@ -3,6 +3,7 @@ import { Card } from "../components/Card";
 import type { LatLngExpression } from "leaflet";
 import { CityBadge } from "../components/CityBadge";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export function Gallery() {
   const position: LatLngExpression = [47.8, 13.04];
@@ -11,6 +12,10 @@ export function Gallery() {
   const handleBack = () => {
     navigate(-1);
   };
+
+    useEffect(() => {
+        document.title = "Mia | Gallery"
+    },[])
 
   return (
     <main className="left">

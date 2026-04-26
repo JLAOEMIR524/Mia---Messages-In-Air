@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { BadgeCard } from "../components/BadegeCard";
 import { ProfileTopper } from "../components/ProfileTopper";
 import SwapCard from "../components/SwapCard";
@@ -9,6 +10,10 @@ export function Profile() {
   const handleBack = () => {
     navigate(-1);
   };
+
+  useEffect(() => {
+      document.title = "Mia | Profile"
+  },[])
 
   return (
     <main className="left profile">

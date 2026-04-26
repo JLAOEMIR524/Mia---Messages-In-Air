@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 export function Register() {
   useEffect(() => {
     document.body.classList.add("background-heaven");
+    document.title = "Mia | Register"
 
     return () => {
       document.body.classList.remove("background-heaven");

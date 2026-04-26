@@ -7,6 +7,7 @@ export function Details() {
 
   useEffect(() => {
     document.body.classList.add("background-heaven");
+    document.title = "Mia | Detail Feedback"
 
     return () => {
       document.body.classList.remove("background-heaven");

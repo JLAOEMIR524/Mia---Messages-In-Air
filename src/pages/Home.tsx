@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 export function Home() {
   useEffect(() => {
     document.body.classList.add("background-heaven");
+    document.title = "Mia | Home";
 
     return () => {
       document.body.classList.remove("background-heaven");
