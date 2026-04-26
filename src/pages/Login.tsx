@@ -28,10 +28,11 @@ export function Login() {
             name="emailUser"
             type="email"
             placeholder="Type here..."
+            autoComplete="email"
             required
           />
           <label htmlFor="password">Password</label>
-          <input id="password" name="password" type="password" required />
+          <input id="password" name="password" type="password" autoComplete="current-password" required />
         </form>
         <Link to="/password">Password forgotten?</Link>
         <button
