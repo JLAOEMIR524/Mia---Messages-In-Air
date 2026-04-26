@@ -35,11 +35,11 @@ export function NavBar() {
       <div className="topContainer">
         <div className="mobileBar">
           {!isMobile ? (
-            <Link to="/dashboard" aria-hidden="true" tabIndex={-1}>
+            <Link to="/dashboard">
               <img className="logo" src="./Logo.png" alt="Mia Logo" />
             </Link>
           ) : isDashboard ? (
-            <Link to="/dashboard" aria-hidden="true" tabIndex={-1}>
+            <Link to="/dashboard">
               <img
                 className="logo"
                 src="./Logo_without_text.png"
@@ -57,14 +57,16 @@ export function NavBar() {
             </button>
           )}
 
-          <div
+          <button
             className={`hamburger-menu ${isOpen ? "active" : ""}`}
             onClick={() => setIsOpen(!isOpen)}
+            aria-label="Menu open"
+            aria-expanded={isOpen}
           >
             <span></span>
             <span></span>
             <span></span>
-          </div>
+          </button>
         </div>
 
         <nav>

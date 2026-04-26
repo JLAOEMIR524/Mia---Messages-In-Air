@@ -193,6 +193,8 @@ a:visited {
 a:focus {
   color: var(--color-focus);
   outline: var(--border-width) solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 .text--small {
@@ -2614,6 +2616,10 @@ ol {
       justify-content: space-between;
       cursor: pointer;
       z-index: 100;
+    }
+
+    .hamburger-menu:focus-visible {
+      outline-offset: 4px;
     }
 
     .hamburger-menu span {
