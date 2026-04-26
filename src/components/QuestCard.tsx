@@ -21,7 +21,7 @@ export function QuestCard({
       onClick={onSelect}
     >
       <div className="reloadHeadline">
-        <h4>{title}</h4>
+        <h2 className="text-s">{title}</h2>
         <button
           className="iconButton"
           aria-label="Reload Quest"

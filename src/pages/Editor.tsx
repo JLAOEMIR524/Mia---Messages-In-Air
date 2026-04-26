@@ -93,7 +93,7 @@ export function Editor() {
         <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
       </button>
       <Step currentStep={2} />
-      <h2>Create Your Photo Collage 📸</h2>
+      <h1 className="text-l">Create Your Photo Collage 📸</h1>
       <p>Upload pictures and use stickers to create a unique collage.</p>
       <div className="imageEditor">
         <div className="barSelector">

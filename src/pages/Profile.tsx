@@ -20,7 +20,7 @@ export function Profile() {
       <button onClick={handleBack} className="StepBack">
         <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
       </button>
-      <h2>Your Profile 👤</h2>
+      <h1 className="text-l">Your Profile 👤</h1>
 
       <ProfileTopper
         initials="MM"
@@ -33,8 +33,8 @@ export function Profile() {
         onEdit={() => console.log("Edit clicked")}
       />
 
-      <h4>Your Stickers</h4>
-      <h5>Unlocked</h5>
+      <h2 className="text-m">Your Stickers</h2>
+      <h3 className="text-s">Unlocked</h3>
 
       <div className="stickerComponent">
         <div className="stickerBox">
@@ -49,7 +49,7 @@ export function Profile() {
           ))}
         </div>
       </div>
-      <h5>Upcoming</h5>
+      <h3 className="text-s">Upcoming</h3>
       <div className="stickerComponent">
         <div className="stickerBox">
           {Array.from({ length: 26 }, (_, i) => i + 15).map((num) => (
@@ -65,7 +65,7 @@ export function Profile() {
           ))}
         </div>
       </div>
-      <h4 className="margin">Quests</h4>
+      <h2 className="margin text-m">Quests</h2>
       <BadgeCard
         icon="./icons/star_shine.svg"
         title="Tiny Story"

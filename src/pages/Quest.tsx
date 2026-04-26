@@ -78,7 +78,7 @@ export function Quest() {
       </button>
       <Step currentStep={1} totalSteps={3} />
 
-      <h2>Choose Your Creative Quest ✨</h2>
+      <h1 className="text-l">Choose Your Creative Quest ✨</h1>
       <p>Each quest inspires your postcard and makes it special</p>
 
       <QuestCard
@@ -92,7 +92,7 @@ export function Quest() {
           navigate("/editor", { state: { fromQuest: true } });
         }}
       />
-      <h2>Or choose from other quests:</h2>
+      <h2 className="text-m">Or choose from other quests:</h2>
 
       <div className="badge-list">
         {otherQuests.map((q) => (

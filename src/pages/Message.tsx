@@ -72,12 +72,13 @@ export function Message() {
           <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
         </button>
         <Step currentStep={3} totalSteps={3} />
-        <h2>Write Your Message 💌</h2>
+        <h1 className="text-l">Write Your Message 💌</h1>
         <p>Share your thoughts with a stranger somewhere in the world</p>
 
         <div className="container-messages">
           {selectedQuest ? (
             <BadgeCard
+            headingLevel="h2"
               title={selectedQuest.title}
               description={selectedQuest.description}
             />
@@ -85,7 +86,7 @@ export function Message() {
             <p>No quest selected.</p>
           )}
           <div className="flexbox">
-            <h4>Your Message <span>(min. 100 Characters)</span></h4>
+            <h2 className="text-s">Your Message <span>(min. 100 Characters)</span></h2>
             <textarea
               className="quest-textarea"
               value={questText}
@@ -99,7 +100,7 @@ export function Message() {
             <p>Characters: {questText.length}/700</p>
           </div>
           <div className="flexbox">
-            <h4>Where are you writing from?</h4>
+            <h2 className="text-s">Where are you writing from?</h2>
             <div className="search-container" style={{ position: "relative" }}>
               <div className="input-wrapper">
                 <input
@@ -141,6 +142,7 @@ export function Message() {
             </div>
           </div>
           <BadgeCard
+          headingLevel="h2"
             title="✨ Tips for more XP:"
             description={
               <ul style={{ listStyle: "none", padding: 0 }}>

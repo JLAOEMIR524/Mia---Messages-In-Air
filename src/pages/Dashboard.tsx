@@ -12,11 +12,11 @@ export function Dashboard()
 
   return (
     <main className="left">
-      <h2>Hello Sonja ✨</h2>
+      <h1 className="text-l">Hello Sonja ✨</h1>
       <p>Welcome back to Mia. </p>
       <Link className="newPostcard" to="/quest">
         <img src="./icons/add_circle.svg" alt="Plus icon" />
-        <h4>New Postcard</h4>
+        <h2 className="text-m">New Postcard</h2>
         <p>Write a postcard and make someone smile</p>
       </Link>
 
