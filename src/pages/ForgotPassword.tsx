@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 export function ForgotPassword() {
   useEffect(() => {
     document.body.classList.add("background-heaven");
+    document.title = "Mia | Forgot Password"
 
     return () => {
       document.body.classList.remove("background-heaven");

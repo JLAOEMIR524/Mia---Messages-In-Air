@@ -2,8 +2,14 @@ import { StatisticCard } from "../components/StatisticCard";
 import { LinkHeader } from "../components/LinkHeader";
 import { MessagePreview } from "../components/MessagePreviewCard";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
-export function Dashboard() {
+export function Dashboard() 
+{
+    useEffect(() => {
+      document.title = "Mia | Dashboard"
+  },[])
+
   return (
     <main className="left">
       <h2>Hello Sonja ✨</h2>

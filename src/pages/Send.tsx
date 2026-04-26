@@ -6,6 +6,7 @@ import Confetti from "react-confetti";
 export function Send() {
   useEffect(() => {
     document.body.classList.add("background-heaven");
+    document.title = "Mia | Postcard Send"
 
     return () => {
       document.body.classList.remove("background-heaven");

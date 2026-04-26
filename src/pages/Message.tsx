@@ -21,6 +21,8 @@ export function Message() {
   };
 
   useEffect(() => {
+    document.title = "Mia | Writing Message"
+
     const savedQuest = localStorage.getItem("selectedQuest");
     if (savedQuest) {
       setSelectedQuest(JSON.parse(savedQuest));
