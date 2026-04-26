@@ -32,25 +32,33 @@ export function FeedbackCard({
           <img src={topIconSrc} alt="Top icon" />{" "}
         </div>
         <h3>{title}</h3>
-        <p>{message}</p>
+        <section className="message-content" aria-label="Feedback message">
+          {message}
+        </section>
       </div>
-      {starArray.length > 0 ? (<div
-        className="xpDisplay"
-        aria-label={`You scored ${rating} of 5 Stars.`}
-      >
-        {starArray.length > 0 && starArray.map((isFilled, index) => (
-          <img
-            key={index}
-            src={
-              isFilled ? "./icons/star_full.svg" : "./icons/star_unfilled.svg"
-            }
-            alt={isFilled ? "filled star icon" : "unfilled star icon"}
-            aria-hidden="true"
-            className={isFilled ? "star--full" : "star--empty"}
-          />
-        ))}
-      </div>) : ""
-          }
+      {starArray.length > 0 ? (
+        <div
+          className="xpDisplay"
+          aria-label={`You scored ${rating} of 5 Stars.`}
+        >
+          {starArray.length > 0 &&
+            starArray.map((isFilled, index) => (
+              <img
+                key={index}
+                src={
+                  isFilled
+                    ? "./icons/star_full.svg"
+                    : "./icons/star_unfilled.svg"
+                }
+                alt={isFilled ? "filled star icon" : "unfilled star icon"}
+                aria-hidden="true"
+                className={isFilled ? "star--full" : "star--empty"}
+              />
+            ))}
+        </div>
+      ) : (
+        ""
+      )}
       <div className="xpDetails">
         <div className="xpCount">
           <p>+{xpAmount} XP</p>

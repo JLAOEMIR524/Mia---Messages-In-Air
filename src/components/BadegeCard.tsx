@@ -20,7 +20,7 @@ export function BadgeCard({ title, description, icon, isSelected, onSelect }: Ba
       
       <hgroup>
         <h4>{title}</h4>
-        <p className="text--small">{description}</p>
+        <div className="text--small">{description}</div>
       </hgroup>
     </div>
   );

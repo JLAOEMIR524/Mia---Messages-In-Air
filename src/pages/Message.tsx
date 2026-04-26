@@ -83,7 +83,7 @@ export function Message() {
             <p>No quest selected.</p>
           )}
           <div className="flexbox">
-            <h4>Your Message</h4>
+            <h4>Your Message <span>(min. 100 Characters)</span></h4>
             <textarea
               className="quest-textarea"
               value={questText}
