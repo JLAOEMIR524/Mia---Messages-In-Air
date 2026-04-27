@@ -65,6 +65,8 @@ export function Message() {
     localStorage.setItem("selectedLocation", name);
   };
 
+  const isDisabled = !selectedLocation || questText.length < 100;
+
   return (
     <>
       <main>
@@ -196,9 +198,10 @@ export function Message() {
           <Link
             to="/send"
             state={{ fromMessage: true }}
-            className={`button button--image message ${!selectedLocation || questText.length < 100 ? "is-disabled" : ""}`}
+            className={`button button--image message ${isDisabled ? "is-disabled" : ""}`}
+            aria-disabled={isDisabled}
             onClick={(e) => {
-              if (!selectedLocation || questText.length < 100) {
+              if (isDisabled) {
                 e.preventDefault();
               }
             }}

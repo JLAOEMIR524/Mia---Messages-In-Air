@@ -828,8 +828,8 @@ a:hover {
     }
 
     &.selected {
-       outline: 2px solid var(--color-blue-700);
-       background-color: #f0f0f0;
+      outline: 2px solid var(--color-blue-700);
+      background-color: #f0f0f0;
     }
   }
 }
@@ -1401,7 +1401,7 @@ main>.button:last-of-type {
 }
 
 .closePreview {
-    padding: 8px;
+  padding: 8px;
 }
 
 .StepBack.left {
@@ -1684,6 +1684,20 @@ a.button--image {
   margin-top: var(--space-sm);
 }
 
+.button.is-disabled {
+  background-color: var(--color-disabled);
+  border-color: var(--color-gray-300);
+  color: var(--color-input-disabled-text);
+  cursor: not-allowed;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+button.button.button--image.message.is-disabled .icon-span,
+a.button.button--image.message.is-disabled .icon-span {
+  background-image: url('/icons/arrow-right.svg');
+}
+
+
 .button-flex {
   margin-top: var(--space-lg);
   display: flex;
@@ -1728,11 +1742,11 @@ a.button--image {
 }
 
 .button-flex .message .icon-span {
-  background-image: url('./icons/arrow-right-white.svg') !important;
+  background-image: url('./icons/arrow-right-white.svg');
 }
 
 .button-flex .message:hover .icon-span {
-  background-image: url('./icons/arrow-right-blue.svg') !important;
+  background-image: url('./icons/arrow-right-blue.svg');
 }
 
 .gallery .button--image:nth-child(2) .icon-span {
@@ -2212,7 +2226,7 @@ ol {
   margin-bottom: -1.5rem;
 }
 
-.fixed{
+.fixed {
   margin-bottom: 2rem;
 }
 
