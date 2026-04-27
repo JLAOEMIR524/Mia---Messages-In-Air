@@ -4,106 +4,110 @@ import type { DragPayload } from "../types/CanvasTypes";
 const MAX_PLACEHOLDER_SLOTS = 1;
 
 interface UploadedImage {
-    src: string;
-    width: number;
-    height: number;
+  src: string;
+  width: number;
+  height: number;
 }
 
 function loadImage(src: string): Promise<UploadedImage> {
-    return new Promise((resolve) => {
-        const img = new window.Image();
-        img.onload = () => resolve({src, width: img.naturalWidth, height: img. naturalHeight});
-        img.src = src;
-    });
+  return new Promise((resolve) => {
+    const img = new window.Image();
+    img.onload = () =>
+      resolve({ src, width: img.naturalWidth, height: img.naturalHeight });
+    img.src = src;
+  });
 }
 
 export function PhotoUploader() {
-    const [images, setImages] = useState<UploadedImage[]>([]);
-    const fileInputRef = useRef<HTMLInputElement>(null);
+  const [images, setImages] = useState<UploadedImage[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
-        const files = Array.from(e.target.files ?? []);
-        files.forEach((file) => {
+  const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files ?? []);
+    files.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = async () => {
+        if (typeof reader.result === "string") {
+          const uploaded = await loadImage(reader.result);
+          setImages((prev) => {
+            return [...prev, uploaded];
+          });
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+    e.target.value = "";
+  };
 
-            const reader = new FileReader();
-            reader.onload = async () => {
-                if (typeof reader.result === "string") {
-                    const uploaded = await loadImage(reader.result)
-                    setImages((prev) => {
-                        return [...prev, uploaded];
-                    })
-                }
-            };
-            reader.readAsDataURL(file);
-        });
-        e.target.value = "";
+  const handleDragStart = async (
+    e: React.DragEvent<HTMLImageElement>,
+    image: UploadedImage,
+  ) => {
+    const maxW = 250;
+    const scale = image.width > maxW ? maxW / image.width : 1;
+
+    const payload: DragPayload = {
+      type: "image",
+      src: image.src,
+      width: image.width * scale,
+      height: image.height * scale,
     };
 
-    const handleDragStart = async (e: React.DragEvent<HTMLImageElement>, image: UploadedImage) => {
+    e.dataTransfer.setData(
+      "application/postcard-element",
+      JSON.stringify(payload),
+    );
+    e.dataTransfer.effectAllowed = "copy";
+  };
 
-        const maxW = 250;
-        const scale = image.width > maxW ? maxW / image.width : 1;
+  const handleRemove = (index: number) => {
+    setImages((prev) => prev.filter((_, i) => i !== index));
+  };
 
-        const payload: DragPayload = {
-            type: "image",
-            src: image.src, 
-            width: image.width * scale, height: image.height * scale,
-        };
+  const handlePlaceholderClick = () => {
+    fileInputRef.current?.click();
+  };
 
-        e.dataTransfer.setData("application/postcard-element", JSON.stringify(payload));
-        e.dataTransfer.effectAllowed = "copy";
-    };
+  const emptySlots = Math.max(0, MAX_PLACEHOLDER_SLOTS - images.length);
 
-    const handleRemove = (index: number) => {
-        setImages(prev => prev.filter((_, i) => i !== index));
-    };
-
-    const handlePlaceholderClick = () => {
-        fileInputRef.current?.click();
-    }
-
-    const emptySlots = Math.max(0, MAX_PLACEHOLDER_SLOTS - images.length);
-
-    return (
-        <div className="galleryContainer">
-            <div className="gallery">
-                {images.map((image, i) => (
-                    <div className="barItem image" key={i}>
-                        <img 
-                            src={image.src}
-                            alt={"Uploaded Image"} 
-                            draggable
-                            onDragStart={(e) => handleDragStart(e, image)}
-                        />
-                        <button onClick={() => handleRemove(i)} className="button--delete">X</button>
-                    </div>
-                ))}
-                {Array.from({length: emptySlots }).map((_, i) => (
-                    <div 
-                        className="barItem placeholder" 
-                        key={`empty-${i}`} 
-                        onClick={handlePlaceholderClick}
-                    >
-                        <p>Add Images</p>
-                    </div>
-                ))}
-                <button
-                    className="addButton"
-                    onClick={handlePlaceholderClick}
-                    >
-                    <img src="./icons/add_circle.svg" alt="" aria-hidden="true" />
-                    <p>Add image</p>
-                </button>
-            </div>
-            <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handleUpload}
-                style={{ display: 'none' }}
+  return (
+    <div className="galleryContainer">
+      <div className="gallery">
+        {images.map((image, i) => (
+          <div className="barItem image" key={i}>
+            <img
+              src={image.src}
+              alt={"Uploaded Image"}
+              draggable
+              onDragStart={(e) => handleDragStart(e, image)}
             />
-            
-        </div>
-    )
+            <button onClick={() => handleRemove(i)} className="button--delete">
+              X
+            </button>
+          </div>
+        ))}
+        {Array.from({ length: emptySlots }).map((_, i) => (
+          <div
+            className="barItem placeholder"
+            key={`empty-${i}`}
+            onClick={handlePlaceholderClick}
+          >
+            <p>Add Images</p>
+          </div>
+        ))}
+        <button className="addButton" onClick={handlePlaceholderClick}>
+          <img src="./icons/add_circle.svg" alt="" aria-hidden="true" />
+          <p>Add image</p>
+        </button>
+      </div>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        multiple
+        onChange={handleUpload}
+        style={{ display: "none" }}
+      />
+    </div>
+  );
 }

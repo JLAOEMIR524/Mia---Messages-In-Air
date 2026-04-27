@@ -7,17 +7,32 @@ interface LinkHeaderProps {
   linkText?: string;
 }
 
-export function LinkHeader({ title, icon, linkTo, linkText = "Show all" }: LinkHeaderProps) {
+export function LinkHeader({
+  title,
+  icon,
+  linkTo,
+  linkText = "Show all",
+}: LinkHeaderProps) {
   return (
     <div className="linkHeader">
       <div className="linkHeader__group">
-        <img src={icon} alt="" aria-hidden="true" className="linkHeader__icon" />
+        <img
+          src={icon}
+          alt=""
+          aria-hidden="true"
+          className="linkHeader__icon"
+        />
         <h2 className="text-xs">{title}</h2>
       </div>
 
       <Link to={linkTo} className="linkHeader__link">
         {linkText}
-        <img src="./icons/link-blue.svg" alt="" aria-hidden="true" className="linkHeader__link-icon" />
+        <img
+          src="./icons/link-blue.svg"
+          alt=""
+          aria-hidden="true"
+          className="linkHeader__link-icon"
+        />
       </Link>
     </div>
   );

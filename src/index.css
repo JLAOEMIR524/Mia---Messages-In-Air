@@ -1693,12 +1693,13 @@ a.button--image {
   pointer-events: none;
   cursor: not-allowed;
 }
+
 button.button.button--image.message.is-disabled .icon-span,
 a.button.button--image.message.is-disabled .icon-span {
   background-image: url('/icons/arrow-right.svg');
 }
 
-.below{
+.below {
   margin-bottom: 4rem;
 }
 
@@ -2730,6 +2731,11 @@ ol {
   .PasswordContainer {
     min-width: 500px;
   }
+
+  main.imageEditor>div:last-child .button--image {
+    left: 35%;
+
+  }
 }
 
 /*Mobile*/
@@ -2941,6 +2947,10 @@ ol {
       }
     }
   }
+
+  main.imageEditor>div:last-child .button--image {
+    left: 30%;
+  }
 }
 
 @media (width < 450px) {
@@ -3010,6 +3020,10 @@ ol {
 
   .PasswordContainer {
     min-width: 320px;
+  }
+
+  main.imageEditor>div:last-child .button--image {
+    left: 25%;
   }
 }
 

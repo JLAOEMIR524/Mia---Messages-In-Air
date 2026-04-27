@@ -75,7 +75,11 @@ export function FeedbackCard({
           </Link>
         )}
       </div>
-      <Link to="/dashboard" className="button button--primary" onClick={onContinue}>
+      <Link
+        to="/dashboard"
+        className="button button--primary"
+        onClick={onContinue}
+      >
         Back to Dashboard
       </Link>
     </div>

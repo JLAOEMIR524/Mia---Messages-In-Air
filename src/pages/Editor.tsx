@@ -144,7 +144,10 @@ export function Editor() {
           stageRef={stageRef}
           scale={scale}
         />
-        <div className="editActions" style={{marginBottom: IsPostcardEmpty ? "0" : "1.5rem"}}>
+        <div
+          className="editActions"
+          style={{ marginBottom: IsPostcardEmpty ? "0" : "1.5rem" }}
+        >
           <button
             className={`button button--image ${"up" === currentBar ? "button--selected" : ""}`}
             onMouseOver={() => setFocus("up")}
@@ -157,7 +160,7 @@ export function Editor() {
               alt="flip front icon"
               aria-hidden="true"
             />
-            Up
+            Front
           </button>
           <button
             className={`button button--image ${"down" === currentBar ? "button--selected" : ""}`}
@@ -171,7 +174,7 @@ export function Editor() {
               alt="flip front icon"
               aria-hidden="true"
             />
-            Down
+            Back
           </button>
           <button
             className={`button button--image  ${"delete" === currentBar ? "button--selected" : ""}`}
