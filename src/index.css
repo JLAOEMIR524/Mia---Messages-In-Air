@@ -778,6 +778,7 @@ a:hover {
     gap: var(--space-xs);
 
     h2,
+    h3,
     p {
       margin: 0;
       padding: 0;
