@@ -184,7 +184,10 @@ export function Message() {
           />
         </form>
         {questText.length < 100 && (
-          <p className="warning">Your Message is too short :(</p>
+          <p className="warning">Your Message is too short</p>
+        )}
+        {!selectedLocation && (
+          <p className="warning">Please select a Location</p>
         )}
         <div className="button-flex">
           <button
