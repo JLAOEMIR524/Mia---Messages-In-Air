@@ -144,7 +144,7 @@ export function Editor() {
           stageRef={stageRef}
           scale={scale}
         />
-        <div className="editActions">
+        <div className="editActions" style={{marginBottom: IsPostcardEmpty ? "0" : "1.5rem"}}>
           <button
             className={`button button--image ${"up" === currentBar ? "button--selected" : ""}`}
             onMouseOver={() => setFocus("up")}

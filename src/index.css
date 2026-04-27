@@ -1698,6 +1698,9 @@ a.button.button--image.message.is-disabled .icon-span {
   background-image: url('/icons/arrow-right.svg');
 }
 
+.below{
+  margin-bottom: 4rem;
+}
 
 .button-flex {
   margin-top: var(--space-lg);
