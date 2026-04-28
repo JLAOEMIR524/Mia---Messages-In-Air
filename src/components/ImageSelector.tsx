@@ -28,6 +28,7 @@ export function PhotoUploader({onImageClick}: {onImageClick: (src: UploadedImage
           setImages((prev) => {
             return [...prev, uploaded];
           });
+          onImageClick(uploaded); //Sets the uploaded picture directly on the canvas
         }
       };
       reader.readAsDataURL(file);
