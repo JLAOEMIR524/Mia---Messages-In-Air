@@ -1,22 +1,20 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FeedbackCard } from "../components/SendCards";
 import { useEffect } from "react";
 
 export function Details() {
-  const navigate = useNavigate();
-
   useEffect(() => {
     document.body.classList.add("background-heaven");
-    document.title = "Mia | Detail Feedback"
+    document.title = "Mia | Detail Feedback";
 
     return () => {
       document.body.classList.remove("background-heaven");
     };
   }, []);
-  
+
   return (
     <main className="heaven">
-      <Link to="#" onClick={() => navigate(-1)} className="arrowBack">
+      <Link to="/send" state={{ fromMessage: true }} className="arrowBack">
         <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
       </Link>
 
@@ -41,4 +39,3 @@ export function Details() {
     </main>
   );
 }
-
