@@ -1,4 +1,4 @@
-import { useRef, useState, type ChangeEvent } from "react";
+import React, { useCallback, useRef, useState, type ChangeEvent } from "react";
 import type { DragPayload, UploadedImage } from "../types/CanvasTypes";
 
 const MAX_PLACEHOLDER_SLOTS = 1;
@@ -15,6 +15,8 @@ function loadImage(src: string): Promise<UploadedImage> {
 export function PhotoUploader({onImageClick}: {onImageClick: (src: UploadedImage) => void}) {
   const [images, setImages] = useState<UploadedImage[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [focusIndex, setFocusIndex] = useState<number>(0);
+  const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files ?? []);
@@ -62,21 +64,61 @@ export function PhotoUploader({onImageClick}: {onImageClick: (src: UploadedImage
     fileInputRef.current?.click();
   };
 
+  const handleKeyDown = useCallback((e: React.KeyboardEvent, index: number) => {
+    switch(e.key){
+        case "ArrowUp":
+        case "ArrowRight":
+            e.preventDefault();
+            const next = (index + 1) % images.length;
+            setFocusIndex(next);
+            itemsRef.current[next]?.focus();
+            break;
+
+        case "ArrowDown":
+        case "ArrowLeft":
+            e.preventDefault();
+            const previous = (index - 1 + images.length) % images.length;
+            setFocusIndex(previous);
+            itemsRef.current[previous]?.focus();
+            break;
+        case "Enter":
+        case " ":
+            e.preventDefault();
+            onImageClick(images[index]);
+            break;
+        case "Delete":
+        case "Backspace":
+          e.preventDefault();
+          handleRemove(index);
+          break;
+    }
+  }, [onImageClick, images]);
+
   const emptySlots = Math.max(0, MAX_PLACEHOLDER_SLOTS - images.length);
 
   return (
-    <div className="galleryContainer">
+    <div 
+      className="galleryContainer" 
+      aria-label="Image Upload/Uploaded Images" 
+      role="list"
+    >
       <div className="gallery">
         {images.map((image, i) => (
-          <div className="barItem image" key={i}>
+          <div 
+            className="barItem image" 
+            key={i}
+            tabIndex={focusIndex === i ? 0 : -1}
+            onKeyDown={(e) => handleKeyDown(e, i)}
+          >
             <img
               src={image.src}
               alt={"Uploaded Image"}
+              role="listitem"
               draggable
               onDragStart={(e) => handleDragStart(e, image)}
               onClick={() => onImageClick(image)}
             />
-            <button onClick={() => handleRemove(i)} className="button--delete">
+            <button onClick={() => handleRemove(i)} className="button--delete" aria-hidden="true" tabIndex={-1}>
               X
             </button>
           </div>

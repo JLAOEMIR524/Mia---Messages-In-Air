@@ -1,3 +1,4 @@
+import { useCallback, useRef, useState } from "react";
 import type { AvailableSticker, DragPayload } from "../types/CanvasTypes";
 
 const STICKERS = [
@@ -17,33 +18,75 @@ const STICKERS = [
 const STICKER_SIZE = 80;
 
 export function StickerSelector({onImageClick}: {onImageClick: (src: AvailableSticker, size: number) => void}) {
-     const handleDragStart = async (e: React.DragEvent<HTMLImageElement>, src: string) => {
-    
-            const payload: DragPayload = {
-                type: "sticker",
-                src: src, 
-                width: STICKER_SIZE, height: STICKER_SIZE,
-            };
-    
-            e.dataTransfer.setData("application/postcard-element", JSON.stringify(payload));
-            e.dataTransfer.effectAllowed = "copy";
+    const [focusIndex, setFocusIndex] = useState<number>(0);
+    const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+    const handleDragStart = async (e: React.DragEvent<HTMLImageElement>, src: string) => {
+
+        const payload: DragPayload = {
+            type: "sticker",
+            src: src, 
+            width: STICKER_SIZE, height: STICKER_SIZE,
         };
-    
-        return (
-            <div className="galleryContainer">
-                <div className="gallery">
-                    {STICKERS.map((sticker, i) => (
-                        <div className="barItem image" key={i}>
-                            <img 
-                                src={sticker.src}
-                                alt={"Uploaded Image"} 
-                                draggable
-                                onDragStart={(e) => handleDragStart(e, sticker.src)}
-                                onClick={() => onImageClick(sticker, STICKER_SIZE)}
-                            />
-                        </div>
-                    ))}
-                </div>
+
+        e.dataTransfer.setData("application/postcard-element", JSON.stringify(payload));
+        e.dataTransfer.effectAllowed = "copy";
+    };
+
+    const handleKeyDown = useCallback((e: React.KeyboardEvent, index: number) => {
+        switch(e.key){
+            case "ArrowUp":
+            case "ArrowRight":
+                e.preventDefault();
+                const next = (index + 1) % STICKERS.length;
+                setFocusIndex(next);
+                itemsRef.current[next]?.focus();
+                break;
+
+            case "ArrowDown":
+            case "ArrowLeft":
+                e.preventDefault();
+                const previous = (index - 1) % STICKERS.length;
+                setFocusIndex(previous);
+                itemsRef.current[previous]?.focus();
+                break;
+            case "Enter":
+            case " ":
+                e.preventDefault();
+                onImageClick(STICKERS[index], STICKER_SIZE);
+                break;
+        }
+    }, [onImageClick]);
+
+    return (
+        <div 
+            className="galleryContainer"
+            aria-label="Choose Sticker"
+            role="listbox"
+        >
+            <div className="gallery">
+                {STICKERS.map((sticker, i) => (
+                    <div 
+                        className="barItem image" 
+                        key={i}
+                        role="option"
+                        ref={(element) => {itemsRef.current[i] = element; }}
+                        aria-selected={focusIndex === i}
+                        tabIndex={(focusIndex === i ? 0 : -1)}
+                        onFocus={() => setFocusIndex(i)}
+                        onKeyDown={(e) => handleKeyDown(e, i)}
+                        
+                    >
+                        <img 
+                            src={sticker.src}
+                            alt={"Uploaded Image"} 
+                            onDragStart={(e) => handleDragStart(e, sticker.src)}
+                            onClick={() => onImageClick(sticker, STICKER_SIZE)}
+                            draggable
+                        />
+                    </div>
+                ))}
             </div>
-        )
+        </div>
+    )
 }
