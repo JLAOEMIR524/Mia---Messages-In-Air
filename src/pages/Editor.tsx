@@ -11,6 +11,8 @@ import type { AvailableSticker, DragPayload, UploadedImage } from "../types/Canv
 
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 400;
+const MOVE_STEP_LARGE = 15;
+const MOVE_STEP_SMALL = 5;
 
 export function Editor() {
   const stageRef = useRef<Konva.Stage | null>(null);
@@ -29,6 +31,7 @@ export function Editor() {
     upSelected,
     downSelected,
     addElementRandom,
+    moveSelected,
   } = usePostcard();
 
   const handleExport = useCallback((): Promise<void> => {
@@ -65,24 +68,58 @@ export function Editor() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Delete" || e.key === "Backspace") {
-        deleteSelected();
-      }
-      if (e.key === "ArrowUp") {
-        upSelected();
-      }
-      if (e.key === "ArrowDown") {
-        downSelected();
-      }
-      if (e.key === "Escape") {
-        e.preventDefault();
-        selectElement(null);
-      }
+      const step = e.shiftKey ? MOVE_STEP_LARGE : MOVE_STEP_SMALL;
+
+      switch (e.key) {
+        case "Delete":
+        case "Backspace":
+            deleteSelected();
+            break;
+
+        case "f":
+        case "F":
+            upSelected();
+            break;
+
+        case "b":
+        case "B":
+            downSelected();
+            break;
+
+        case "Escape":
+            e.preventDefault();
+            selectElement(null);
+            break;
+
+        case "ArrowUp":
+            if (!selectedId) break;
+            e.preventDefault();
+            moveSelected(0, -step);
+            break;
+
+        case "ArrowDown":
+            if (!selectedId) break;
+            e.preventDefault();
+            moveSelected(0, step);
+            break;
+
+        case "ArrowLeft":
+            if (!selectedId) break;
+            e.preventDefault();
+            moveSelected(-step, 0);
+            break;
+
+        case "ArrowRight":
+            if (!selectedId) break;
+            e.preventDefault();
+            moveSelected(step, 0);
+            break;
+        }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [deleteSelected, upSelected, downSelected, selectElement]);
+  }, [deleteSelected, upSelected, downSelected, selectElement, moveSelected, selectedId]);
 
   useEffect(() => {
     document.title = "Mia | Editor";
