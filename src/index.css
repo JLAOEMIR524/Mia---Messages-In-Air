@@ -484,7 +484,7 @@ input#fsrch:focus {
 #root {
   display: flex;
   flex-direction: row;
-  min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
 }
 
@@ -548,7 +548,7 @@ a:hover {
 }
 
 .sidebar {
-  height: 100vh;
+  height: 100dvh;
   width: 240px;
   min-width: 240px;
   max-width: 240px;
@@ -1865,7 +1865,7 @@ body {
   /* display: flex;
   flex-direction: row; */
   margin: 0;
-  height: 100vh;
+  height: 100dvh;
   font-family: var(--font-body);
   font-size: var(--base-font-size);
   line-height: var(--base-line-height);
