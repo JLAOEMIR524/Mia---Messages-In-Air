@@ -80,7 +80,14 @@ export function usePostcard() {
         })
     }, [selectedId])
 
+    const addElementRandom = useCallback((payload: DragPayload, canvasWidth: number, canvasHeight: number) => {
+        // Zufällige Position, aber so dass das Element nicht aus dem Canvas ragt
+        const x = Math.random() * (canvasWidth - payload.width) + payload.width / 2;
+        const y = Math.random() * (canvasHeight - payload.height) + payload.height / 2;
+        addElementDrop(payload, x, y);
+    }, [addElementDrop]);
+
     return {
-        elements, selectedId, selectElement, addElementDrop, updateElement, deleteSelected, upSelected, downSelected,
+        elements, selectedId, selectElement, addElementDrop, updateElement, deleteSelected, upSelected, downSelected, addElementRandom,
     };
 }

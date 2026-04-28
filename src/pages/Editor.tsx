@@ -7,8 +7,10 @@ import { useResponsiveScale } from "../hooks/useResponsiveScale";
 import { StickerSelector } from "../components/StickerSelector";
 import { Step } from "../components/Step";
 import { Link, useNavigate } from "react-router";
+import type { AvailableSticker, DragPayload, UploadedImage } from "../types/CanvasTypes";
 
 const CANVAS_WIDTH = 800;
+const CANVAS_HEIGHT = 400;
 
 export function Editor() {
   const stageRef = useRef<Konva.Stage | null>(null);
@@ -26,6 +28,7 @@ export function Editor() {
     deleteSelected,
     upSelected,
     downSelected,
+    addElementRandom,
   } = usePostcard();
 
   const handleExport = useCallback((): Promise<void> => {
@@ -89,6 +92,31 @@ export function Editor() {
     navigate(-1);
   };
 
+  const handleImageClick = (image: UploadedImage) => {
+    const maxW = 250;
+    const scale = image.width > maxW ? maxW / image.width : 1;
+
+    const payload: DragPayload = {
+        type: "image",
+        src: image.src,
+        width: image.width * scale,
+        height: image.height * scale,
+    };
+
+    addElementRandom(payload, CANVAS_WIDTH, CANVAS_HEIGHT);
+  };
+
+  const handleStickerClick = (sticker: AvailableSticker, size: number) => {
+    const payload: DragPayload = {
+        type: "sticker",
+        src: sticker.src,
+        width: size,
+        height: size,
+    };
+
+    addElementRandom(payload, CANVAS_WIDTH, CANVAS_HEIGHT);
+  };
+
   const IsPostcardEmpty = elements.length === 0;
 
   return (
@@ -129,10 +157,10 @@ export function Editor() {
           </button>
         </div>
         <div style={{ display: currentBar === "image" ? "block" : "none" }}>
-          <PhotoUploader />
+          <PhotoUploader onImageClick={handleImageClick} />
         </div>
         <div style={{ display: currentBar === "sticker" ? "block" : "none" }}>
-          <StickerSelector />
+          <StickerSelector onImageClick={handleStickerClick} />
         </div>
         {currentBar === "text" && <p>Text</p>}
         <Canvas

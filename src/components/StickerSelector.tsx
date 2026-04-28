@@ -1,4 +1,4 @@
-import type { DragPayload } from "../types/CanvasTypes";
+import type { AvailableSticker, DragPayload } from "../types/CanvasTypes";
 
 const STICKERS = [
     { src: "./stickers/4.avif", label: "icon car"},
@@ -16,7 +16,7 @@ const STICKERS = [
 
 const STICKER_SIZE = 80;
 
-export function StickerSelector() {
+export function StickerSelector({onImageClick}: {onImageClick: (src: AvailableSticker, size: number) => void}) {
      const handleDragStart = async (e: React.DragEvent<HTMLImageElement>, src: string) => {
     
             const payload: DragPayload = {
@@ -39,6 +39,7 @@ export function StickerSelector() {
                                 alt={"Uploaded Image"} 
                                 draggable
                                 onDragStart={(e) => handleDragStart(e, sticker.src)}
+                                onClick={() => onImageClick(sticker, STICKER_SIZE)}
                             />
                         </div>
                     ))}

@@ -30,3 +30,14 @@ export interface DragPayload {
     width: number;
     height: number;
 }
+
+export interface UploadedImage {
+  src: string;
+  width: number;
+  height: number;
+}
+
+export interface AvailableSticker {
+    src: string,
+    label: string
+}

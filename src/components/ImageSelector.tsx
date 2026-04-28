@@ -1,13 +1,7 @@
 import { useRef, useState, type ChangeEvent } from "react";
-import type { DragPayload } from "../types/CanvasTypes";
+import type { DragPayload, UploadedImage } from "../types/CanvasTypes";
 
 const MAX_PLACEHOLDER_SLOTS = 1;
-
-interface UploadedImage {
-  src: string;
-  width: number;
-  height: number;
-}
 
 function loadImage(src: string): Promise<UploadedImage> {
   return new Promise((resolve) => {
@@ -18,7 +12,7 @@ function loadImage(src: string): Promise<UploadedImage> {
   });
 }
 
-export function PhotoUploader() {
+export function PhotoUploader({onImageClick}: {onImageClick: (src: UploadedImage) => void}) {
   const [images, setImages] = useState<UploadedImage[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -80,6 +74,7 @@ export function PhotoUploader() {
               alt={"Uploaded Image"}
               draggable
               onDragStart={(e) => handleDragStart(e, image)}
+              onClick={() => onImageClick(image)}
             />
             <button onClick={() => handleRemove(i)} className="button--delete">
               X
