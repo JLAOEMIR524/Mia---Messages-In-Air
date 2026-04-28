@@ -2274,10 +2274,10 @@ ol {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100dvh;
 
   box-sizing: border-box;
-  padding: 5vh 10vw 10vh 10vw;
+  padding: 10vh 10vw 10vh 10vw;
   position: fixed;
   z-index: 10001;
   overflow: hidden;
@@ -2372,6 +2372,37 @@ ol {
     margin: 0;
     padding: 0;
   }
+}
+
+.info-content {
+  text-align: left;
+  width: 100%;
+}
+
+.info-content h2 {
+  color: var(--color-primary);
+  margin-top: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.value-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.value-list li {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.impressum-link {
+  margin-top: 1rem;
+}
+
+.preview.home-preview {
+  width: 95%;
+  max-width: 900px;
 }
 
 @media print {
@@ -3020,6 +3051,10 @@ ol {
     font-size: 2.5rem;
     text-align: center;
     width: 100%;
+  }
+
+  .preview h1{
+    text-align: left;
   }
 
   .text-xl {
