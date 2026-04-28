@@ -1,30 +1,21 @@
-import { useEffect, useRef, useState } from "react";
-import { fetchAdress, type Adress } from "../api/mockAdress";
+import { useEffect, useRef } from "react";
 
 interface PreviewProps {
   isOpen: boolean;
   onClose: () => void;
+  title?: string;
+  className?: string;
+  children: React.ReactNode;
 }
 
-export function Preview({ isOpen, onClose }: PreviewProps) {
-  const [adress, setAdress] = useState<Adress | null>(null);
-  const cardFrontData = localStorage.getItem("card");
-  const cardText = localStorage.getItem("currentPostcardText");
-  const cardLocation = localStorage.getItem("selectedLocation");
+export function Preview({
+  isOpen,
+  onClose,
+  title = "Preview",
+  children,
+  className,
+}: PreviewProps) {
   const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const adress = await fetchAdress();
-        setAdress(adress);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
-    loadData();
-  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -60,9 +51,9 @@ export function Preview({ isOpen, onClose }: PreviewProps) {
 
   return (
     <dialog open className="previewContainer">
-      <div className="preview" ref={ref}>
+      <div className={`preview ${className || ""}`} ref={ref}>
         <div className="previewTop">
-          <h2>Preview</h2>
+          <h1 className="text-l">{title}</h1>
           <button
             className="closePreview"
             onClick={onClose}
@@ -71,27 +62,8 @@ export function Preview({ isOpen, onClose }: PreviewProps) {
             <img src="./icons/close.svg" alt="" aria-hidden="true" />
           </button>
         </div>
-        {cardFrontData && (
-          <img
-            src={cardFrontData}
-            className="postcardFront"
-            alt="Your Postcard"
-          />
-        )}
-        {cardText && cardLocation && adress && (
-          <div className="postcardBack">
-            <p className="message">{cardText}</p>
-            <img src="./Stamp.png" alt="" />
-            <div className="adress">
-              <p>{adress.name}</p>
-              <p>{adress.street}</p>
-              <p>
-                {adress.zip} {adress.city}
-              </p>
-              <p>{adress.country}</p>
-            </div>
-          </div>
-        )}
+
+        <div className="previewContent">{children}</div>
       </div>
     </dialog>
   );

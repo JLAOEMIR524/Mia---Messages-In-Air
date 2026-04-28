@@ -4,11 +4,16 @@ import { Step } from "../components/Step";
 import data from "../api/cities.json";
 import { Link, useNavigate } from "react-router-dom";
 import { Preview } from "../components/Preview";
+import { fetchAdress, type Adress } from "../api/mockAdress";
 
 export function Message() {
   const [questText, setQuestText] = useState("");
   const [selectedQuest, setSelectedQuest] = useState<any>(null);
   const [showPreview, setShowPreview] = useState(false);
+  const [adress, setAdress] = useState<Adress | null>(null);
+  const cardFrontData = localStorage.getItem("card");
+  const cardText = localStorage.getItem("currentPostcardText");
+  const cardLocation = localStorage.getItem("selectedLocation");
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
@@ -64,6 +69,19 @@ export function Message() {
     setShowDropdown(false);
     localStorage.setItem("selectedLocation", name);
   };
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const adress = await fetchAdress();
+        setAdress(adress);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    loadData();
+  }, []);
 
   const isDisabled = !selectedLocation || questText.length < 100;
 
@@ -214,7 +232,33 @@ export function Message() {
           </Link>
         </div>
       </main>
-      <Preview isOpen={showPreview} onClose={() => setShowPreview(false)} />
+      <Preview
+        isOpen={showPreview}
+        onClose={() => setShowPreview(false)}
+        title="Preview"
+      >
+        {cardFrontData && (
+          <img
+            src={cardFrontData}
+            className="postcardFront"
+            alt="Your Postcard"
+          />
+        )}
+        {cardText && cardLocation && adress && (
+          <div className="postcardBack">
+            <p className="message">{cardText}</p>
+            <img src="./Stamp.png" alt="" />
+            <div className="adress">
+              <p>{adress.name}</p>
+              <p>{adress.street}</p>
+              <p>
+                {adress.zip} {adress.city}
+              </p>
+              <p>{adress.country}</p>
+            </div>
+          </div>
+        )}
+      </Preview>
     </>
   );
 }
