@@ -1685,7 +1685,7 @@ a.button--image {
 
 .button-flex.gallery {
   margin-top: var(--space-sm);
-  justify-content: flex-start; 
+  justify-content: flex-start;
 }
 
 .button-flex.homeButton {
@@ -2249,6 +2249,11 @@ ol {
   display: flex;
   gap: var(--space-md);
   margin-bottom: -1.5rem;
+  flex-wrap: wrap;
+  row-gap: 0;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .fixed {
@@ -2898,7 +2903,7 @@ ol {
     padding: var(--space-md);
     margin-top: calc(var(--space-lg)*1.5);
 
-    img{
+    img {
       width: 120px;
     }
   }
