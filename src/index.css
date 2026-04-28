@@ -493,6 +493,8 @@ input#fsrch:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: absolute;
+
 
   padding: 0 var(--space-xl);
   height: 140px;
@@ -1159,8 +1161,8 @@ main>.button:last-of-type {
 .heaven {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   gap: var(--space-sm);
 
   .email-icon {
@@ -1683,6 +1685,11 @@ a.button--image {
 
 .button-flex.gallery {
   margin-top: var(--space-sm);
+  justify-content: flex-start; 
+}
+
+.button-flex.homeButton {
+  margin-top: var(--space-sm);
 }
 
 .button.is-disabled {
@@ -1710,8 +1717,11 @@ a.button.button--image.message.is-disabled .icon-span {
   flex-wrap: wrap;
   gap: var(--space-sm);
   row-gap: 0;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 
-  &:not(.gallery) {
+  &:not(.gallery):not(.homeButton) {
 
     &>button:first-child {
       color: var(--color-primary);
@@ -2223,6 +2233,16 @@ ol {
       background-color: var(--color-blue-700);
     }
   }
+}
+
+.Home {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  flex-grow: 1;
+  gap: 1rem;
 }
 
 .editActions {
@@ -2876,7 +2896,11 @@ ol {
   .LoginContainer {
     min-width: 400px;
     padding: var(--space-md);
-    margin-top: calc(var(--space-lg)*1.5)
+    margin-top: calc(var(--space-lg)*1.5);
+
+    img{
+      width: 120px;
+    }
   }
 
 
@@ -2951,6 +2975,11 @@ ol {
   main.imageEditor>div:last-child .button--image {
     left: 30%;
   }
+
+  .Home {
+    padding-top: 80px;
+  }
+
 }
 
 @media (width < 450px) {
@@ -2984,6 +3013,8 @@ ol {
 
   h1 {
     font-size: 2.5rem;
+    text-align: center;
+    width: 100%;
   }
 
   .text-xl {

@@ -11,29 +11,33 @@ export function Home() {
       document.body.classList.remove("background-heaven");
     };
   }, []);
-    
+
   return (
     <main className="heaven">
       <NavBarTop />
-      <h1>
-        Mia <span>Messages in Air</span>
-      </h1>
-      <div className="center">
-        <p>A postcard to a stranger.</p>
-        <p>No likes. No followers. No feed.</p>
-        <p>Just real, unexpected messages.</p>
-      </div>
-      <div className="button-flex gallery">
-        <Link to="/login" className="button button--primary">Start now</Link>
-        <button className="button button--secondary">Find out more</button>
-      </div>
-      <Link to="/login">
-      <img
-        src="./icons/letter-blue.svg"
-        alt="Icon Mail"
-        className="email-icon"
-              />
-      </Link>
+      <section className="Home">
+        <h1>
+          Mia <span>Messages in Air</span>
+        </h1>
+        <div className="center">
+          <p>A postcard to a stranger.</p>
+          <p>No likes. No followers. No feed.</p>
+          <p>Just real, unexpected messages.</p>
+        </div>
+        <div className="button-flex homeButton">
+          <Link to="/login" className="button button--primary">
+            Start now
+          </Link>
+          <button className="button button--secondary">Find out more</button>
+        </div>
+        <Link to="/login">
+          <img
+            src="./icons/letter-blue.svg"
+            alt="Icon Mail"
+            className="email-icon"
+          />
+        </Link>
+      </section>
     </main>
   );
 }
