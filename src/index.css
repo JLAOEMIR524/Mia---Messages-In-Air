@@ -2322,7 +2322,8 @@ ol {
     border: 1px var(--color-border-strong) solid;
 
     border-color: var(--color-black);
-    box-shadow: var(--shadow-md)
+    box-shadow: var(--shadow-md);
+    margin-bottom: var(--space-xs);
   }
 
   .postcardBack {
@@ -2844,6 +2845,12 @@ ol {
 
   h1 {
     font-size: 3rem;
+  }
+
+  .preview {
+    h1 {
+      font-size: 2rem;
+    }
   }
 
   h2 {
