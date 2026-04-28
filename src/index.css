@@ -2266,6 +2266,8 @@ ol {
   gap: var(--space-md);
   width: 100%;
   justify-content: center;
+  flex-wrap: wrap;
+  row-gap: 0;
 }
 
 /* Preview Popup */
@@ -2792,6 +2794,45 @@ ol {
     left: 35%;
 
   }
+
+  .galleryContainer {
+    padding: var(--space-sm);
+
+    .gallery {
+      padding-bottom: 0.5rem;
+      gap: var(--space-xs);
+
+      .barItem {
+        width: 90px;
+        height: 90px;
+        flex-shrink: 0;
+
+
+        p {
+          text-align: center;
+        }
+
+      }
+    }
+
+    .addButton {
+      width: 90px;
+      height: 90px;
+      flex-shrink: 0;
+      padding: var(--space-xs);
+      gap: 0.2rem;
+
+      p {
+        font-size: 0.8rem;
+        text-align: center;
+      }
+
+      img {
+        width: 50%;
+        height: 50%
+      }
+    }
+  }
 }
 
 /*Mobile*/
@@ -3053,7 +3094,7 @@ ol {
     width: 100%;
   }
 
-  .preview h1{
+  .preview h1 {
     text-align: left;
   }
 
@@ -3095,6 +3136,37 @@ ol {
 
   main.imageEditor>div:last-child .button--image {
     left: 25%;
+  }
+
+  .galleryContainer {
+
+    .gallery {
+
+      .barItem {
+        width: 70px;
+        height: 70px;
+
+        p {
+          font-size: 0.8rem;
+        }
+
+      }
+    }
+
+    .addButton {
+      width: 70px;
+      height: 70px;
+      gap: 0.1rem;
+
+      p {
+        font-size: 0.6rem;
+      }
+
+      img {
+        width: 50%;
+        height: 50%
+      }
+    }
   }
 }
 
