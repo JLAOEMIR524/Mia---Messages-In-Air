@@ -17,9 +17,10 @@ interface Props {
     onDrop: (payload: DragPayload, x: number, y: number) => void;
     stageRef: React.RefObject<Konva.Stage | null>;
     scale: number;
+    backgroundColor: string;
 }
 
-export function Canvas({elements, selectedId, onSelect, onUpdate, onDrop, stageRef, scale}: Props) {
+export function Canvas({elements, selectedId, onSelect, onUpdate, onDrop, stageRef, scale, backgroundColor}: Props) {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -75,45 +76,46 @@ export function Canvas({elements, selectedId, onSelect, onUpdate, onDrop, stageR
                 boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
             }}
         >
-            <div
-                style={{
-                    transform: `scale(${scale})`,
-                    transformOrigin: 'top left',
-                    width: CANVAS_WIDTH,
-                    height: CANVAS_HEIGHT,
-                }}
-            >
-        <Stage ref={stageRef} width={CANVAS_WIDTH} height={CANVAS_HEIGHT} onClick={handleStageClick}>
-            <Layer>
-                <Rect
-                    fill={"white"}
-                    width={CANVAS_WIDTH-5}
-                    height={CANVAS_HEIGHT-5}
-                    cornerRadius={20}
-                    onClick={() => onSelect(null)}
-                    onTap={() => onSelect(null)}
-                />
-                {elements.map(elem => (
-                    elem.type === "image" ? (
-                        <ImageNode
-                            key={elem.id}
-                            element={elem}
-                            isSelected={elem.id === selectedId}
-                            onSelect={() => onSelect(elem.id)}
-                            onChange={(u) => onUpdate(elem.id, u)}
-                        />
-                    ) : (
-                        <StickerNode
-                            key={elem.id}
-                            element={elem}
-                            isSelected={elem.id === selectedId}
-                            onSelect={() => onSelect(elem.id)}
-                            onChange={(u) => onUpdate(elem.id, u)}
-                        />
-                    )
-                ))}
-            </Layer>
-        </Stage>
+        <div
+            style={{
+                transform: `scale(${scale})`,
+                transformOrigin: 'top left',
+                width: CANVAS_WIDTH,
+                height: CANVAS_HEIGHT,
+                overflow: "hidden",
+                borderRadius: "7px"
+            }}
+        >
+            <Stage ref={stageRef} width={CANVAS_WIDTH} height={CANVAS_HEIGHT} onClick={handleStageClick}>
+                <Layer>
+                    <Rect
+                        fill={backgroundColor}
+                        width={CANVAS_WIDTH+5}
+                        height={CANVAS_HEIGHT+5}
+                        onClick={() => onSelect(null)}
+                        onTap={() => onSelect(null)}
+                    />
+                    {elements.map(elem => (
+                        elem.type === "image" ? (
+                            <ImageNode
+                                key={elem.id}
+                                element={elem}
+                                isSelected={elem.id === selectedId}
+                                onSelect={() => onSelect(elem.id)}
+                                onChange={(u) => onUpdate(elem.id, u)}
+                            />
+                        ) : (
+                            <StickerNode
+                                key={elem.id}
+                                element={elem}
+                                isSelected={elem.id === selectedId}
+                                onSelect={() => onSelect(elem.id)}
+                                onChange={(u) => onUpdate(elem.id, u)}
+                            />
+                        )
+                    ))}
+                </Layer>
+            </Stage>
         </div>
     </div>
     );

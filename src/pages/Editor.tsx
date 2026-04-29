@@ -7,7 +7,11 @@ import { useResponsiveScale } from "../hooks/useResponsiveScale";
 import { StickerSelector } from "../components/StickerSelector";
 import { Step } from "../components/Step";
 import { Link, useNavigate } from "react-router";
-import type { AvailableSticker, DragPayload, UploadedImage } from "../types/CanvasTypes";
+import type {
+  AvailableSticker,
+  DragPayload,
+  UploadedImage,
+} from "../types/CanvasTypes";
 
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 400;
@@ -19,7 +23,17 @@ export function Editor() {
   const [currentBar, setBar] = useState<string>("image");
   const [focus, setFocus] = useState<string | null>(null);
   const { scale } = useResponsiveScale(CANVAS_WIDTH);
+  const [bgColor, setBgColor] = useState<string>("#ffffff");
   const navigate = useNavigate();
+  const presetColors = [
+    "#fcffa7",
+    "#ffe0bc",
+    "#ffd0d0",
+    "#f1d1f0",
+    "#d2d4ff",
+    "#d6ffc5",
+    "#c5fff3",
+  ];
 
   const {
     elements,
@@ -73,53 +87,60 @@ export function Editor() {
       switch (e.key) {
         case "Delete":
         case "Backspace":
-            deleteSelected();
-            break;
+          deleteSelected();
+          break;
 
         case "f":
         case "F":
-            upSelected();
-            break;
+          upSelected();
+          break;
 
         case "b":
         case "B":
-            downSelected();
-            break;
+          downSelected();
+          break;
 
         case "Escape":
-            e.preventDefault();
-            selectElement(null);
-            break;
+          e.preventDefault();
+          selectElement(null);
+          break;
 
         case "ArrowUp":
-            if (!selectedId) break;
-            e.preventDefault();
-            moveSelected(0, -step);
-            break;
+          if (!selectedId) break;
+          e.preventDefault();
+          moveSelected(0, -step);
+          break;
 
         case "ArrowDown":
-            if (!selectedId) break;
-            e.preventDefault();
-            moveSelected(0, step);
-            break;
+          if (!selectedId) break;
+          e.preventDefault();
+          moveSelected(0, step);
+          break;
 
         case "ArrowLeft":
-            if (!selectedId) break;
-            e.preventDefault();
-            moveSelected(-step, 0);
-            break;
+          if (!selectedId) break;
+          e.preventDefault();
+          moveSelected(-step, 0);
+          break;
 
         case "ArrowRight":
-            if (!selectedId) break;
-            e.preventDefault();
-            moveSelected(step, 0);
-            break;
-        }
+          if (!selectedId) break;
+          e.preventDefault();
+          moveSelected(step, 0);
+          break;
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [deleteSelected, upSelected, downSelected, selectElement, moveSelected, selectedId]);
+  }, [
+    deleteSelected,
+    upSelected,
+    downSelected,
+    selectElement,
+    moveSelected,
+    selectedId,
+  ]);
 
   useEffect(() => {
     document.title = "Mia | Editor";
@@ -134,10 +155,10 @@ export function Editor() {
     const scale = image.width > maxW ? maxW / image.width : 1;
 
     const payload: DragPayload = {
-        type: "image",
-        src: image.src,
-        width: image.width * scale,
-        height: image.height * scale,
+      type: "image",
+      src: image.src,
+      width: image.width * scale,
+      height: image.height * scale,
     };
 
     addElementRandom(payload, CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -145,10 +166,10 @@ export function Editor() {
 
   const handleStickerClick = (sticker: AvailableSticker, size: number) => {
     const payload: DragPayload = {
-        type: "sticker",
-        src: sticker.src,
-        width: size,
-        height: size,
+      type: "sticker",
+      src: sticker.src,
+      width: size,
+      height: size,
     };
 
     addElementRandom(payload, CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -192,12 +213,86 @@ export function Editor() {
             />
             Stickers
           </button>
+          <button
+            className={`button button--image ${"color" === currentBar ? "button--selected" : ""}`}
+            onClick={() => setBar("color")}
+            onMouseOver={() => setFocus("color")}
+            onMouseOut={() => setFocus(null)}
+          >
+            <img
+              src={`./icons/colors${"color" === currentBar || focus === "color" ? "_blue" : "_white"}.svg`}
+              alt="color icon"
+            />
+            Colour
+          </button>
         </div>
         <div style={{ display: currentBar === "image" ? "block" : "none" }}>
           <PhotoUploader onImageClick={handleImageClick} />
         </div>
         <div style={{ display: currentBar === "sticker" ? "block" : "none" }}>
           <StickerSelector onImageClick={handleStickerClick} />
+        </div>
+        <div style={{ display: currentBar === "color" ? "block" : "none" }}>
+          <div className="galleryContainer">
+            <div
+              className="gallery"
+              role="radiogroup"
+              aria-label="Background colors"
+              onKeyDown={(e) => {
+                const focusable =
+                  e.currentTarget.querySelectorAll("button, input");
+                const index = Array.from(focusable).indexOf(
+                  document.activeElement as any,
+                );
+
+                if (e.key === "ArrowRight") {
+                  const next = (index + 1) % focusable.length;
+                  (focusable[next] as HTMLElement).focus();
+                } else if (e.key === "ArrowLeft") {
+                  const prev =
+                    (index - 1 + focusable.length) % focusable.length;
+                  (focusable[prev] as HTMLElement).focus();
+                }
+              }}
+            >
+              {presetColors.map((color) => (
+                <button
+                  key={color}
+                  type="button"
+                  className="barItem"
+                  aria-label={`Colour ${color}`}
+                  style={{
+                    backgroundColor: color,
+                    borderRadius: "12px",
+                    border:
+                      color === bgColor
+                        ? "3px solid var(--color-primary)"
+                        : "none",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setBgColor(color)}
+                />
+              ))}
+              <div style={{ width: "20px" }} aria-hidden="true" />
+            </div>
+            <div className="barItem" style={{ position: "relative" }}>
+              <label className="addButton" style={{ cursor: "pointer" }}>
+                <img src="./icons/colorize.svg" alt="" aria-hidden="true" />
+                <p>Custom</p>
+                <input
+                  type="color"
+                  aria-label="Choose own colour"
+                  value={bgColor}
+                  onChange={(e) => setBgColor(e.target.value)}
+                  style={{
+                    position: "absolute",
+                    opacity: 0,
+                    cursor: "pointer",
+                  }}
+                />
+              </label>
+            </div>
+          </div>
         </div>
         {currentBar === "text" && <p>Text</p>}
         <Canvas
@@ -208,6 +303,7 @@ export function Editor() {
           onDrop={addElementDrop}
           stageRef={stageRef}
           scale={scale}
+          backgroundColor={bgColor}
         />
         <div
           className="editActions"
