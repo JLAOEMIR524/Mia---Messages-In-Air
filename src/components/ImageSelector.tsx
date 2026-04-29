@@ -12,7 +12,11 @@ function loadImage(src: string): Promise<UploadedImage> {
   });
 }
 
-export function PhotoUploader({onImageClick}: {onImageClick: (src: UploadedImage) => void}) {
+export function PhotoUploader({
+  onImageClick,
+}: {
+  onImageClick: (src: UploadedImage) => void;
+}) {
   const [images, setImages] = useState<UploadedImage[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [focusIndex, setFocusIndex] = useState<number>(0);
@@ -65,48 +69,51 @@ export function PhotoUploader({onImageClick}: {onImageClick: (src: UploadedImage
     fileInputRef.current?.click();
   };
 
-  const handleKeyDown = useCallback((e: React.KeyboardEvent, index: number) => {
-    switch(e.key){
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent, index: number) => {
+      switch (e.key) {
         case "ArrowUp":
         case "ArrowRight":
-            e.preventDefault();
-            const next = (index + 1) % images.length;
-            setFocusIndex(next);
-            itemsRef.current[next]?.focus();
-            break;
+          e.preventDefault();
+          const next = (index + 1) % images.length;
+          setFocusIndex(next);
+          itemsRef.current[next]?.focus();
+          break;
 
         case "ArrowDown":
         case "ArrowLeft":
-            e.preventDefault();
-            const previous = (index - 1 + images.length) % images.length;
-            setFocusIndex(previous);
-            itemsRef.current[previous]?.focus();
-            break;
+          e.preventDefault();
+          const previous = (index - 1 + images.length) % images.length;
+          setFocusIndex(previous);
+          itemsRef.current[previous]?.focus();
+          break;
         case "Enter":
         case " ":
-            e.preventDefault();
-            onImageClick(images[index]);
-            break;
+          e.preventDefault();
+          onImageClick(images[index]);
+          break;
         case "Delete":
         case "Backspace":
           e.preventDefault();
           handleRemove(index);
           break;
-    }
-  }, [onImageClick, images]);
+      }
+    },
+    [onImageClick, images],
+  );
 
   const emptySlots = Math.max(0, MAX_PLACEHOLDER_SLOTS - images.length);
 
   return (
-    <div 
-      className="galleryContainer" 
-      aria-label="Image Upload/Uploaded Images" 
+    <div
+      className="galleryContainer"
+      aria-label="Image Upload/Uploaded Images"
       role="list"
     >
       <div className="gallery">
         {images.map((image, i) => (
-          <div 
-            className="barItem image" 
+          <div
+            className="barItem image"
             key={i}
             tabIndex={focusIndex === i ? 0 : -1}
             onKeyDown={(e) => handleKeyDown(e, i)}
@@ -119,7 +126,12 @@ export function PhotoUploader({onImageClick}: {onImageClick: (src: UploadedImage
               onDragStart={(e) => handleDragStart(e, image)}
               onClick={() => onImageClick(image)}
             />
-            <button onClick={() => handleRemove(i)} className="button--delete" aria-hidden="true" tabIndex={-1}>
+            <button
+              onClick={() => handleRemove(i)}
+              className="button--delete"
+              aria-hidden="true"
+              tabIndex={-1}
+            >
               X
             </button>
           </div>
@@ -133,11 +145,12 @@ export function PhotoUploader({onImageClick}: {onImageClick: (src: UploadedImage
             <p>Add Images</p>
           </div>
         ))}
-        <button className="addButton" onClick={handlePlaceholderClick}>
-          <img src="./icons/add_circle.svg" alt="" aria-hidden="true" />
-          <p>Add image</p>
-        </button>
+        <div style={{ width: "20px" }} aria-hidden="true" />
       </div>
+      <button className="addButton" onClick={handlePlaceholderClick}>
+        <img src="./icons/add_circle.svg" alt="" aria-hidden="true" />
+        <p>Add image</p>
+      </button>
       <input
         ref={fileInputRef}
         type="file"

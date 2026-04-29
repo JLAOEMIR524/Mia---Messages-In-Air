@@ -2235,6 +2235,12 @@ ol {
   }
 }
 
+.addButton:has(input:focus-visible) {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: var(--border-radius);
+}
+
 .Home {
   display: flex;
   align-items: center;
