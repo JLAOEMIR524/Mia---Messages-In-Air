@@ -62,7 +62,7 @@ export function Editor() {
         try {
           const dataUrl = stage.toDataURL({
             pixelRatio: 2,
-            mimeType: "image/png",
+            mimeType: "image/jpeg",
           });
 
           localStorage.setItem("card", dataUrl);
