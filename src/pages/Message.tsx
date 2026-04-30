@@ -9,20 +9,20 @@ import { type Quest as QuestType } from "../api/mockQuest";
 
 export function Message() {
   const [questText, setQuestText] = useState<string>(
-    () => localStorage.getItem("currentPostcardText") ?? ""
+    () => localStorage.getItem("currentPostcardText") ?? "",
   );
 
   const [selectedQuest] = useState<QuestType | null>(() => {
     const saved = localStorage.getItem("selectedQuest");
     return saved ? (JSON.parse(saved) as QuestType) : null;
   });
- 
-  const [selectedLocation, setSelectedLocation] = useState<string | null>(
-    () => localStorage.getItem("selectedLocation")
+
+  const [selectedLocation, setSelectedLocation] = useState<string | null>(() =>
+    localStorage.getItem("selectedLocation"),
   );
-  
+
   const [searchTerm, setSearchTerm] = useState<string>(
-    () => localStorage.getItem("selectedLocation") ?? ""
+    () => localStorage.getItem("selectedLocation") ?? "",
   );
 
   const [showPreview, setShowPreview] = useState(false);
