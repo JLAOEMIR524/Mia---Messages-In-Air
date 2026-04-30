@@ -5,18 +5,32 @@ import data from "../api/cities.json";
 import { Link, useNavigate } from "react-router-dom";
 import { Preview } from "../components/Preview";
 import { fetchAdress, type Adress } from "../api/mockAdress";
+import { type Quest as QuestType } from "../api/mockQuest";
 
 export function Message() {
-  const [questText, setQuestText] = useState("");
-  const [selectedQuest, setSelectedQuest] = useState<any>(null);
+  const [questText, setQuestText] = useState<string>(
+    () => localStorage.getItem("currentPostcardText") ?? ""
+  );
+
+  const [selectedQuest] = useState<QuestType | null>(() => {
+    const saved = localStorage.getItem("selectedQuest");
+    return saved ? (JSON.parse(saved) as QuestType) : null;
+  });
+ 
+  const [selectedLocation, setSelectedLocation] = useState<string | null>(
+    () => localStorage.getItem("selectedLocation")
+  );
+  
+  const [searchTerm, setSearchTerm] = useState<string>(
+    () => localStorage.getItem("selectedLocation") ?? ""
+  );
+
   const [showPreview, setShowPreview] = useState(false);
   const [adress, setAdress] = useState<Adress | null>(null);
   const cardFrontData = localStorage.getItem("card");
   const cardText = localStorage.getItem("currentPostcardText");
   const cardLocation = localStorage.getItem("selectedLocation");
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
 
   const navigate = useNavigate();
@@ -27,21 +41,6 @@ export function Message() {
 
   useEffect(() => {
     document.title = "Mia | Writing Message";
-
-    const savedQuest = localStorage.getItem("selectedQuest");
-    if (savedQuest) {
-      setSelectedQuest(JSON.parse(savedQuest));
-    }
-    const savedLocation = localStorage.getItem("selectedLocation");
-    if (savedLocation) {
-      setSelectedLocation(savedLocation);
-      setSearchTerm(savedLocation);
-    }
-
-    const savedText = localStorage.getItem("currentPostcardText");
-    if (savedText) {
-      setQuestText(savedText);
-    }
   }, []);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

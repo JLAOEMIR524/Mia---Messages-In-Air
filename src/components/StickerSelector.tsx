@@ -36,20 +36,23 @@ export function StickerSelector({onImageClick}: {onImageClick: (src: AvailableSt
     const handleKeyDown = useCallback((e: React.KeyboardEvent, index: number) => {
         switch(e.key){
             case "ArrowUp":
-            case "ArrowRight":
+            case "ArrowRight":{
                 e.preventDefault();
                 const next = (index + 1) % STICKERS.length;
                 setFocusIndex(next);
                 itemsRef.current[next]?.focus();
                 break;
+            }
 
             case "ArrowDown":
-            case "ArrowLeft":
+            case "ArrowLeft":{
                 e.preventDefault();
                 const previous = (index - 1) % STICKERS.length;
                 setFocusIndex(previous);
                 itemsRef.current[previous]?.focus();
                 break;
+            }
+            
             case "Enter":
             case " ":
                 e.preventDefault();
