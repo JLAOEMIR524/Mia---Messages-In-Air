@@ -200,12 +200,18 @@ export function Message() {
             }
           />
         </form>
-        {questText.length < 100 && (
-          <p className="warning">Your Message is too short</p>
-        )}
-        {!selectedLocation && (
-          <p className="warning">Please select a Location</p>
-        )}
+        <div aria-live="polite">
+          {questText.length < 100 && (
+            <p id="msg-warning" className="warning">
+              Your Message is too short
+            </p>
+          )}
+          {!selectedLocation && (
+            <p id="loc-warning" className="warning">
+              Please select a Location
+            </p>
+          )}
+        </div>
         <div className="button-flex">
           <button
             className="button button--image"
@@ -218,6 +224,10 @@ export function Message() {
           <Link
             to="/send"
             state={{ fromMessage: true }}
+            aria-describedby={
+              (questText.length < 100 ? "msg-warning " : "") +
+              (!selectedLocation ? "loc-warning" : "")
+            }
             className={`button button--image message ${isDisabled ? "is-disabled" : ""}`}
             aria-disabled={isDisabled}
             onClick={(e) => {
