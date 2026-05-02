@@ -73,7 +73,7 @@ export function PhotoUploader({
     (e: React.KeyboardEvent, index: number) => {
       switch (e.key) {
         case "ArrowUp":
-        case "ArrowRight":{
+        case "ArrowRight": {
           e.preventDefault();
           const next = (index + 1) % images.length;
           setFocusIndex(next);
@@ -82,7 +82,7 @@ export function PhotoUploader({
         }
 
         case "ArrowDown":
-        case "ArrowLeft":{
+        case "ArrowLeft": {
           e.preventDefault();
           const previous = (index - 1 + images.length) % images.length;
           setFocusIndex(previous);
@@ -150,17 +150,24 @@ export function PhotoUploader({
         ))}
         <div style={{ width: "20px" }} aria-hidden="true" />
       </div>
-      <button className="addButton" onClick={handlePlaceholderClick}>
+      <button
+        className="addButton"
+        onClick={handlePlaceholderClick}
+        aria-labelledby="file-upload-label"
+      >
         <img src="./icons/add_circle.svg" alt="" aria-hidden="true" />
-        <p>Add image</p>
+        <p id="file-upload-label">Add image</p>
       </button>
+
       <input
+        id="image-upload-input"
         ref={fileInputRef}
         type="file"
         accept="image/*"
         multiple
         onChange={handleUpload}
         style={{ display: "none" }}
+        aria-label="Upload images"
       />
     </div>
   );
