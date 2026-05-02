@@ -31,7 +31,7 @@ export function NavBar() {
   ];
 
   return (
-    <div className={`sidebar ${isOpen ? "is-open" : ""}`}>
+    <aside className={`sidebar ${isOpen ? "is-open" : ""}`}>
       <div className="topContainer">
         <div className="mobileBar">
           {!isMobile ? (
@@ -69,38 +69,39 @@ export function NavBar() {
           </button>
         </div>
 
-        <nav>
-          {navItems.map((item, index) => (
-            <div
-              key={index}
-              className={`nav-item ${location.pathname === item.path ? "active" : ""}`}
-            >
-              <img src={item.icon} alt={`${item.name} icon`} />
-              <Link to={item.path} onClick={() => setIsOpen(false)}>
-                {item.name}
-              </Link>
-            </div>
-          ))}
+        <nav aria-label="Main Menu">
+          <ul>
+            {navItems.map((item, index) => (
+              <li
+                key={index}
+                className={`nav-item ${location.pathname === item.path ? "active" : ""}`}
+              >
+                <img src={item.icon} alt="" aria-hidden="true" />
+                <Link to={item.path} onClick={() => setIsOpen(false)}>
+                  {item.name}
+                </Link>
+              </li>
+            ))}
 
-          {isMobile && (
-            <div
-              className={`nav-item logout-mobile ${location.pathname === "/logout" ? "active" : ""}`}
-            >
-              <img src="./icons/logout.svg" alt="logout icon" />
-              <Link to="/logout" onClick={() => setIsOpen(false)}>
-                Logout
-              </Link>
-            </div>
-          )}
+            {isMobile && (
+              <li
+                className={`nav-item logout-mobile ${location.pathname === "/logout" ? "active" : ""}`}
+              >
+                <img src="./icons/logout.svg" alt="" aria-hidden="true" />
+                <Link to="/logout" onClick={() => setIsOpen(false)}>
+                  Logout
+                </Link>
+              </li>
+            )}
+          </ul>
         </nav>
       </div>
-
       {!isMobile && (
         <div className="logout">
-          <img src="./icons/logout.svg" alt="logout icon" />
+          <img src="./icons/logout.svg" alt="" aria-hidden="true" />
           <Link to="/logout">Logout</Link>
         </div>
       )}
-    </div>
+    </aside>
   );
 }
