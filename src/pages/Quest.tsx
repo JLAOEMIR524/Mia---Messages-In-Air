@@ -100,11 +100,19 @@ export function Quest() {
         ))}
       </div>
 
-      {!selectedQuest && (
-        <p className="warning">Please select a quest to continue</p>
-      )}
+      <div aria-live="polite">
+        {!selectedQuest && (
+          <p id="quest-warning" className="warning">
+            Please select a quest to continue
+          </p>
+        )}
+      </div>
       {!selectedQuest ? (
-        <button className="button button--image" disabled>
+        <button
+          className="button button--image"
+          aria-describedby="quest-warning"
+          disabled
+        >
           Continue to Editor
           <span className="icon-span"></span>
         </button>
