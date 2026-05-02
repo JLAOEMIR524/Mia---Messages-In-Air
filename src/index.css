@@ -1081,7 +1081,7 @@ main>.button:last-of-type {
 
       overflow: hidden;
       border-radius: 90%;
-      background-color: var(--color-blue-50);
+      background-color: var(--color-blue-100);
 
       .profileText {
         font-size: 3rem;
@@ -2006,13 +2006,14 @@ ol {
 
       overflow: hidden;
       border-radius: 90%;
-      background-color: var(--color-blue-50);
+      background-color: var(--color-blue-10);
 
       .profileText {
         font-size: 3rem;
         font-style: italic;
         padding-right: 4px;
         cursor: default;
+        color:black;
       }
     }
   }
