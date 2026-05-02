@@ -94,7 +94,7 @@ export function usePostcard() {
                     {...element, x: element.x + moveDirectionx, y: element.y + moveDirectiony } as CanvasElement
                     : element
         ))
-    }, [selectedId])
+    }, [selectedId, selectElement])
 
     return {
         elements, selectedId, selectElement, addElementDrop, updateElement, 

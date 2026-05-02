@@ -54,7 +54,7 @@ export function Canvas({elements, selectedId, onSelect, onUpdate, onDrop, stageR
             container.removeEventListener("dragover", handleDragOver);
             container.removeEventListener("drop", handleDrop);
         };
-    }, [onDrop]);
+    }, [onDrop, scale]);
 
     const handleStageClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
         if(e.target === e.target.getStage()){

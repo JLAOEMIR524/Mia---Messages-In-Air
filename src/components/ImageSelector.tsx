@@ -73,20 +73,23 @@ export function PhotoUploader({
     (e: React.KeyboardEvent, index: number) => {
       switch (e.key) {
         case "ArrowUp":
-        case "ArrowRight":
+        case "ArrowRight":{
           e.preventDefault();
           const next = (index + 1) % images.length;
           setFocusIndex(next);
           itemsRef.current[next]?.focus();
           break;
+        }
 
         case "ArrowDown":
-        case "ArrowLeft":
+        case "ArrowLeft":{
           e.preventDefault();
           const previous = (index - 1 + images.length) % images.length;
           setFocusIndex(previous);
           itemsRef.current[previous]?.focus();
           break;
+        }
+
         case "Enter":
         case " ":
           e.preventDefault();

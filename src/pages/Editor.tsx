@@ -62,7 +62,7 @@ export function Editor() {
         try {
           const dataUrl = stage.toDataURL({
             pixelRatio: 2,
-            mimeType: "image/png",
+            mimeType: "image/jpeg",
           });
 
           localStorage.setItem("card", dataUrl);
@@ -242,7 +242,7 @@ export function Editor() {
                 const focusable =
                   e.currentTarget.querySelectorAll("button, input");
                 const index = Array.from(focusable).indexOf(
-                  document.activeElement as any,
+                  document.activeElement as HTMLButtonElement,
                 );
 
                 if (e.key === "ArrowRight") {
