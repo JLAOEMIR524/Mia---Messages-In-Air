@@ -21,3 +21,22 @@ model Address {
   city    String
   country String
 }
+
+model Country {
+  id        Int      @id @default(autoincrement())
+  name      String
+  code      String   @unique
+  longitude Float
+  latitude  Float
+  cities    City[]
+}
+
+model City {
+  id        Int      @id @default(autoincrement())
+  name      String
+  countryCode String
+  longitude Float
+  latitude  Float
+  
+  country   Country  @relation(fields: [countryCode], references: [code])
+}

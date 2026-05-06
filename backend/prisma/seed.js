@@ -7,6 +7,48 @@ async function main() {
   const data = JSON.parse(
     fs.readFileSync(path.join(__dirname, "../adress.json"), "utf8"),
   );
+  const data2 = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "../cities.json"), "utf8"),
+  );
+
+  console.log("Importiere Länder...");
+  for (const c of data2.countries) {
+    await prisma.country.upsert({
+      where: { code: c.code },
+      update: {},
+      create: {
+        name: c.name,
+        code: c.code,
+        longitude: c.location.longitude,
+        latitude: c.location.latitude,
+      },
+    });
+  }
+
+  console.log("Importiere Städte...");
+  await prisma.city.deleteMany({}); 
+
+  for (const city of data2.cities) {
+    const countryExists = await prisma.country.findUnique({
+      where: { code: city.country },
+    });
+
+    if (countryExists) {
+      await prisma.city.create({
+        data: {
+          name: city.name,
+          countryCode: city.country,
+          longitude: city.location.longitude,
+          latitude: city.location.latitude,
+        },
+      });
+    } else {
+      console.warn(`Überspringe Stadt ${city.name}: Land ${city.country} fehlt!`);
+    }
+  }
+
+  console.log("Importiere Adressen...");
+  await prisma.address.deleteMany({});
 
   for (const item of data.adress) {
     await prisma.address.create({
@@ -20,8 +62,10 @@ async function main() {
       },
     });
   }
+  
+  console.log("Fertig");
 }
 
 main()
   .catch((e) => console.error(e))
-  .finally(async () => await prisma.$disconnect());
+  .finally(async () => await prisma.$disconnect())
