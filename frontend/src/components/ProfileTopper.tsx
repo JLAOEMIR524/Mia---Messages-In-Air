@@ -37,7 +37,7 @@ export function ProfileTopper({
         >
           <img
             aria-hidden="true"
-            alt="Edit icon"
+            alt=""
             src={isHovered ? "./icons/edit-blue.svg" : "./icons/edit-white.svg"}
           />
           Edit
@@ -61,7 +61,7 @@ export function ProfileTopper({
           >
             <img
               aria-hidden="true"
-              alt="Edit icon"
+              alt=""
               src={
                 isHovered ? "./icons/edit-blue.svg" : "./icons/edit-white.svg"
               }

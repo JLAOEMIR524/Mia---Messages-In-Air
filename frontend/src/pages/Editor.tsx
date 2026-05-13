@@ -179,8 +179,13 @@ export function Editor() {
 
   return (
     <main className="imageEditor">
-      <Link to="#" onClick={handleBack} className="StepBack left">
-        <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+      <Link
+        to="#"
+        onClick={handleBack}
+        className="StepBack left"
+        aria-label="go one step back"
+      >
+        <img src="./icons/arrow-back.svg" alt="" aria-hidden="true" />
       </Link>
       <Step currentStep={2} />
       <h1 className="text-l">Create Your Photo Collage 📸</h1>
@@ -195,7 +200,7 @@ export function Editor() {
           >
             <img
               src={`./icons/image${"image" === currentBar || focus === "image" ? "_b" : "_w"}.svg`}
-              alt="image icon"
+              alt=""
               aria-hidden="true"
             />
             Photos
@@ -208,7 +213,7 @@ export function Editor() {
           >
             <img
               src={`./icons/star_shine${"sticker" === currentBar || focus === "sticker" ? "_b" : "_w"}.svg`}
-              alt="image icon"
+              alt=""
               aria-hidden="true"
             />
             Stickers
@@ -221,7 +226,8 @@ export function Editor() {
           >
             <img
               src={`./icons/colors${"color" === currentBar || focus === "color" ? "_blue" : "_white"}.svg`}
-              alt="color icon"
+              alt=""
+              aria-hidden="true"
             />
             Colour
           </button>
@@ -278,7 +284,7 @@ export function Editor() {
             <div className="barItem" style={{ position: "relative" }}>
               <label className="addButton" style={{ cursor: "pointer" }}>
                 <img src="./icons/colorize.svg" alt="" aria-hidden="true" />
-                <p>Custom</p>
+                <p aria-hidden="true">Custom</p>
                 <input
                   type="color"
                   aria-label="Choose own colour"
@@ -315,10 +321,11 @@ export function Editor() {
             onMouseOut={() => setFocus(null)}
             onClick={upSelected}
             disabled={!selectedId}
+            aria-label="move selected item forward"
           >
             <img
               src={`./icons/flip_front${selectedId ? (focus === "up" ? "" : "_w") : "_b"}.svg`}
-              alt="flip front icon"
+              alt=""
               aria-hidden="true"
             />
             Front
@@ -329,10 +336,11 @@ export function Editor() {
             onMouseOut={() => setFocus(null)}
             onClick={downSelected}
             disabled={!selectedId}
+            aria-label="move selected item backwards"
           >
             <img
               src={`./icons/flip_back${selectedId ? (focus === "down" ? "" : "_w") : "_b"}.svg`}
-              alt="flip front icon"
+              alt=""
               aria-hidden="true"
             />
             Back
@@ -343,10 +351,11 @@ export function Editor() {
             onMouseOut={() => setFocus(null)}
             onClick={deleteSelected}
             disabled={!selectedId}
+            aria-label="delete selected item"
           >
             <img
               src={`./icons/trash${selectedId ? (focus === "delete" ? "" : "_w") : "_b"}.svg`}
-              alt="delete icon icon"
+              alt=""
               aria-hidden="true"
             />
             Delete

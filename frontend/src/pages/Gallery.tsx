@@ -13,14 +13,19 @@ export function Gallery() {
     navigate(-1);
   };
 
-    useEffect(() => {
-        document.title = "Mia | Gallery"
-    },[])
+  useEffect(() => {
+    document.title = "Mia | Gallery";
+  }, []);
 
   return (
     <main className="left">
-      <Link to="#" onClick={handleBack} className="StepBack" aria-label="Back">
-        <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+      <Link
+        to="#"
+        onClick={handleBack}
+        className="StepBack"
+        aria-label="go back"
+      >
+        <img src="./icons/arrow-back.svg" alt="" aria-hidden="true" />
       </Link>
       <h1 className="text-l">Your Gallery 🖼️</h1>
       <p>All the postcards you've sent and received</p>
@@ -76,7 +81,7 @@ export function Gallery() {
           }
         />
       </div>
-      <h2 className="text-m" >Postcard Map</h2>
+      <h2 className="text-m">Postcard Map</h2>
       <MapContainer center={position} zoom={13}></MapContainer>
       <div className="cityWrapper">
         <CityBadge city="Vienna" country="Austria" />

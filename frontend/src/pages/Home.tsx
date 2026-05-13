@@ -38,11 +38,12 @@ export function Home() {
             Find out more
           </button>
         </div>
-        <Link to="/login">
+        <Link to="/login" aria-label="Start now">
           <img
             src="./icons/letter-blue.svg"
             alt="Icon Mail"
             className="email-icon"
+            aria-hidden="true"
           />
         </Link>
         <Preview
@@ -56,9 +57,8 @@ export function Home() {
               <h2 className="text-s">Tired of the Digital Noise?</h2>
               <p>
                 Everything today feels like an algorithm. We stand in a digital
-                marketplace trying to sell ourselves.
-                Mia is different. It’s a digital safe space for
-                those who are "Social Media tired."
+                marketplace trying to sell ourselves. Mia is different. It’s a
+                digital safe space for those who are "Social Media tired."
               </p>
             </section>
 
@@ -66,9 +66,8 @@ export function Home() {
               <h2 className="text-s">Digital Message in a Bottle</h2>
               <p>
                 Mia lets you create something with love. You design a postcard,
-                complete a small creative Quest, and send it
-                out like a digital message in a bottle to a random person
-                somewhere in the world.
+                complete a small creative Quest, and send it out like a digital
+                message in a bottle to a random person somewhere in the world.
               </p>
               <ul className="value-list">
                 <li>
@@ -82,13 +81,13 @@ export function Home() {
                 </li>
               </ul>
             </section>
-              <Link
-                to="/imprint"
-                className="impressum-link"
-                onClick={() => setShowPreview(false)}
-              >
-                Imprint & Privacy
-              </Link>
+            <Link
+              to="/imprint"
+              className="impressum-link"
+              onClick={() => setShowPreview(false)}
+            >
+              Imprint & Privacy
+            </Link>
           </div>
         </Preview>
       </section>

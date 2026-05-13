@@ -67,8 +67,17 @@ export function Quest() {
 
   return (
     <main>
-      <Link to="#" onClick={handleBack} className="StepBack left">
-        <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+      <Link
+        to="#"
+        onClick={handleBack}
+        className="StepBack left"
+        aria-label="go back"
+      >
+        <img
+          src="./icons/arrow-back.svg"
+          alt="Arrow Back Icon"
+          aria-hidden="true"
+        />
       </Link>
       <Step currentStep={1} totalSteps={3} />
 

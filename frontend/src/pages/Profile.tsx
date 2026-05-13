@@ -12,13 +12,22 @@ export function Profile() {
   };
 
   useEffect(() => {
-      document.title = "Mia | Profile"
-  },[])
+    document.title = "Mia | Profile";
+  }, []);
 
   return (
     <main className="left profile">
-      <Link to="#" onClick={handleBack} className="StepBack" aria-label="Back">
-        <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+      <Link
+        to="#"
+        onClick={handleBack}
+        className="StepBack"
+        aria-label="go back"
+      >
+        <img
+          src="./icons/arrow-back.svg"
+          alt="Arrow Back Icon"
+          aria-hidden="true"
+        />
       </Link>
       <h1 className="text-l">Your Profile 👤</h1>
 

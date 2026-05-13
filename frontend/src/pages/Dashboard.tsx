@@ -14,7 +14,7 @@ export function Dashboard() {
       <h1 className="text-l">Hello Sonja ✨</h1>
       <p>Welcome back to Mia. </p>
       <Link className="newPostcard" to="/quest">
-        <img src="./icons/add_circle.svg" alt="Plus icon" />
+        <img src="./icons/add_circle.svg" alt="" aria-hidden="true" />
         <h2 className="text-m">New Postcard</h2>
         <p>Write a postcard and make someone smile</p>
       </Link>

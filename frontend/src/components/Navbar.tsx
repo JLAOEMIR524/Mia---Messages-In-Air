@@ -47,11 +47,16 @@ export function NavBar() {
               />
             </Link>
           ) : (
-            <button onClick={handleBack} className="StepBackNav">
+            <button
+              onClick={handleBack}
+              className="StepBackNav"
+              aria-label="go back"
+            >
               <img
                 className="backIconSmall"
                 src="/icons/arrow-back.svg"
-                alt="Back"
+                alt=""
+                aria-hidden="true"
                 style={{ width: "30px", margin: "var(--space-xs) 0" }}
               />
             </button>

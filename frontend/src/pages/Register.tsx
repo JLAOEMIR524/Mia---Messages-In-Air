@@ -14,8 +14,12 @@ export function Register() {
   const navigate = useNavigate();
   return (
     <main className="heaven">
-      <Link to="/home" className="arrowBack" aria-label="Back">
-        <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+      <Link to="/home" className="arrowBack" aria-label="go back">
+        <img
+          src="./icons/arrow-back.svg"
+          alt="Arrow Back Icon"
+          aria-hidden="true"
+        />
       </Link>
       <div className="RegisterContainer">
         <img src="Logo_without_text.png" alt="Logo Mia" />

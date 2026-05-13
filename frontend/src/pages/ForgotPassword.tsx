@@ -14,8 +14,8 @@ export function ForgotPassword() {
   const navigate = useNavigate();
   return (
     <main className="heaven">
-      <Link to="/home" className="arrowBack" aria-label="Back">
-        <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+      <Link to="/home" className="arrowBack" aria-label="go back">
+        <img src="./icons/arrow-back.svg" alt="" aria-hidden="true" />
       </Link>
       <div className="PasswordContainer">
         <img src="Logo_without_text.png" alt="Logo Mia" />
@@ -43,7 +43,7 @@ export function ForgotPassword() {
           Send Link
         </button>
         <div className="LinkContainer">
-          <img src="./icons/arrow-back-blue.svg" alt="Icon arrow Back" />
+          <img src="./icons/arrow-back-blue.svg" alt="" aria-hidden="true" />
           <Link to="/login">Back to Log In</Link>
         </div>
       </div>

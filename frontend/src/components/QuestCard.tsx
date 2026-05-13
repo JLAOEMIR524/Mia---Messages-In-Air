@@ -32,13 +32,18 @@ export function QuestCard({
             onReload();
           }}
         >
-          <img aria-hidden="true" src="./icons/reload_white.svg" alt="Reload" />
+          <img aria-hidden="true" src="./icons/reload_white.svg" alt="" />
         </button>
       </div>
 
       <p>{description}</p>
 
-      <Link to="/editor" state={{ fromQuest: true }}  className="button" onClick={onContinue}>
+      <Link
+        to="/editor"
+        state={{ fromQuest: true }}
+        className="button"
+        onClick={onContinue}
+      >
         Choose This Quest
       </Link>
     </div>

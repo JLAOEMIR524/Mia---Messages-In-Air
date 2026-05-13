@@ -20,7 +20,10 @@ export function MessagePreview({
   return (
     <Link to={to} className="messagePreview preview--from">
       <div className="messagePreview__icon-wrapper">
-        <img src={statusIcon} alt="Status" />
+        <img
+          src={statusIcon}
+          alt="Status (will be filled with the actual status later)"
+        />
       </div>
 
       <div className="messagePreview__infos">

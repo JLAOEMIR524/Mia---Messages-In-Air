@@ -87,8 +87,13 @@ export function Message() {
   return (
     <>
       <main>
-        <Link to="#" onClick={handleBack} className="StepBack left">
-          <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+        <Link
+          to="#"
+          onClick={handleBack}
+          className="StepBack left"
+          aria-label="go back"
+        >
+          <img src="./icons/arrow-back.svg" alt="" aria-hidden="true" />
         </Link>
         <Step currentStep={3} totalSteps={3} />
         <h1 className="text-l">Write Your Message 💌</h1>
@@ -149,8 +154,9 @@ export function Message() {
                 />
                 <img
                   src="./icons/search.svg"
-                  alt="Search"
+                  alt=""
                   className="search-icon"
+                  aria-hidden="true"
                 />
               </div>
 
@@ -256,7 +262,7 @@ export function Message() {
         {cardText && cardLocation && adress && (
           <div className="postcardBack">
             <p className="message">{cardText}</p>
-            <img src="./Stamp.png" alt="" />
+            <img src="./Stamp.png" alt="Postal stamp" />
             <div className="adress">
               <p>{adress.name}</p>
               <p>{adress.street}</p>

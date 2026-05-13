@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export const NavBarTop = () => {
   return (
@@ -7,8 +7,8 @@ export const NavBarTop = () => {
         <img src="/Logo_without_text.png" alt="Mia Logo" />
       </Link>
 
-      <Link to="/login" className="nav-login">
-        <img src="/icons/login.svg" alt="Login" />
+      <Link to="/login" className="nav-login" aria-label="login">
+        <img src="/icons/login.svg" alt="" aria-hidden="true" />
       </Link>
     </nav>
   );
