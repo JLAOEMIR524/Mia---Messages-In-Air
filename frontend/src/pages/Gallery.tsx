@@ -30,16 +30,16 @@ export function Gallery() {
       <h1 className="text-l">Your Gallery 🖼️</h1>
       <p>All the postcards you've sent and received</p>
       <div className="button-flex gallery">
-        <button className="button button--image">
-          <span className="icon-span"></span>
+        <button className="button button--image" aria-label="open all Postcards">
+          <span className="icon-span" aria-hidden="true"></span>
           All Postcards
         </button>
-        <button className="button button--image">
-          <span className="icon-span"></span>
+        <button className="button button--image" aria-label="open received Postcards">
+          <span className="icon-span" aria-hidden="true"></span>
           Received
         </button>
-        <button className="button button--image">
-          <span className="icon-span"></span>
+        <button className="button button--image" aria-label="open sent Postcards">
+          <span className="icon-span" aria-hidden="true"></span>
           Send
         </button>
       </div>

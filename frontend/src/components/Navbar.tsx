@@ -65,7 +65,7 @@ export function NavBar() {
           <button
             className={`hamburger-menu ${isOpen ? "active" : ""}`}
             onClick={() => setIsOpen(!isOpen)}
-            aria-label="Menu open"
+            aria-label="Burger-menu open"
             aria-expanded={isOpen}
           >
             <span></span>

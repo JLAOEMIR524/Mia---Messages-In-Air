@@ -197,6 +197,7 @@ export function Editor() {
             onClick={() => setBar("image")}
             onMouseOver={() => setFocus("image")}
             onMouseOut={() => setFocus(null)}
+            aria-label="open photo picker"
           >
             <img
               src={`./icons/image${"image" === currentBar || focus === "image" ? "_b" : "_w"}.svg`}
@@ -210,6 +211,7 @@ export function Editor() {
             onClick={() => setBar("sticker")}
             onMouseOver={() => setFocus("sticker")}
             onMouseOut={() => setFocus(null)}
+            aria-label="open sticker picker"
           >
             <img
               src={`./icons/star_shine${"sticker" === currentBar || focus === "sticker" ? "_b" : "_w"}.svg`}
@@ -223,6 +225,7 @@ export function Editor() {
             onClick={() => setBar("color")}
             onMouseOver={() => setFocus("color")}
             onMouseOut={() => setFocus(null)}
+            aria-label="open color picker"
           >
             <img
               src={`./icons/colors${"color" === currentBar || focus === "color" ? "_blue" : "_white"}.svg`}

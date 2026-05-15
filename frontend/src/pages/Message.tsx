@@ -222,6 +222,7 @@ export function Message() {
           <button
             className="button button--image"
             onClick={() => setShowPreview(true)}
+            aria-label="Preview the postcard"
           >
             <span className="icon-span"></span>
             Preview

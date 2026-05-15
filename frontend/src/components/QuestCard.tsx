@@ -32,7 +32,7 @@ export function QuestCard({
             onReload();
           }}
         >
-          <img aria-hidden="true" src="./icons/reload_white.svg" alt="" />
+          <img src="./icons/reload_white.svg" alt="" aria-hidden="true" />
         </button>
       </div>
 
