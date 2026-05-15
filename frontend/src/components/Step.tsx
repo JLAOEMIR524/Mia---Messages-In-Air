@@ -7,7 +7,7 @@ export function Step({ currentStep, totalSteps = 3 }: StepProps) {
   return (
     <div className="stepDisplayBox">
       <div className="stepDisplay">
-        <img src="./icons/star_shine.svg" alt="Star icon" aria-hidden="true" />
+        <img src="./icons/star_shine.svg" alt="" aria-hidden="true" />
         <p>
           Step {currentStep} of {totalSteps}
         </p>

@@ -6,7 +6,7 @@ import Confetti from "react-confetti";
 export function Send() {
   useEffect(() => {
     document.body.classList.add("background-heaven");
-    document.title = "Mia | Postcard Send"
+    document.title = "Mia | Postcard Send";
 
     return () => {
       document.body.classList.remove("background-heaven");
@@ -17,8 +17,8 @@ export function Send() {
 
   return (
     <main className="heaven">
-      <Link to="/dashboard" className="arrowBack">
-        <img src="./icons/close.svg" alt="Arrow Back Icon" />
+      <Link to="/dashboard" className="arrowBack" aria-label="go back">
+        <img src="./icons/close.svg" alt="Arrow Back Icon" aria-hidden="true" />
       </Link>
       <FeedbackCard
         title="Postcard Sent! 🎉"

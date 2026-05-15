@@ -14,8 +14,13 @@ export function Details() {
 
   return (
     <main className="heaven">
-      <Link to="/send" state={{ fromMessage: true }} className="arrowBack">
-        <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+      <Link
+        to="/send"
+        state={{ fromMessage: true }}
+        className="arrowBack"
+        aria-label="back to overview"
+      >
+        <img src="./icons/arrow-back.svg" alt="" aria-hidden="true" />
       </Link>
 
       <FeedbackCard

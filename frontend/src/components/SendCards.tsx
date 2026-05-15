@@ -51,7 +51,7 @@ export function FeedbackCard({
                     ? "./icons/star_full.svg"
                     : "./icons/star_unfilled.svg"
                 }
-                alt={isFilled ? "filled star icon" : "unfilled star icon"}
+                alt=""
                 aria-hidden="true"
                 className={isFilled ? "star--full" : "star--empty"}
               />

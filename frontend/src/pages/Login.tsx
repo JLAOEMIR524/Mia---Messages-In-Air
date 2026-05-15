@@ -14,8 +14,8 @@ export function Login() {
   const navigate = useNavigate();
   return (
     <main className="heaven">
-      <Link to="/home" className="arrowBack" aria-label="Back">
-        <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+      <Link to="/home" className="arrowBack" aria-label="go back">
+        <img src="./icons/arrow-back.svg" alt="" aria-hidden="true" />
       </Link>
       <div className="LoginContainer">
         <img src="Logo_without_text.png" alt="Logo Mia" />
@@ -32,7 +32,13 @@ export function Login() {
             required
           />
           <label htmlFor="password">Password</label>
-          <input id="password" name="password" type="password" autoComplete="current-password" required />
+          <input
+            id="password"
+            name="password"
+            type="password"
+            autoComplete="current-password"
+            required
+          />
         </form>
         <Link to="/password">Password forgotten?</Link>
         <button
@@ -45,10 +51,7 @@ export function Login() {
           <span>or</span>
         </div>
         <p>New to Mia?</p>
-        <Link
-          to="/register"
-          className="button button--secondary"
-        >
+        <Link to="/register" className="button button--secondary">
           Create an account
         </Link>
       </div>

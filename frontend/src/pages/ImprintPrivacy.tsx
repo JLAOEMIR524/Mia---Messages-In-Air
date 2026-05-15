@@ -14,8 +14,13 @@ export function ImprintPrivacy() {
 
   return (
     <main className="left">
-      <Link to="#" onClick={handleBack} className="StepBack" aria-label="Back">
-        <img src="./icons/arrow-back.svg" alt="Arrow Back Icon" />
+      <Link
+        to="#"
+        onClick={handleBack}
+        className="StepBack"
+        aria-label="go back"
+      >
+        <img src="./icons/arrow-back.svg" alt="" aria-hidden="true" />
       </Link>
 
       <div className="imprint-privacy-container">

@@ -47,11 +47,16 @@ export function NavBar() {
               />
             </Link>
           ) : (
-            <button onClick={handleBack} className="StepBackNav">
+            <button
+              onClick={handleBack}
+              className="StepBackNav"
+              aria-label="go back"
+            >
               <img
                 className="backIconSmall"
                 src="/icons/arrow-back.svg"
-                alt="Back"
+                alt=""
+                aria-hidden="true"
                 style={{ width: "30px", margin: "var(--space-xs) 0" }}
               />
             </button>
@@ -60,7 +65,7 @@ export function NavBar() {
           <button
             className={`hamburger-menu ${isOpen ? "active" : ""}`}
             onClick={() => setIsOpen(!isOpen)}
-            aria-label="Menu open"
+            aria-label="Burger-menu open"
             aria-expanded={isOpen}
           >
             <span></span>

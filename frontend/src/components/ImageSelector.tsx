@@ -110,7 +110,7 @@ export function PhotoUploader({
   return (
     <div
       className="galleryContainer"
-      aria-label="Image Upload/Uploaded Images"
+      aria-label="Upload, manage and add Images"
       role="list"
     >
       <div className="gallery">
@@ -144,6 +144,7 @@ export function PhotoUploader({
             className="barItem placeholder"
             key={`empty-${i}`}
             onClick={handlePlaceholderClick}
+            aria-hidden="true"
           >
             <p>Add Images</p>
           </div>

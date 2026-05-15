@@ -10,113 +10,127 @@ const CANVAS_WIDTH = 700;
 const CANVAS_HEIGHT = 400;
 
 interface Props {
-    elements: CanvasElement[];
-    selectedId: string | null;
-    onSelect: (id: string | null) => void;
-    onUpdate: (id: string, updates: Partial<CanvasElement>) => void;
-    onDrop: (payload: DragPayload, x: number, y: number) => void;
-    stageRef: React.RefObject<Konva.Stage | null>;
-    scale: number;
-    backgroundColor: string;
+  elements: CanvasElement[];
+  selectedId: string | null;
+  onSelect: (id: string | null) => void;
+  onUpdate: (id: string, updates: Partial<CanvasElement>) => void;
+  onDrop: (payload: DragPayload, x: number, y: number) => void;
+  stageRef: React.RefObject<Konva.Stage | null>;
+  scale: number;
+  backgroundColor: string;
 }
 
-export function Canvas({elements, selectedId, onSelect, onUpdate, onDrop, stageRef, scale, backgroundColor}: Props) {
-    const containerRef = useRef<HTMLDivElement>(null);
+export function Canvas({
+  elements,
+  selectedId,
+  onSelect,
+  onUpdate,
+  onDrop,
+  stageRef,
+  scale,
+  backgroundColor,
+}: Props) {
+  const containerRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        const container = containerRef.current;
-        if(!container) return;
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
-        const handleDragOver = (e: DragEvent) => {
-            e.preventDefault();
-            if(e.dataTransfer) {
-                e.dataTransfer.dropEffect = "copy";
-            }
-        }
-
-        const handleDrop = (e: DragEvent) => {
-            e.preventDefault();
-            const rawData = e.dataTransfer?.getData("application/postcard-element");
-            if (!rawData) return;
-
-            const payload: DragPayload = JSON.parse(rawData);
-
-            const rect = container.getBoundingClientRect();
-            const x = e.clientX - rect.left /scale;
-            const y = e.clientY - rect.top /scale;
-
-            onDrop(payload, x, y);
-        };
-        container.addEventListener("dragover", handleDragOver);
-        container.addEventListener("drop", handleDrop);
-
-        return () => {
-            container.removeEventListener("dragover", handleDragOver);
-            container.removeEventListener("drop", handleDrop);
-        };
-    }, [onDrop, scale]);
-
-    const handleStageClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
-        if(e.target === e.target.getStage()){
-            onSelect(null);
-        } 
+    const handleDragOver = (e: DragEvent) => {
+      e.preventDefault();
+      if (e.dataTransfer) {
+        e.dataTransfer.dropEffect = "copy";
+      }
     };
 
-    return (
-        <div
-            ref={containerRef}
-            style={{
-                width: CANVAS_WIDTH * scale,
-                height: CANVAS_HEIGHT * scale,
-                margin: "25px",
-                boxSizing: "border-box",
-                display: 'inline-block',
-                border: '1px solid #ccc',
-                borderRadius: 8,
-                boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
-            }}
+    const handleDrop = (e: DragEvent) => {
+      e.preventDefault();
+      const rawData = e.dataTransfer?.getData("application/postcard-element");
+      if (!rawData) return;
+
+      const payload: DragPayload = JSON.parse(rawData);
+
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left / scale;
+      const y = e.clientY - rect.top / scale;
+
+      onDrop(payload, x, y);
+    };
+    container.addEventListener("dragover", handleDragOver);
+    container.addEventListener("drop", handleDrop);
+
+    return () => {
+      container.removeEventListener("dragover", handleDragOver);
+      container.removeEventListener("drop", handleDrop);
+    };
+  }, [onDrop, scale]);
+
+  const handleStageClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
+    if (e.target === e.target.getStage()) {
+      onSelect(null);
+    }
+  };
+
+  return (
+    <div
+      ref={containerRef}
+      style={{
+        width: CANVAS_WIDTH * scale,
+        height: CANVAS_HEIGHT * scale,
+        margin: "25px",
+        boxSizing: "border-box",
+        display: "inline-block",
+        border: "1px solid #ccc",
+        borderRadius: 8,
+        boxShadow: "0 4px 20px rgba(0,0,0,0.12)",
+      }}
+    >
+      <div
+        style={{
+          transform: `scale(${scale})`,
+          transformOrigin: "top left",
+          width: CANVAS_WIDTH,
+          height: CANVAS_HEIGHT,
+          overflow: "hidden",
+          borderRadius: "7px",
+        }}
+      >
+        <Stage
+          ref={stageRef}
+          width={CANVAS_WIDTH}
+          height={CANVAS_HEIGHT}
+          onClick={handleStageClick}
         >
-        <div
-            style={{
-                transform: `scale(${scale})`,
-                transformOrigin: 'top left',
-                width: CANVAS_WIDTH,
-                height: CANVAS_HEIGHT,
-                overflow: "hidden",
-                borderRadius: "7px"
-            }}
-        >
-            <Stage ref={stageRef} width={CANVAS_WIDTH} height={CANVAS_HEIGHT} onClick={handleStageClick}>
-                <Layer>
-                    <Rect
-                        fill={backgroundColor}
-                        width={CANVAS_WIDTH+5}
-                        height={CANVAS_HEIGHT+5}
-                        onClick={() => onSelect(null)}
-                        onTap={() => onSelect(null)}
-                    />
-                    {elements.map(elem => (
-                        elem.type === "image" ? (
-                            <ImageNode
-                                key={elem.id}
-                                element={elem}
-                                isSelected={elem.id === selectedId}
-                                onSelect={() => onSelect(elem.id)}
-                                onChange={(u) => onUpdate(elem.id, u)}
-                            />
-                        ) : (
-                            <StickerNode
-                                key={elem.id}
-                                element={elem}
-                                isSelected={elem.id === selectedId}
-                                onSelect={() => onSelect(elem.id)}
-                                onChange={(u) => onUpdate(elem.id, u)}
-                            />
-                        )
-                    ))}
-                </Layer>
-            </Stage>
-        </div>
+          <Layer>
+            <Rect
+              fill={backgroundColor}
+              width={CANVAS_WIDTH + 5}
+              height={CANVAS_HEIGHT + 5}
+              onClick={() => onSelect(null)}
+              onTap={() => onSelect(null)}
+            />
+            {elements.map((elem) =>
+              elem.type === "image" ? (
+                <ImageNode
+                  key={elem.id}
+                  element={elem}
+                  isSelected={elem.id === selectedId}
+                  onSelect={() => onSelect(elem.id)}
+                  onChange={(u) => onUpdate(elem.id, u)}
+                />
+              ) : (
+                <StickerNode
+                  key={elem.id}
+                  element={elem}
+                  isSelected={elem.id === selectedId}
+                  onSelect={() => onSelect(elem.id)}
+                  onChange={(u) => onUpdate(elem.id, u)}
+                />
+              ),
+            )}
+          </Layer>
+        </Stage>
+      </div>
     </div>
-    );
+  );
 }

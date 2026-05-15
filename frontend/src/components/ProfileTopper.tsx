@@ -34,10 +34,11 @@ export function ProfileTopper({
           onClick={onEdit}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          aria-label="Edit profile"
         >
           <img
             aria-hidden="true"
-            alt="Edit icon"
+            alt=""
             src={isHovered ? "./icons/edit-blue.svg" : "./icons/edit-white.svg"}
           />
           Edit
@@ -58,10 +59,11 @@ export function ProfileTopper({
             onClick={onEdit}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            aria-label="Edit profile"
           >
             <img
               aria-hidden="true"
-              alt="Edit icon"
+              alt=""
               src={
                 isHovered ? "./icons/edit-blue.svg" : "./icons/edit-white.svg"
               }

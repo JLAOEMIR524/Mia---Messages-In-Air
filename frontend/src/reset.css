@@ -1,34 +1,43 @@
 /* Box Sizing */
 *,
 *::before,
-*::after{
-    box-sizing: border-box;
+*::after {
+  box-sizing: border-box;
 }
 
 /* remove Margins */
-*{
-    margin: 0;
+* {
+  margin: 0;
 }
 
 /* IMG reset */
-img, picture, video, canvas, svg{
-   display: block;
-   max-width: 100%;
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
 }
 
 /* inherit fotns for form elements */
-input, button, textarea, select{
-    font: inherit;
+input,
+button,
+textarea,
+select {
+  font: inherit;
 }
 
 /* nicer text-wrap */
-h1, h2,
-h3, h4 {
-    text-wrap: balance;
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
 }
 
 p {
-    text-wrap: pretty;
+  text-wrap: pretty;
 }
 
 /* lamdmark elements as containers */
@@ -37,24 +46,25 @@ main,
 footer,
 section,
 article {
-    container-type: inline-size;
+  container-type: inline-size;
 }
 
 /* remove button default styles */
 button {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 /*Remove default padding from lists*/
-ul, ol {
-    padding: 0;
-    list-style: none;
+ul,
+ol {
+  padding: 0;
+  list-style: none;
 }
 
 /*Remove default padding from body*/
 body {
-    padding: 0;
+  padding: 0;
 }
