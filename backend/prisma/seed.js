@@ -11,6 +11,10 @@ async function main() {
     fs.readFileSync(path.join(__dirname, "../cities.json"), "utf8"),
   );
 
+  const stickersData = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "../stickers.json"), "utf8"),
+  );
+
   console.log("Importiere Länder...");
   for (const c of data2.countries) {
     await prisma.country.upsert({
@@ -26,7 +30,7 @@ async function main() {
   }
 
   console.log("Importiere Städte...");
-  await prisma.city.deleteMany({}); 
+  await prisma.city.deleteMany({});
 
   for (const city of data2.cities) {
     const countryExists = await prisma.country.findUnique({
@@ -43,7 +47,9 @@ async function main() {
         },
       });
     } else {
-      console.warn(`Überspringe Stadt ${city.name}: Land ${city.country} fehlt!`);
+      console.warn(
+        `Überspringe Stadt ${city.name}: Land ${city.country} fehlt!`,
+      );
     }
   }
 
@@ -62,10 +68,23 @@ async function main() {
       },
     });
   }
-  
+
+  console.log("Importiere Sticker...");
+  await prisma.sticker.deleteMany({});
+
+  for (const s of stickersData.stickers) {
+    await prisma.sticker.create({
+      data: {
+        name: s.name,
+        fileName: s.fileName,
+        requiredXp: s.requiredXp,
+        description: s.description || null,
+      },
+    });
+  }
   console.log("Fertig");
 }
 
 main()
   .catch((e) => console.error(e))
-  .finally(async () => await prisma.$disconnect())
+  .finally(async () => await prisma.$disconnect());
