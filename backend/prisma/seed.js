@@ -15,6 +15,10 @@ async function main() {
     fs.readFileSync(path.join(__dirname, "../stickers.json"), "utf8"),
   );
 
+  const questsData = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "../quests.json"), "utf8"),
+  );
+
   console.log("Importiere Länder...");
   for (const c of data2.countries) {
     await prisma.country.upsert({
@@ -82,7 +86,21 @@ async function main() {
       },
     });
   }
-  console.log("Fertig");
+
+  console.log("Importiere Quests...");
+  await prisma.quest.deleteMany({});
+
+  for (const q of questsData.quests) {
+    await prisma.quest.create({
+      data: {
+        title: q.title,
+        description: q.description,
+        xp: q.xp,
+      },
+    });
+  }
+
+  console.log("Finished");
 }
 
 main()

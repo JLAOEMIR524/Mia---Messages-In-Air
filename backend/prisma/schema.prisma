@@ -48,3 +48,29 @@ model Sticker {
   requiredXp  Int 
   description String?
 }
+
+model Quest {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  xp          Int
+
+  // userQuests   UserQuest[]
+  postcards    Postcard[]
+}
+
+model Postcard {
+  id              Int      @id @default(autoincrement())
+  questId         Int?     
+  image           String   
+  text            String   
+  location        String   
+  receiverAddress Json     
+  createdAt       DateTime @default(now())
+
+  userId          Int?     
+
+  quest           Quest?   @relation(fields: [questId], references: [id])
+  
+  // user         User?    @relation(fields: [userId], references: [id])
+}

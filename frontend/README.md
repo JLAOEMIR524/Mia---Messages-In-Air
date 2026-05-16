@@ -1,5 +1,3 @@
-TO DO:
-
 - npm install
 - npm install leaflet react-leaflet
 - npm install --save-dev @types/leaflet
@@ -7,3 +5,4 @@ TO DO:
 - npm install franc
 - npm install prisma
 - npm install express
+- npx prisma db seed 
