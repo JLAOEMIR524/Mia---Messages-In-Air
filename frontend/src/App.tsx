@@ -24,6 +24,7 @@ import { Editor } from "./pages/Editor";
 import { Details } from "./pages/Details";
 import { Dashboard } from "./pages/Dashboard";
 import type { ReactNode } from "react";
+import { PreviewProvider, usePreview } from "./context/PreviewContext";
 
 const ProtectedEditorRoute = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
@@ -71,6 +72,7 @@ const ProtectedDetailRoute = ({ children }: { children: ReactNode }) => {
 
 function AppContent() {
   const location = useLocation();
+  const { previewOpen } = usePreview();
 
   const showNavbarPaths = [
     "/dashboard",
@@ -86,7 +88,7 @@ function AppContent() {
 
   return (
     <>
-      {shouldShowNavbar && <NavBar />}
+      {shouldShowNavbar && <NavBar inert={previewOpen} />}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -138,9 +140,11 @@ function AppContent() {
 }
 function App() {
   return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
+    <PreviewProvider>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </PreviewProvider>
   );
 }
 
