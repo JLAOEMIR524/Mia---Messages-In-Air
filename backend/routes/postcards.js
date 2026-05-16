@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const { franc } = require('franc');
 
 router.post('/api/postcards', async (req, res) => {
   try {
@@ -11,6 +12,28 @@ router.post('/api/postcards', async (req, res) => {
       return res.status(400).json({ 
         error: "Invalid text! Text must be between 100 and 1000 characters." 
       });
+    }
+
+    const detectedLanguage = franc(text);
+
+    if (detectedLanguage !== 'eng') {
+      return res.status(400).json({ 
+        error: "Language validation failed! Your message must be written in English." 
+      });
+    }
+
+    try {
+      const encodedText = encodeURIComponent(text);
+      const response = await fetch(`https://www.purgomalum.com/service/containsprofanity?text=${encodedText}`);
+      const resultText = await response.text(); 
+
+      if (resultText === 'true') {
+        return res.status(400).json({ 
+          error: "Inappropriate content detected! Please keep your message polite." 
+        });
+      }
+    } catch (profanityError) {
+      console.error("PurgoMalum API Error:", profanityError.message);
     }
 
     if (typeof location !== 'string' || location.trim().length === 0 || location.length > 100) {

@@ -28,7 +28,7 @@ export function Message() {
   const [showPreview, setShowPreview] = useState(false);
   const [adress, setAdress] = useState<Adress | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
-  
+
   const [isSending, setIsSending] = useState(false);
 
   const cardFrontData = localStorage.getItem("card");
@@ -97,7 +97,7 @@ export function Message() {
         image: localStorage.getItem("card"),
         text: questText,
         location: selectedLocation,
-        receiverAddress: adress
+        receiverAddress: adress,
       };
 
       const response = await fetch("http://localhost:3001/api/postcards", {
@@ -108,11 +108,12 @@ export function Message() {
         body: JSON.stringify(postcardPayload),
       });
 
+      const result = await response.json();
+
       if (!response.ok) {
-        throw new Error("Error saving the postcard.");
+        throw new Error(result.error || "Error saving the postcard.");
       }
 
-      const result = await response.json();
       console.log("Postcard successfully saved:", result);
 
       localStorage.removeItem("selectedQuest");
@@ -121,10 +122,9 @@ export function Message() {
       localStorage.removeItem("selectedLocation");
 
       navigate("/send", { state: { fromMessage: true } });
-
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error while sending:", error);
-      alert("An error occurred while sending the postcard. Please try again.");
+      alert(`Validation Error: ${error.message}`);
     } finally {
       setIsSending(false);
     }
@@ -282,12 +282,17 @@ export function Message() {
               (questText.length < 100 ? "msg-warning " : "") +
               (!selectedLocation ? "loc-warning" : "")
             }
-            className={`button button--image message ${isDisabled ? "is-disabled" : ""}`}
-            disabled={isDisabled}
+            className={`button button--image message ${isDisabled || isSending ? "is-disabled" : ""}`}
+            disabled={isDisabled || isSending}
             onClick={handleSendPostcard}
           >
-            {isSending ? "Sending..." : "Send Postcard"}
-            <span className="icon-span"></span>
+            {isSending ? (
+              <>Checking content & sending...⏳</>
+            ) : (
+              <>
+                Send Postcard <span className="icon-span"></span>
+              </>
+            )}
           </button>
         </div>
       </main>
