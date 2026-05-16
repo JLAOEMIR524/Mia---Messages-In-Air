@@ -1,0 +1,27 @@
+const express = require('express');
+const router = express.Router();
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
+router.get('/api/addresses/random', async (req, res) => {
+  try {
+    const count = await prisma.address.count();
+    
+    if (count === 0) {
+      return res.status(404).json({ error: "Keine Empfänger-Adressen in der Datenbank vorhanden." });
+    }
+
+    const randomIndex = Math.floor(Math.random() * count);
+
+    const randomAddress = await prisma.address.findFirst({
+      skip: randomIndex,
+    });
+
+    res.json(randomAddress);
+  } catch (error) {
+    console.error("Error fetching random address:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+module.exports = router;

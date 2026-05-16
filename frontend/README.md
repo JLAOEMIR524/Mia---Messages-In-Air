@@ -2,7 +2,7 @@
 - npm install leaflet react-leaflet
 - npm install --save-dev @types/leaflet
 - npm install react-confetti
-- npm install franc
+- npm install languagedetect
 - npm install prisma
 - npm install express
 - npx prisma db seed 

@@ -1,11 +1,21 @@
 import { useState, useEffect } from "react";
 import { BadgeCard } from "../components/BadegeCard";
 import { Step } from "../components/Step";
-import data from "../api/cities.json";
 import { Link, useNavigate } from "react-router-dom";
 import { Preview } from "../components/Preview";
-import { fetchAdress, type Adress } from "../api/mockAdress";
-import { type Quest as QuestType } from "../api/mockQuest";
+import {
+  fetchRandomAddressFromDB,
+  searchLocationsFromDB,
+  type AddressType,
+  type LocationSuggestion,
+} from "../api/locationApi";
+
+export interface QuestType {
+  id: number;
+  title: string;
+  description: string;
+  xp: number;
+}
 
 export function Message() {
   const [questText, setQuestText] = useState<string>(
@@ -26,10 +36,11 @@ export function Message() {
   );
 
   const [showPreview, setShowPreview] = useState(false);
-  const [adress, setAdress] = useState<Adress | null>(null);
+  const [adress, setAdress] = useState<AddressType | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
 
   const [isSending, setIsSending] = useState(false);
+  const [searchResults, setSearchResults] = useState<LocationSuggestion[]>([]);
 
   const cardFrontData = localStorage.getItem("card");
   const cardText = localStorage.getItem("currentPostcardText");
@@ -50,20 +61,25 @@ export function Message() {
     setQuestText(newText);
     localStorage.setItem("currentPostcardText", newText);
   };
+  useEffect(() => {
+    const triggerSearch = async () => {
+      if (searchTerm.length > 0 && !selectedLocation) {
+        try {
+          const results = await searchLocationsFromDB(searchTerm);
+          setSearchResults(results);
+        } catch (error) {
+          console.error("Error loading locations:", error);
+        }
+      } else {
+        searchResults;
+      }
+    };
 
-  const allLocations = [
-    ...data.cities.map((c) => ({ name: c.name, type: "City" })),
-    ...data.countries.map((c) => ({ name: c.name, type: "Country" })),
-  ];
-
-  const filteredResults = allLocations
-    .filter(
-      (loc) =>
-        loc.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        searchTerm.length > 0 &&
-        !selectedLocation,
-    )
-    .slice(0, 8);
+    const delayDebounce = setTimeout(() => {
+      triggerSearch();
+    }, 300);
+    return () => clearTimeout(delayDebounce);
+  }, [searchTerm, selectedLocation]);
 
   const handleSelect = (name: string) => {
     setSelectedLocation(name);
@@ -75,10 +91,10 @@ export function Message() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const adress = await fetchAdress();
-        setAdress(adress);
+        const dbAddress = await fetchRandomAddressFromDB();
+        setAdress(dbAddress);
       } catch (error) {
-        console.error("Error:", error);
+        console.error("Error loading address from DB:", error);
       }
     };
 
@@ -93,7 +109,6 @@ export function Message() {
 
       const postcardPayload = {
         questId: selectedQuest?.id,
-        // userId: loggedInUser.id,
         image: localStorage.getItem("card"),
         text: questText,
         location: selectedLocation,
@@ -208,9 +223,9 @@ export function Message() {
                 />
               </div>
 
-              {showDropdown && filteredResults.length > 0 && (
+              {showDropdown && searchResults.length > 0 && (
                 <ul className="search-results" role="listbox">
-                  {filteredResults.map((loc, index) => (
+                  {searchResults.map((loc, index) => (
                     <li
                       key={index}
                       role="option"
@@ -231,7 +246,7 @@ export function Message() {
 
               {!selectedLocation &&
                 searchTerm.length > 2 &&
-                filteredResults.length === 0 && (
+                searchResults.length === 0 && (
                   <p
                     style={{ color: "var(--color-primary)", fontSize: "1rem" }}
                   >
