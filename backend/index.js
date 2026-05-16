@@ -1,25 +1,29 @@
-const express = require('express');
-const cors = require('cors');
-const { PrismaClient } = require('@prisma/client');
+import express from "express";
+import cors from "cors";
+import { toNodeHandler } from "better-auth/node";
+import { auth } from "./auth.js";
 
-const stickerRouter = require('./routes/stickers'); 
-const questRouter = require('./routes/quests');
-const postcardRouter = require('./routes/postcards');
-const addressRouter = require('./routes/addresses'); 
-const locationRouter = require('./routes/locations');
+import questsRouter from "./routes/quests.js";
+import postcardsRouter from "./routes/postcards.js";
+import addressesRouter from "./routes/addresses.js";
+import locationsRouter from "./routes/locations.js";
+import stickersRouter from "./routes/stickers.js";
 
-const prisma = new PrismaClient();
 const app = express();
 const PORT = 3001;
 
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL ?? "http://localhost:5173",
+  credentials: true,
+}));
+app.all("/api/auth/*splat", toNodeHandler(auth));
 app.use(express.json());
 
-app.use(stickerRouter); 
-app.use(questRouter);
-app.use(postcardRouter);
-app.use(addressRouter);
-app.use(locationRouter);
+app.use(stickersRouter); 
+app.use(questsRouter);
+app.use(postcardsRouter);
+app.use(addressesRouter);
+app.use(locationsRouter);
 
 app.listen(PORT, () => {
     console.log(`Server läuft auf http://localhost:${PORT}`);

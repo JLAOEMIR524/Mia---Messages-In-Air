@@ -1,9 +1,9 @@
-const express = require("express");
-const router = express.Router();
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+import { Router } from "express";
+const router = Router();
+import { PrismaClient } from "@prisma/client";
+import { prisma } from "../db.js";
 
-const LanguageDetect = require("languagedetect");
+import LanguageDetect from "languagedetect";
 const lngDetector = new LanguageDetect();
 
 router.post("/api/postcards", async (req, res) => {
@@ -102,4 +102,4 @@ router.post("/api/postcards", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

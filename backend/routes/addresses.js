@@ -1,7 +1,6 @@
-const express = require('express');
+import express from "express"
+import { prisma } from "../db.js";
 const router = express.Router();
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
 
 router.get('/api/addresses/random', async (req, res) => {
   try {
@@ -24,4 +23,4 @@ router.get('/api/addresses/random', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

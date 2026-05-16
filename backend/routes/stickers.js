@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+import { Router } from 'express';
+const router = Router();
+import { PrismaClient } from '@prisma/client';
+import { prisma } from "../db.js";
 
 router.get('/api/stickers', async (req, res) => {
   try {
@@ -36,4 +36,4 @@ router.get('/api/stickers', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

@@ -1,22 +1,27 @@
-const { PrismaClient } = require("@prisma/client");
+import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-const fs = require("fs");
-const path = require("path");
+import { readFileSync } from "fs";
+import { join } from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 async function main() {
   const data = JSON.parse(
-    fs.readFileSync(path.join(__dirname, "../adress.json"), "utf8"),
+    readFileSync(join(__dirname, "../adress.json"), "utf8"),
   );
   const data2 = JSON.parse(
-    fs.readFileSync(path.join(__dirname, "../cities.json"), "utf8"),
+    readFileSync(join(__dirname, "../cities.json"), "utf8"),
   );
 
   const stickersData = JSON.parse(
-    fs.readFileSync(path.join(__dirname, "../stickers.json"), "utf8"),
+    readFileSync(join(__dirname, "../stickers.json"), "utf8"),
   );
 
   const questsData = JSON.parse(
-    fs.readFileSync(path.join(__dirname, "../quests.json"), "utf8"),
+    readFileSync(join(__dirname, "../quests.json"), "utf8"),
   );
 
   console.log("Importiere Länder...");
