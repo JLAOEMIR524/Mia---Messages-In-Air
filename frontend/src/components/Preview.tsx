@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 interface PreviewProps {
   isOpen: boolean;
@@ -15,26 +15,6 @@ export function Preview({
   children,
   className,
 }: PreviewProps) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleClickOutside = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        onClose();
-      }
-    };
-
-    setTimeout(() => {
-      document.addEventListener("click", handleClickOutside);
-    }, 0);
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, [isOpen, onClose]);
-
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -50,8 +30,14 @@ export function Preview({
   if (!isOpen) return null;
 
   return (
-    <dialog open className="previewContainer">
-      <div className={`preview ${className || ""}`} ref={ref}>
+    <dialog
+      open
+      className="previewContainer"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className={`preview ${className || ""}`}>
         <div className="previewTop">
           <h1 className="text-l">{title}</h1>
           <button

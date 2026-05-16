@@ -18,6 +18,7 @@ export interface QuestType {
 }
 
 export function Message() {
+  const { previewOpen, setPreviewOpen } = usePreview();
   const [questText, setQuestText] = useState<string>(
     () => localStorage.getItem("currentPostcardText") ?? "",
   );
@@ -149,7 +150,7 @@ export function Message() {
 
   return (
     <>
-      <main>
+      <main inert={previewOpen ? true : undefined}>
         <Link
           to="#"
           onClick={handleBack}
@@ -284,7 +285,10 @@ export function Message() {
         <div className="button-flex">
           <button
             className="button button--image"
-            onClick={() => setShowPreview(true)}
+            onClick={() => {
+              setShowPreview(true);
+              setPreviewOpen(true);
+            }}
             aria-label="Preview the postcard"
           >
             <span className="icon-span"></span>
@@ -313,7 +317,10 @@ export function Message() {
       </main>
       <Preview
         isOpen={showPreview}
-        onClose={() => setShowPreview(false)}
+        onClose={() => {
+          setShowPreview(false);
+          setPreviewOpen(false);
+        }}
         title="Preview"
       >
         {cardFrontData && (

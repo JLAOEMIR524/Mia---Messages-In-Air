@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-export function NavBar() {
+interface NavBarProps {
+  inert?: boolean;
+}
+
+export function NavBar({ inert }: NavBarProps) {
   const location = useLocation();
   const isDashboard = location.pathname === "/dashboard";
   const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
@@ -31,7 +35,7 @@ export function NavBar() {
   ];
 
   return (
-    <aside className={`sidebar ${isOpen ? "is-open" : ""}`}>
+    <aside inert={inert ? true : undefined} className={`sidebar ${isOpen ? "is-open" : ""}`}>
       <div className="topContainer">
         <div className="mobileBar">
           {!isMobile ? (
