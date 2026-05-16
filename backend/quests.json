@@ -1,0 +1,424 @@
+{
+  "quests": [
+    {
+      "id": "1",
+      "title": "The Trinity",
+      "description": "Use these 3 specific words: sun, window, and train.",
+      "xp": 40
+    },
+    {
+      "id": "2",
+      "title": "Nature's Call",
+      "description": "Incorporate the words 'tree', 'river', and 'mountain' in your message.",
+      "xp": 40
+    },
+    {
+      "id": "3",
+      "title": "Urban Explorer",
+      "description": "Use the words 'street', 'coffee', and 'crowd' in your text.",
+      "xp": 30
+    },
+    {
+      "id": "4",
+      "title": "Sweet Greetings",
+      "description": "Mention at least two different types of fruit.",
+      "xp": 20
+    },
+    {
+      "id": "5",
+      "title": "Color Palette",
+      "description": "Include at least three different colors in your description.",
+      "xp": 30
+    },
+    {
+      "id": "6",
+      "title": "Weather Report",
+      "description": "Use the words 'cloud', 'wind', and 'warmth'.",
+      "xp": 30
+    },
+    {
+      "id": "7",
+      "title": "Time Traveler",
+      "description": "Mention 'yesterday', 'today', and 'tomorrow'.",
+      "xp": 50
+    },
+    {
+      "id": "8",
+      "title": "Four-Part Tale",
+      "description": "Tell a complete story using exactly 4 sentences.",
+      "xp": 50
+    },
+    {
+      "id": "9",
+      "title": "Double Curiosity",
+      "description": "Include at least 2 questions (sentences ending with '?').",
+      "xp": 30
+    },
+    {
+      "id": "10",
+      "title": "Short & Sweet",
+      "description": "Write exactly 10 words in your entire postcard.",
+      "xp": 60
+    },
+    {
+      "id": "11",
+      "title": "The Enthusiast",
+      "description": "End at least 3 sentences with an exclamation mark (!).",
+      "xp": 30
+    },
+    {
+      "id": "12",
+      "title": "List Maker",
+      "description": "Include a list of 3 items separated by commas.",
+      "xp": 20
+    },
+    {
+      "id": "13",
+      "title": "The Essayist",
+      "description": "Write a long message with more than 50 words.",
+      "xp": 40
+    },
+    {
+      "id": "14",
+      "title": "One Breath",
+      "description": "Write your entire postcard in just one single sentence.",
+      "xp": 50
+    },
+    {
+      "id": "15",
+      "title": "Shouting from Afar",
+      "description": "Write your entire postcard using ONLY CAPITAL LETTERS.",
+      "xp": 60
+    },
+    {
+      "id": "16",
+      "title": "Quiet Whispers",
+      "description": "Write your entire postcard using only lowercase letters.",
+      "xp": 40
+    },
+    {
+      "id": "17",
+      "title": "Numerical Order",
+      "description": "Start every sentence with a number (1., 2., 3., etc.).",
+      "xp": 70
+    },
+    {
+      "id": "18",
+      "title": "First Impressions",
+      "description": "Every sentence must start with the same letter.",
+      "xp": 80
+    },
+    {
+      "id": "19",
+      "title": "No E-Zone",
+      "description": "Write a message without using the letter 'e' at all.",
+      "xp": 100
+    },
+    {
+      "id": "20",
+      "title": "Lucky Seven",
+      "description": "Use exactly 7 words that have 7 letters or more.",
+      "xp": 90
+    },
+    {
+      "id": "21",
+      "title": "Alpha & Omega",
+      "description": "Start your first sentence with 'A' and your last sentence with 'Z'.",
+      "xp": 80
+    },
+    {
+      "id": "22",
+      "title": "Rhyme Time",
+      "description": "Ensure the last words of your first and second sentence rhyme.",
+      "xp": 70
+    },
+    {
+      "id": "23",
+      "title": "Lipogrammatic",
+      "description": "Do not use the word 'and' in your entire text.",
+      "xp": 50
+    },
+    {
+      "id": "24",
+      "title": "The Haiku Spirit",
+      "description": "Write 3 sentences with roughly 5, 7 and 5 words each.",
+      "xp": 80
+    },
+    {
+      "id": "25",
+      "title": "Action Packed",
+      "description": "Use at least 5 different verbs ending in '-ing'.",
+      "xp": 40
+    },
+    {
+      "id": "26",
+      "title": "Vowel Hunter",
+      "description": "Include a word that contains at least 3 vowels in a row (e.g., 'beautiful').",
+      "xp": 60
+    },
+    {
+      "id": "27",
+      "title": "Double Trouble",
+      "description": "Use at least 3 words that have double letters (e.g., 'look', 'street').",
+      "xp": 40
+    },
+    {
+      "id": "28",
+      "title": "Mirror World",
+      "description": "Start and end your postcard with the exact same word.",
+      "xp": 50
+    },
+    {
+      "id": "29",
+      "title": "Foreign Flair",
+      "description": "Include one word in a language other than English.",
+      "xp": 30
+    },
+    {
+      "id": "30",
+      "title": "The Minimalist",
+      "description": "Write a message using only words with 4 letters or less.",
+      "xp": 70
+    },
+    {
+      "id": "31",
+      "title": "Triple Letter",
+      "description": "Use at least 3 words starting with the same letter.",
+      "xp": 30
+    },
+    {
+      "id": "32",
+      "title": "Animal Kingdom",
+      "description": "Mention at least 2 animals.",
+      "xp": 20
+    },
+    {
+      "id": "33",
+      "title": "Question Master",
+      "description": "Start your postcard with a question mark sentence.",
+      "xp": 30
+    },
+    {
+      "id": "34",
+      "title": "Emoji Energy",
+      "description": "Include at least 3 emojis.",
+      "xp": 20
+    },
+    {
+      "id": "35",
+      "title": "Weekend Mood",
+      "description": "Use both words 'Saturday' and 'Sunday'.",
+      "xp": 20
+    },
+    {
+      "id": "36",
+      "title": "Fast Counter",
+      "description": "Write exactly 20 words.",
+      "xp": 50
+    },
+    {
+      "id": "37",
+      "title": "Tiny Words",
+      "description": "Use at least 10 words with only 3 letters.",
+      "xp": 40
+    },
+    {
+      "id": "38",
+      "title": "Travel Bag",
+      "description": "Mention 'passport', 'ticket', and 'hotel'.",
+      "xp": 30
+    },
+    {
+      "id": "39",
+      "title": "Morning Routine",
+      "description": "Use the words 'coffee', 'breakfast', and 'alarm'.",
+      "xp": 30
+    },
+    {
+      "id": "40",
+      "title": "Ocean Life",
+      "description": "Mention 'fish', 'wave', and 'boat'.",
+      "xp": 30
+    },
+    {
+      "id": "41",
+      "title": "Countdown",
+      "description": "Include the numbers 1, 2, and 3 somewhere in the text.",
+      "xp": 20
+    },
+    {
+      "id": "42",
+      "title": "Symmetry",
+      "description": "Write 2 sentences with the same number of words.",
+      "xp": 70
+    },
+    {
+      "id": "43",
+      "title": "Food Lover",
+      "description": "Mention at least 3 different foods.",
+      "xp": 20
+    },
+    {
+      "id": "44",
+      "title": "Night Owl",
+      "description": "Use the words 'moon', 'star', and 'dark'.",
+      "xp": 30
+    },
+    {
+      "id": "45",
+      "title": "The Repeater",
+      "description": "Use the same word 5 times.",
+      "xp": 20
+    },
+    {
+      "id": "46",
+      "title": "ABC",
+      "description": "Include words starting with A, B, and C.",
+      "xp": 20
+    },
+    {
+      "id": "47",
+      "title": "Punctuation Party",
+      "description": "Use a question mark, comma, and exclamation mark.",
+      "xp": 20
+    },
+    {
+      "id": "48",
+      "title": "Long Journey",
+      "description": "Write at least 5 sentences.",
+      "xp": 40
+    },
+    {
+      "id": "49",
+      "title": "Mini Journey",
+      "description": "Write only 2 sentences.",
+      "xp": 20
+    },
+    {
+      "id": "50",
+      "title": "Mirror Numbers",
+      "description": "Include the same number twice.",
+      "xp": 20
+    },
+    {
+      "id": "51",
+      "title": "Frozen World",
+      "description": "Use the words 'snow', 'ice', and 'cold'.",
+      "xp": 30
+    },
+    {
+      "id": "52",
+      "title": "Happy Ending",
+      "description": "End your postcard with an exclamation mark.",
+      "xp": 10
+    },
+    {
+      "id": "53",
+      "title": "Starting Strong",
+      "description": "Start your postcard with the word 'Today'.",
+      "xp": 10
+    },
+    {
+      "id": "54",
+      "title": "Capital Start",
+      "description": "Every sentence must start with a capital letter.",
+      "xp": 30
+    },
+    {
+      "id": "55",
+      "title": "Double Question",
+      "description": "Use exactly 2 question marks.",
+      "xp": 40
+    },
+    {
+      "id": "56",
+      "title": "Treasure Hunt",
+      "description": "Mention 'map', 'gold', and 'island'.",
+      "xp": 30
+    },
+    {
+      "id": "57",
+      "title": "Movie Night",
+      "description": "Use the words 'popcorn', 'movie', and 'screen'.",
+      "xp": 30
+    },
+    {
+      "id": "58",
+      "title": "Rainbow",
+      "description": "Mention the colors red, blue, and green.",
+      "xp": 20
+    },
+    {
+      "id": "59",
+      "title": "Speed Run",
+      "description": "Write a message with fewer than 15 words.",
+      "xp": 40
+    },
+    {
+      "id": "60",
+      "title": "Double Space",
+      "description": "Use at least 2 commas in your postcard.",
+      "xp": 20
+    },
+    {
+      "id": "61",
+      "title": "Pet Lover",
+      "description": "Mention a cat and a dog.",
+      "xp": 20
+    },
+    {
+      "id": "62",
+      "title": "Four Corners",
+      "description": "Write exactly 4 sentences.",
+      "xp": 40
+    },
+    {
+      "id": "63",
+      "title": "Alphabet Soup",
+      "description": "Use every vowel at least once.",
+      "xp": 40
+    },
+    {
+      "id": "64",
+      "title": "Repeated Ending",
+      "description": "End 3 sentences with the same word.",
+      "xp": 60
+    },
+    {
+      "id": "65",
+      "title": "The Counter",
+      "description": "Use at least 25 words.",
+      "xp": 20
+    },
+    {
+      "id": "66",
+      "title": "Excited Writer",
+      "description": "Use at least 5 exclamation marks.",
+      "xp": 50
+    },
+    {
+      "id": "67",
+      "title": "Pairing Up",
+      "description": "Use at least 4 words that rhyme.",
+      "xp": 70
+    },
+    {
+      "id": "68",
+      "title": "Tiny Sentence",
+      "description": "Include a sentence with only 2 words.",
+      "xp": 30
+    },
+    {
+      "id": "69",
+      "title": "Clock Watcher",
+      "description": "Mention a specific time like 3:45 or 12:00.",
+      "xp": 20
+    },
+    {
+      "id": "70",
+      "title": "Direction Finder",
+      "description": "Use north, south, east, and west.",
+      "xp": 40
+    }
+  ]
+}

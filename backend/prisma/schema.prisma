@@ -48,3 +48,13 @@ model Sticker {
   requiredXp  Int 
   description String?
 }
+
+model Quest {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  xp          Int
+
+  // userQuests   UserQuest[]
+  // postcards    Postcard[]
+}
