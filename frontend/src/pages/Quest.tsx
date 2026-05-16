@@ -1,9 +1,15 @@
-import { Step } from "../components/Step";
-import { QuestCard } from "../components/QuestCard";
-import { BadgeCard } from "../components/BadegeCard";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchQuests, type Quest as QuestType } from "../api/mockQuest";
+import { BadgeCard } from "../components/BadegeCard";
+import { QuestCard } from "../components/QuestCard";
+import { Step } from "../components/Step";
+
+export interface QuestType {
+  id: number;
+  title: string;
+  description: string;
+  xp: number;
+}
 
 export function Quest() {
   const [allQuests, setAllQuests] = useState<QuestType[]>([]);
@@ -22,15 +28,13 @@ export function Quest() {
     document.title = "Mia | Quest";
     const loadData = async () => {
       try {
-        const data = await fetchQuests();
+        const response = await fetch("http://localhost:3001/api/quests");
+        if (!response.ok) throw new Error("Fehler beim Laden der Quests");
+        const data = await response.json();
 
-        const shuffledData = [...data].sort(() => 0.5 - Math.random());
-
+        const shuffledData = [...data.quests].sort(() => 0.5 - Math.random());
         setAllQuests(shuffledData);
-        const initial = shuffledData[0];
-
-        setActiveQuest(initial);
-        setSelectedQuest(null);
+        setActiveQuest(shuffledData[0]);
       } catch (error) {
         console.error("Fehler beim Laden der Quests:", error);
       } finally {
@@ -42,11 +46,13 @@ export function Quest() {
   }, []);
 
   const handleReload = () => {
-    const randomIndex = Math.floor(Math.random() * allQuests.length);
-    const newQuest = allQuests[randomIndex];
-    setActiveQuest(newQuest);
+    if (allQuests.length === 0) return;
+    const reshuffled = [...allQuests].sort(() => 0.5 - Math.random());
+    setAllQuests(reshuffled);
+    setActiveQuest(reshuffled[0]);
     setSelectedQuest(null);
   };
+
   if (loading || !activeQuest) {
     return (
       <p
@@ -64,6 +70,11 @@ export function Quest() {
   const otherQuests = allQuests
     .filter((q) => q.id !== activeQuest.id)
     .slice(0, 3);
+
+  const saveAndNavigate = (quest: QuestType) => {
+    localStorage.setItem("selectedQuest", JSON.stringify(quest));
+    navigate("/editor", { state: { fromQuest: true } });
+  };
 
   return (
     <main>
@@ -90,10 +101,7 @@ export function Quest() {
         onReload={handleReload}
         isSelected={selectedQuest?.id === activeQuest.id}
         onSelect={() => setSelectedQuest(activeQuest)}
-        onContinue={() => {
-          localStorage.setItem("selectedQuest", JSON.stringify(activeQuest));
-          navigate("/editor", { state: { fromQuest: true } });
-        }}
+        onContinue={() => saveAndNavigate(activeQuest)}
       />
       <h2 className="text-m">Or choose from other quests:</h2>
 

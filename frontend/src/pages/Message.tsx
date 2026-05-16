@@ -27,11 +27,13 @@ export function Message() {
 
   const [showPreview, setShowPreview] = useState(false);
   const [adress, setAdress] = useState<Adress | null>(null);
+  const [showDropdown, setShowDropdown] = useState(false);
+  
+  const [isSending, setIsSending] = useState(false);
+
   const cardFrontData = localStorage.getItem("card");
   const cardText = localStorage.getItem("currentPostcardText");
   const cardLocation = localStorage.getItem("selectedLocation");
-
-  const [showDropdown, setShowDropdown] = useState(false);
 
   const navigate = useNavigate();
 
@@ -48,6 +50,7 @@ export function Message() {
     setQuestText(newText);
     localStorage.setItem("currentPostcardText", newText);
   };
+
   const allLocations = [
     ...data.cities.map((c) => ({ name: c.name, type: "City" })),
     ...data.countries.map((c) => ({ name: c.name, type: "Country" })),
@@ -82,7 +85,52 @@ export function Message() {
     loadData();
   }, []);
 
-  const isDisabled = !selectedLocation || questText.length < 100;
+  const handleSendPostcard = async () => {
+    if (isDisabled || isSending) return;
+
+    try {
+      setIsSending(true);
+
+      const postcardPayload = {
+        questId: selectedQuest?.id,
+        // userId: loggedInUser.id,
+        image: localStorage.getItem("card"),
+        text: questText,
+        location: selectedLocation,
+        receiverAddress: adress
+      };
+
+      const response = await fetch("http://localhost:3001/api/postcards", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postcardPayload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error saving the postcard.");
+      }
+
+      const result = await response.json();
+      console.log("Postcard successfully saved:", result);
+
+      localStorage.removeItem("selectedQuest");
+      localStorage.removeItem("card");
+      localStorage.removeItem("currentPostcardText");
+      localStorage.removeItem("selectedLocation");
+
+      navigate("/send", { state: { fromMessage: true } });
+
+    } catch (error) {
+      console.error("Error while sending:", error);
+      alert("An error occurred while sending the postcard. Please try again.");
+    } finally {
+      setIsSending(false);
+    }
+  };
+
+  const isDisabled = !selectedLocation || questText.length < 100 || isSending;
 
   return (
     <>
@@ -228,24 +276,19 @@ export function Message() {
             Preview
           </button>
 
-          <Link
-            to="/send"
-            state={{ fromMessage: true }}
+          <button
+            type="button"
             aria-describedby={
               (questText.length < 100 ? "msg-warning " : "") +
               (!selectedLocation ? "loc-warning" : "")
             }
             className={`button button--image message ${isDisabled ? "is-disabled" : ""}`}
-            aria-disabled={isDisabled}
-            onClick={(e) => {
-              if (isDisabled) {
-                e.preventDefault();
-              }
-            }}
+            disabled={isDisabled}
+            onClick={handleSendPostcard}
           >
-            Send Postcard
+            {isSending ? "Sending..." : "Send Postcard"}
             <span className="icon-span"></span>
-          </Link>
+          </button>
         </div>
       </main>
       <Preview

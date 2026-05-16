@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 router.get('/api/quests', async (req, res) => {
   try {
-    const allQuests = await prisma.prisma.quest.findMany({
+    const allQuests = await prisma.quest.findMany({
       orderBy: { id: 'asc' }
     });
 
