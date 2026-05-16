@@ -5,6 +5,8 @@ const { PrismaClient } = require('@prisma/client');
 const stickerRouter = require('./routes/stickers'); 
 const questRouter = require('./routes/quests');
 const postcardRouter = require('./routes/postcards');
+const addressRouter = require('./routes/addresses'); 
+const locationRouter = require('./routes/locations');
 
 const prisma = new PrismaClient();
 const app = express();
@@ -16,6 +18,8 @@ app.use(express.json());
 app.use(stickerRouter); 
 app.use(questRouter);
 app.use(postcardRouter);
+app.use(addressRouter);
+app.use(locationRouter);
 
 app.listen(PORT, () => {
     console.log(`Server läuft auf http://localhost:${PORT}`);
