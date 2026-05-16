@@ -40,3 +40,11 @@ model City {
   
   country   Country  @relation(fields: [countryCode], references: [code])
 }
+
+model Sticker {
+  id          Int      @id @default(autoincrement())
+  name        String
+  fileName    String
+  requiredXp  Int 
+  description String?
+}

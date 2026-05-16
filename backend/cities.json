@@ -137,6 +137,7 @@
     { "name": "Philippines", "code": "PH", "location": { "longitude": 121.774017, "latitude": 12.879721 } },
     { "name": "Poland", "code": "PL", "location": { "longitude": 19.145136, "latitude": 51.919438 } },
     { "name": "Portugal", "code": "PT", "location": { "longitude": -8.224454, "latitude": 39.399872 } },
+    { "name": "Puerto Rico", "code": "PR", "location": { "longitude": -66.5901, "latitude": 18.2208 } },
     { "name": "Qatar", "code": "QA", "location": { "longitude": 51.183884, "latitude": 25.354826 } },
     { "name": "Romania", "code": "RO", "location": { "longitude": 24.96676, "latitude": 45.943161 } },
     { "name": "Russia", "code": "RU", "location": { "longitude": 105.318756, "latitude": 61.52401 } },
