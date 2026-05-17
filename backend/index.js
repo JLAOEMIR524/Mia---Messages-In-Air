@@ -8,6 +8,7 @@ import postcardsRouter from "./routes/postcards.js";
 import addressesRouter from "./routes/addresses.js";
 import locationsRouter from "./routes/locations.js";
 import stickersRouter from "./routes/stickers.js";
+import securityRouter from "./routes/security.js"
 
 const app = express();
 const PORT = 3001;
@@ -18,7 +19,7 @@ app.use(cors({
 }));
 app.all("/api/auth/*splat", toNodeHandler(auth));
 app.use(express.json());
-
+app.use("/api/security", securityRouter);
 app.use(stickersRouter); 
 app.use(questsRouter);
 app.use(postcardsRouter);

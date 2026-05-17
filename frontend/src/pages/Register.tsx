@@ -22,6 +22,25 @@ export function Register() {
 
   const handleSignUp = async () => {
     setLoading(true);
+
+    const check = await fetch(
+      "http://localhost:3001/api/security/check-password",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ password }),
+      },
+    );
+
+    const isPwned = await check.json();
+
+    if (isPwned) {
+      setError("Unsafe password - try choosing something sophisticated");
+      setLoading(false);
+      return;
+    }
+
     await signUp.email(
       {
         email: email,
@@ -60,6 +79,7 @@ export function Register() {
         <h1 className="text-s">Join the Mia community!</h1>
         <p>Send your first digital message in a bottle 💌</p>
         <form>
+          <p className="authenticationError">{error}</p>
           <label htmlFor="firstName">Firstname</label>
           <input
             id="firstName"
