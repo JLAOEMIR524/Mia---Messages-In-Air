@@ -2,8 +2,8 @@ import { useState } from "react";
 
 interface ProfileTopperProps {
   initials: string;
-  name: string;
-  email: string;
+  name?: string;
+  email?: string;
   memberSince: string;
   postcardsSent: number;
   currentXp: number;
@@ -48,8 +48,8 @@ export function ProfileTopper({
       <div className="profile">
         <div className="profile-header-row">
           <hgroup className="profileInfos">
-            <p className="text-s">{name}</p>
-            <p>Email: {email}</p>
+            <p className="text-s">{name ? name : "N/A"}</p>
+            <p>Email: {email ? email : "N/A"}</p>
             <p>Member Since: {memberSince}</p>
             <p>Postcards Sent: {postcardsSent}</p>
           </hgroup>

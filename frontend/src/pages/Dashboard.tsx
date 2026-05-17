@@ -1,24 +1,19 @@
 import { StatisticCard } from "../components/StatisticCard";
 import { LinkHeader } from "../components/LinkHeader";
 import { MessagePreview } from "../components/MessagePreviewCard";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useSession } from "../api/auth-client";
 
 export function Dashboard() {
+  const { data: session } = useSession();
   useEffect(() => {
     document.title = "Mia | Dashboard";
   }, []);
 
-  const { data: session, isPending } = useSession();
-
-  if (isPending) return <p>Loading...</p>;
-
-  if (!session) return <Navigate to={"/login"} />;
-
   return (
     <main className="left">
-      <h1 className="text-l">Hello Sonja ✨</h1>
+      <h1 className="text-l">Hello {session?.user.firstName} ✨</h1>
       <p>Welcome back to Mia. </p>
       <Link className="newPostcard" to="/quest">
         <img src="./icons/add_circle.svg" alt="" aria-hidden="true" />

@@ -25,6 +25,7 @@ import { Details } from "./pages/Details";
 import { Dashboard } from "./pages/Dashboard";
 import type { ReactNode } from "react";
 import { PreviewProvider, usePreview } from "./context/PreviewContext";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 const ProtectedEditorRoute = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
@@ -92,45 +93,74 @@ function AppContent() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/details"
           element={
-            <ProtectedDetailRoute>
-              <Details />
-            </ProtectedDetailRoute>
+            <ProtectedRoute>
+              <ProtectedDetailRoute>
+                <Details />
+              </ProtectedDetailRoute>
+            </ProtectedRoute>
           }
         />{" "}
         <Route
           path="/editor"
           element={
-            <ProtectedEditorRoute>
-              <Editor />
-            </ProtectedEditorRoute>
+            <ProtectedRoute>
+              <ProtectedEditorRoute>
+                <Editor />
+              </ProtectedEditorRoute>
+            </ProtectedRoute>
           }
         />
         <Route path="/password" element={<ForgotPassword />} />
-        <Route path="/gallery" element={<Gallery />} />
+        <Route
+          path="/gallery"
+          element={
+            <ProtectedRoute>
+              <Gallery />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/home" element={<Home />} />
         <Route path="/imprint" element={<ImprintPrivacy />} />
         <Route path="/login" element={<Login />} />
         <Route
           path="/message"
           element={
-            <ProtectedMessageRoute>
-              <Message />
-            </ProtectedMessageRoute>
+            <ProtectedRoute>
+              <ProtectedMessageRoute>
+                <Message />
+              </ProtectedMessageRoute>
+            </ProtectedRoute>
           }
         />{" "}
         <Route path="/profile" element={<Profile />} />
-        <Route path="/quest" element={<Quest />} />
+        <Route
+          path="/quest"
+          element={
+            <ProtectedRoute>
+              <Quest />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/register" element={<Register />} />
         <Route
           path="/send"
           element={
-            <ProtectedSendRoute>
-              <Send />
-            </ProtectedSendRoute>
+            <ProtectedRoute>
+              <ProtectedSendRoute>
+                <Send />
+              </ProtectedSendRoute>
+            </ProtectedRoute>
           }
         />{" "}
         <Route path="*" element={<Home />} />

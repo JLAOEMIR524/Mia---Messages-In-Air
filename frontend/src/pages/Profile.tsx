@@ -3,6 +3,7 @@ import { BadgeCard } from "../components/BadegeCard";
 import { ProfileTopper } from "../components/ProfileTopper";
 import SwapCard from "../components/SwapCard";
 import { Link, useNavigate } from "react-router-dom";
+import { useSession } from "../api/auth-client";
 
 interface Sticker {
   id: number;
@@ -15,6 +16,7 @@ interface Sticker {
 }
 
 export function Profile() {
+  const { data: session } = useSession();
   const navigate = useNavigate();
   const [stickers, setStickers] = useState<Sticker[]>([]);
   const [loading, setLoading] = useState(true);
@@ -77,8 +79,8 @@ export function Profile() {
 
           <ProfileTopper
             initials="MM"
-            name="Max Mustermann"
-            email="maxi@sonnenschein.at"
+            name={session?.user.firstName}
+            email={session?.user.email}
             memberSince="24.11.2004"
             postcardsSent={254}
             currentXp={342}

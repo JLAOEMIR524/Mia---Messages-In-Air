@@ -2,8 +2,9 @@ import { MapContainer } from "react-leaflet";
 import { Card } from "../components/Card";
 import type { LatLngExpression } from "leaflet";
 import { CityBadge } from "../components/CityBadge";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useSession } from "../api/auth-client";
 
 export function Gallery() {
   const position: LatLngExpression = [47.8, 13.04];
@@ -16,6 +17,8 @@ export function Gallery() {
   useEffect(() => {
     document.title = "Mia | Gallery";
   }, []);
+
+
 
   return (
     <main className="left">
@@ -30,15 +33,24 @@ export function Gallery() {
       <h1 className="text-l">Your Gallery 🖼️</h1>
       <p>All the postcards you've sent and received</p>
       <div className="button-flex gallery">
-        <button className="button button--image" aria-label="open all Postcards">
+        <button
+          className="button button--image"
+          aria-label="open all Postcards"
+        >
           <span className="icon-span" aria-hidden="true"></span>
           All Postcards
         </button>
-        <button className="button button--image" aria-label="open received Postcards">
+        <button
+          className="button button--image"
+          aria-label="open received Postcards"
+        >
           <span className="icon-span" aria-hidden="true"></span>
           Received
         </button>
-        <button className="button button--image" aria-label="open sent Postcards">
+        <button
+          className="button button--image"
+          aria-label="open sent Postcards"
+        >
           <span className="icon-span" aria-hidden="true"></span>
           Send
         </button>

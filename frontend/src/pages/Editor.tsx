@@ -6,12 +6,13 @@ import { useRef, useCallback, useState, useEffect } from "react";
 import { useResponsiveScale } from "../hooks/useResponsiveScale";
 import { StickerSelector } from "../components/StickerSelector";
 import { Step } from "../components/Step";
-import { Link, useNavigate } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
 import type {
   AvailableSticker,
   DragPayload,
   UploadedImage,
 } from "../types/CanvasTypes";
+import { useSession } from "../api/auth-client";
 
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 400;
@@ -176,6 +177,8 @@ export function Editor() {
   };
 
   const IsPostcardEmpty = elements.length === 0;
+
+
 
   return (
     <main className="imageEditor">

@@ -1,6 +1,5 @@
 import express, { Router } from "express";
 import crypto from "crypto";
-import { text } from "stream/consumers";
 
 const router = express.Router();
 
@@ -23,7 +22,8 @@ router.post("/check-password", async (req, res) => {
 
   const ispwned = response
   .split("\n")
-  .some((line) => line.split(":")[0] == suffix);
+  .some((line) => line.split(":")[0].trim() === suffix);
+  console.log(ispwned);
 
   res.json({ispwned});
 });

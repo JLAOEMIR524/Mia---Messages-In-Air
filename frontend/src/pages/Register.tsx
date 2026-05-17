@@ -32,6 +32,12 @@ export function Register() {
   const handleSignUp = async () => {
     setLoading(true);
 
+    if (password !== passwordConfirm) {
+      setError("Passwords don't match");
+      setLoading(false);
+      return;
+    }
+
     const check = await fetch(
       "http://localhost:3001/api/security/check-password",
       {
@@ -42,7 +48,7 @@ export function Register() {
       },
     );
 
-    const isPwned = await check.json();
+    const { isPwned } = await check.json();
 
     if (isPwned) {
       setError("Unsafe password - try choosing something sophisticated");
@@ -83,7 +89,12 @@ export function Register() {
         <img src="Logo_without_text.png" alt="Logo Mia" />
         <h1 className="text-s">Join the Mia community!</h1>
         <p>Send your first digital message in a bottle 💌</p>
-        <form>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSignUp();
+          }}
+        >
           <p className="authenticationError">{error}</p>
           <label htmlFor="firstName">Firstname</label>
           <input
@@ -138,14 +149,14 @@ export function Register() {
             onChange={(e) => setPasswordConfirm(e.target.value)}
             required
           />
+          <button
+            type="submit"
+            className="button button--primary"
+            disabled={loading}
+          >
+            {loading ? "..." : "Create Account"}
+          </button>
         </form>
-        <button
-          className="button button--primary"
-          onClick={handleSignUp}
-          disabled={loading}
-        >
-          {loading ? "..." : "Create Account"}
-        </button>
       </div>
     </main>
   );

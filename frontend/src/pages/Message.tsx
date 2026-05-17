@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { BadgeCard } from "../components/BadegeCard";
 import { Step } from "../components/Step";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Preview } from "../components/Preview";
 import {
   fetchRandomAddressFromDB,
@@ -10,6 +10,7 @@ import {
   type LocationSuggestion,
 } from "../api/locationApi";
 import { usePreview } from "../context/PreviewContext";
+import { useSession } from "../api/auth-client";
 
 export interface QuestType {
   id: number;
@@ -148,6 +149,8 @@ export function Message() {
   };
 
   const isDisabled = !selectedLocation || questText.length < 100 || isSending;
+
+
 
   return (
     <>

@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { FeedbackCard } from "../components/SendCards";
 import { useEffect } from "react";
+import { useSession } from "../api/auth-client";
 
 export function Details() {
   useEffect(() => {
@@ -11,6 +12,8 @@ export function Details() {
       document.body.classList.remove("background-heaven");
     };
   }, []);
+
+
 
   return (
     <main className="heaven">
