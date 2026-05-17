@@ -1,7 +1,6 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FeedbackCard } from "../components/SendCards";
 import { useEffect } from "react";
-import { useSession } from "../api/auth-client";
 
 export function Details() {
   useEffect(() => {
