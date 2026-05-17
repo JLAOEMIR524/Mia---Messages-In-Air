@@ -1,7 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { signUp } from "../api/auth-client";
 
 export function Register() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     document.body.classList.add("background-heaven");
     document.title = "Mia | Register";
@@ -10,6 +19,31 @@ export function Register() {
       document.body.classList.remove("background-heaven");
     };
   }, []);
+
+  const handleSignUp = async () => {
+    setLoading(true);
+    await signUp.email(
+      {
+        email: email,
+        password: password,
+        name: `${firstName} ${lastName}`,
+        firstName: firstName,
+        lastName: lastName,
+      },
+      {
+        onRequest: () => {
+          setLoading(true);
+        },
+        onSuccess: () => {
+          navigate("/dashboard");
+        },
+        onError: (ctx) => {
+          setLoading(false);
+          setError(ctx.error.message);
+        },
+      },
+    );
+  };
 
   const navigate = useNavigate();
   return (
@@ -33,6 +67,8 @@ export function Register() {
             type="text"
             placeholder="Type here..."
             autoComplete="given-name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
             required
           />
           <label htmlFor="LastName">Lastname:</label>
@@ -42,6 +78,8 @@ export function Register() {
             type="text"
             placeholder="Type here..."
             autoComplete="family-name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
             required
           />
           <label htmlFor="emailUser">E-Mail:</label>
@@ -51,6 +89,8 @@ export function Register() {
             type="email"
             placeholder="Type here..."
             autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
           <label htmlFor="password">Password</label>
@@ -59,6 +99,8 @@ export function Register() {
             name="password"
             type="password"
             autoComplete="new-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
           <label htmlFor="passwordConfirm">Confirm Password:</label>
@@ -67,14 +109,17 @@ export function Register() {
             name="passwordConfirm"
             type="password"
             autoComplete="new-password"
+            value={passwordConfirm}
+            onChange={(e) => setPasswordConfirm(e.target.value)}
             required
           />
         </form>
         <button
           className="button button--primary"
-          onClick={() => navigate("/dashboard")}
+          onClick={handleSignUp}
+          disabled={loading}
         >
-          Create Account
+          {loading ? "..." : "Create Account"}
         </button>
       </div>
     </main>

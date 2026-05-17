@@ -1,5 +1,6 @@
+import { signOut } from "../api/auth-client";
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 interface NavBarProps {
   inert?: boolean;
@@ -10,6 +11,7 @@ export function NavBar({ inert }: NavBarProps) {
   const isDashboard = location.pathname === "/dashboard";
   const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -34,8 +36,16 @@ export function NavBar({ inert }: NavBarProps) {
     { name: "Imprint & Privacy", path: "/imprint", icon: "./icons/info.svg" },
   ];
 
+  const handleLogout = async () => {
+    await signOut();
+    navigate("/home");
+  };
+
   return (
-    <aside inert={inert ? true : undefined} className={`sidebar ${isOpen ? "is-open" : ""}`}>
+    <aside
+      inert={inert ? true : undefined}
+      className={`sidebar ${isOpen ? "is-open" : ""}`}
+    >
       <div className="topContainer">
         <div className="mobileBar">
           {!isMobile ? (
@@ -97,19 +107,25 @@ export function NavBar({ inert }: NavBarProps) {
                 className={`nav-item logout-mobile ${location.pathname === "/logout" ? "active" : ""}`}
               >
                 <img src="./icons/logout.svg" alt="" aria-hidden="true" />
-                <Link to="/logout" onClick={() => setIsOpen(false)}>
+                <button
+                  className="logout"
+                  onClick={() => {
+                    setIsOpen(false);
+                    handleLogout();
+                  }}
+                >
                   Logout
-                </Link>
+                </button>
               </li>
             )}
           </ul>
         </nav>
       </div>
       {!isMobile && (
-        <div className="logout">
+        <button className="logout" onClick={handleLogout}>
           <img src="./icons/logout.svg" alt="" aria-hidden="true" />
-          <Link to="/logout">Logout</Link>
-        </div>
+          <span>Logout</span>
+        </button>
       )}
     </aside>
   );

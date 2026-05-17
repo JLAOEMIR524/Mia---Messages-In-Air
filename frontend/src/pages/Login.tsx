@@ -1,7 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { signIn } from "../api/auth-client";
 
 export function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     document.body.classList.add("background-heaven");
     document.title = "Mia | Login";
@@ -12,6 +18,29 @@ export function Login() {
   }, []);
 
   const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    await signIn.email(
+      {
+        email,
+        password,
+      },
+      {
+        onRequest: () => {
+          setLoading(true);
+        },
+        onSuccess: () => {
+          navigate("/dashboard");
+        },
+        onError: (ctx) => {
+          setLoading(false);
+          setPassword("");
+          setError(ctx.error.message);
+        },
+      },
+    );
+  };
+
   return (
     <main className="heaven">
       <Link to="/home" className="arrowBack" aria-label="go back">
@@ -22,6 +51,7 @@ export function Login() {
         <h1 className="text-s">Welcome Back!</h1>
         <p>Nice to see you again ✨ </p>
         <form>
+          <p className="authenticationError">{error}</p>
           <label htmlFor="emailUser">E-Mail:</label>
           <input
             id="emailUser"
@@ -29,6 +59,8 @@ export function Login() {
             type="email"
             placeholder="Type here..."
             autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
           <label htmlFor="password">Password</label>
@@ -37,15 +69,18 @@ export function Login() {
             name="password"
             type="password"
             autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </form>
         <Link to="/password">Password forgotten?</Link>
         <button
           className="button button--primary"
-          onClick={() => navigate("/dashboard")}
+          disabled={loading}
+          onClick={handleLogin}
         >
-          Sign In
+          {loading ? "..." : "Sign In"}
         </button>
         <div className="divider">
           <span>or</span>

@@ -468,6 +468,11 @@ input#fsrch {
   opacity: 0.6;
 }
 
+.authenticationError {
+  color: var(--color-error);
+  align-self: center;
+}
+
 input#fsrch:focus {
   border-color: var(--color-input-focus-border);
   box-shadow: var(--shadow-sm);
