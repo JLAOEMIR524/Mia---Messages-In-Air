@@ -1,13 +1,20 @@
 import { StatisticCard } from "../components/StatisticCard";
 import { LinkHeader } from "../components/LinkHeader";
 import { MessagePreview } from "../components/MessagePreviewCard";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useSession } from "../api/auth-client";
 
 export function Dashboard() {
   useEffect(() => {
     document.title = "Mia | Dashboard";
   }, []);
+
+  const { data: session, isPending } = useSession();
+
+  if (isPending) return <p>Loading...</p>;
+
+  if (!session) return <Navigate to={"/login"} />;
 
   return (
     <main className="left">

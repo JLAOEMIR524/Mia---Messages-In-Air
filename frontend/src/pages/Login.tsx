@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signIn } from "../api/auth-client";
+import { signIn, useSession } from "../api/auth-client";
 
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const { data: session } = useSession();
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.body.classList.add("background-heaven");
@@ -17,7 +20,12 @@ export function Login() {
     };
   }, []);
 
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (session) {
+      navigate("/dashboard");
+    }
+  }, [session, navigate]);
 
   const handleLogin = async () => {
     await signIn.email(
@@ -28,9 +36,6 @@ export function Login() {
       {
         onRequest: () => {
           setLoading(true);
-        },
-        onSuccess: () => {
-          navigate("/dashboard");
         },
         onError: (ctx) => {
           setLoading(false);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signUp } from "../api/auth-client";
+import { signUp, useSession } from "../api/auth-client";
 
 export function Register() {
   const [email, setEmail] = useState("");
@@ -11,6 +11,9 @@ export function Register() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const { data: session } = useSession();
+  const navigate = useNavigate();
+
   useEffect(() => {
     document.body.classList.add("background-heaven");
     document.title = "Mia | Register";
@@ -19,6 +22,12 @@ export function Register() {
       document.body.classList.remove("background-heaven");
     };
   }, []);
+
+  useEffect(() => {
+    if (session) {
+      navigate("/dashboard");
+    }
+  }, [session, navigate]);
 
   const handleSignUp = async () => {
     setLoading(true);
@@ -53,9 +62,6 @@ export function Register() {
         onRequest: () => {
           setLoading(true);
         },
-        onSuccess: () => {
-          navigate("/dashboard");
-        },
         onError: (ctx) => {
           setLoading(false);
           setError(ctx.error.message);
@@ -64,7 +70,6 @@ export function Register() {
     );
   };
 
-  const navigate = useNavigate();
   return (
     <main className="heaven">
       <Link to="/home" className="arrowBack" aria-label="go back">
