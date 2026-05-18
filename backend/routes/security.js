@@ -20,12 +20,12 @@ router.post("/check-password", async (req, res) => {
   );
   const response = await request.text();
 
-  const ispwned = response
+  const isPwned = response
   .split("\n")
   .some((line) => line.split(":")[0].trim() === suffix);
-  console.log(ispwned);
+  console.log(isPwned);
 
-  res.json({ispwned});
+  res.json({isPwned});
 });
 
 export default router;
