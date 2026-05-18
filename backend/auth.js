@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./db.js";
 import { sendNotification } from "./mail/sendMail.js";
+import { request } from "http";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -15,6 +16,12 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     autoSignIn: true,
+    sendResetPassword: async ({ user, url, token }, request) => {
+      void sendNotification("Mia: Reset Password", user.firstName, user.email, `Click the link to reset your password: ${url}`);
+    },
+    onPasswordReset: async({user}, request) => {
+      console.log(`Password for user ${user.email} has been reset.`);
+    }
   },
 
   user: {
