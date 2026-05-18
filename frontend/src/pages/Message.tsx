@@ -161,6 +161,14 @@ export function Message() {
     }
   };
 
+  if (isSending) {
+    return (
+      <div className="full-page-loading">
+        <p>Checking content & sending... ⏳</p>
+      </div>
+    );
+  }
+
   return (
     <>
       <main inert={previewOpen ? true : undefined}>
@@ -306,6 +314,7 @@ export function Message() {
             }}
             aria-label="Preview the postcard"
           >
+            <span className="icon-span"></span>
             Preview
           </button>
 
@@ -319,13 +328,7 @@ export function Message() {
             disabled={isDisabled || isSending}
             onClick={handleSendPostcard}
           >
-            {isSending ? (
-              <>Checking content & sending...⏳</>
-            ) : (
-              <>
-                Send Postcard <span className="icon-span"></span>
-              </>
-            )}
+            Send Postcard <span className="icon-span"></span>
           </button>
         </div>
       </main>
