@@ -2,6 +2,7 @@ import { Router } from "express";
 const router = Router();
 import { PrismaClient } from "@prisma/client";
 import { prisma } from "../db.js";
+import { auth } from "../auth.js";
 
 import LanguageDetect from "languagedetect";
 const lngDetector = new LanguageDetect();
@@ -12,6 +13,15 @@ router.post("/api/postcards", async (req, res) => {
   try {
     const { questId, image, text, location, receiverAddress } = req.body;
 
+    const session = await auth.api.getSession({
+      headers: req.headers,
+    });
+
+    if (!session || !session.user) {
+      return res.status(401).json({ error: "Unauthorized!" });
+    }
+
+    const creatorId = session.user.id;
     const numericQuestId = questId ? Number(questId) : null;
     const isShortQuest = SHORT_QUEST_IDS.includes(numericQuestId);
     const minLength = isShortQuest ? 10 : 99;
@@ -73,6 +83,8 @@ router.post("/api/postcards", async (req, res) => {
     }
 
     let maxTotalXP = 30;
+    let questTitle = "Standard submission";
+
     if (numericQuestId) {
       if (isNaN(numericQuestId)) {
         return res.status(400).json({ error: "Quest ID must be a number!" });
@@ -87,26 +99,73 @@ router.post("/api/postcards", async (req, res) => {
       }
 
       maxTotalXP = validQuest.xp;
+      questTitle = validQuest.title;
     }
 
-    const analysis = analyzePostcard(text, numericQuestId, maxTotalXP);
+    const analysis = analyzePostcard(
+      text,
+      numericQuestId,
+      maxTotalXP,
+      questTitle,
+    );
     const calculatedXP = analysis.xpCalculation.totalXP;
 
-    const newPostcard = await prisma.postcard.create({
-      data: {
-        questId: numericQuestId,
-        image: image,
-        text: text.trim(),
-        location: location.trim(),
-        receiverAddress: receiverAddress,
-        xp: calculatedXP,
+    const userCount = await prisma.user.count({
+      where: {
+        NOT: { id: creatorId },
       },
+    });
+
+    let receiverId = null;
+
+    if (userCount > 0) {
+      const randomIndex = Math.floor(Math.random() * userCount);
+      const randomUser = await prisma.user.findMany({
+        where: {
+          NOT: { id: creatorId },
+        },
+        skip: randomIndex,
+        take: 1,
+        select: { id: true },
+      });
+
+      if (randomUser.length > 0) {
+        receiverId = randomUser[0].id;
+      }
+    }
+
+    const result = await prisma.$transaction(async (tx) => {
+      const postcard = await tx.postcard.create({
+        data: {
+          questId: numericQuestId,
+          image: image,
+          text: text.trim(),
+          location: location.trim(),
+          receiverAddress: receiverAddress,
+          xp: calculatedXP,
+          creatorId: creatorId,
+          receiverId: receiverId,
+        },
+      });
+
+      const updatedUser = await tx.user.update({
+        where: { id: creatorId },
+        data: {
+          xp: {
+            increment: calculatedXP,
+          },
+        },
+        select: { id: true, name: true, xp: true },
+      });
+
+      return { postcard, updatedUser };
     });
 
     res.status(201).json({
       success: true,
-      message: "Postcard successfully saved in the database!",
-      postcard: newPostcard,
+      message: "Postcard successfully sent and XP granted!",
+      postcard: result.postcard,
+      userXp: result.updatedUser.xp,
       analysis: analysis,
     });
   } catch (error) {
@@ -115,12 +174,12 @@ router.post("/api/postcards", async (req, res) => {
   }
 });
 
-function analyzePostcard(text, questId, maxTotalXP) {
+function analyzePostcard(text, questId, maxTotalXP, questTitle) {
   const trimmedText = text.trim();
   const words = trimmedText.split(/\s+/).filter((w) => w.length > 0);
 
   const SHORT_QUEST_IDS = [8, 10, 14, 16, 24, 30, 36, 49, 59, 62, 68];
-  
+
   let lengthRating = 1;
   if (SHORT_QUEST_IDS.includes(questId)) {
     lengthRating = 5;
@@ -137,13 +196,13 @@ function analyzePostcard(text, questId, maxTotalXP) {
   let capitalizationRating = 5;
   const sentencesForCaps = trimmedText.split(/[.!?]+\s+/);
   let capsErrors = 0;
-  
-  sentencesForCaps.forEach(s => {
+
+  sentencesForCaps.forEach((s) => {
     if (s.length > 0 && s[0] !== s[0].toUpperCase() && /[a-zA-Z]/.test(s[0])) {
       capsErrors++;
     }
   });
-  
+
   const smallIErrors = (trimmedText.match(/\bi\b/g) || []).length;
   capsErrors += smallIErrors;
 
@@ -152,19 +211,20 @@ function analyzePostcard(text, questId, maxTotalXP) {
   else if (capsErrors > 1) capitalizationRating = 3;
   else if (capsErrors > 0) capitalizationRating = 4;
 
-  let punctuationRating = 1; 
+  let punctuationRating = 1;
   const totalPunctuation = (trimmedText.match(/[.,!?]/g) || []).length;
   const endsWithPunctuation = /[.!?]$/.test(trimmedText);
 
   if (totalPunctuation >= 4 && endsWithPunctuation) punctuationRating = 5;
   else if (totalPunctuation >= 2 && endsWithPunctuation) punctuationRating = 4;
   else if (totalPunctuation >= 1 || endsWithPunctuation) punctuationRating = 2;
-  else if (totalPunctuation === 0 && !endsWithPunctuation) punctuationRating = 0;
+  else if (totalPunctuation === 0 && !endsWithPunctuation)
+    punctuationRating = 0;
 
   let questDetails = [];
   const qId = questId;
 
-  switch (qId) {
+  switch (Number(qId)) {
     case 1: {
       const hasSun = /\bsun\b/i.test(trimmedText);
       const hasWindow = /\bwindow\b/i.test(trimmedText);
@@ -183,7 +243,7 @@ function analyzePostcard(text, questId, maxTotalXP) {
       const hasMountain = /\bmountain\b/i.test(trimmedText);
 
       questDetails = [
-        { name: "Inclusion of the word 'tree'", score: hasTree ? 5 : 0},
+        { name: "Inclusion of the word 'tree'", score: hasTree ? 5 : 0 },
         { name: "Inclusion of the word 'river'", score: hasRiver ? 5 : 0 },
         {
           name: "Inclusion of the word 'mountain'",
@@ -2014,8 +2074,7 @@ function analyzePostcard(text, questId, maxTotalXP) {
       break;
     }
     default:
-      // Fallback, wenn keine Quest ID übermittelt wurde
-      questDetails = [{ name: "Standard submission", score: 5 }];
+      questDetails = [{ name: questTitle || "Standard submission", score: 5 }];
       break;
   }
 
@@ -2027,9 +2086,13 @@ function analyzePostcard(text, questId, maxTotalXP) {
   const earnedNormalized = earnedPoints - totalItems;
   const successRate = maxNormalized > 0 ? earnedNormalized / maxNormalized : 0;
 
- const baseXP = Number(maxTotalXP) < 10 ? Math.floor(Number(maxTotalXP) * 0.3) : 10;
+  const baseXP =
+    Number(maxTotalXP) < 10 ? Math.floor(Number(maxTotalXP) * 0.3) : 10;
 
-  const availableQuestXP = Number(maxTotalXP) > baseXP ? Number(maxTotalXP) - baseXP : Number(maxTotalXP);
+  const availableQuestXP =
+    Number(maxTotalXP) > baseXP
+      ? Number(maxTotalXP) - baseXP
+      : Number(maxTotalXP);
   const earnedQuestXP = Math.round(successRate * availableQuestXP);
   const totalXP = baseXP + earnedQuestXP;
 
@@ -2046,6 +2109,9 @@ function analyzePostcard(text, questId, maxTotalXP) {
       questXP: earnedQuestXP,
       totalXP: totalXP,
       percentage: Math.round(successRate * 100),
+    },
+    labels: {
+      questLabel: questTitle,
     },
   };
 }

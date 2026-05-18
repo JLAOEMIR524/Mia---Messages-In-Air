@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { BadgeCard } from "../components/BadegeCard";
 import { Step } from "../components/Step";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Preview } from "../components/Preview";
 import {
   fetchRandomAddressFromDB,
@@ -10,7 +10,6 @@ import {
   type LocationSuggestion,
 } from "../api/locationApi";
 import { usePreview } from "../context/PreviewContext";
-import { useSession } from "../api/auth-client";
 
 export interface QuestType {
   id: number;
@@ -25,10 +24,20 @@ export function Message() {
     () => localStorage.getItem("currentPostcardText") ?? "",
   );
 
-  const [selectedQuest] = useState<QuestType | null>(() => {
+  // Hier ist die korrekte Deklaration des States
+  const [selectedQuest, setSelectedQuest] = useState<QuestType | null>(null);
+
+  // Dieser useEffect lädt die Quest einmalig beim Laden der Komponente
+  useEffect(() => {
     const saved = localStorage.getItem("selectedQuest");
-    return saved ? (JSON.parse(saved) as QuestType) : null;
-  });
+    if (saved) {
+      try {
+        setSelectedQuest(JSON.parse(saved) as QuestType);
+      } catch (e) {
+        console.error("Fehler beim Parsen der Quest:", e);
+      }
+    }
+  }, []);
 
   const [selectedLocation, setSelectedLocation] = useState<string | null>(() =>
     localStorage.getItem("selectedLocation"),
@@ -73,6 +82,7 @@ export function Message() {
     setQuestText(newText);
     localStorage.setItem("currentPostcardText", newText);
   };
+
   useEffect(() => {
     const triggerSearch = async () => {
       if (searchTerm.length > 0 && !selectedLocation) {
@@ -82,8 +92,6 @@ export function Message() {
         } catch (error) {
           console.error("Error loading locations:", error);
         }
-      } else {
-        searchResults;
       }
     };
 
@@ -132,6 +140,7 @@ export function Message() {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(postcardPayload),
       });
 
@@ -169,8 +178,6 @@ export function Message() {
       </div>
     );
   }
-
-
 
   return (
     <>
@@ -215,7 +222,6 @@ export function Message() {
               placeholder="Write something ..."
               rows={5}
               required
-              // Dynamische HTML5-Validierung
               minLength={minRequiredLength}
               maxLength={700}
             />

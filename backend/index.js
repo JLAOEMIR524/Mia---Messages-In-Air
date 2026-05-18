@@ -2,13 +2,14 @@ import express from "express";
 import cors from "cors";
 import { toNodeHandler } from "better-auth/node";
 import { auth } from "./auth.js";
-
 import questsRouter from "./routes/quests.js";
 import postcardsRouter from "./routes/postcards.js";
 import addressesRouter from "./routes/addresses.js";
 import locationsRouter from "./routes/locations.js";
 import stickersRouter from "./routes/stickers.js";
 import securityRouter from "./routes/security.js"
+import userRouter from "./routes/user.js";
+
 
 const app = express();
 const PORT = 3001;
@@ -25,6 +26,7 @@ app.use(questsRouter);
 app.use(postcardsRouter);
 app.use(addressesRouter);
 app.use(locationsRouter);
+app.use(userRouter);
 
 app.listen(PORT, () => {
     console.log(`Server läuft auf http://localhost:${PORT}`);
