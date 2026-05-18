@@ -37,13 +37,14 @@ export async function sendPostcardNotification(recipientMail, recipientName, car
 }
 
 //New notification
-export async function sendNotification(recipientName, recipientMail, note) {
+export async function sendNotification(subject, recipientName, recipientMail, note) {
   return sendMail({
     to: recipientMail,
     templateId: "info",
     variables: {
-      Receiver_username: recipientName,
-      note,
+      subject,
+      name: recipientName,
+      text: note,
     },
   });
 }

@@ -1,7 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { authClient } from "../api/auth-client";
 
 export function ForgotPassword() {
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
   useEffect(() => {
     document.body.classList.add("background-heaven");
     document.title = "Mia | Forgot Password";
@@ -11,7 +14,14 @@ export function ForgotPassword() {
     };
   }, []);
 
-  const navigate = useNavigate();
+  async function handleReset() {
+    await authClient.requestPasswordReset({
+      email,
+      redirectTo: "http://localhost:5173/reset-password",
+    });
+    navigate("/login");
+  }
+
   return (
     <main className="heaven">
       <Link to="/home" className="arrowBack" aria-label="go back">
@@ -33,13 +43,12 @@ export function ForgotPassword() {
             type="email"
             placeholder="mia@email.com"
             autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </form>
-        <button
-          className="button button--primary"
-          onClick={() => navigate("/login")}
-        >
+        <button className="button button--primary" onClick={handleReset}>
           Send Link
         </button>
         <div className="LinkContainer">

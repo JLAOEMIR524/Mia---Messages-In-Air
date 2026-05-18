@@ -27,6 +27,7 @@ import type { ReactNode } from "react";
 import { PreviewProvider, usePreview } from "./context/PreviewContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { useSession } from "./api/auth-client";
+import { ResetPassword } from "./pages/ResetPassword";
 
 const ProtectedEditorRoute = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
@@ -124,6 +125,7 @@ function AppContent() {
           }
         />
         <Route path="/password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route
           path="/gallery"
           element={
