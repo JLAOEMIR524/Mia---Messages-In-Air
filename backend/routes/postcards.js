@@ -39,10 +39,23 @@ router.post("/api/postcards", async (req, res) => {
     const scores = lngDetector.detect(text, 2);
     const bestMatch = scores[0] ? scores[0][0] : null;
 
-    if (bestMatch !== "english") {
+    let isEnglish = bestMatch === "english";
+
+    if (!isEnglish && isShortQuest) {
+      const commonEnglishWords = ["i", "my", "is", "am", "and", "like", "hello", "hi", "cats", "dog", "the", "you", "to", "I", "You"];
+      
+      const wordsInText = text.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").split(/\s+/);
+      
+      const englishWordCount = wordsInText.filter(word => commonEnglishWords.includes(word)).length;
+
+      if (englishWordCount >= 2) {
+        isEnglish = true;
+      }
+    }
+
+    if (!isEnglish) {
       return res.status(400).json({
-        error:
-          "Language validation failed! Your message must be written in English.",
+        error: "Language validation failed! Your message must be written in English.",
       });
     }
 
