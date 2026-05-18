@@ -6,3 +6,6 @@
 - npm install prisma
 - npm install express
 - npx prisma db seed 
+
+falls nix geht versuche:
+- npx prisma migrate reset

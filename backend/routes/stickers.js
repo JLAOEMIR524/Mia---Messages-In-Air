@@ -2,10 +2,26 @@ import { Router } from 'express';
 const router = Router();
 import { PrismaClient } from '@prisma/client';
 import { prisma } from "../db.js";
+import { auth } from "../auth.js";
 
 router.get('/api/stickers', async (req, res) => {
   try {
-    const userXp = 1500; 
+    const session = await auth.api.getSession({
+      headers: req.headers 
+    });
+
+    let userXp = 0;
+
+    if (session && session.user) {
+      const dbUser = await prisma.user.findUnique({
+        where: { id: session.user.id },
+        select: { xp: true }
+      });
+
+      if (dbUser) {
+        userXp = dbUser.xp;
+      }
+    }
 
     const allStickers = await prisma.sticker.findMany({
       orderBy: { requiredXp: 'asc' } 

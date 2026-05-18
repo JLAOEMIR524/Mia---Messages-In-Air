@@ -69,11 +69,13 @@ model Postcard {
   xp              Int      @default(0)  
   createdAt       DateTime @default(now())
 
-  userId          Int?     
+  creatorId       String
+  receiverId      String?  
+
+  creator         User     @relation(name: "PostcardCreator", fields: [creatorId], references: [id])
+  receiver        User?    @relation(name: "PostcardReceiver", fields: [receiverId], references: [id])
 
   quest           Quest?   @relation(fields: [questId], references: [id])
-  
-  // user         User?    @relation(fields: [userId], references: [id])
 }
 
 model User {
@@ -84,10 +86,14 @@ model User {
   image         String?
   firstName     String
   lastName      String
+  xp            Int       @default(0)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
+
+  createdPostcards  Postcard[] @relation(name: "PostcardCreator")
+  receivedPostcards Postcard[] @relation(name: "PostcardReceiver")
 
   @@map("user")
 }

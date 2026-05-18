@@ -96,7 +96,10 @@ export function Home() {
           <Link
             to="/imprint"
             className="impressum-link"
-            onClick={() => setShowPreview(false)}
+            onClick={() => {
+              setShowPreview(false);
+              setPreviewOpen(false);
+            }}
           >
             Imprint & Privacy
           </Link>

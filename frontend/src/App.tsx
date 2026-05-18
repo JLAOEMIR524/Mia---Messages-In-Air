@@ -26,6 +26,7 @@ import { Dashboard } from "./pages/Dashboard";
 import type { ReactNode } from "react";
 import { PreviewProvider, usePreview } from "./context/PreviewContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { useSession } from "./api/auth-client";
 
 const ProtectedEditorRoute = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
@@ -70,22 +71,23 @@ const ProtectedDetailRoute = ({ children }: { children: ReactNode }) => {
 
   return children;
 };
-
 function AppContent() {
   const location = useLocation();
   const { previewOpen } = usePreview();
+  const { data: session } = useSession();
 
   const showNavbarPaths = [
     "/dashboard",
     "/editor",
     "/gallery",
-    "/imprint",
     "/message",
     "/profile",
     "/quest",
   ];
 
-  const shouldShowNavbar = showNavbarPaths.includes(location.pathname);
+  const shouldShowNavbar = 
+    showNavbarPaths.includes(location.pathname) || 
+    (location.pathname === "/imprint" && !!session);
 
   return (
     <>
