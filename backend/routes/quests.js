@@ -17,7 +17,6 @@ router.get("/api/quests", async (req, res) => {
 
 router.get("/api/user/quests", async (req, res) => {
   try {
-    // 1. Session auslesen
     const session = await auth.api.getSession({
       headers: req.headers,
     });
@@ -28,7 +27,6 @@ router.get("/api/user/quests", async (req, res) => {
 
     const userEmail = session.user.email;
 
-    // 2. Den User aus der DB holen
     const dbUser = await prisma.user.findUnique({
       where: { email: userEmail },
     });
@@ -39,23 +37,30 @@ router.get("/api/user/quests", async (req, res) => {
 
     const userId = dbUser.id;
 
-    // 3. Fehlerbehebung in der Abfrage:
-    // Wenn die Liste leer bleibt, hat der User in der DB noch keine Postkarte erstellt,
-    // die mit einer Quest verknüpft ist. 
-    // Zum Testen, ob die Verbindung klappt, kannst du das 'where' testweise auskommentieren.
-    const userQuests = await prisma.quest.findMany({
+    const completedPostcards = await prisma.postcard.findMany({
       where: {
-        postcards: {
-          some: {
-            creatorId: userId,
-          },
+        creatorId: userId,
+        NOT: {
+          questId: null,
         },
       },
-      orderBy: { id: "asc" },
+      include: {
+        quest: true,
+      },
+      orderBy: { 
+        createdAt: "asc" 
+      },
     });
 
+    const formattedQuests = completedPostcards.map((postcard) => ({
+      id: postcard.id,
+      title: postcard.quest?.title || "Unbekannte Quest",
+      description: postcard.quest?.description || "",
+      earnedXp: postcard.xp, 
+    }));
+
     res.json({
-      quests: userQuests,
+      quests: formattedQuests,
     });
   } catch (error) {
     console.error("Error loading user quests from DB:", error);

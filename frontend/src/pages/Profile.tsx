@@ -135,7 +135,11 @@ export function Profile() {
           <h1 className="text-l">Your Profile 👤</h1>
 
           <ProfileTopper
-            initials="MM"
+            initials={
+              session?.user?.firstName && session?.user?.lastName
+                ? `${session.user.firstName.charAt(0).toUpperCase()}${session.user.lastName.charAt(0).toUpperCase()}`
+                : "??"
+            }
             name={
               session
                 ? `${session.user.firstName} ${session.user.lastName}`
@@ -204,7 +208,7 @@ export function Profile() {
                 key={quest.id}
                 icon="./icons/star_shine.svg"
                 title={quest.title}
-                description={`${quest.description} (${quest.xp} XP)`}
+                description={`${quest.description} (+${quest.earnedXp} XP)`}
               />
             ))
           )}
