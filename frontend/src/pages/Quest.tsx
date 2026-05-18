@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BadgeCard } from "../components/BadegeCard";
 import { QuestCard } from "../components/QuestCard";
 import { Step } from "../components/Step";
-import { useSession } from "../api/auth-client";
 
 export interface QuestType {
   id: number;
