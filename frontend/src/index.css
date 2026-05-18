@@ -373,6 +373,68 @@ main.imageEditor > div:last-child .button--image {
   background-color: var(--color-gray-100);
 }
 
+.button.button--image.gallery-filter {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+}
+
+/* Postcards Buttons */
+.button.button--image.gallery-filter.button--secondary:nth-child(1) {
+  background-color: var(--color-white);
+  color: var(--color-primary);
+  border: var(--border-width) solid var(--color-primary);
+}
+.button.button--image.gallery-filter.button--secondary:nth-child(1) .icon-span {
+  background-image: url("./icons/email-blue.svg"); 
+}
+.button.button--image.gallery-filter.button--primary:nth-child(1) {
+  background-color: var(--color-button-primary-bg);
+  color: var(--color-button-primary-text);
+  border: var(--border-width) solid var(--color-button-primary-bg);
+}
+.button.button--image.gallery-filter.button--primary:nth-child(1) .icon-span {
+  background-image: url("./icons/email-white.svg"); 
+}
+
+.button.button--image.gallery-filter.button--secondary:nth-child(2) {
+  background-color: var(--color-white);
+  color: var(--color-primary);
+  border: var(--border-width) solid var(--color-primary);
+}
+.button.button--image.gallery-filter.button--secondary:nth-child(2) .icon-span {
+  background-image: url("./icons/inbox-blue.svg");
+}
+.button.button--image.gallery-filter.button--primary:nth-child(2) {
+  background-color: var(--color-button-primary-bg);
+  color: var(--color-button-primary-text);
+  border: var(--border-width) solid var(--color-button-primary-bg);
+}
+.button.button--image.gallery-filter.button--primary:nth-child(2) .icon-span {
+  background-image: url("./icons/inbox-white.svg");
+}
+
+.button.button--image.gallery-filter.button--secondary:nth-child(3) {
+  background-color: var(--color-white);
+  color: var(--color-primary);
+  border: var(--border-width) solid var(--color-primary);
+}
+.button.button--image.gallery-filter.button--secondary:nth-child(3) .icon-span {
+  background-image: url("./icons/paper-plane-blue.svg"); 
+}
+.button.button--image.gallery-filter.button--primary:nth-child(3) {
+  background-color: var(--color-button-primary-bg);
+  color: var(--color-button-primary-text);
+  border: var(--border-width) solid var(--color-button-primary-bg);
+}
+.button.button--image.gallery-filter.button--primary:nth-child(3) .icon-span {
+  background-image: url("./icons/paper-plane-white.svg");
+}
+
+.button.button--image.gallery-filter.button--secondary:hover {
+  background-color: var(--color-gray-100);
+  border-color: var(--color-blue-700);
+}
 .warning {
   margin-top: var(--space-sm);
   margin-bottom: -50px;
