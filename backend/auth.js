@@ -1,6 +1,7 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./db.js";
+import { sendNotification } from "./mail/sendMail.js";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -20,6 +21,20 @@ export const auth = betterAuth({
     additionalFields: {
       firstName: { type: "string", required: true, input: true },
       lastName: { type: "string", required: true, input: true },
+    },
+  },
+
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          await sendNotification(
+            user.name,
+            user.email,
+            "Welcome to Mia. Your account has been created!",
+          );
+        },
+      },
     },
   },
 });
