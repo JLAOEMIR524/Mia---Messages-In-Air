@@ -5,6 +5,7 @@ import { prisma } from "../db.js";
 import { auth } from "../auth.js";
 
 import LanguageDetect from "languagedetect";
+import { sendNotification, sendPostcardNotification } from "../mail/sendMail.js";
 const lngDetector = new LanguageDetect();
 
 const SHORT_QUEST_IDS = [8, 10, 14, 16, 24, 30, 36, 49, 59, 62, 68];
@@ -116,7 +117,11 @@ router.post("/api/postcards", async (req, res) => {
       },
     });
 
+
+    //Select a random user to recive the message
     let receiverId = null;
+    let receiverEmail = null;
+    let receiverName = null;
 
     if (userCount > 0) {
       const randomIndex = Math.floor(Math.random() * userCount);
@@ -126,11 +131,13 @@ router.post("/api/postcards", async (req, res) => {
         },
         skip: randomIndex,
         take: 1,
-        select: { id: true },
+        select: { id: true, name: true, email: true },
       });
 
       if (randomUser.length > 0) {
         receiverId = randomUser[0].id;
+        receiverEmail = randomUser[0].email;
+        receiverName = randomUser[0].name;
       }
     }
 
@@ -168,6 +175,10 @@ router.post("/api/postcards", async (req, res) => {
       userXp: result.updatedUser.xp,
       analysis: analysis,
     });
+
+    //Notifies the Receiver of the Postcard - only runs once the card is sent 
+    sendPostcardNotification(receiverEmail, receiverName, result.postcard.id);
+
   } catch (error) {
     console.error("Error saving postcard to DB:", error);
     res.status(500).json({ error: "Error saving the postcard" });
