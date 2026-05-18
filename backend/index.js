@@ -9,6 +9,7 @@ import locationsRouter from "./routes/locations.js";
 import stickersRouter from "./routes/stickers.js";
 import securityRouter from "./routes/security.js"
 import userRouter from "./routes/user.js";
+import userPostcardRouter from "./routes/userPostcard.js"; 
 
 
 const app = express();
@@ -19,7 +20,8 @@ app.use(cors({
   credentials: true,
 }));
 app.all("/api/auth/*splat", toNodeHandler(auth));
-app.use(express.json());
+app.use(express.json({ limit: "10mb" })); 
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use("/api/security", securityRouter);
 app.use(stickersRouter); 
 app.use(questsRouter);
@@ -27,6 +29,7 @@ app.use(postcardsRouter);
 app.use(addressesRouter);
 app.use(locationsRouter);
 app.use(userRouter);
+app.use("/api/user", userPostcardRouter);
 
 app.listen(PORT, () => {
     console.log(`Server läuft auf http://localhost:${PORT}`);
