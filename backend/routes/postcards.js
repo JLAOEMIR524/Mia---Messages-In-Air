@@ -1096,6 +1096,7 @@ function analyzePostcard(text, questId, maxTotalXP) {
         "owl",
         "wolf",
         "fox",
+        "zebra",
       ];
       const foundAnimals = animalsList.filter((animal) =>
         new RegExp(`\\b${animal}s?\\b`, "i").test(trimmedText),
