@@ -198,6 +198,16 @@ a:focus {
   font-size: 15px;
 }
 
+.full-page-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
 /* Buttons */
 .button {
   display: inline-block;
@@ -368,6 +378,12 @@ main.imageEditor > div:last-child .button--image {
   margin-bottom: -50px;
   font-weight: 600;
   color: var(--color-primary);
+}
+
+div[aria-live="polite"] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;    
 }
 
 /* Form Inputs */

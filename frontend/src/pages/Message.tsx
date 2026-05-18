@@ -49,6 +49,15 @@ export function Message() {
   const cardText = localStorage.getItem("currentPostcardText");
   const cardLocation = localStorage.getItem("selectedLocation");
 
+  const shortQuestIds = [8, 10, 14, 16, 24, 30, 36, 49, 59, 62, 68];
+  const isShortQuest = selectedQuest
+    ? shortQuestIds.includes(Number(selectedQuest.id))
+    : false;
+  const minRequiredLength = isShortQuest ? 10 : 100;
+
+  const isDisabled =
+    !selectedLocation || questText.length < minRequiredLength || isSending;
+
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -139,7 +148,12 @@ export function Message() {
       localStorage.removeItem("currentPostcardText");
       localStorage.removeItem("selectedLocation");
 
-      navigate("/send", { state: { fromMessage: true } });
+      navigate("/send", {
+        state: {
+          fromMessage: true,
+          analysis: result.analysis,
+        },
+      });
     } catch (error: any) {
       console.error("Error while sending:", error);
       alert(`Validation Error: ${error.message}`);
@@ -148,7 +162,13 @@ export function Message() {
     }
   };
 
-  const isDisabled = !selectedLocation || questText.length < 100 || isSending;
+  if (isSending) {
+    return (
+      <div className="full-page-loading">
+        <p>Checking content & sending... ⏳</p>
+      </div>
+    );
+  }
 
 
 
@@ -183,7 +203,7 @@ export function Message() {
           <div className="flexbox">
             <label htmlFor="message-text">
               <h2 className="text-s">
-                Your Message <span>(min. 100 Characters)</span>
+                Your Message <span>(min. {minRequiredLength} Characters)</span>
               </h2>
             </label>
             <textarea
@@ -195,7 +215,8 @@ export function Message() {
               placeholder="Write something ..."
               rows={5}
               required
-              minLength={100}
+              // Dynamische HTML5-Validierung
+              minLength={minRequiredLength}
               maxLength={700}
             />
             <p>Characters: {questText.length}/700</p>
@@ -275,9 +296,10 @@ export function Message() {
           />
         </form>
         <div aria-live="polite">
-          {questText.length < 100 && (
+          {questText.length < minRequiredLength && (
             <p id="msg-warning" className="warning">
-              Your Message is too short
+              Your Message is too short (needs at least {minRequiredLength}{" "}
+              characters)
             </p>
           )}
           {!selectedLocation && (
@@ -302,20 +324,14 @@ export function Message() {
           <button
             type="button"
             aria-describedby={
-              (questText.length < 100 ? "msg-warning " : "") +
+              (questText.length < minRequiredLength ? "msg-warning " : "") +
               (!selectedLocation ? "loc-warning" : "")
             }
             className={`button button--image message ${isDisabled || isSending ? "is-disabled" : ""}`}
             disabled={isDisabled || isSending}
             onClick={handleSendPostcard}
           >
-            {isSending ? (
-              <>Checking content & sending...⏳</>
-            ) : (
-              <>
-                Send Postcard <span className="icon-span"></span>
-              </>
-            )}
+            Send Postcard <span className="icon-span"></span>
           </button>
         </div>
       </main>

@@ -65,7 +65,8 @@ model Postcard {
   image           String   
   text            String   
   location        String   
-  receiverAddress Json     
+  receiverAddress Json
+  xp              Int      @default(0)  
   createdAt       DateTime @default(now())
 
   userId          Int?     
