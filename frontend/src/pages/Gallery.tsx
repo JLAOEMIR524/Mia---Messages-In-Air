@@ -1,17 +1,31 @@
-import { MapContainer } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Card } from "../components/Card";
 import type { LatLngExpression } from "leaflet";
 import { CityBadge } from "../components/CityBadge";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSession } from "../api/auth-client";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
+const DefaultIcon = L.icon({
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+});
+L.Marker.prototype.options.icon = DefaultIcon;
 
 interface Postcard {
   id: number;
   image: string;
   text: string;
   location: string;
+  latitude?: number | null;
+  longitude?: number | null;
   creatorId: string;
   receiverId: string | null;
   creator: { firstName: string; lastName: string };
@@ -19,7 +33,7 @@ interface Postcard {
 }
 
 export function Gallery() {
-  const position: LatLngExpression = [47.8, 13.04];
+  const position: LatLngExpression = [50.0, 10.0];
   const navigate = useNavigate();
   const { data: session } = useSession();
   const [postcards, setPostcards] = useState<Postcard[]>([]);
@@ -85,7 +99,7 @@ export function Gallery() {
       <p>All the postcards you've sent and received</p>
       <div className="button-flex gallery">
         <button
-          className={`button button--image ${filter === "all" ? "button--active" : ""}`}
+          className={`button button--image gallery-filter ${filter === "all" ? "button--primary" : "button--secondary"}`}
           onClick={() => setFilter("all")}
           aria-label="open all Postcards"
         >
@@ -93,7 +107,7 @@ export function Gallery() {
           All Postcards
         </button>
         <button
-          className={`button button--image ${filter === "received" ? "button--active" : ""}`}
+          className={`button button--image gallery-filter ${filter === "received" ? "button--primary" : "button--secondary"}`}
           onClick={() => setFilter("received")}
           aria-label="open received Postcards"
         >
@@ -101,7 +115,7 @@ export function Gallery() {
           Received
         </button>
         <button
-          className={`button button--image ${filter === "sent" ? "button--active" : ""}`}
+          className={`button button--image gallery-filter ${filter === "sent" ? "button--primary" : "button--secondary"}`}
           onClick={() => setFilter("sent")}
           aria-label="open sent Postcards"
         >
@@ -129,12 +143,13 @@ export function Gallery() {
                 image={imageSrc}
                 description={
                   <>
-                    <p>
+                    <span>
                       {isSent
-                        ? `To: Someone in the world`
-                        : `From: Someone to you`}
-                    </p>
-                    <p>📍 {card.location}</p>
+                        ? "To: Someone in the world"
+                        : "From: Someone to you"}
+                    </span>
+                    <br />
+                    <span>📍 {card.location}</span>
                   </>
                 }
               />
@@ -144,7 +159,37 @@ export function Gallery() {
       )}
 
       <h2 className="text-m">Postcard Map</h2>
-      <MapContainer center={position} zoom={13}></MapContainer>
+      <MapContainer center={position} zoom={4}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+
+        {filteredPostcards.map((card) => {
+          if (
+            card.latitude !== null &&
+            card.longitude !== null &&
+            card.latitude !== undefined &&
+            card.longitude !== undefined
+          ) {
+            return (
+              <Marker key={card.id} position={[card.latitude, card.longitude]}>
+                <Popup>
+                  <div style={{ textAlign: "center" }}>
+                    <strong>{card.location}</strong>
+                    <p style={{ margin: "5px 0 0 0", fontSize: "0.9rem" }}>
+                      {card.text.length > 40
+                        ? `${card.text.substring(0, 40)}...`
+                        : card.text}
+                    </p>
+                  </div>
+                </Popup>
+              </Marker>
+            );
+          }
+          return null;
+        })}
+      </MapContainer>
 
       <div className="cityWrapper">
         {Array.from(new Set(filteredPostcards.map((c) => c.location))).map(
