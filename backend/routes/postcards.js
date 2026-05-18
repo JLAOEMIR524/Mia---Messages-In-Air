@@ -3,9 +3,14 @@ const router = Router();
 import { PrismaClient } from "@prisma/client";
 import { prisma } from "../db.js";
 import { auth } from "../auth.js";
+import { Filter } from "bad-words";
 
 import LanguageDetect from "languagedetect";
-import { sendNotification, sendPostcardNotification } from "../mail/sendMail.js";
+import {
+  sendNotification,
+  sendPostcardNotification,
+} from "../mail/sendMail.js";
+import { error } from "node:console";
 const lngDetector = new LanguageDetect();
 
 const SHORT_QUEST_IDS = [8, 10, 14, 16, 24, 30, 36, 49, 59, 62, 68];
@@ -13,6 +18,8 @@ const SHORT_QUEST_IDS = [8, 10, 14, 16, 24, 30, 36, 49, 59, 62, 68];
 router.post("/api/postcards", async (req, res) => {
   try {
     const { questId, image, text, location, receiverAddress } = req.body;
+
+    const filter = new Filter();
 
     const session = await auth.api.getSession({
       headers: req.headers,
@@ -47,21 +54,11 @@ router.post("/api/postcards", async (req, res) => {
       });
     }
 
-    try {
-      const encodedText = encodeURIComponent(text);
-      const response = await fetch(
-        `https://www.purgomalum.com/service/containsprofanity?text=${encodedText}`,
-      );
-      const resultText = await response.text();
-
-      if (resultText === "true") {
-        return res.status(400).json({
-          error:
-            "Inappropriate content detected! Please keep your message polite.",
-        });
-      }
-    } catch (profanityError) {
-      console.error("PurgoMalum API Error:", profanityError.message);
+    if (filter.isProfane(text)) {
+      return res.status(400).json({
+        error:
+          "Inappropriate content detected! Please keep your message polite.",
+      });
     }
 
     if (
@@ -116,7 +113,6 @@ router.post("/api/postcards", async (req, res) => {
         NOT: { id: creatorId },
       },
     });
-
 
     //Select a random user to recive the message
     let receiverId = null;
@@ -176,9 +172,10 @@ router.post("/api/postcards", async (req, res) => {
       analysis: analysis,
     });
 
-    //Notifies the Receiver of the Postcard - only runs once the card is sent 
-    sendPostcardNotification(receiverEmail, receiverName, result.postcard.id);
-
+    //Notifies the Receiver of the Postcard - only runs once the card is sent
+    if (receiverEmail && receiverName) {
+      sendPostcardNotification(receiverEmail, receiverName, result.postcard.id);
+    }
   } catch (error) {
     console.error("Error saving postcard to DB:", error);
     res.status(500).json({ error: "Error saving the postcard" });
