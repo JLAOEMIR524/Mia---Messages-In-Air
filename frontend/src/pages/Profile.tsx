@@ -143,12 +143,12 @@ export function Profile() {
             name={
               session
                 ? `${session.user.firstName} ${session.user.lastName}`
-                : "Gast"
+                : "Guest"
             }
             email={session?.user.email}
             memberSince={
               session?.user.createdAt
-                ? new Date(session.user.createdAt).toLocaleDateString("de-DE", {
+                ? new Date(session.user.createdAt).toLocaleDateString("en-US", {
                     day: "numeric",
                     month: "long",
                     year: "numeric",
@@ -158,7 +158,35 @@ export function Profile() {
             postcardsSent={stats.postcardsSent}
             currentXp={stats.currentXp}
             progressPercent={stats.progressPercent}
-            onEdit={() => console.log("Edit clicked")}
+            onEdit={async (updatedData) => {
+              try {
+                const res = await fetch(
+                  "http://localhost:3001/api/user/update",
+                  {
+                    method: "PUT",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    credentials: "include",
+                    body: JSON.stringify(updatedData),
+                  },
+                );
+
+                if (!res.ok) {
+                  throw new Error(
+                    "Failed to update profile data in the backend",
+                  );
+                }
+
+                const data = await res.json();
+                console.log("Successfully saved to database:", data);
+
+                window.location.reload();
+              } catch (err) {
+                console.error("Database update failed:", err);
+                alert("Could not save profile data. Please try again later.");
+              }
+            }}
           />
 
           <h2 className="text-m">Your Stickers</h2>

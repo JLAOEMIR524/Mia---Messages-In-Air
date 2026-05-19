@@ -9,6 +9,7 @@ import locationsRouter from "./routes/locations.js";
 import stickersRouter from "./routes/stickers.js";
 import securityRouter from "./routes/security.js";
 import userRouter from "./routes/user.js";
+import updateUserRouter from "./routes/updateUser.js";
 import userPostcardRouter from "./routes/userPostcard.js"; 
 import { unsubscribeMail } from "./mail/unsubscribeMail.js";
 
@@ -32,6 +33,7 @@ app.use(postcardsRouter);
 app.use(addressesRouter);
 app.use(locationsRouter);
 app.use(userRouter);
+app.use(updateUserRouter);
 app.use("/api/user", userPostcardRouter);
 
 //Mail Unsubscribe routes
