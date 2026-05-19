@@ -11,6 +11,7 @@ import securityRouter from "./routes/security.js";
 import userRouter from "./routes/user.js";
 import userPostcardRouter from "./routes/userPostcard.js"; 
 import { unsubscribeMail } from "./mail/unsubscribeMail.js";
+import moderationRoutes from "./routes/moderation.js";
 
 const app = express();
 const PORT = 3001;
@@ -26,6 +27,7 @@ app.all("/api/auth/*splat", toNodeHandler(auth));
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use("/api/security", securityRouter);
+app.use("/api", moderationRoutes);
 app.use(stickersRouter);
 app.use(questsRouter);
 app.use(postcardsRouter);

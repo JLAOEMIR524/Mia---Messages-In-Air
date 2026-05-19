@@ -96,6 +96,7 @@ model User {
 
   createdPostcards  Postcard[] @relation(name: "PostcardCreator")
   receivedPostcards Postcard[] @relation(name: "PostcardReceiver")
+  moderatedImages   ModeratedImage[] 
 
   @@map("user")
 }
@@ -142,4 +143,16 @@ model Verification {
   updatedAt  DateTime? @updatedAt
 
   @@map("verification")
+}
+
+model ModeratedImage {
+  id        String   @id @default(cuid())
+  hash      String   @unique
+  userId    String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([createdAt])
+  @@map("moderated_image")
 }

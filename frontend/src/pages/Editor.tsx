@@ -6,13 +6,12 @@ import { useRef, useCallback, useState, useEffect } from "react";
 import { useResponsiveScale } from "../hooks/useResponsiveScale";
 import { StickerSelector } from "../components/StickerSelector";
 import { Step } from "../components/Step";
-import { Link, Navigate, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import type {
   AvailableSticker,
   DragPayload,
   UploadedImage,
 } from "../types/CanvasTypes";
-import { useSession } from "../api/auth-client";
 
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 400;
@@ -20,6 +19,8 @@ const MOVE_STEP_LARGE = 15;
 const MOVE_STEP_SMALL = 5;
 
 export function Editor() {
+  const [moderationLoading, setModerationLoading] = useState(false);
+  const [moderationError, setModerationError] = useState<string | null>(null);
   const stageRef = useRef<Konva.Stage | null>(null);
   const [currentBar, setBar] = useState<string>("image");
   const [focus, setFocus] = useState<string | null>(null);
@@ -49,7 +50,7 @@ export function Editor() {
     moveSelected,
   } = usePostcard();
 
-  const handleExport = useCallback((): Promise<void> => {
+  const handleExport = useCallback((): Promise<string> => {
     return new Promise((resolve, reject) => {
       const stage = stageRef.current;
       if (!stage) {
@@ -67,7 +68,7 @@ export function Editor() {
           });
 
           localStorage.setItem("card", dataUrl);
-          resolve();
+          resolve(dataUrl);
         } catch (e) {
           console.error("Error:", e);
           reject(e);
@@ -77,8 +78,34 @@ export function Editor() {
   }, [selectElement]);
 
   async function handlePageSwitch() {
-    await handleExport();
-    navigate("/message", { state: { fromEditor: true } });
+    setModerationError(null);
+    setModerationLoading(true);
+
+    try {
+      const dataUrl = await handleExport();
+
+      const res = await fetch("/api/moderate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ image: dataUrl }),
+      });
+
+      const result = await res.json();
+
+      if (result.ok) {
+        navigate("/message", { state: { fromEditor: true } });
+      } else {
+        setModerationError(
+          "Your image was flagged and cannot be sent. Please modify it first.",
+        );
+      }
+    } catch (e) {
+      console.error("Moderation error: ", e);
+      setModerationError("Something went wrong. Please try again.");
+    } finally {
+      setModerationLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -177,8 +204,6 @@ export function Editor() {
   };
 
   const IsPostcardEmpty = elements.length === 0;
-
-
 
   return (
     <main className="imageEditor">
@@ -373,6 +398,11 @@ export function Editor() {
               Please add some content to your postcard to continue.
             </p>
           )}
+          {moderationError && (
+            <p className="warning fixed" role="alert">
+              {moderationError}
+            </p>
+          )}
         </div>
       </div>
       <div style={{ cursor: "pointer", marginTop: "2.5rem" }}>
@@ -394,7 +424,7 @@ export function Editor() {
               await handlePageSwitch();
             }}
           >
-            Continue to Message
+            {moderationLoading ? "Checking image..." : "Continue to Message"}
             <span className="icon-span"></span>
           </Link>
         )}
