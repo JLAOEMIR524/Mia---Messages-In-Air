@@ -54,7 +54,7 @@ export function ResetPassword() {
   }
 
   return (
-    <main className="heaven">
+    <main className="background-heaven heaven">
       <Link to="/home" className="arrowBack" aria-label="go back">
         <img src="./icons/arrow-back.svg" alt="" aria-hidden="true" />
       </Link>
