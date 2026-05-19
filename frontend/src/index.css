@@ -434,6 +434,10 @@ main.imageEditor>div:last-child .button--image {
   height: 100%;
   margin: 0;
   white-space: pre-wrap;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* Rechte Spalte */
@@ -444,6 +448,8 @@ main.imageEditor>div:last-child .button--image {
   justify-content: space-between;
   align-items: flex-end;
   text-align: left;
+  padding-right: var(--space-sm);
+  padding-bottom: var(--space-sm)
 }
 
 .overlay-stamp {
@@ -455,8 +461,7 @@ main.imageEditor>div:last-child .button--image {
 .overlay-address-field p {
   width: 100%;
   font-size: clamp(6px, 3.8cqw, 15px);
-  margin-top: auto;
-  padding-bottom: 0.2rem;
+  padding-top: 5px;
 }
 
 .address-label {
@@ -465,7 +470,6 @@ main.imageEditor>div:last-child .button--image {
 }
 
 .address-line {
-  margin: 2px 0;
   border-bottom: 1px solid rgb(65, 60, 60);
   padding-bottom: 2px;
   overflow: hidden;
@@ -1790,7 +1794,7 @@ a.button--image {
   }
 }
 
-.editLabel{
+.editLabel {
   color: white;
   font-size: 1.2rem;
 }
