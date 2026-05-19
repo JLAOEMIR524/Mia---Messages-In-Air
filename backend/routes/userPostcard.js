@@ -35,6 +35,7 @@ router.get("/postcards", async (req, res) => {
     const [citiesFromDb, countriesFromDb] = await Promise.all([
       prisma.city.findMany({
         where: { name: { in: locationNames, mode: "insensitive" } },
+        include: { country: true },
       }),
       prisma.country.findMany({
         where: { name: { in: locationNames, mode: "insensitive" } },
@@ -52,8 +53,18 @@ router.get("/postcards", async (req, res) => {
         (c) => c.name.toLowerCase() === searchName,
       );
 
+      let dynamicCountryName = null;
+      if (cityDetails && cityDetails.country) {
+        dynamicCountryName = cityDetails.country.name;
+      } else if (countryDetails) {
+        dynamicCountryName = countryDetails.name;
+      } else {
+        dynamicCountryName = postcard.location;
+      }
+
       return {
         ...postcard,
+        countryName: dynamicCountryName,
         latitude: cityDetails
           ? cityDetails.latitude
           : countryDetails
