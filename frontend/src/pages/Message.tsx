@@ -19,6 +19,7 @@ export interface QuestType {
 }
 
 export function Message() {
+  const [announcement, setAnnouncement] = useState("");
   const { previewOpen, setPreviewOpen } = usePreview();
   const [greetingText, setGreetingText] = useState<string>(
     () => localStorage.getItem("currentPostcardGreeting") ?? "",
@@ -68,9 +69,9 @@ export function Message() {
   const minRequiredLength = isShortQuest ? 10 : 100;
 
   const isDisabled =
-    !selectedLocation || 
-    questText.length < minRequiredLength || 
-    !greetingText.trim() || 
+    !selectedLocation ||
+    questText.length < minRequiredLength ||
+    !greetingText.trim() ||
     isSending;
 
   const navigate = useNavigate();
@@ -91,6 +92,17 @@ export function Message() {
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = e.target.value;
+    const prevLength = questText.length;
+    const newLength = newText.length;
+
+    if (prevLength < minRequiredLength && newLength >= minRequiredLength) {
+      setAnnouncement(`Minimum of ${minRequiredLength} characters reached.`);
+    } else if (
+      prevLength >= minRequiredLength &&
+      newLength < minRequiredLength
+    ) {
+      setAnnouncement(`Below minimum length.`);
+    }
     setQuestText(newText);
     localStorage.setItem("currentPostcardText", newText);
   };
@@ -254,7 +266,10 @@ export function Message() {
               minLength={minRequiredLength}
               maxLength={700}
             />
-            <p>Characters: {questText.length}/700</p>
+            <p aria-hidden="true">Characters: {questText.length}/700</p>
+            <div role="status" className="sr-only">
+              {announcement}
+            </div>
           </div>
           <div className="flexbox">
             <label htmlFor="location-search">
@@ -396,7 +411,7 @@ export function Message() {
               {cardGreeting && <p className="greeting">{cardGreeting}</p>}
               <p className="message">{cardText}</p>
             </div>
-            
+
             <img src="./Stamp.png" alt="Postal stamp" />
             <div className="adress">
               <p>{adress.name}</p>

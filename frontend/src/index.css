@@ -352,7 +352,7 @@ a:focus {
   background-image: url("./icons/arrow-right-blue.svg");
 }
 
-main.imageEditor>div:last-child .button--image {
+main.imageEditor > div:last-child .button--image {
   position: fixed;
   bottom: 2rem;
   left: 50%;
@@ -403,7 +403,9 @@ main.imageEditor>div:last-child .button--image {
 
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s;
   z-index: 10;
 }
 
@@ -454,7 +456,7 @@ main.imageEditor>div:last-child .button--image {
   align-items: flex-end;
   text-align: left;
   padding-right: var(--space-sm);
-  padding-bottom: var(--space-sm)
+  padding-bottom: var(--space-sm);
 }
 
 .overlay-stamp {
@@ -471,7 +473,7 @@ main.imageEditor>div:last-child .button--image {
 
 .address-label {
   color: #000000;
-  padding: 0
+  padding: 0;
 }
 
 .address-line {
@@ -813,7 +815,6 @@ a:hover {
 
   .logout span {
     border-bottom: 2px solid transparent;
-
   }
 
   .logout:hover span {
@@ -1044,7 +1045,7 @@ a:hover {
   }
 }
 
-main>.button:last-of-type {
+main > .button:last-of-type {
   margin-top: var(--space-lg);
 }
 
@@ -1265,8 +1266,10 @@ main>.button:last-of-type {
   gap: var(--space-lg);
   margin: var(--space-sm) 0 var(--space-md) 0;
 
-  background: var(--Gradient,
-      linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
+  background: var(
+    --Gradient,
+    linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
+  );
   border-radius: var(--border-radius);
 
   .imageBlock {
@@ -1394,7 +1397,6 @@ main>.button:last-of-type {
 }
 
 @keyframes bounce {
-
   0%,
   20%,
   50%,
@@ -1658,7 +1660,6 @@ a.button--image {
   font-size: 1.9rem;
   font-family: var(--font-heading);
   padding-bottom: var(--space-xs);
-
 }
 
 /* Message Preview */
@@ -1691,8 +1692,10 @@ a.button--image {
   flex-shrink: 0;
   align-self: center;
   border-radius: var(--border-radius);
-  background: var(--Gradient,
-      linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
+  background: var(
+    --Gradient,
+    linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
+  );
 
   img {
     width: 30px;
@@ -1778,7 +1781,7 @@ a.button--image {
   flex: 1;
 }
 
-.linkHeader+.messagePreview {
+.linkHeader + .messagePreview {
   margin-top: -20px;
 }
 
@@ -1821,7 +1824,7 @@ a.button--image {
   padding: var(--space-lg) var(--space-xl);
   border-radius: var(--border-radius-large);
 
-  .xpDisplay>img {
+  .xpDisplay > img {
     height: 45px;
   }
 
@@ -1845,8 +1848,10 @@ a.button--image {
       align-items: center;
       border-radius: var(--border-radius);
 
-      background: var(--Gradient,
-          linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
+      background: var(
+        --Gradient,
+        linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
+      );
       color: white;
     }
 
@@ -1894,8 +1899,10 @@ a.button--image {
     align-items: center;
     border-radius: 90px;
 
-    background: var(--Gradient,
-        linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
+    background: var(
+      --Gradient,
+      linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
+    );
 
     img {
       width: 80px;
@@ -1962,13 +1969,13 @@ a.button.button--image.message.is-disabled .icon-span {
   width: 100%;
 
   &:not(.gallery):not(.homeButton) {
-    &>button:first-child {
+    & > button:first-child {
       color: var(--color-primary);
       background-color: white;
       border: 2px solid var(--color-primary);
     }
 
-    &>button:first-child .icon-span {
+    & > button:first-child .icon-span {
       width: 20px;
       height: 19px;
       display: inline-block;
@@ -1977,7 +1984,7 @@ a.button.button--image.message.is-disabled .icon-span {
       background-repeat: no-repeat;
     }
 
-    &>button:first-child:hover {
+    & > button:first-child:hover {
       background-color: var(--color-hover);
     }
   }
@@ -2059,8 +2066,10 @@ a.button.button--image.message.is-disabled .icon-span {
   }
 
   .questCard:first-child {
-    background: var(--Gradient,
-        linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
+    background: var(
+      --Gradient,
+      linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
+    );
     margin-top: 0;
     color: white;
 
@@ -2221,8 +2230,10 @@ ol {
   display: flex;
   gap: var(--space-lg);
 
-  background: var(--Gradient,
-      linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
+  background: var(
+    --Gradient,
+    linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
+  );
   border-radius: var(--border-radius);
 
   .imageBlock {
@@ -2338,8 +2349,10 @@ ol {
 }
 
 .city {
-  background: var(--Gradient,
-      linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
+  background: var(
+    --Gradient,
+    linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
+  );
   color: var(--color-white);
   padding: var(--space-sm) var(--space-sm);
   display: inline-flex;
@@ -2660,6 +2673,18 @@ ol {
   max-width: 900px;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 @media print {
   nav {
     display: none !important;
@@ -2750,7 +2775,6 @@ ol {
 
       .postcardBack .message-container p.greeting {
         font-size: 1rem;
-
       }
 
       .adress {
@@ -2765,7 +2789,6 @@ ol {
 }
 
 @media (width < 1500px) {
-
   .card-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -2896,9 +2919,8 @@ ol {
   }
 
   .postcardBack .message-container p.greeting {
-  font-size: 1rem;
-}
-
+    font-size: 1rem;
+  }
 
   .overlay-stamp {
     width: 120px;
@@ -2936,7 +2958,6 @@ ol {
       .logout {
         padding: 0;
       }
-
 
       .mobileBar {
         width: 100%;
@@ -2976,7 +2997,6 @@ ol {
           cursor: pointer;
           color: var(--color-black);
           border-bottom: 2px solid transparent;
-
         }
 
         .logout:hover {
@@ -2987,12 +3007,10 @@ ol {
           outline: var(--border-width) solid var(--color-focus);
           outline-offset: 2px;
           border-radius: 2px;
-
         }
-
       }
 
-      >.logout {
+      > .logout {
         display: none;
       }
     }
@@ -3094,7 +3112,7 @@ ol {
     min-width: 500px;
   }
 
-  main.imageEditor>div:last-child .button--image {
+  main.imageEditor > div:last-child .button--image {
     left: 35%;
   }
 
@@ -3229,8 +3247,8 @@ ol {
   }
 
   .postcardBack .message-container p.greeting {
-  font-size: 0.8rem;
-}
+    font-size: 0.8rem;
+  }
 
   /* Profile Topper */
   .profileTopper {
@@ -3324,7 +3342,7 @@ ol {
         font-size: 1.5rem;
       }
 
-      .previewTop>img {
+      .previewTop > img {
         width: 20px;
       }
     }
@@ -3351,7 +3369,6 @@ ol {
 
       .postcardBack .message-container p.greeting {
         font-size: 0.4rem;
-
       }
 
       p {
@@ -3364,7 +3381,7 @@ ol {
     }
   }
 
-  main.imageEditor>div:last-child .button--image {
+  main.imageEditor > div:last-child .button--image {
     left: 30%;
   }
 
@@ -3447,7 +3464,7 @@ ol {
     min-width: 320px;
   }
 
-  main.imageEditor>div:last-child .button--image {
+  main.imageEditor > div:last-child .button--image {
     left: 25%;
   }
 
@@ -3501,7 +3518,6 @@ ol {
 }
 
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
