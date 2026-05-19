@@ -5,6 +5,8 @@ import { prisma } from "../db.js";
 import { auth } from "../auth.js";
 import { Filter } from "bad-words";
 import { analyzePostcard } from "../utils/postcardAnalyzer.js";
+import crypto from "node:crypto";
+import multer from "multer";
 import LanguageDetect from "languagedetect";
 import {
   sendNotification,
@@ -15,10 +17,17 @@ const lngDetector = new LanguageDetect();
 
 const SHORT_QUEST_IDS = [8, 10, 14, 16, 20, 24, 30, 36, 49, 59, 62, 68];
 
-router.post("/api/postcards", async (req, res) => {
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 8 * 1024 * 1024 },
+});
+
+router.post("/api/postcards", upload.single("image"), async (req, res) => {
   try {
-    const { questId, image, greeting, text, location, receiverAddress } =
-      req.body;
+    const { questId, image, text, location, receiverAddress } = req.body;
+
+    if (!req.file) return res.status(400).json({ error: "no_image" });
+
     const filter = new Filter();
 
     const session = await auth.api.getSession({
@@ -161,13 +170,25 @@ router.post("/api/postcards", async (req, res) => {
     );
     const calculatedXP = analysis.xpCalculation.totalXP;
 
+    const hash = crypto.createHash("sha256").update(image).digest("hex");
+
+    const moderated = await prisma.moderatedImage.findUnique({
+      where: { hash },
+    });
+
+    if (!moderated || moderated.userId !== creatorId) {
+      return res.status(403).json({
+        error: "Image has not been verified yet. Please go back and try again.",
+      });
+    }
+
+    //Select a random user to recive the message
     const userCount = await prisma.user.count({
       where: {
         NOT: { id: creatorId },
       },
     });
 
-    //Select a random user to recive the message
     let receiverId = null;
     let receiverEmail = null;
     let receiverName = null;
@@ -214,6 +235,8 @@ router.post("/api/postcards", async (req, res) => {
         },
         select: { id: true, name: true, xp: true },
       });
+
+      await tx.moderatedImage.delete({ where: { hash } });
 
       return { postcard, updatedUser };
     });
