@@ -14,10 +14,11 @@ import { unsubscribeMail } from "./mail/unsubscribeMail.js";
 
 const app = express();
 const PORT = 3001;
+const frontendUrl = process.env.FRONTEND_URL ?? "http://localhost:5173";
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL ?? "http://localhost:5173",
+    origin: frontendUrl,
     credentials: true,
   }),
 );
@@ -37,13 +38,13 @@ app.use("/api/user", userPostcardRouter);
 app.get("/unsubscribe", (req, res) => {
   const token = req.query.token;
   unsubscribeMail(token);
-  res.sendStatus(200);
+  res.redirect(frontendUrl)
 });
 
 app.post("/unsubscribe", (req, res) => {
   const token = req.query.token;
   unsubscribeMail(token);
-  res.redirect("/login")
+  res.sendStatus(200);
 });
 
 app.listen(PORT, () => {
