@@ -20,14 +20,16 @@ export interface QuestType {
 
 export function Message() {
   const { previewOpen, setPreviewOpen } = usePreview();
+  const [greetingText, setGreetingText] = useState<string>(
+    () => localStorage.getItem("currentPostcardGreeting") ?? "",
+  );
+
   const [questText, setQuestText] = useState<string>(
     () => localStorage.getItem("currentPostcardText") ?? "",
   );
 
-  // Hier ist die korrekte Deklaration des States
   const [selectedQuest, setSelectedQuest] = useState<QuestType | null>(null);
 
-  // Dieser useEffect lädt die Quest einmalig beim Laden der Komponente
   useEffect(() => {
     const saved = localStorage.getItem("selectedQuest");
     if (saved) {
@@ -57,6 +59,7 @@ export function Message() {
   const cardFrontData = localStorage.getItem("card");
   const cardText = localStorage.getItem("currentPostcardText");
   const cardLocation = localStorage.getItem("selectedLocation");
+  const cardGreeting = localStorage.getItem("currentPostcardGreeting");
 
   const shortQuestIds = [8, 10, 14, 16, 24, 30, 36, 49, 59, 62, 68];
   const isShortQuest = selectedQuest
@@ -65,7 +68,10 @@ export function Message() {
   const minRequiredLength = isShortQuest ? 10 : 100;
 
   const isDisabled =
-    !selectedLocation || questText.length < minRequiredLength || isSending;
+    !selectedLocation || 
+    questText.length < minRequiredLength || 
+    !greetingText.trim() || 
+    isSending;
 
   const navigate = useNavigate();
 
@@ -76,6 +82,12 @@ export function Message() {
   useEffect(() => {
     document.title = "Mia | Writing Message";
   }, []);
+
+  const handleGreetingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newGreeting = e.target.value;
+    setGreetingText(newGreeting);
+    localStorage.setItem("currentPostcardGreeting", newGreeting);
+  };
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = e.target.value;
@@ -130,6 +142,7 @@ export function Message() {
       const postcardPayload = {
         questId: selectedQuest?.id,
         image: localStorage.getItem("card"),
+        greeting: greetingText,
         text: questText,
         location: selectedLocation,
         receiverAddress: adress,
@@ -154,6 +167,7 @@ export function Message() {
 
       localStorage.removeItem("selectedQuest");
       localStorage.removeItem("card");
+      localStorage.removeItem("currentPostcardGreeting");
       localStorage.removeItem("currentPostcardText");
       localStorage.removeItem("selectedLocation");
 
@@ -208,6 +222,21 @@ export function Message() {
             <p>No quest selected.</p>
           )}
           <div className="flexbox">
+            <label htmlFor="message-greeting">
+              <h2 className="text-s">Greeting / Subject</h2>
+            </label>
+            <input
+              id="greeting-text"
+              type="text"
+              className="quest-textarea"
+              value={greetingText}
+              onChange={handleGreetingChange}
+              autoComplete="off"
+              placeholder="e.g. Dear Stranger, / Hello from Vienna!"
+              required
+              minLength={2}
+              maxLength={20}
+            />
             <label htmlFor="message-text">
               <h2 className="text-s">
                 Your Message <span>(min. {minRequiredLength} Characters)</span>
@@ -302,6 +331,11 @@ export function Message() {
           />
         </form>
         <div aria-live="polite">
+          {!greetingText.trim() && (
+            <p id="greeting-warning" className="warning">
+              Please enter a Greeting or Subject
+            </p>
+          )}
           {questText.length < minRequiredLength && (
             <p id="msg-warning" className="warning">
               Your Message is too short (needs at least {minRequiredLength}{" "}
@@ -358,7 +392,11 @@ export function Message() {
         )}
         {cardText && cardLocation && adress && (
           <div className="postcardBack">
-            <p className="message">{cardText}</p>
+            <div className="message-container">
+              {cardGreeting && <p className="greeting">{cardGreeting}</p>}
+              <p className="message">{cardText}</p>
+            </div>
+            
             <img src="./Stamp.png" alt="Postal stamp" />
             <div className="adress">
               <p>{adress.name}</p>
