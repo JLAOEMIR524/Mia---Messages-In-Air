@@ -6,7 +6,6 @@ import { auth } from "../auth.js";
 import { Filter } from "bad-words";
 import { analyzePostcard } from "../utils/postcardAnalyzer.js";
 import crypto from "node:crypto";
-import multer from "multer";
 import LanguageDetect from "languagedetect";
 import {
   sendNotification,
@@ -17,16 +16,13 @@ const lngDetector = new LanguageDetect();
 
 const SHORT_QUEST_IDS = [8, 10, 14, 16, 20, 24, 30, 36, 49, 59, 62, 68];
 
-const upload = multer({
-  storage: multer.memoryStorage(),
-  limits: { fileSize: 8 * 1024 * 1024 },
-});
-
-router.post("/api/postcards", upload.single("image"), async (req, res) => {
+router.post("/api/postcards", async (req, res) => {
   try {
-    const { questId, image, text, location, receiverAddress } = req.body;
+    const { questId, image, text, greeting, location, receiverAddress } = req.body;
 
-    if (!req.file) return res.status(400).json({ error: "no_image" });
+    if (typeof image !== "string" || image.length === 0) {
+      return res.status(400).json({ ok: false, error: "no_image" });
+    }
 
     const filter = new Filter();
 
