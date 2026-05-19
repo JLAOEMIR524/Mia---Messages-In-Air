@@ -98,7 +98,7 @@ export function ResetPassword() {
             className="button button--primary"
             disabled={loading}
           >
-            {loading ? "..." : "Create Account"}
+            {loading ? "..." : "Reset Password"}
           </button>
         </form>
         <div className="LinkContainer">
