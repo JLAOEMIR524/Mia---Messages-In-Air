@@ -217,7 +217,9 @@ export function ProfileTopper({
               alt=""
               src={
                 isEditing
-                  ? "./icons/check-blue.svg"
+                  ? isHovered
+                    ? "./icons/save-blue.svg"
+                    : "./icons/save-white.svg"
                   : isHovered
                     ? "./icons/edit-blue.svg"
                     : "./icons/edit-white.svg"
