@@ -21,11 +21,21 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 interface Postcard {
   id: number;
+  questId: number | null;
   image: string;
   text: string;
   location: string;
   latitude?: number | null;
   longitude?: number | null;
+  receiverAddress: {
+    name: string;
+    street: string;
+    zip: string;
+    city: string;
+    country: string;
+  };
+  xp: number;
+  createdAt: string;
   creatorId: string;
   receiverId: string | null;
   creator: { firstName: string; lastName: string };
@@ -138,21 +148,121 @@ export function Gallery() {
               : `http://localhost:3001${card.image}`;
 
             return (
-              <Card
+              <div
+                className="gallery-card-wrapper"
                 key={card.id}
-                image={imageSrc}
-                description={
-                  <>
-                    <span>
-                      {isSent
-                        ? "To: Someone in the world"
-                        : "From: Someone to you"}
-                    </span>
-                    <br />
-                    <span>📍 {card.location}</span>
-                  </>
-                }
-              />
+                tabIndex={0}
+                role="article"
+                aria-label={`Postcard ${isSent ? `to ${card.receiverAddress?.name ?? "someone"}` : `from ${card.location}`}. Text: ${card.text}`}
+              >
+                <Card
+                  image={imageSrc}
+                  description={
+                    <>
+                      <span>
+                        {isSent
+                          ? "To: Someone in the world"
+                          : "From: Someone to you"}
+                      </span>
+                      <br />
+                      <span>📍 {card.location}</span>
+                    </>
+                  }
+                />
+
+                <div className="postcard-overlay-back">
+                  <div className="postcard-overlay-content">
+                    <div className="overlay-message-side">
+                      <p className="overlay-text">{card.text}</p>
+                    </div>
+
+                    <div className="overlay-address-side">
+                      <img
+                        src="./Stamp.png"
+                        alt="Stamp"
+                        className="overlay-stamp"
+                      />
+
+                      <div className="overlay-address-field">
+                        <p className="address-label">
+                          <strong>{isSent ? "To:" : "From:"}</strong>
+                        </p>
+
+                        {isSent ? (
+                          <>
+                            <p className="address-line">
+                              {card.receiverAddress?.name ??
+                                `${card.receiver?.firstName ?? "Sparkle"} ${card.receiver?.lastName ?? "Twinkletoes"}`}
+                            </p>
+                            <p className="address-line">
+                              {card.receiverAddress?.street ??
+                                "Fireplace Way 4"}
+                            </p>
+                            <p className="address-line">
+                              {card.receiverAddress?.zip &&
+                              card.receiverAddress?.city
+                                ? `${card.receiverAddress.zip} ${card.receiverAddress.city}`
+                                : "55555 Hugsville"}
+                            </p>
+                          </>
+                        ) : (
+                          (() => {
+                            const randomNames = [
+                              "Waffle Crispycookie",
+                              "Snuggles Warmheart",
+                              "Honey Bumblebee",
+                              "Pip Shortcake",
+                              "Mocha Marshmallow",
+                            ];
+                            const randomStreets = [
+                              "Sunshine Lane 123",
+                              "Cozy Corner 7",
+                              "Cloud Nine Ave 99",
+                              "Rainbow Road 42",
+                              "Starlight Boulevard 11",
+                            ];
+                            const randomCities = [
+                              "Hugsville",
+                              "Dreamland",
+                              "Skytown",
+                              "Wonderland",
+                              "Chillington",
+                            ];
+                            const randomZips = [
+                              "55555",
+                              "77777",
+                              "12345",
+                              "98765",
+                              "44444",
+                            ];
+
+                            const nameIndex = card.id % randomNames.length;
+                            const streetIndex =
+                              (card.id + 1) % randomStreets.length;
+                            const cityIndex =
+                              (card.id + 2) % randomCities.length;
+                            const zipIndex = (card.id + 3) % randomZips.length;
+
+                            return (
+                              <>
+                                <p className="address-line">
+                                  {randomNames[nameIndex]}
+                                </p>
+                                <p className="address-line">
+                                  {randomStreets[streetIndex]}
+                                </p>
+                                <p className="address-line">
+                                  {`${randomZips[zipIndex]} ${card.location ?? randomCities[cityIndex]}`}
+                                </p>
+                              </>
+                            );
+                          })()
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             );
           })}
         </div>

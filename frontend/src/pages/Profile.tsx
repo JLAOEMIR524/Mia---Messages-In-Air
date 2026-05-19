@@ -167,13 +167,20 @@ export function Profile() {
           <div className="stickerComponent">
             <div className="stickerBox">
               {unlockedStickers.map((sticker) => (
-                <SwapCard
+                <div
+                  className="swap-wrapper"
                   key={sticker.id}
-                  stickerSrc={sticker.stickerSrc}
-                  description={sticker.name}
-                  xpAmount={sticker.xpAmount}
-                  iconSrc={sticker.iconSrc}
-                />
+                  tabIndex={0}
+                  role="img"
+                  aria-label={`Unlocked Sticker: ${sticker.name}. Worth ${sticker.xpAmount} XP.`}
+                >
+                  <SwapCard
+                    stickerSrc={sticker.stickerSrc}
+                    description={sticker.name}
+                    xpAmount={sticker.xpAmount}
+                    iconSrc={sticker.iconSrc}
+                  />
+                </div>
               ))}
             </div>
           </div>
@@ -182,15 +189,22 @@ export function Profile() {
           <div className="stickerComponent">
             <div className="stickerBox">
               {lockedStickers.map((sticker) => (
-                <SwapCard
+                <div
+                  className="swap-wrapper"
                   key={sticker.id}
-                  stickerSrc={sticker.stickerSrc}
-                  description={sticker.name}
-                  xpAmount={sticker.xpAmount}
-                  iconSrc={sticker.iconSrc}
-                  extraClass="stickerCard--locked"
-                  extraClass2="stickerCard--locked-2"
-                />
+                  tabIndex={0}
+                  role="img"
+                  aria-label={`Locked Sticker: ${sticker.name}. Requirs ${sticker.xpAmount} XP.`}
+                >
+                  <SwapCard
+                    stickerSrc={sticker.stickerSrc}
+                    description={sticker.name}
+                    xpAmount={sticker.xpAmount}
+                    iconSrc={sticker.iconSrc}
+                    extraClass="stickerCard--locked"
+                    extraClass2="stickerCard--locked-2"
+                  />
+                </div>
               ))}
             </div>
           </div>
