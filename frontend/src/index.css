@@ -1790,6 +1790,11 @@ a.button--image {
   }
 }
 
+.editLabel{
+  color: white;
+  font-size: 1.2rem;
+}
+
 /* Finished Container */
 .feedbackContainer {
   display: flex;

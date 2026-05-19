@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface ProfileTopperProps {
   initials: string;
@@ -8,13 +8,17 @@ interface ProfileTopperProps {
   postcardsSent: number;
   currentXp: number;
   progressPercent: number;
-  onEdit?: () => void;
+  onEdit?: (updatedData: {
+    firstName: string;
+    lastName: string;
+    email: string;
+  }) => void;
 }
 
 export function ProfileTopper({
   initials,
-  name,
-  email,
+  name = "",
+  email: initialEmail = "",
   memberSince,
   postcardsSent,
   currentXp,
@@ -22,6 +26,34 @@ export function ProfileTopper({
   onEdit,
 }: ProfileTopperProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState(initialEmail);
+
+  useEffect(() => {
+    if (name) {
+      const parts = name.split(" ");
+      setFirstName(parts[0] || "");
+      setLastName(parts.slice(1).join(" ") || "");
+    }
+  }, [name]);
+
+  const isInvalid = !firstName.trim() || !lastName.trim() || !email.trim();
+
+  const handleEditClick = () => {
+    if (isEditing) {
+      if (isInvalid) return;
+
+      if (onEdit) {
+        onEdit({ firstName, lastName, email });
+      }
+      setIsEditing(false);
+    } else {
+      setIsEditing(true);
+    }
+  };
 
   return (
     <div className="profileTopper">
@@ -31,44 +63,146 @@ export function ProfileTopper({
         </div>
         <button
           className="button button--image"
-          onClick={onEdit}
+          onClick={handleEditClick}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          aria-label="Edit profile"
+          disabled={isEditing && isInvalid}
+          aria-label={isEditing ? "Save profile" : "Edit profile"}
+          style={{
+            opacity: isEditing && isInvalid ? 0.5 : 1,
+            cursor: isEditing && isInvalid ? "not-allowed" : "pointer",
+          }}
         >
           <img
             aria-hidden="true"
             alt=""
-            src={isHovered ? "./icons/edit-blue.svg" : "./icons/edit-white.svg"}
+            src={
+              isEditing
+                ? "./icons/check-blue.svg"
+                : isHovered
+                  ? "./icons/edit-blue.svg"
+                  : "./icons/edit-white.svg"
+            }
           />
-          Edit
+          {isEditing ? "Save" : "Edit"}
         </button>
       </div>
 
       <div className="profile">
         <div className="profile-header-row">
-          <hgroup className="profileInfos">
-            <p className="text-s">{name ? name : "N/A"}</p>
-            <p>Email: {email ? email : "N/A"}</p>
+          <hgroup
+            className="profileInfos"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              width: "100%",
+            }}
+          >
+            {isEditing ? (
+              <div
+                style={{
+                  display: "flex",
+                  gap: "var(--space-sm)",
+                  flexDirection: "column",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "95%",
+                  }}
+                >
+                  <label htmlFor="edit-firstname" className="editLabel">
+                    First Name:
+                  </label>
+                  <input
+                    id="edit-firstname"
+                    type="text"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    placeholder="First Name"
+                    required
+                  />
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "95%",
+                  }}
+                >
+                  <label htmlFor="edit-lastname"  className="editLabel">
+                    Last Name:
+                  </label>
+                  <input
+                    id="edit-lastname"
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    placeholder="Last Name"
+                    required
+                  />
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "95%",
+                  }}
+                >
+                  <label htmlFor="edit-email"  className="editLabel">
+                    Email:
+                  </label>
+                  <input
+                    id="edit-email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email"
+                    required
+                  />
+                </div>
+              </div>
+            ) : (
+              <>
+                <p className="text-s">
+                  {firstName || lastName ? `${firstName} ${lastName}` : "No Name"}
+                </p>
+                <p>Email: {email ? email : "N/A"}</p>
+              </>
+            )}
+
             <p>Member Since: {memberSince}</p>
             <p>Postcards Sent: {postcardsSent}</p>
           </hgroup>
 
           <button
             className="button button--image"
-            onClick={onEdit}
+            onClick={handleEditClick}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            aria-label="Edit profile"
+            disabled={isEditing && isInvalid}
+            aria-label={isEditing ? "Save profile" : "Edit profile"}
+            style={{
+              opacity: isEditing && isInvalid ? 0.5 : 1,
+              cursor: isEditing && isInvalid ? "not-allowed" : "pointer",
+            }}
           >
             <img
               aria-hidden="true"
               alt=""
               src={
-                isHovered ? "./icons/edit-blue.svg" : "./icons/edit-white.svg"
+                isEditing
+                  ? "./icons/check-blue.svg"
+                  : isHovered
+                    ? "./icons/edit-blue.svg"
+                    : "./icons/edit-white.svg"
               }
             />
-            Edit
+            {isEditing ? "Save" : "Edit"}
           </button>
         </div>
 
