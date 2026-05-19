@@ -1,5 +1,5 @@
 import { Router } from "express";
-import axois from "axios";
+import axios from "axios";
 import multer from "multer";
 import { prisma } from "../db.js";
 import crypto from "node:crypto";
@@ -81,7 +81,7 @@ router.post("/moderate", upload.single("image"), async (req, res) => {
     form.append("api_user", process.env.SIGHTENGINE_API_USER);
     form.append("api_secret", process.env.SIGHTENGINE_API_SECRET);
 
-    const { data } = await axois.post(
+    const { data } = await axios.post(
       "https://api.sightengine.com/1.0/check.json",
       form,
       { headers: form.getHeaders(), timeout: 15_000 },
