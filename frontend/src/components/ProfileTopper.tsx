@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface ProfileTopperProps {
   initials: string;
@@ -27,6 +27,7 @@ export function ProfileTopper({
 }: ProfileTopperProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -44,11 +45,17 @@ export function ProfileTopper({
 
   const handleEditClick = () => {
     if (isEditing) {
-      if (isInvalid) return;
+      if (isInvalid) {
+        setError(
+          "Please fill out all required fields (First Name, Last Name, and Email).",
+        );
+        return;
+      }
 
       if (onEdit) {
         onEdit({ firstName, lastName, email });
       }
+      setError(null);
       setIsEditing(false);
     } else {
       setIsEditing(true);
@@ -61,13 +68,19 @@ export function ProfileTopper({
         <div className="profileFrame">
           <p className="profileText">{initials}</p>
         </div>
-        <button
+          <button
           className="button button--image"
           onClick={handleEditClick}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          disabled={isEditing && isInvalid}
-          aria-label={isEditing ? "Save profile" : "Edit profile"}
+          aria-disabled={isEditing && isInvalid ? "true" : "false"}
+          aria-label={
+            isEditing
+              ? isInvalid
+                ? "Save profile (disabled, required fields are empty)"
+                : "Save profile"
+              : "Edit profile"
+          }
           style={{
             opacity: isEditing && isInvalid ? 0.5 : 1,
             cursor: isEditing && isInvalid ? "not-allowed" : "pointer",
@@ -90,7 +103,7 @@ export function ProfileTopper({
 
       <div className="profile">
         <div className="profile-header-row">
-          <hgroup
+          <div
             className="profileInfos"
             style={{
               display: "flex",
@@ -106,13 +119,13 @@ export function ProfileTopper({
                   flexDirection: "column",
                 }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    width: "95%",
-                  }}
-                >
+                {error && (
+                  <p style={{fontWeight: "bold" }} aria-live="assertive">
+                    {error}
+                  </p>
+                )}
+
+                <div style={{ display: "flex", flexDirection: "column", width: "95%" }}>
                   <label htmlFor="edit-firstname" className="editLabel">
                     First Name:
                   </label>
@@ -126,14 +139,8 @@ export function ProfileTopper({
                   />
                 </div>
 
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    width: "95%",
-                  }}
-                >
-                  <label htmlFor="edit-lastname"  className="editLabel">
+                <div style={{ display: "flex", flexDirection: "column", width: "95%" }}>
+                  <label htmlFor="edit-lastname" className="editLabel">
                     Last Name:
                   </label>
                   <input
@@ -146,19 +153,13 @@ export function ProfileTopper({
                   />
                 </div>
 
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    width: "95%",
-                  }}
-                >
-                  <label htmlFor="edit-email"  className="editLabel">
+                <div style={{ display: "flex", flexDirection: "column", width: "95%" }}>
+                  <label htmlFor="edit-email" className="editLabel">
                     Email:
                   </label>
                   <input
                     id="edit-email"
-                    type="email"
+                    type="type"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email"
@@ -177,15 +178,21 @@ export function ProfileTopper({
 
             <p>Member Since: {memberSince}</p>
             <p>Postcards Sent: {postcardsSent}</p>
-          </hgroup>
+          </div>
 
           <button
             className="button button--image"
             onClick={handleEditClick}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            disabled={isEditing && isInvalid}
-            aria-label={isEditing ? "Save profile" : "Edit profile"}
+            aria-disabled={isEditing && isInvalid ? "true" : "false"}
+            aria-label={
+              isEditing
+                ? isInvalid
+                  ? "Save profile (disabled, required fields are empty)"
+                  : "Save profile"
+                : "Edit profile"
+            }
             style={{
               opacity: isEditing && isInvalid ? 0.5 : 1,
               cursor: isEditing && isInvalid ? "not-allowed" : "pointer",
