@@ -95,7 +95,11 @@ export function Register() {
             handleSignUp();
           }}
         >
-          <p className="authenticationError">{error}</p>
+          {error && (
+            <p id="email-error" className="authenticationError" role="alert">
+              Error: {error}
+            </p>
+          )}
           <label htmlFor="firstName">Firstname</label>
           <input
             id="firstName"

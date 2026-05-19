@@ -20,7 +20,6 @@ export function Login() {
     };
   }, []);
 
-
   useEffect(() => {
     if (session) {
       navigate("/dashboard");
@@ -56,7 +55,11 @@ export function Login() {
         <h1 className="text-s">Welcome Back!</h1>
         <p>Nice to see you again ✨ </p>
         <form>
-          <p className="authenticationError">{error}</p>
+          {error && (
+            <p id="email-error" className="authenticationError" role="alert">
+              Error: {error}
+            </p>
+          )}
           <label htmlFor="emailUser">E-Mail:</label>
           <input
             id="emailUser"
