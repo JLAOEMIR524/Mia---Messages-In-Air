@@ -47,7 +47,42 @@ router.post("/api/postcards", async (req, res) => {
     const scores = lngDetector.detect(text, 2);
     const bestMatch = scores[0] ? scores[0][0] : null;
 
-    if (bestMatch !== "english") {
+    let isEnglish = bestMatch === "english";
+
+    if (!isEnglish && isShortQuest) {
+      const commonEnglishWords = [
+        "i",
+        "my",
+        "is",
+        "am",
+        "and",
+        "like",
+        "hello",
+        "hi",
+        "cats",
+        "dog",
+        "the",
+        "you",
+        "to",
+        "I",
+        "You",
+      ];
+
+      const wordsInText = text
+        .toLowerCase()
+        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+        .split(/\s+/);
+
+      const englishWordCount = wordsInText.filter((word) =>
+        commonEnglishWords.includes(word),
+      ).length;
+
+      if (englishWordCount >= 2) {
+        isEnglish = true;
+      }
+    }
+
+    if (!isEnglish) {
       return res.status(400).json({
         error:
           "Language validation failed! Your message must be written in English.",
@@ -446,13 +481,20 @@ function analyzePostcard(text, questId, maxTotalXP, questTitle) {
     }
 
     case 6: {
-      const hasCloud = /\bcloud(s)?\b/i.test(trimmedText);
-      const hasWind = /\bwind(s)?\b/i.test(trimmedText);
+      const hasCloud = /\bcloud(s|y)?\b/i.test(trimmedText);
+
+      const hasWeatherWord = /\b(wind(s|y)?|rain(s|y)?|sun(s|ny)?)\b/i.test(
+        trimmedText,
+      );
+
       const hasWarmth = /\bwarmth\b/i.test(trimmedText);
 
       questDetails = [
-        { name: "Inclusion of 'cloud'", score: hasCloud ? 5 : 0 },
-        { name: "Inclusion of 'wind'", score: hasWind ? 5 : 0 },
+        { name: "Inclusion of 'cloud' or 'cloudy'", score: hasCloud ? 5 : 0 },
+        {
+          name: "Inclusion of weather (wind, rain, sun...)",
+          score: hasWeatherWord ? 5 : 0,
+        },
         { name: "Inclusion of 'warmth'", score: hasWarmth ? 5 : 0 },
       ];
       break;

@@ -41,7 +41,9 @@ export function StickerSelector({
     const fetchAvailableStickers = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://localhost:3001/api/stickers");
+        const response = await fetch("http://localhost:3001/api/stickers", {
+          credentials: "include",
+        });
         if (!response.ok) throw new Error("Failed to fetch stickers");
 
         const data = await response.json();

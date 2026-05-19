@@ -26,7 +26,7 @@ export function Send() {
   const navigate = useNavigate();
   const location = useLocation();
   
-  const [analysis, setAnalysis] = useState(() => {
+  const [analysis] = useState(() => {
     const state = location.state as LocationState | null;
     if (state?.analysis) {
       sessionStorage.setItem("last_postcard_analysis", JSON.stringify(state.analysis));

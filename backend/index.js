@@ -9,6 +9,7 @@ import locationsRouter from "./routes/locations.js";
 import stickersRouter from "./routes/stickers.js";
 import securityRouter from "./routes/security.js";
 import userRouter from "./routes/user.js";
+import userPostcardRouter from "./routes/userPostcard.js"; 
 import { unsubscribeMail } from "./mail/unsubscribeMail.js";
 
 const app = express();
@@ -30,6 +31,7 @@ app.use(postcardsRouter);
 app.use(addressesRouter);
 app.use(locationsRouter);
 app.use(userRouter);
+app.use("/api/user", userPostcardRouter);
 
 //Mail Unsubscribe routes
 app.get("/unsubscribe", (req, res) => {
