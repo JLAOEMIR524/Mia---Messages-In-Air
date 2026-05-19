@@ -62,7 +62,8 @@ model Quest {
 model Postcard {
   id              Int      @id @default(autoincrement())
   questId         Int?     
-  image           String   
+  image           String
+  greeting        String @default("Dear Stranger,")
   text            String   
   location        String   
   receiverAddress Json

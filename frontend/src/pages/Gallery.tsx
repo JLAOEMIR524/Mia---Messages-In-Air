@@ -23,6 +23,7 @@ interface Postcard {
   id: number;
   questId: number | null;
   image: string;
+  greeting: string;
   text: string;
   location: string;
   latitude?: number | null;
@@ -173,6 +174,13 @@ export function Gallery() {
                 <div className="postcard-overlay-back">
                   <div className="postcard-overlay-content">
                     <div className="overlay-message-side">
+                      {card.greeting && (
+                        <p
+                          className="overlay-greeting"
+                        >
+                          {card.greeting}
+                        </p>
+                      )}
                       <p className="overlay-text">{card.text}</p>
                     </div>
 
