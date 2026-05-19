@@ -68,7 +68,7 @@ export function ProfileTopper({
         <div className="profileFrame">
           <p className="profileText">{initials}</p>
         </div>
-          <button
+        <button
           className="button button--image"
           onClick={handleEditClick}
           onMouseEnter={() => setIsHovered(true)}
@@ -89,13 +89,7 @@ export function ProfileTopper({
           <img
             aria-hidden="true"
             alt=""
-            src={
-              isEditing
-                ? "./icons/check-blue.svg"
-                : isHovered
-                  ? "./icons/edit-blue.svg"
-                  : "./icons/edit-white.svg"
-            }
+            src={isHovered ? "./icons/edit-blue.svg" : "./icons/edit-white.svg"}
           />
           {isEditing ? "Save" : "Edit"}
         </button>
@@ -120,12 +114,18 @@ export function ProfileTopper({
                 }}
               >
                 {error && (
-                  <p style={{fontWeight: "bold" }} aria-live="assertive">
+                  <p style={{ fontWeight: "bold" }} aria-live="assertive">
                     {error}
                   </p>
                 )}
 
-                <div style={{ display: "flex", flexDirection: "column", width: "95%" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "95%",
+                  }}
+                >
                   <label htmlFor="edit-firstname" className="editLabel">
                     First Name:
                   </label>
@@ -139,7 +139,13 @@ export function ProfileTopper({
                   />
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "column", width: "95%" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "95%",
+                  }}
+                >
                   <label htmlFor="edit-lastname" className="editLabel">
                     Last Name:
                   </label>
@@ -153,7 +159,13 @@ export function ProfileTopper({
                   />
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "column", width: "95%" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "95%",
+                  }}
+                >
                   <label htmlFor="edit-email" className="editLabel">
                     Email:
                   </label>
@@ -170,7 +182,9 @@ export function ProfileTopper({
             ) : (
               <>
                 <p className="text-s">
-                  {firstName || lastName ? `${firstName} ${lastName}` : "No Name"}
+                  {firstName || lastName
+                    ? `${firstName} ${lastName}`
+                    : "No Name"}
                 </p>
                 <p>Email: {email ? email : "N/A"}</p>
               </>
