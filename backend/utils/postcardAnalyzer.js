@@ -2,7 +2,7 @@ export function analyzePostcard(text, questId, maxTotalXP, questTitle) {
   const trimmedText = text.trim();
   const words = trimmedText.split(/\s+/).filter((w) => w.length > 0);
 
-  const SHORT_QUEST_IDS = [8, 10, 14, 16, 24, 30, 36, 49, 59, 62, 68];
+  const SHORT_QUEST_IDS = [8, 10, 14, 16, 20, 24, 30, 36, 49, 59, 62, 68];
 
   let lengthRating = 1;
   if (SHORT_QUEST_IDS.includes(questId)) {

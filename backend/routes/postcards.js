@@ -13,7 +13,7 @@ import {
 import { error } from "node:console";
 const lngDetector = new LanguageDetect();
 
-const SHORT_QUEST_IDS = [8, 10, 14, 16, 24, 30, 36, 49, 59, 62, 68];
+const SHORT_QUEST_IDS = [8, 10, 14, 16, 20, 24, 30, 36, 49, 59, 62, 68];
 
 router.post("/api/postcards", async (req, res) => {
   try {

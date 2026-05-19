@@ -36,7 +36,7 @@ export function Message() {
       try {
         setSelectedQuest(JSON.parse(saved) as QuestType);
       } catch (e) {
-        console.error("Fehler beim Parsen der Quest:", e);
+        console.error("Error parsing the quest:", e);
       }
     }
   }, []);
