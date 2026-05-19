@@ -1,3 +1,6 @@
+import LanguageDetect from "languagedetect";
+const lngDetector = new LanguageDetect();
+
 export function analyzePostcard(text, questId, maxTotalXP, questTitle) {
   const trimmedText = text.trim();
   const words = trimmedText.split(/\s+/).filter((w) => w.length > 0);
