@@ -3,6 +3,7 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./db.js";
 import { sendNotification } from "./mail/sendMail.js";
 import { request } from "http";
+import crypto from "crypto";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -17,17 +18,33 @@ export const auth = betterAuth({
     enabled: true,
     autoSignIn: true,
     sendResetPassword: async ({ user, url, token }, request) => {
-      void sendNotification("Mia: Reset Password", user.firstName, user.email, `Click the link to reset your password: ${url}`);
+      void sendNotification(
+        "Mia: Reset Password",
+        user.id,
+        user.firstName,
+        user.email,
+        `Click the link to reset your password: ${url}`,
+      );
     },
-    onPasswordReset: async({user}, request) => {
+    onPasswordReset: async ({ user }, request) => {
       console.log(`Password for user ${user.email} has been reset.`);
-    }
+    },
   },
 
   user: {
     additionalFields: {
       firstName: { type: "string", required: true, input: true },
       lastName: { type: "string", required: true, input: true },
+      unsubscribeToken: {
+        type: "string",
+        defaultValue: () => crypto.randomBytes(32).toString("hex"),
+        input: false,
+      },
+      emailNotifications: {
+        type: "boolean",
+        defaultValue: true,
+        input: false,
+      },
     },
   },
 
@@ -36,9 +53,11 @@ export const auth = betterAuth({
       create: {
         after: async (user) => {
           await sendNotification(
+            "Welcome to Mia. Your account has been created!",
+            user.id,
             user.name,
             user.email,
-            "Welcome to Mia. Your account has been created!",
+            "Your accout has been created and we are more than happy to welcome you.",
           );
         },
       },

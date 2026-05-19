@@ -89,6 +89,8 @@ model User {
   xp            Int       @default(0)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  unsubscribeToken     String    @unique
+  emailNotifications   Boolean   @default(true)
   sessions      Session[]
   accounts      Account[]
 
