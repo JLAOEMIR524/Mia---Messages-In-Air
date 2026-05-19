@@ -177,11 +177,6 @@ export function Gallery() {
                 <Popup>
                   <div style={{ textAlign: "center" }}>
                     <strong>{card.location}</strong>
-                    <p style={{ margin: "5px 0 0 0", fontSize: "0.9rem" }}>
-                      {card.text.length > 40
-                        ? `${card.text.substring(0, 40)}...`
-                        : card.text}
-                    </p>
                   </div>
                 </Popup>
               </Marker>

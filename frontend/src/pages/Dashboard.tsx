@@ -11,6 +11,8 @@ interface BackendPostcard {
   receiverId: string | null;
   location: string;
   text: string;
+  createdAt?: string;
+  countryName?: string;
 
   creator?: {
     firstName: string;
@@ -26,7 +28,6 @@ interface BackendPostcard {
 export function Dashboard() {
   const { data: session } = useSession();
 
-  // Hier nutzen wir das korrekte Backend-Interface für den State
   const [postcards, setPostcards] = useState<BackendPostcard[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -38,19 +39,21 @@ export function Dashboard() {
 
       try {
         setLoading(true);
-        const response = await fetch(`/api/postcards`, {
-          credentials: "include",
-        });
+        const response = await fetch(
+          "http://localhost:3001/api/user/postcards",
+          {
+            credentials: "include",
+          },
+        );
 
         if (!response.ok) {
           throw new Error(`Server-Fehler: ${response.status}`);
         }
 
         const data = await response.json();
-
         setPostcards(data.postcards || []);
       } catch (err) {
-        console.error("Fehler beim Laden der Postkarten:", err);
+        console.error("Error loading the postcards:", err);
       } finally {
         setLoading(false);
       }
@@ -61,15 +64,19 @@ export function Dashboard() {
 
   const currentUserId = session?.user?.id;
 
-  const sentCards = postcards.filter(
-    (card) => card.creatorId === currentUserId,
-  );
+  const uniqueCountriesCount = new Set(
+    postcards
+      .map((card) => card.countryName || card.location)
+      .map((name) => name.trim().toLowerCase()),
+  ).size;
 
-  const receivedCards = postcards.filter(
-    (card) => card.receiverId === currentUserId,
-  );
+  const sentCards = postcards
+    .filter((card) => card.creatorId === currentUserId)
+    .sort((a, b) => b.id - a.id);
 
-  const uniqueCountries = new Set(postcards.map((card) => card.location)).size;
+  const receivedCards = postcards
+    .filter((card) => card.receiverId === currentUserId)
+    .sort((a, b) => b.id - a.id);
 
   if (loading) {
     return (
@@ -102,7 +109,7 @@ export function Dashboard() {
         />
         <StatisticCard
           title="Countries"
-          value={uniqueCountries.toString()}
+          value={uniqueCountriesCount.toString()}
           icon="./icons/flag.svg"
         />
       </div>
@@ -122,7 +129,7 @@ export function Dashboard() {
               .map((card) => (
                 <MessagePreview
                   key={card.id}
-                  titel={`Von: ${card.creator?.firstName || "Unbekannt"}`}
+                  titel={`From: Someone to you`}
                   country={card.location}
                   previewText={card.text}
                   to="/gallery"
@@ -145,7 +152,7 @@ export function Dashboard() {
               .map((card) => (
                 <MessagePreview
                   key={card.id}
-                  titel={`An: ${card.receiver?.firstName || "Unbekannt"}`}
+                  titel={`To: Someone in the world`}
                   country={card.location}
                   previewText={card.text}
                   statusIcon="./icons/email-white.svg"
