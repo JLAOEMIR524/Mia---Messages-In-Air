@@ -1,19 +1,36 @@
 import express from "express";
 import { userInfo } from "node:os";
 import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { prisma } from "../db.js";
 
 //Basic Mail sender
-async function sendMail({ to, templateId, variables }) {
+async function sendMail({ to, templateId, variables }, id) {
+  const user = await prisma.user.findUnique({
+    where: { id },
+  });
+
+  if (!user || user.emailNotifications === false) {
+    return;
+  }
+
   const recipient = process.env.TEST === "true" ? "delivered@resend.dev" : to;
+  const url = process.env.BETTER_AUTH_URL;
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const unsubscribeLink = `${url}/unsubscribe?token=${user.unsubscribeToken}`;
 
   const { data, error } = await resend.emails.send({
     from: "Mia <noreply@mia.jlaoemir.at>",
     to: recipient,
     template: {
       id: templateId,
-      variables,
+      variables: {
+        ...variables,
+        unsubscribeLink,
+      },
+    },
+    headers: {
+      "List-Unsubscribe": unsubscribeLink,
+      "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
     },
   });
 
@@ -25,26 +42,43 @@ async function sendMail({ to, templateId, variables }) {
 }
 
 //New Postcard notice
-export async function sendPostcardNotification(recipientMail, recipientName, cardId ) {
-  return sendMail({
-    to: recipientMail,
-    templateId: 'notification',
-    variables: {
-      Receiver_username: recipientName,
-      Postcard_url: cardId,
+export async function sendPostcardNotification(
+  recipientMail,
+  id,
+  recipientName,
+  cardId,
+) {
+  return sendMail(
+    {
+      to: recipientMail,
+      templateId: "notification",
+      variables: {
+        Receiver_username: recipientName,
+        Postcard_url: cardId,
+      },
     },
-  });
+    id,
+  );
 }
 
 //New notification
-export async function sendNotification(subject, recipientName, recipientMail, note) {
-  return sendMail({
-    to: recipientMail,
-    templateId: "info",
-    variables: {
-      subject,
-      name: recipientName,
-      text: note,
+export async function sendNotification(
+  subject,
+  id,
+  recipientName,
+  recipientMail,
+  note,
+) {
+  return sendMail(
+    {
+      to: recipientMail,
+      templateId: "info",
+      variables: {
+        subject,
+        name: recipientName,
+        text: note,
+      },
     },
-  });
+    id,
+  );
 }
