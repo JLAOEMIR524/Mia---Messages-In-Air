@@ -190,6 +190,7 @@ export function Editor() {
     };
 
     addElementRandom(payload, CANVAS_WIDTH, CANVAS_HEIGHT);
+    focusCanvs();
   };
 
   const handleStickerClick = (sticker: AvailableSticker, size: number) => {
@@ -201,7 +202,19 @@ export function Editor() {
     };
 
     addElementRandom(payload, CANVAS_WIDTH, CANVAS_HEIGHT);
+    focusCanvs();
   };
+
+  const focusCanvs = useCallback(() => {
+    const container = stageRef.current?.container();
+    if (!container) return;
+
+    if (container.tabIndex < 0) {
+      container.tabIndex = 0;
+    }
+
+    container.focus({ preventScroll: true });
+  }, []);
 
   const IsPostcardEmpty = elements.length === 0;
 
