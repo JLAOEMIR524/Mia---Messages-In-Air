@@ -17,6 +17,7 @@ export function BadgeCard({
   onSelect,
   headingLevel: Tag = "h3",
 }: BadgeCardProps) {
+  // trigger click on Enter or Space for keyboard users
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (onSelect && (e.key === "Enter" || e.key === " ")) {
       e.preventDefault();
@@ -28,6 +29,7 @@ export function BadgeCard({
     <div
       className={`questCard ${isSelected ? "selected" : ""}`}
       onClick={onSelect}
+      // makes the div behave like a real button for screen readers
       role={onSelect ? "button" : undefined}
       tabIndex={onSelect ? 0 : undefined}
       onKeyDown={onSelect ? handleKeyDown : undefined}

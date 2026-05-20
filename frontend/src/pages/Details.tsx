@@ -24,6 +24,7 @@ interface LocationState {
 export function Details() {
   const location = useLocation();
 
+  // Gets data from the previous page, or loads the saved backup if the page is refreshed
   const [analysis] = useState(() => {
     const routerState = location.state as LocationState | null;
     if (routerState?.analysis) {
@@ -33,6 +34,7 @@ export function Details() {
     return backup ? JSON.parse(backup) : null;
   });
 
+  // Adds the background class when the page opens and removes it when leaving
   useEffect(() => {
     document.body.classList.add("background-heaven");
     document.title = "Mia | Detail Feedback";
@@ -73,11 +75,7 @@ export function Details() {
 
             {questFulfillment.length > 0 && (
               <>
-                <h2
-                  className="text-xs"
-                >
-                  Quest Fulfillment:
-                </h2>
+                <h2 className="text-xs">Quest Fulfillment:</h2>
                 {questFulfillment.map((item: any, index: number) => (
                   <p key={index}>
                     {item.name}: {item.score}/5

@@ -12,16 +12,21 @@ export interface LocationSuggestion {
   type: string;
 }
 
+// pulls a random receiver address for the postcard
 export const fetchRandomAddressFromDB = async (): Promise<AddressType> => {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/addresses/random`, {
-    credentials: "include",
-  });
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/addresses/random`,
+    {
+      credentials: "include",
+    },
+  );
   if (!response.ok) {
     throw new Error("Failed to fetch receiver address from database.");
   }
   return response.json();
 };
 
+// fetches suggestions for cities/countries based on user input
 export const searchLocationsFromDB = async (
   query: string,
 ): Promise<LocationSuggestion[]> => {

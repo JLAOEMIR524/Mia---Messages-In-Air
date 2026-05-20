@@ -15,7 +15,6 @@ export function Quest() {
   const [allQuests, setAllQuests] = useState<QuestType[]>([]);
   const [activeQuest, setActiveQuest] = useState<QuestType | null>(null);
   const [loading, setLoading] = useState(true);
-
   const [selectedQuest, setSelectedQuest] = useState<QuestType | null>(null);
 
   const navigate = useNavigate();
@@ -28,10 +27,13 @@ export function Quest() {
     document.title = "Mia | Quest";
     const loadData = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/quests`);
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/quests`,
+        );
         if (!response.ok) throw new Error("Fehler beim Laden der Quests");
         const data = await response.json();
 
+        // Shuffles the incoming quests and sets the first one as active
         const shuffledData = [...data.quests].sort(() => 0.5 - Math.random());
         setAllQuests(shuffledData);
         setActiveQuest(shuffledData[0]);
@@ -45,6 +47,7 @@ export function Quest() {
     loadData();
   }, []);
 
+  // Reshuffles the quests when the reload icon is clicked
   const handleReload = () => {
     if (allQuests.length === 0) return;
     const reshuffled = [...allQuests].sort(() => 0.5 - Math.random());
@@ -67,15 +70,16 @@ export function Quest() {
     );
   }
 
+  // Filters out the active focused quest to show 3 alternative options
   const otherQuests = allQuests
     .filter((q) => q.id !== activeQuest.id)
     .slice(0, 3);
 
+  // Saves the chosen quest to local storage and redirects to the editor
   const saveAndNavigate = (quest: QuestType) => {
     localStorage.setItem("selectedQuest", JSON.stringify(quest));
     navigate("/editor", { state: { fromQuest: true } });
   };
-
 
   return (
     <main>
@@ -113,7 +117,11 @@ export function Quest() {
             title={q.title}
             description={q.description}
             isSelected={selectedQuest?.id === q.id}
-            onSelect={() => setSelectedQuest(q)}
+            onSelect={() => {
+              // Sets the clicked alternative quest as the active focused quest
+              setActiveQuest(q);
+              setSelectedQuest(q);
+            }}
           />
         ))}
       </div>
@@ -125,6 +133,7 @@ export function Quest() {
           </p>
         )}
       </div>
+
       {!selectedQuest ? (
         <button
           className="button button--image"

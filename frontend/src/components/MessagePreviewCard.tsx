@@ -13,8 +13,8 @@ export function MessagePreview({
   titel: title,
   country,
   previewText,
-  statusIcon = "./icons/paper-plane-white.svg",
-  flagIcon = "./icons/flag.svg",
+  statusIcon = "./icons/paper-plane-white.svg", // Fallback status icon
+  flagIcon = "./icons/flag.svg", // Fallback country flag
   to,
 }: MessagePreviewProps) {
   return (

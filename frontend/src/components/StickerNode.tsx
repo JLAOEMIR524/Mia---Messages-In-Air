@@ -21,6 +21,7 @@ export function StickerNode({
   const shapeRef = useRef<Konva.Image>(null);
   const transformRef = useRef<Konva.Transformer>(null);
 
+  // Attaches the Transformer overlay to the targeted shape node on selection change
   useEffect(() => {
     if (isSelected && transformRef.current && shapeRef.current) {
       transformRef.current.nodes([shapeRef.current]);
@@ -41,9 +42,11 @@ export function StickerNode({
         draggable
         onClick={onSelect}
         onTap={onSelect}
+        // Persists updated spatial coordinates to state storage when dragging stops
         onDragEnd={(e) => {
           onChange({ x: e.target.x(), y: e.target.y() });
         }}
+        // Syncs rotation transformations to state and flattens node scale multipliers back to 1
         onTransformEnd={() => {
           const node = shapeRef.current;
           if (!node) return;
@@ -59,7 +62,7 @@ export function StickerNode({
       {isSelected && (
         <Transformer
           ref={transformRef}
-          enabledAnchors={[]}
+          enabledAnchors={[]} // Disables resizing anchors to isolate rotation interactions only
           rotateEnabled={true}
           borderStroke="#3d64a8"
           borderStrokeWidth={2}

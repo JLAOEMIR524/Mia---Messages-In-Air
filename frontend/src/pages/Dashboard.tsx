@@ -27,7 +27,6 @@ interface BackendPostcard {
 
 export function Dashboard() {
   const { data: session } = useSession();
-
   const [postcards, setPostcards] = useState<BackendPostcard[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -44,13 +43,11 @@ export function Dashboard() {
         setLoading(true);
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/user/postcards`,
-          {
-            credentials: "include",
-          },
+          { credentials: "include" },
         );
 
         if (!response.ok) {
-          throw new Error(`Server-Fehler: ${response.status}`);
+          throw new Error(`Server-Error: ${response.status}`);
         }
 
         const data = await response.json();
@@ -67,6 +64,7 @@ export function Dashboard() {
 
   const currentUserId = session?.user?.id;
 
+  // Filters duplicates (case-insensitive) for the country count
   const uniqueCountriesCount = new Set(
     postcards
       .map((card) => card.countryName || card.location)
@@ -127,21 +125,20 @@ export function Dashboard() {
           {receivedCards.length === 0 ? (
             <p>No messages received yet.</p>
           ) : (
-            receivedCards
-              .slice(0, 3)
-              .map((card) => (
-                <MessagePreview
-                  key={card.id}
-                  titel={`From: Someone to you`}
-                  country={card.location}
-                  previewText={
-                    card.text.length > 80
-                      ? `${card.text.substring(0, 80)}...`
-                      : card.text
-                  }
-                  to="/gallery"
-                />
-              ))
+            receivedCards.slice(0, 3).map((card) => (
+              <MessagePreview
+                key={card.id}
+                titel={`From: Someone to you`}
+                country={card.location}
+                // Truncates text after 80 characters
+                previewText={
+                  card.text.length > 80
+                    ? `${card.text.substring(0, 80)}...`
+                    : card.text
+                }
+                to="/gallery"
+              />
+            ))
           )}
         </div>
 
@@ -154,22 +151,21 @@ export function Dashboard() {
           {sentCards.length === 0 ? (
             <p>No messages sent yet.</p>
           ) : (
-            sentCards
-              .slice(0, 3)
-              .map((card) => (
-                <MessagePreview
-                  key={card.id}
-                  titel={`To: Someone in the world`}
-                  country={card.location}
-                  previewText={
-                    card.text.length > 80
-                      ? `${card.text.substring(0, 80)}...`
-                      : card.text
-                  }
-                  statusIcon="./icons/email-white.svg"
-                  to="/gallery"
-                />
-              ))
+            sentCards.slice(0, 3).map((card) => (
+              <MessagePreview
+                key={card.id}
+                titel={`To: Someone in the world`}
+                country={card.location}
+                // Truncates text after 80 characters
+                previewText={
+                  card.text.length > 80
+                    ? `${card.text.substring(0, 80)}...`
+                    : card.text
+                }
+                statusIcon="./icons/email-white.svg"
+                to="/gallery"
+              />
+            ))
           )}
         </div>
       </div>

@@ -3,6 +3,7 @@ import type { DragPayload, UploadedImage } from "../types/CanvasTypes";
 
 const MAX_PLACEHOLDER_SLOTS = 1;
 
+// get the original width and height of the uploaded file
 function loadImage(src: string): Promise<UploadedImage> {
   return new Promise((resolve) => {
     const img = new window.Image();
@@ -32,7 +33,7 @@ export function PhotoUploader({
           setImages((prev) => {
             return [...prev, uploaded];
           });
-          onImageClick(uploaded); //Sets the uploaded picture directly on the canvas
+          onImageClick(uploaded);
         }
       };
       reader.readAsDataURL(file);
@@ -40,6 +41,7 @@ export function PhotoUploader({
     e.target.value = "";
   };
 
+  // scale down large images proportionally so they fit onto the canvas during drag
   const handleDragStart = async (
     e: React.DragEvent<HTMLImageElement>,
     image: UploadedImage,
@@ -69,6 +71,7 @@ export function PhotoUploader({
     fileInputRef.current?.click();
   };
 
+  // keyboard navigation (arrows to browse, Enter to select, Delete to remove)
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent, index: number) => {
       switch (e.key) {
@@ -118,6 +121,7 @@ export function PhotoUploader({
           <div
             className="barItem image"
             key={i}
+            // only the active item can be tabbed
             tabIndex={focusIndex === i ? 0 : -1}
             onKeyDown={(e) => handleKeyDown(e, i)}
           >

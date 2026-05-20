@@ -199,14 +199,17 @@ export function Message() {
         receiverAddress: adress,
       };
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/postcards`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/postcards`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(postcardPayload),
         },
-        credentials: "include",
-        body: JSON.stringify(postcardPayload),
-      });
+      );
 
       const result = await response.json();
 

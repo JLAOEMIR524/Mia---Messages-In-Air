@@ -9,6 +9,7 @@ export function useResponsiveScale(
   canvasWidth: number,
   padding: number = 50,
 ): ResponsiveScale {
+  // Computes aspect-ratio preservation scale factor capped at a maximum multiplier of 1.0
   const calcScale = useCallback(() => {
     const availableWidth = window.innerWidth - padding;
     const scale = Math.min(1, availableWidth / canvasWidth);
@@ -18,6 +19,7 @@ export function useResponsiveScale(
 
   const [result, setResult] = useState<ResponsiveScale>(calcScale);
 
+  // Binds resize event listener
   useEffect(() => {
     const handleResize = () => setResult(calcScale());
 

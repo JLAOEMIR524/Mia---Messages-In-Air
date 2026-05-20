@@ -5,14 +5,13 @@ interface CityBadgeProps {
 
 export function CityBadge({
   location,
+  // default icon if no custom image path is provided
   icon = "./icons/location-white.svg",
 }: CityBadgeProps) {
   return (
     <div className="city">
       <img src={icon} alt="" className="city__icon" aria-hidden="true" />
-      <span className="city__text">
-        {location}
-      </span>
+      <span className="city__text">{location}</span>
     </div>
   );
 }

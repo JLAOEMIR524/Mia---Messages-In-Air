@@ -20,6 +20,7 @@ export function Login() {
     };
   }, []);
 
+  // Redirects logged-in users directly to the dashboard
   useEffect(() => {
     if (session) {
       navigate("/dashboard");

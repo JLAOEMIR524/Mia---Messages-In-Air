@@ -21,6 +21,8 @@ export function FeedbackCard({
   topIconSrc = "./icons/star_shine_w.svg",
 }: FeedbackCardProps) {
   const totalStars = 5;
+
+  // Maps rating integer to an array of booleans representing filled/unfilled state
   const starArray =
     rating !== undefined
       ? Array.from({ length: totalStars }, (_, index) => index < rating)
@@ -37,6 +39,7 @@ export function FeedbackCard({
           {message}
         </section>
       </div>
+      {/* Renders star rating dynamically calculated from the xpAmount value */}
       {starArray.length > 0 ? (
         <div
           className="xpDisplay"

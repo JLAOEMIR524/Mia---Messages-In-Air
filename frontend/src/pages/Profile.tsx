@@ -57,9 +57,13 @@ export function Profile() {
         setLoading(true);
         setError(null);
 
-        const statsRes = await fetch(`${import.meta.env.VITE_API_URL}/api/user/stats`, {
-          credentials: "include",
-        });
+        // Fetches user stats like XP and postcards sent
+        const statsRes = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/user/stats`,
+          {
+            credentials: "include",
+          },
+        );
 
         if (statsRes.ok) {
           const statsData = await statsRes.json();
@@ -79,15 +83,20 @@ export function Profile() {
           }
         }
 
-        const stickersRes = await fetch(`${import.meta.env.VITE_API_URL}/api/stickers`, {
-          credentials: "include",
-        });
+        // Fetches all system stickers
+        const stickersRes = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/stickers`,
+          {
+            credentials: "include",
+          },
+        );
         if (!stickersRes.ok) {
           throw new Error(`Stickers Error status: ${stickersRes.status}`);
         }
         const stickersData = await stickersRes.json();
         setStickers(stickersData.stickers);
 
+        // Fetches all completed quests by the user
         const userQuestsRes = await fetch(
           `${import.meta.env.VITE_API_URL}/api/user/quests`,
           {
@@ -109,6 +118,7 @@ export function Profile() {
     loadProfileData();
   }, [session]);
 
+  // Splits stickers based on lock status
   const unlockedStickers = stickers.filter((sticker) => !sticker.isLocked);
   const lockedStickers = stickers.filter((sticker) => sticker.isLocked);
 
@@ -160,6 +170,7 @@ export function Profile() {
             progressPercent={stats.progressPercent}
             onEdit={async (updatedData) => {
               try {
+                // Sends updated profile data to the database
                 const res = await fetch(
                   `${import.meta.env.VITE_API_URL}/api/user/update`,
                   {
@@ -222,7 +233,7 @@ export function Profile() {
                   key={sticker.id}
                   tabIndex={0}
                   role="img"
-                  aria-label={`Locked Sticker: ${sticker.name}. Requirs ${sticker.xpAmount} XP.`}
+                  aria-label={`Locked Sticker: ${sticker.name}. Requires ${sticker.xpAmount} XP.`}
                 >
                   <SwapCard
                     stickerSrc={sticker.stickerSrc}

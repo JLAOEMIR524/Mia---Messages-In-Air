@@ -17,6 +17,7 @@ export function Card({
 }: CardProps) {
   return (
     <div className={`card ${className}`}>
+      {/* only render image if a path is given */}
       {image && <img src={image} alt={title || "Card Image"} />}
 
       <div className="card__body">
@@ -24,6 +25,7 @@ export function Card({
 
         {description && <p>{description}</p>}
 
+        {/* action button is optional, only shows up if text is set */}
         {buttonText && (
           <button className="button button--primary" onClick={onButtonClick}>
             {buttonText}

@@ -28,6 +28,7 @@ export function QuestCard({
           className="iconButton"
           aria-label="Reload Quest"
           onClick={(e) => {
+            // Stops the card's onClick from firing when clicking reload
             e.stopPropagation();
             onReload();
           }}
@@ -38,6 +39,7 @@ export function QuestCard({
 
       <p>{description}</p>
 
+      {/* Sends a state flag to the editor route so it knows user came from a quest */}
       <Link
         to="/editor"
         state={{ fromQuest: true }}

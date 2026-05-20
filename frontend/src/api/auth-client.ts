@@ -5,10 +5,12 @@ export const authClient = createAuthClient({
   baseURL: import.meta.env.VITE_API_URL,
 
   fetchOptions: {
+    // send cookies with every request
     credentials: "include",
   },
 
   plugins: [
+    // Tell auth client that firstName and lastName actually exist on the user
     inferAdditionalFields({
       user: {
         firstName: { type: "string" as const },
@@ -18,4 +20,4 @@ export const authClient = createAuthClient({
   ],
 });
 
-export const {signIn, signUp, signOut, useSession } = authClient;
+export const { signIn, signUp, signOut, useSession } = authClient;

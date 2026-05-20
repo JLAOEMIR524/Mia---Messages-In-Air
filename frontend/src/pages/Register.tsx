@@ -23,6 +23,7 @@ export function Register() {
     };
   }, []);
 
+  // Redirects logged-in users directly to the dashboard
   useEffect(() => {
     if (session) {
       navigate("/dashboard");
@@ -31,61 +32,71 @@ export function Register() {
 
   const handleSignUp = async () => {
     setLoading(true);
+    setError("");
 
+    // Validates that both passwords match
     if (password !== passwordConfirm) {
       setError("Passwords don't match");
       setLoading(false);
       return;
     }
 
-    const check = await fetch(
-      `${import.meta.env.VITE_API_URL}/api/security/check-password`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ password }),
-      },
-    );
+    try {
+      // Checks if the password has been leaked
+      const check = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/security/check-password`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ password }),
+        },
+      );
 
-    const { isPwned } = await check.json();
+      const { isPwned } = await check.json();
 
-    if (isPwned) {
-      setError("Unsafe password - try choosing something sophisticated");
+      if (isPwned) {
+        setError("Unsafe password - try choosing something sophisticated");
+        setLoading(false);
+        return;
+      }
+
+      // Sends registration data to auth client
+      await signUp.email(
+        {
+          email: email,
+          password: password,
+          name: `${firstName} ${lastName}`,
+          firstName: firstName,
+          lastName: lastName,
+        },
+        {
+          onRequest: () => {
+            setLoading(true);
+          },
+          onError: (ctx) => {
+            setLoading(false);
+            setError(ctx.error.message);
+          },
+          onSuccess: async () => {
+            // Saves credentials to browser password manager if available
+            if (window.PasswordCredential) {
+              const cred = new window.PasswordCredential({
+                id: email,
+                password: password,
+                name: `${firstName} ${lastName}`,
+              });
+              await navigator.credentials.store(cred);
+            }
+            setTimeout(() => navigate("/dashboard"), 100);
+          },
+        },
+      );
+    } catch (err) {
+      console.error("Registration error:", err);
+      setError("Something went wrong. Please try again.");
       setLoading(false);
-      return;
     }
-
-    await signUp.email(
-      {
-        email: email,
-        password: password,
-        name: `${firstName} ${lastName}`,
-        firstName: firstName,
-        lastName: lastName,
-      },
-      {
-        onRequest: () => {
-          setLoading(true);
-        },
-        onError: (ctx) => {
-          setLoading(false);
-          setError(ctx.error.message);
-        },
-        onSuccess: async () => {
-          //Save Credentials on Login 
-          if (window.PasswordCredential) {
-            const cred = new window.PasswordCredential({
-              id: email,
-              password: password,
-              name: `${firstName} ${lastName}`,
-            });
-            await navigator.credentials.store(cred);
-          }
-          setTimeout(() => navigate("/dashboard"), 100);
-        },
-      },
-    );
   };
 
   return (
@@ -122,6 +133,7 @@ export function Register() {
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
+            disabled={loading}
           />
           <label htmlFor="LastName">Lastname:</label>
           <input
@@ -133,6 +145,7 @@ export function Register() {
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
+            disabled={loading}
           />
           <label htmlFor="emailUser">E-Mail:</label>
           <input
@@ -144,6 +157,7 @@ export function Register() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            disabled={loading}
           />
           <label htmlFor="password">Password</label>
           <input
@@ -154,6 +168,7 @@ export function Register() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            disabled={loading}
           />
           <label htmlFor="passwordConfirm">Confirm Password:</label>
           <input
@@ -164,6 +179,7 @@ export function Register() {
             value={passwordConfirm}
             onChange={(e) => setPasswordConfirm(e.target.value)}
             required
+            disabled={loading}
           />
           <button
             type="submit"

@@ -11,6 +11,7 @@ export function LinkHeader({
   title,
   icon,
   linkTo,
+  // fallback text if no specific label is provided
   linkText = "Show all",
 }: LinkHeaderProps) {
   return (
