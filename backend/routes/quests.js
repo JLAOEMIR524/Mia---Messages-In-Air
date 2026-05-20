@@ -37,6 +37,7 @@ router.get("/api/user/quests", async (req, res) => {
 
     const userId = dbUser.id;
 
+    // get postcards created by the user that are linked to a specific quest
     const completedPostcards = await prisma.postcard.findMany({
       where: {
         creatorId: userId,
@@ -52,6 +53,7 @@ router.get("/api/user/quests", async (req, res) => {
       },
     });
 
+    // Map postcard data into a quest list format for frontend
     const formattedQuests = completedPostcards.map((postcard) => ({
       id: postcard.id,
       title: postcard.quest?.title || "Unbekannte Quest",

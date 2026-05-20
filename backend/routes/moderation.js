@@ -8,6 +8,7 @@ import { error } from "node:console";
 import { auth } from "../auth.js";
 import { isTest } from "better-auth";
 
+// Maximum allowed probability (0.0 to 1.0) for each category before it gets blocked
 const THRESHOLDS = {
   nudity: 0.5,
   weapon: 0.5,
@@ -23,12 +24,13 @@ const THRESHOLDS = {
 const router = Router();
 const isTesting = process.env.TEST;
 
-//temporarily sets the data on the server memory
+// temporarily sets the data on the server memory
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 8 * 1024 * 1024 },
 });
 
+// check if the API values exceed our allowed limits
 function evaluate(data) {
   const violations = [];
 
@@ -67,10 +69,11 @@ router.post("/moderate", upload.single("image"), async (req, res) => {
       return res.status(400).json({ ok: false, error: "no_image" });
     }
 
+    // Convert Base64 string into a binary Buffer so we can send it as a file
     const base64Data = image.replace(/^data:image\/\w+;base64,/, "");
     const imageBuffer = Buffer.from(base64Data, "base64");
 
-    //Setup for and send Image to evaluation
+    // Skip the external API call during automated tests to save credits
     if (isTesting === "false") {
       const form = new FormData();
       form.append("media", imageBuffer, {
@@ -102,7 +105,7 @@ router.post("/moderate", upload.single("image"), async (req, res) => {
       }
     }
 
-    //Setting the hashed image for later use in the database
+    // Create a unique SHA256 hash of the image to save and recognize it later
     const hash = crypto.createHash("sha256").update(image).digest("hex");
 
     await prisma.moderatedImage.upsert({

@@ -20,6 +20,7 @@ router.get("/api/user/stats", async (req, res) => {
       select: { xp: true, name: true }
     });
 
+    // separate counts for sent/received cards to show on the dashboard
     const sentPostcardsCount = await prisma.postcard.count({
       where: { creatorId: userId }
     });
