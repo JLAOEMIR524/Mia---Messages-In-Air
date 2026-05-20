@@ -6,6 +6,7 @@ import crypto from "node:crypto";
 import FormData from "form-data";
 import { error } from "node:console";
 import { auth } from "../auth.js";
+import { isTest } from "better-auth";
 
 const THRESHOLDS = {
   nudity: 0.5,
@@ -20,6 +21,7 @@ const THRESHOLDS = {
 };
 
 const router = Router();
+const isTesting = process.env.TEST;
 
 //temporarily sets the data on the server memory
 const upload = multer({
@@ -69,40 +71,39 @@ router.post("/moderate", upload.single("image"), async (req, res) => {
     const imageBuffer = Buffer.from(base64Data, "base64");
 
     //Setup for and send Image to evaluation
-    const form = new FormData();
-    form.append("media", imageBuffer, {
-      filename: "postcard.jpeg",
-      contentType: "image/jpeg",
-    });
-    form.append(
-      "models",
-      "nudity-2.1,weapon,recreational_drug,medical,offensive-2.0,gore-2.0,tobacco,violence,self-harm",
-    );
-    form.append("api_user", process.env.SIGHTENGINE_API_USER);
-    form.append("api_secret", process.env.SIGHTENGINE_API_SECRET);
+    if (isTesting === "false") {
+      const form = new FormData();
+      form.append("media", imageBuffer, {
+        filename: "postcard.jpeg",
+        contentType: "image/jpeg",
+      });
+      form.append(
+        "models",
+        "nudity-2.1,weapon,recreational_drug,medical,offensive-2.0,gore-2.0,tobacco,violence,self-harm",
+      );
+      form.append("api_user", process.env.SIGHTENGINE_API_USER);
+      form.append("api_secret", process.env.SIGHTENGINE_API_SECRET);
 
-    const { data } = await axios.post(
-      "https://api.sightengine.com/1.0/check.json",
-      form,
-      { headers: form.getHeaders(), timeout: 15_000 },
-    );
+      const { data } = await axios.post(
+        "https://api.sightengine.com/1.0/check.json",
+        form,
+        { headers: form.getHeaders(), timeout: 15_000 },
+      );
 
-    if (data.status !== "success") {
-      return res.status(502).json({ ok: false, error: "sightengine_failed" });
-    }
+      if (data.status !== "success") {
+        return res.status(502).json({ ok: false, error: "sightengine_failed" });
+      }
 
-    //Evaluate response
-    const violations = evaluate(data);
+      //Evaluate response
+      const violations = evaluate(data);
 
-    if (violations.length > 0) {
-      return res.json({ ok: false, reason: "content_violation", violations });
+      if (violations.length > 0) {
+        return res.json({ ok: false, reason: "content_violation", violations });
+      }
     }
 
     //Setting the hashed image for later use in the database
-    const hash = crypto
-      .createHash("sha256")
-      .update(image)
-      .digest("hex");
+    const hash = crypto.createHash("sha256").update(image).digest("hex");
 
     await prisma.moderatedImage.upsert({
       where: { hash },
