@@ -35,7 +35,10 @@ export function Dashboard() {
     document.title = "Mia | Dashboard";
 
     const fetchPostcards = async () => {
-      if (!session?.user?.id) return;
+      if (!session?.user?.id) {
+        setLoading(false);
+        return;
+      }
 
       try {
         setLoading(true);
