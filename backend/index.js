@@ -24,9 +24,9 @@ app.use(
     credentials: true,
   }),
 );
-app.all("/api/auth/*splat", toNodeHandler(auth));
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
+app.all("/api/auth/*splat", toNodeHandler(auth));
 app.use("/api/security", securityRouter);
 app.use("/api", moderationRoutes);
 app.use(stickersRouter);
