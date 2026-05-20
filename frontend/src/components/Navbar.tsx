@@ -29,11 +29,11 @@ export function NavBar({ inert }: NavBarProps) {
   };
 
   const navItems = [
-    { name: "Dashboard", path: "/dashboard", icon: "./icons/home.svg" },
-    { name: "Profile", path: "/profile", icon: "./icons/profile.svg" },
-    { name: "Generate Postcard", path: "/quest", icon: "./icons/email.svg" },
-    { name: "Gallery", path: "/gallery", icon: "./icons/image.svg" },
-    { name: "Imprint & Privacy", path: "/imprint", icon: "./icons/info.svg" },
+    { name: "Dashboard", path: "/dashboard", icon: "/icons/home.svg" },
+    { name: "Profile", path: "/profile", icon: "/icons/profile.svg" },
+    { name: "Generate Postcard", path: "/quest", icon: "/icons/email.svg" },
+    { name: "Gallery", path: "/gallery", icon: "/icons/image.svg" },
+    { name: "Imprint & Privacy", path: "/imprint", icon: "/icons/info.svg" },
   ];
 
   const handleLogout = async () => {
