@@ -81,6 +81,8 @@ export function NavBar({ inert }: NavBarProps) {
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Burger-menu open"
             aria-expanded={isOpen}
+            aria-hidden={isMobile ? "false" : "true"}
+            tabIndex={isMobile ? 1 : -1}
           >
             <span></span>
             <span></span>
