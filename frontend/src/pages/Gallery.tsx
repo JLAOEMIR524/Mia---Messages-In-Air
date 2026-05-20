@@ -43,6 +43,8 @@ interface Postcard {
   receiver?: { firstName: string; lastName: string } | null;
 }
 
+const ITEMS_PER_PAGE = 6;
+
 export function Gallery() {
   const position: LatLngExpression = [50.0, 10.0];
   const navigate = useNavigate();
@@ -50,6 +52,8 @@ export function Gallery() {
   const [postcards, setPostcards] = useState<Postcard[]>([]);
   const [filter, setFilter] = useState<"all" | "received" | "sent">("all");
   const [loading, setLoading] = useState(true);
+
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleBack = () => {
     navigate(-1);
@@ -82,6 +86,10 @@ export function Gallery() {
     fetchPostcards();
   }, [session]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filter]);
+
   const currentUserId = session?.user?.id;
 
   const filteredPostcards = postcards.filter((card) => {
@@ -95,6 +103,15 @@ export function Gallery() {
       card.creatorId === currentUserId || card.receiverId === currentUserId
     );
   });
+
+  const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
+  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
+  const paginatedPostcards = filteredPostcards.slice(
+    indexOfFirstItem,
+    indexOfLastItem,
+  );
+
+  const totalPages = Math.ceil(filteredPostcards.length / ITEMS_PER_PAGE);
 
   return (
     <main className="left">
@@ -140,140 +157,176 @@ export function Gallery() {
       ) : filteredPostcards.length === 0 ? (
         <p className="noDataState">No postcards found in this category.</p>
       ) : (
-        <div className="card-grid">
-          {filteredPostcards.map((card) => {
-            const isSent = card.creatorId === currentUserId;
+        <>
+          <div className="card-grid">
+            {paginatedPostcards.map((card) => {
+              const isSent = card.creatorId === currentUserId;
 
-            const imageSrc = card.image.startsWith("data:image")
-              ? card.image
-              : `http://localhost:3001${card.image}`;
+              const imageSrc = card.image.startsWith("data:image")
+                ? card.image
+                : `http://localhost:3001${card.image}`;
 
-            return (
-              <div
-                className="gallery-card-wrapper"
-                key={card.id}
-                tabIndex={0}
-                role="article"
-                aria-label={`Postcard ${isSent ? `to ${card.receiverAddress?.name ?? "someone"}` : `from ${card.location}`}. Text: ${card.text}`}
-              >
-                <Card
-                  image={imageSrc}
-                  description={
-                    <>
-                      <span>
-                        {isSent
-                          ? "To: Someone in the world"
-                          : "From: Someone to you"}
-                      </span>
-                      <br />
-                      <span>📍 {card.location}</span>
-                    </>
-                  }
-                />
+              return (
+                <div
+                  className="gallery-card-wrapper"
+                  key={card.id}
+                  tabIndex={0}
+                  role="article"
+                  aria-label={`Postcard ${isSent ? `to ${card.receiverAddress?.name ?? "someone"}` : `from ${card.location}`}. Text: ${card.text}`}
+                >
+                  <Card
+                    image={imageSrc}
+                    description={
+                      <>
+                        <span>
+                          {isSent
+                            ? "To: Someone in the world"
+                            : "From: Someone to you"}
+                        </span>
+                        <br />
+                        <span>📍 {card.location}</span>
+                      </>
+                    }
+                  />
 
-                <div className="postcard-overlay-back">
-                  <div className="postcard-overlay-content">
-                    <div className="overlay-message-side">
-                      {card.greeting && (
-                        <p
-                          className="overlay-greeting"
-                        >
-                          {card.greeting}
-                        </p>
-                      )}
-                      <p className="overlay-text">{card.text}</p>
-                    </div>
-
-                    <div className="overlay-address-side">
-                      <img
-                        src="./Stamp.png"
-                        alt="Stamp"
-                        className="overlay-stamp"
-                      />
-
-                      <div className="overlay-address-field">
-                        <p className="address-label">
-                          <strong>{isSent ? "To:" : "From:"}</strong>
-                        </p>
-
-                        {isSent ? (
-                          <>
-                            <p className="address-line">
-                              {card.receiverAddress?.name ??
-                                `${card.receiver?.firstName ?? "Sparkle"} ${card.receiver?.lastName ?? "Twinkletoes"}`}
-                            </p>
-                            <p className="address-line">
-                              {card.receiverAddress?.street ??
-                                "Fireplace Way 4"}
-                            </p>
-                            <p className="address-line">
-                              {card.receiverAddress?.zip &&
-                              card.receiverAddress?.city
-                                ? `${card.receiverAddress.zip} ${card.receiverAddress.city}`
-                                : "55555 Hugsville"}
-                            </p>
-                          </>
-                        ) : (
-                          (() => {
-                            const randomNames = [
-                              "Waffle Crispycookie",
-                              "Snuggles Warmheart",
-                              "Honey Bumblebee",
-                              "Pip Shortcake",
-                              "Mocha Marshmallow",
-                            ];
-                            const randomStreets = [
-                              "Sunshine Lane 123",
-                              "Cozy Corner 7",
-                              "Cloud Nine Ave 99",
-                              "Rainbow Road 42",
-                              "Starlight Boulevard 11",
-                            ];
-                            const randomCities = [
-                              "Hugsville",
-                              "Dreamland",
-                              "Skytown",
-                              "Wonderland",
-                              "Chillington",
-                            ];
-                            const randomZips = [
-                              "55555",
-                              "77777",
-                              "12345",
-                              "98765",
-                              "44444",
-                            ];
-
-                            const nameIndex = card.id % randomNames.length;
-                            const streetIndex =
-                              (card.id + 1) % randomStreets.length;
-                            const cityIndex =
-                              (card.id + 2) % randomCities.length;
-                            const zipIndex = (card.id + 3) % randomZips.length;
-
-                            return (
-                              <>
-                                <p className="address-line">
-                                  {randomNames[nameIndex]}
-                                </p>
-                                <p className="address-line">
-                                  {randomStreets[streetIndex]}
-                                </p>
-                                <p className="address-line">
-                                  {`${randomZips[zipIndex]} ${card.location ?? randomCities[cityIndex]}`}
-                                </p>
-                              </>
-                            );
-                          })()
+                  <div className="postcard-overlay-back">
+                    <div className="postcard-overlay-content">
+                      <div className="overlay-message-side">
+                        {card.greeting && (
+                          <p className="overlay-greeting">{card.greeting}</p>
                         )}
+                        <p className="overlay-text">{card.text}</p>
+                      </div>
+
+                      <div className="overlay-address-side">
+                        <img
+                          src="./Stamp.png"
+                          alt="Stamp"
+                          className="overlay-stamp"
+                        />
+
+                        <div className="overlay-address-field">
+                          <p className="address-label">
+                            <strong>{isSent ? "To:" : "From:"}</strong>
+                          </p>
+
+                          {isSent ? (
+                            <>
+                              <p className="address-line">
+                                {card.receiverAddress?.name ??
+                                  `${card.receiver?.firstName ?? "Sparkle"} ${card.receiver?.lastName ?? "Twinkletoes"}`}
+                              </p>
+                              <p className="address-line">
+                                {card.receiverAddress?.street ??
+                                  "Fireplace Way 4"}
+                              </p>
+                              <p className="address-line">
+                                {card.receiverAddress?.zip &&
+                                card.receiverAddress?.city
+                                  ? `${card.receiverAddress.zip} ${card.receiverAddress.city}`
+                                  : "55555 Hugsville"}
+                              </p>
+                            </>
+                          ) : (
+                            (() => {
+                              const randomNames = [
+                                "Waffle Crispycookie",
+                                "Snuggles Warmheart",
+                                "Honey Bumblebee",
+                                "Pip Shortcake",
+                                "Mocha Marshmallow",
+                              ];
+                              const randomStreets = [
+                                "Sunshine Lane 123",
+                                "Cozy Corner 7",
+                                "Cloud Nine Ave 99",
+                                "Rainbow Road 42",
+                                "Starlight Boulevard 11",
+                              ];
+                              const randomCities = [
+                                "Hugsville",
+                                "Dreamland",
+                                "Skytown",
+                                "Wonderland",
+                                "Chillington",
+                              ];
+                              const randomZips = [
+                                "55555",
+                                "77777",
+                                "12345",
+                                "98765",
+                                "44444",
+                              ];
+
+                              const nameIndex = card.id % randomNames.length;
+                              const streetIndex =
+                                (card.id + 1) % randomStreets.length;
+                              const cityIndex =
+                                (card.id + 2) % randomCities.length;
+                              const zipIndex =
+                                (card.id + 3) % randomZips.length;
+
+                              return (
+                                <>
+                                  <p className="address-line">
+                                    {randomNames[nameIndex]}
+                                  </p>
+                                  <p className="address-line">
+                                    {randomStreets[streetIndex]}
+                                  </p>
+                                  <p className="address-line">
+                                    {`${randomZips[zipIndex]} ${card.location ?? randomCities[cityIndex]}`}
+                                  </p>
+                                </>
+                              );
+                            })()
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+
+          {totalPages > 1 && (
+            <nav className="pagination" aria-label="Pagination">
+              <button
+                className="button button--secondary"
+                onClick={() => {
+                  if (currentPage > 1) {
+                    setCurrentPage((prev) => Math.max(prev - 1, 1));
+                  }
+                }}
+                aria-disabled={currentPage === 1}
+                aria-label="Go to previous page"
+                /* Verhindert das Klicken per Tastatur, falls disabled */
+                tabIndex={currentPage === 1 ? -1 : 0}
+              >
+                <span aria-hidden="true">◀ </span>Back
+              </button>
+
+              <span aria-current="page">
+                Page <strong>{currentPage}</strong> of {totalPages}
+              </span>
+
+              <button
+                className="button button--secondary"
+                onClick={() => {
+                  if (currentPage < totalPages) {
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+                  }
+                }}
+                aria-disabled={currentPage === totalPages}
+                aria-label="Go to next page"
+                tabIndex={currentPage === totalPages ? -1 : 0}
+              >
+                Next<span aria-hidden="true"> ▶</span>
+              </button>
+            </nav>
+          )}
+        </>
       )}
 
       <h2 className="text-m">Postcard Map</h2>

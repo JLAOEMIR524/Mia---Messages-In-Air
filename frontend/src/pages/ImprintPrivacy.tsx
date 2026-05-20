@@ -24,6 +24,9 @@ export function ImprintPrivacy() {
       </Link>
 
       <div className="imprint-privacy-container">
+        <Link to="#" onClick={handleBack} className="ImprintStepBack" aria-label="go back">
+          <img src="./icons/arrow-back.svg" alt="" aria-hidden="true" />
+        </Link>
         <h1 className="text-l">Imprint & Privacy 📜</h1>
 
         <section className="imprint">
