@@ -19,4 +19,4 @@ ENV NODE_ENV=production
 EXPOSE 3001
 
 # Beim Start: Migrationen anwenden, dann Server starten
-CMD ["sh", "-c", "npx prisma migrate deploy && node index.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npx prisma db seed && node index.js"]

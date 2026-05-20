@@ -7,8 +7,6 @@ RUN npm ci
 
 COPY . .
 
-# WICHTIG: Vite backt VITE_*-Variablen zur BUILD-Zeit fest ein,
-# nicht zur Laufzeit. Die Backend-URL muss also hier rein.
 ARG VITE_API_URL=https://api.mia.jlaoemir.at
 ENV VITE_API_URL=$VITE_API_URL
 RUN npm run build
