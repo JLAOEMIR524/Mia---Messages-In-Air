@@ -97,7 +97,7 @@ export function Editor() {
         navigate("/message", { state: { fromEditor: true } });
       } else {
         setModerationError(
-          "Your image was flagged and cannot be sent. Please modify it first.",
+          "Inappropriate content detected. Please modify it and try again.",
         );
       }
     } catch (e) {

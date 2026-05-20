@@ -352,7 +352,7 @@ a:focus {
   background-image: url("./icons/arrow-right-blue.svg");
 }
 
-main.imageEditor > div:last-child .button--image {
+main.imageEditor>div:last-child .button--image {
   position: fixed;
   bottom: 2rem;
   left: 50%;
@@ -436,6 +436,8 @@ main.imageEditor > div:last-child .button--image {
   font-size: 1rem;
   margin: 0;
   white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
   padding: 0;
 }
 
@@ -443,6 +445,8 @@ main.imageEditor > div:last-child .button--image {
   font-size: 0.8rem;
   margin: 0;
   white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
   max-height: 80%;
   overflow-y: auto;
 }
@@ -1045,7 +1049,7 @@ a:hover {
   }
 }
 
-main > .button:last-of-type {
+main>.button:last-of-type {
   margin-top: var(--space-lg);
 }
 
@@ -1266,10 +1270,8 @@ main > .button:last-of-type {
   gap: var(--space-lg);
   margin: var(--space-sm) 0 var(--space-md) 0;
 
-  background: var(
-    --Gradient,
-    linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
-  );
+  background: var(--Gradient,
+      linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
   border-radius: var(--border-radius);
 
   .imageBlock {
@@ -1397,6 +1399,7 @@ main > .button:last-of-type {
 }
 
 @keyframes bounce {
+
   0%,
   20%,
   50%,
@@ -1692,10 +1695,8 @@ a.button--image {
   flex-shrink: 0;
   align-self: center;
   border-radius: var(--border-radius);
-  background: var(
-    --Gradient,
-    linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
-  );
+  background: var(--Gradient,
+      linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
 
   img {
     width: 30px;
@@ -1733,6 +1734,9 @@ a.button--image {
 
 .messagePreview__text {
   padding: 0;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .messagePreview__country p {
@@ -1781,7 +1785,7 @@ a.button--image {
   flex: 1;
 }
 
-.linkHeader + .messagePreview {
+.linkHeader+.messagePreview {
   margin-top: -20px;
 }
 
@@ -1824,7 +1828,7 @@ a.button--image {
   padding: var(--space-lg) var(--space-xl);
   border-radius: var(--border-radius-large);
 
-  .xpDisplay > img {
+  .xpDisplay>img {
     height: 45px;
   }
 
@@ -1848,10 +1852,8 @@ a.button--image {
       align-items: center;
       border-radius: var(--border-radius);
 
-      background: var(
-        --Gradient,
-        linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
-      );
+      background: var(--Gradient,
+          linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
       color: white;
     }
 
@@ -1899,10 +1901,8 @@ a.button--image {
     align-items: center;
     border-radius: 90px;
 
-    background: var(
-      --Gradient,
-      linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
-    );
+    background: var(--Gradient,
+        linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
 
     img {
       width: 80px;
@@ -1969,13 +1969,13 @@ a.button.button--image.message.is-disabled .icon-span {
   width: 100%;
 
   &:not(.gallery):not(.homeButton) {
-    & > button:first-child {
+    &>button:first-child {
       color: var(--color-primary);
       background-color: white;
       border: 2px solid var(--color-primary);
     }
 
-    & > button:first-child .icon-span {
+    &>button:first-child .icon-span {
       width: 20px;
       height: 19px;
       display: inline-block;
@@ -1984,7 +1984,7 @@ a.button.button--image.message.is-disabled .icon-span {
       background-repeat: no-repeat;
     }
 
-    & > button:first-child:hover {
+    &>button:first-child:hover {
       background-color: var(--color-hover);
     }
   }
@@ -2066,10 +2066,8 @@ a.button.button--image.message.is-disabled .icon-span {
   }
 
   .questCard:first-child {
-    background: var(
-      --Gradient,
-      linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
-    );
+    background: var(--Gradient,
+        linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
     margin-top: 0;
     color: white;
 
@@ -2230,10 +2228,8 @@ ol {
   display: flex;
   gap: var(--space-lg);
 
-  background: var(
-    --Gradient,
-    linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
-  );
+  background: var(--Gradient,
+      linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
   border-radius: var(--border-radius);
 
   .imageBlock {
@@ -2349,10 +2345,8 @@ ol {
 }
 
 .city {
-  background: var(
-    --Gradient,
-    linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
-  );
+  background: var(--Gradient,
+      linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
   color: var(--color-white);
   padding: var(--space-sm) var(--space-sm);
   display: inline-flex;
@@ -2613,6 +2607,8 @@ ol {
       grid-row: 1 / 3;
       font-size: 1.7rem;
       white-space: pre-wrap;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
 
     img {
@@ -3010,7 +3006,7 @@ ol {
         }
       }
 
-      > .logout {
+      >.logout {
         display: none;
       }
     }
@@ -3112,7 +3108,7 @@ ol {
     min-width: 500px;
   }
 
-  main.imageEditor > div:last-child .button--image {
+  main.imageEditor>div:last-child .button--image {
     left: 35%;
   }
 
@@ -3342,7 +3338,7 @@ ol {
         font-size: 1.5rem;
       }
 
-      .previewTop > img {
+      .previewTop>img {
         width: 20px;
       }
     }
@@ -3381,7 +3377,7 @@ ol {
     }
   }
 
-  main.imageEditor > div:last-child .button--image {
+  main.imageEditor>div:last-child .button--image {
     left: 30%;
   }
 
@@ -3464,7 +3460,7 @@ ol {
     min-width: 320px;
   }
 
-  main.imageEditor > div:last-child .button--image {
+  main.imageEditor>div:last-child .button--image {
     left: 25%;
   }
 
@@ -3518,6 +3514,7 @@ ol {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
