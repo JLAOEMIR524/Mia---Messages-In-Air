@@ -8,6 +8,7 @@ export function ForgotPassword() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  // Adds the background class when the page opens and removes it when leaving
   useEffect(() => {
     document.body.classList.add("background-heaven");
     document.title = "Mia | Forgot Password";
@@ -34,6 +35,7 @@ export function ForgotPassword() {
     if (authError) {
       console.error("Password reset request failed:", authError);
 
+      // Handles provider rate limiting
       if (
         authError.message?.includes("Daily email limit reached") ||
         authError.status === 429

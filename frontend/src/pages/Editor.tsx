@@ -60,6 +60,7 @@ export function Editor() {
 
       selectElement(null);
 
+      // Timeout allows Konva to clear selection borders before converting canvas to raw data URL
       setTimeout(() => {
         try {
           const dataUrl = stage.toDataURL({
@@ -205,6 +206,7 @@ export function Editor() {
     focusCanvs();
   };
 
+  // Automatically transfers keyboard focus back to the canvas element for immediate navigation controls
   const focusCanvs = useCallback(() => {
     const container = stageRef.current?.container();
     if (!container) return;
@@ -390,7 +392,7 @@ export function Editor() {
             Back
           </button>
           <button
-            className={`button button--image  ${"delete" === currentBar ? "button--selected" : ""}`}
+            className={`button button--image  ${"delete" === currentBar ? "button--selected" : ""}`}
             onMouseOver={() => setFocus("delete")}
             onMouseOut={() => setFocus(null)}
             onClick={deleteSelected}

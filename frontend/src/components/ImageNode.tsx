@@ -16,6 +16,7 @@ export function ImageNode({ element, isSelected, onSelect, onChange }: Props) {
   const shapeRef = useRef<Konva.Image | null>(null);
   const transformRef = useRef<Konva.Transformer | null>(null);
 
+  // attach the transformer handles to the image node when selected
   useEffect(() => {
     if (isSelected && transformRef.current && shapeRef.current) {
       transformRef.current.nodes([shapeRef.current]);
@@ -48,6 +49,7 @@ export function ImageNode({ element, isSelected, onSelect, onChange }: Props) {
           const scaleX = node.scaleX();
           const scaleY = node.scaleY();
 
+          // reset scale to 1 and bake the changes directly into width/height
           node.scaleX(1);
           node.scaleY(1);
 
@@ -72,6 +74,7 @@ export function ImageNode({ element, isSelected, onSelect, onChange }: Props) {
             "bottom-left",
             "bottom-right",
           ]}
+          // prevent scaling the image down to 0 or negative values
           boundBoxFunc={(_, newBox) => {
             if (newBox.width < 30 || newBox.height < 30) return _;
             return newBox;

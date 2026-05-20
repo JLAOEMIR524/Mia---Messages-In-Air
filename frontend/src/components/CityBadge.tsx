@@ -5,6 +5,7 @@ interface CityBadgeProps {
 
 export function CityBadge({
   location,
+  // default icon if no custom image path is provided
   icon = "./icons/location-white.svg",
 }: CityBadgeProps) {
   return (

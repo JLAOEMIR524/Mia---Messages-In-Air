@@ -11,10 +11,12 @@ export function usePostcard() {
   const [elements, setElements] = useState<CanvasElement[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
+  // Sets the active element target identifier
   const selectElement = useCallback((id: string | null) => {
     setSelectedId(id);
   }, []);
 
+  // Instantiates canvas assets and computes origin offset coordinates to center elements on drop
   const addElementDrop = useCallback(
     (payload: DragPayload, x: number, y: number) => {
       if (payload.type === "sticker") {
@@ -52,6 +54,7 @@ export function usePostcard() {
     [],
   );
 
+  // Updates properties of an active node while preserving immutable state references
   const updateElement = useCallback(
     (id: string, updates: Partial<CanvasElement>) => {
       setElements((prev) =>
@@ -63,13 +66,14 @@ export function usePostcard() {
     [],
   );
 
+  // Filters out the targeted element ID from the state array stream
   const deleteSelected = useCallback(() => {
     if (!selectedId) return;
-    //Keeps all elements except the selected one
     setElements((prev) => prev.filter((elem) => elem.id !== selectedId));
     setSelectedId(null);
   }, [selectedId]);
 
+  // Swaps indices forward to increment render layers (z-index) on the canvas
   const upSelected = useCallback(() => {
     if (!selectedId) return;
     setElements((prev) => {
@@ -84,6 +88,7 @@ export function usePostcard() {
     });
   }, [selectedId]);
 
+  // Swaps indices backward to decrement render layers (z-index) on the canvas
   const downSelected = useCallback(() => {
     if (!selectedId) return;
     setElements((prev) => {
@@ -98,6 +103,7 @@ export function usePostcard() {
     });
   }, [selectedId]);
 
+  // Computes randomized bounded coordinates within canvas viewport limits
   const addElementRandom = useCallback(
     (payload: DragPayload, canvasWidth: number, canvasHeight: number) => {
       const x =
@@ -109,6 +115,7 @@ export function usePostcard() {
     [addElementDrop],
   );
 
+  // Applies directional offset deltas to target structural layout coordinates
   const moveSelected = useCallback(
     (moveDirectionx: number, moveDirectiony: number) => {
       if (!selectElement) return;

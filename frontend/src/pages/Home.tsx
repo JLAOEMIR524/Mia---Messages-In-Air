@@ -7,6 +7,7 @@ import { usePreview } from "../context/PreviewContext";
 export function Home() {
   const { previewOpen, setPreviewOpen } = usePreview();
 
+  // Adds the background class when the page opens and removes it when leaving
   useEffect(() => {
     document.body.classList.add("background-heaven");
     document.title = "Mia | Home";
@@ -20,6 +21,7 @@ export function Home() {
 
   return (
     <>
+      {/* Blocks the background when the preview is open */}
       <main className="heaven" inert={previewOpen ? true : undefined}>
         <NavBarTop />
         <section className="Home">

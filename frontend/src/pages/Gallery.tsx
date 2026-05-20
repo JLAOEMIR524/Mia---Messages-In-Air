@@ -89,6 +89,7 @@ export function Gallery() {
     fetchPostcards();
   }, [session]);
 
+  // Resets pagination back to page 1 whenever user switches the filter view
   useEffect(() => {
     setCurrentPage(1);
   }, [filter]);
@@ -261,6 +262,7 @@ export function Gallery() {
                                 "44444",
                               ];
 
+                              // Generates consistent placeholder addresses based on the card ID seed
                               const nameIndex = card.id % randomNames.length;
                               const streetIndex =
                                 (card.id + 1) % randomStreets.length;
@@ -304,7 +306,7 @@ export function Gallery() {
                 }}
                 aria-disabled={currentPage === 1}
                 aria-label="Go to previous page"
-                /* Verhindert das Klicken per Tastatur, falls disabled */
+                /* Prevents clicking via the keyboard if disabled */
                 tabIndex={currentPage === 1 ? -1 : 0}
               >
                 <span aria-hidden="true">◀ </span>Back

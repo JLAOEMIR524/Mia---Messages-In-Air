@@ -14,4 +14,5 @@ export function PreviewProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
+// Custom hook providing direct consumer access to the underlying context state
 export const usePreview = () => useContext(PreviewContext);

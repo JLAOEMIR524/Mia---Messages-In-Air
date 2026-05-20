@@ -33,6 +33,7 @@ export function ProfileTopper({
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState(initialEmail);
 
+  // Splits full name into first and last name
   useEffect(() => {
     if (name) {
       const parts = name.split(" ");
@@ -41,8 +42,10 @@ export function ProfileTopper({
     }
   }, [name]);
 
+  // validation to prevent submitting empty fields
   const isInvalid = !firstName.trim() || !lastName.trim() || !email.trim();
 
+  // Handles switching between edit mode and save mode
   const handleEditClick = () => {
     if (isEditing) {
       if (isInvalid) {
@@ -52,6 +55,7 @@ export function ProfileTopper({
         return;
       }
 
+      // Send the updated profile data to the backend
       if (onEdit) {
         onEdit({ firstName, lastName, email });
       }
@@ -113,6 +117,7 @@ export function ProfileTopper({
               width: "100%",
             }}
           >
+            {/* rendering depending on whether edit mode is active */}
             {isEditing ? (
               <div
                 style={{
@@ -179,7 +184,7 @@ export function ProfileTopper({
                   </label>
                   <input
                     id="edit-email"
-                    type="type"
+                    type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email"

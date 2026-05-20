@@ -43,6 +43,7 @@ export function Canvas({
       }
     };
 
+    // calculate drop position on the canvas, factoring in current zoom/scale
     const handleDrop = (e: DragEvent) => {
       e.preventDefault();
       const rawData = e.dataTransfer?.getData("application/postcard-element");
@@ -65,6 +66,7 @@ export function Canvas({
     };
   }, [onDrop, scale]);
 
+  // deselect elements when clicking empty canvas space
   const handleStageClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
     if (e.target === e.target.getStage()) {
       onSelect(null);
@@ -102,6 +104,7 @@ export function Canvas({
           onClick={handleStageClick}
         >
           <Layer>
+            {/* background rectangle that also clears selection on click */}
             <Rect
               fill={backgroundColor}
               width={CANVAS_WIDTH + 5}

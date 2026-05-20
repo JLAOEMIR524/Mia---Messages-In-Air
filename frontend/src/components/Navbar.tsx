@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
 interface NavBarProps {
-  inert?: boolean;
+  inert?: boolean; // Blocks interaction when a overlay is open in the background
 }
 
 export function NavBar({ inert }: NavBarProps) {
@@ -17,7 +17,7 @@ export function NavBar({ inert }: NavBarProps) {
     const handleResize = () => {
       const mobile = window.innerWidth < 900;
       setIsMobile(mobile);
-      if (!mobile) setIsOpen(false);
+      if (!mobile) setIsOpen(false); // Auto-close the burger menu if the screen gets resized to desktop
     };
 
     window.addEventListener("resize", handleResize);
@@ -48,6 +48,7 @@ export function NavBar({ inert }: NavBarProps) {
     >
       <div className="topContainer">
         <div className="mobileBar">
+          {/* Show the right logo version depending on mobile / desktop / back button */}
           {!isMobile ? (
             <Link to="/dashboard" tabIndex={-1}>
               <img className="logo" src="./Logo.png" alt="Mia Logo" />
@@ -76,6 +77,7 @@ export function NavBar({ inert }: NavBarProps) {
             </button>
           )}
 
+          {/* Mobile hamburger button */}
           <button
             className={`hamburger-menu ${isOpen ? "active" : ""}`}
             onClick={() => setIsOpen(!isOpen)}

@@ -26,6 +26,13 @@ export function Send() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Tracks window dimensions dynamically for the confetti effect
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  // Initializes analysis from state or falls back to sessionStorage on reload
   const [analysis] = useState(() => {
     const state = location.state as LocationState | null;
     if (state?.analysis) {
@@ -39,12 +46,20 @@ export function Send() {
     return backup ? JSON.parse(backup) : null;
   });
 
+  // Adds layout classes and sets up the window resize listener
   useEffect(() => {
     document.body.classList.add("background-heaven");
-    document.title = "Mia | Postcard Send";
+    document.title = "Mia | Postcard Sent";
+
+    const handleResize = () => {
+      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    };
+
+    window.addEventListener("resize", handleResize);
 
     return () => {
       document.body.classList.remove("background-heaven");
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -72,8 +87,8 @@ export function Send() {
       <Confetti
         numberOfPieces={450}
         recycle={false}
-        width={window.innerWidth}
-        height={window.innerHeight}
+        width={windowSize.width}
+        height={windowSize.height}
       />
     </main>
   );

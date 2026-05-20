@@ -17,20 +17,39 @@ router.put("/api/user/update", async (req, res) => {
     const userId = session.user.id;
     const { firstName, lastName, email } = req.body;
 
+    // Check for missing fields
     if (!firstName || !lastName || !email) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    // merge names because some parts still use name
-    const fullName = `${firstName.trim()} ${lastName.trim()}`;
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanFirstName = firstName.trim();
+    const cleanLastName = lastName.trim();
+
+    // regex validation for email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(cleanEmail)) {
+      return res.status(400).json({ error: "Invalid email format" });
+    }
+
+    // Check if email is already taken by another user
+    const existingUser = await prisma.user.findUnique({
+      where: { email: cleanEmail }
+    });
+
+    if (existingUser && existingUser.id !== userId) {
+      return res.status(400).json({ error: "Email is already in use by another account" });
+    }
+
+    const fullName = `${cleanFirstName} ${cleanLastName}`;
 
     const updatedUser = await prisma.user.update({
       where: { id: userId },
       data: {
         name: fullName,
-        firstName: firstName.trim(),
-        lastName: lastName.trim(),
-        email: email.trim(),
+        firstName: cleanFirstName,
+        lastName: cleanLastName,
+        email: cleanEmail,
       },
     });
 

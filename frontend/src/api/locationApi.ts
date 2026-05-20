@@ -12,6 +12,7 @@ export interface LocationSuggestion {
   type: string;
 }
 
+// pulls a random receiver address for the postcard
 export const fetchRandomAddressFromDB = async (): Promise<AddressType> => {
   const response = await fetch(
     `${import.meta.env.VITE_API_URL}/api/addresses/random`,
@@ -25,6 +26,7 @@ export const fetchRandomAddressFromDB = async (): Promise<AddressType> => {
   return response.json();
 };
 
+// fetches suggestions for cities/countries based on user input
 export const searchLocationsFromDB = async (
   query: string,
 ): Promise<LocationSuggestion[]> => {

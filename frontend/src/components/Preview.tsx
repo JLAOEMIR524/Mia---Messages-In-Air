@@ -15,6 +15,7 @@ export function Preview({
   children,
   className,
 }: PreviewProps) {
+  // closes the modal instantly when pressing Escape
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -49,6 +50,7 @@ export function Preview({
           </button>
         </div>
 
+        {/*for whatever needs previewing */}
         <div className="previewContent">{children}</div>
       </div>
     </dialog>
