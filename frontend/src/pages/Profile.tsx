@@ -191,8 +191,6 @@ export function Profile() {
 
                 const data = await res.json();
                 console.log("Successfully saved to database:", data);
-
-                window.location.reload();
               } catch (err) {
                 console.error("Database update failed:", err);
                 alert("Could not save profile data. Please try again later.");
