@@ -1321,7 +1321,6 @@ main>.button:last-of-type {
 
       .profileText {
         font-size: 3rem;
-        font-style: italic;
         padding-right: 4px;
         cursor: default;
       }
@@ -2278,7 +2277,6 @@ ol {
 
       .profileText {
         font-size: 3rem;
-        font-style: italic;
         padding-right: 4px;
         cursor: default;
         color: black;
