@@ -499,7 +499,7 @@ main.imageEditor>div:last-child .button--image {
 }
 
 .button.button--image.gallery-filter.button--secondary:nth-child(1) .icon-span {
-  background-image: url("./icons/email-blue.svg");
+  background-image: url("/icons/email-blue.svg");
 }
 
 .button.button--image.gallery-filter.button--primary:nth-child(1) {
@@ -509,7 +509,7 @@ main.imageEditor>div:last-child .button--image {
 }
 
 .button.button--image.gallery-filter.button--primary:nth-child(1) .icon-span {
-  background-image: url("./icons/email-white.svg");
+  background-image: url("/icons/email-white.svg");
 }
 
 .button.button--image.gallery-filter.button--secondary:nth-child(2) {
@@ -519,7 +519,7 @@ main.imageEditor>div:last-child .button--image {
 }
 
 .button.button--image.gallery-filter.button--secondary:nth-child(2) .icon-span {
-  background-image: url("./icons/inbox-blue.svg");
+  background-image: url("/icons/inbox-blue.svg");
 }
 
 .button.button--image.gallery-filter.button--primary:nth-child(2) {
@@ -529,7 +529,7 @@ main.imageEditor>div:last-child .button--image {
 }
 
 .button.button--image.gallery-filter.button--primary:nth-child(2) .icon-span {
-  background-image: url("./icons/inbox-white.svg");
+  background-image: url("/icons/inbox-white.svg");
 }
 
 .button.button--image.gallery-filter.button--secondary:nth-child(3) {
@@ -539,7 +539,7 @@ main.imageEditor>div:last-child .button--image {
 }
 
 .button.button--image.gallery-filter.button--secondary:nth-child(3) .icon-span {
-  background-image: url("./icons/paper-plane-blue.svg");
+  background-image: url("/icons/paper-plane-blue.svg");
 }
 
 .button.button--image.gallery-filter.button--primary:nth-child(3) {
@@ -549,7 +549,7 @@ main.imageEditor>div:last-child .button--image {
 }
 
 .button.button--image.gallery-filter.button--primary:nth-child(3) .icon-span {
-  background-image: url("./icons/paper-plane-white.svg");
+  background-image: url("/icons/paper-plane-white.svg");
 }
 
 .button.button--image.gallery-filter.button--secondary:hover {
