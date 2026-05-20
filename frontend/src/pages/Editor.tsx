@@ -85,7 +85,7 @@ export function Editor() {
     try {
       const dataUrl = await handleExport();
 
-      const res = await fetch("/api/moderate", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/moderate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

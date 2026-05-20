@@ -325,7 +325,7 @@ a:focus {
     width: 20px;
     height: 20px;
     display: inline-block;
-    background-image: url("./icons/arrow-right-white.svg");
+    background-image: url("/icons/arrow-right-white.svg");
     background-size: contain;
     background-repeat: no-repeat;
   }
@@ -345,11 +345,11 @@ a:focus {
 }
 
 .button--image:disabled .icon-span {
-  background-image: url("./icons/arrow-right.svg");
+  background-image: url("/icons/arrow-right.svg");
 }
 
 .button--image:not(:disabled):hover .icon-span {
-  background-image: url("./icons/arrow-right-blue.svg");
+  background-image: url("/icons/arrow-right-blue.svg");
 }
 
 main.imageEditor > div:last-child .button--image {
@@ -498,7 +498,7 @@ main.imageEditor > div:last-child .button--image {
 }
 
 .button.button--image.gallery-filter.button--secondary:nth-child(1) .icon-span {
-  background-image: url("./icons/email-blue.svg");
+  background-image: url("/icons/email-blue.svg");
 }
 
 .button.button--image.gallery-filter.button--primary:nth-child(1) {
@@ -508,7 +508,7 @@ main.imageEditor > div:last-child .button--image {
 }
 
 .button.button--image.gallery-filter.button--primary:nth-child(1) .icon-span {
-  background-image: url("./icons/email-white.svg");
+  background-image: url("/icons/email-white.svg");
 }
 
 .button.button--image.gallery-filter.button--secondary:nth-child(2) {
@@ -518,7 +518,7 @@ main.imageEditor > div:last-child .button--image {
 }
 
 .button.button--image.gallery-filter.button--secondary:nth-child(2) .icon-span {
-  background-image: url("./icons/inbox-blue.svg");
+  background-image: url("/icons/inbox-blue.svg");
 }
 
 .button.button--image.gallery-filter.button--primary:nth-child(2) {
@@ -528,7 +528,7 @@ main.imageEditor > div:last-child .button--image {
 }
 
 .button.button--image.gallery-filter.button--primary:nth-child(2) .icon-span {
-  background-image: url("./icons/inbox-white.svg");
+  background-image: url("/icons/inbox-white.svg");
 }
 
 .button.button--image.gallery-filter.button--secondary:nth-child(3) {
@@ -538,7 +538,7 @@ main.imageEditor > div:last-child .button--image {
 }
 
 .button.button--image.gallery-filter.button--secondary:nth-child(3) .icon-span {
-  background-image: url("./icons/paper-plane-blue.svg");
+  background-image: url("/icons/paper-plane-blue.svg");
 }
 
 .button.button--image.gallery-filter.button--primary:nth-child(3) {
@@ -548,7 +548,7 @@ main.imageEditor > div:last-child .button--image {
 }
 
 .button.button--image.gallery-filter.button--primary:nth-child(3) .icon-span {
-  background-image: url("./icons/paper-plane-white.svg");
+  background-image: url("/icons/paper-plane-white.svg");
 }
 
 .button.button--image.gallery-filter.button--secondary:hover {
@@ -2006,7 +2006,7 @@ a.button.button--image.message.is-disabled .icon-span {
       width: 20px;
       height: 19px;
       display: inline-block;
-      background-image: url("./icons/eye-blue.svg");
+      background-image: url("/icons/eye-blue.svg");
       background-size: contain;
       background-repeat: no-repeat;
     }
@@ -2017,40 +2017,40 @@ a.button.button--image.message.is-disabled .icon-span {
   }
 
   button.button--image:first-child:hover .icon-span {
-    background-image: url("./icons/eye-blue.svg");
+    background-image: url("/icons/eye-blue.svg");
   }
 }
 
 .gallery .button--image:nth-child(1) .icon-span {
-  background-image: url("./icons/email-white.svg");
+  background-image: url("/icons/email-white.svg");
 }
 
 .button-flex.gallery button:first-child:hover .icon-span {
-  background-image: url("./icons/email-blue.svg");
+  background-image: url("/icons/email-blue.svg");
 }
 
 .button-flex .message .icon-span {
-  background-image: url("./icons/arrow-right-white.svg");
+  background-image: url("/icons/arrow-right-white.svg");
 }
 
 .button-flex .message:hover .icon-span {
-  background-image: url("./icons/arrow-right-blue.svg");
+  background-image: url("/icons/arrow-right-blue.svg");
 }
 
 .gallery .button--image:nth-child(2) .icon-span {
-  background-image: url("./icons/inbox-blue.svg");
+  background-image: url("/icons/inbox-blue.svg");
 }
 
 .gallery .button--image:nth-child(3) .icon-span {
-  background-image: url("./icons/paper-plane-blue.svg");
+  background-image: url("/icons/paper-plane-blue.svg");
 }
 
 .gallery .button--image:nth-child(2):hover .icon-span {
-  background-image: url("./icons/inbox-white.svg");
+  background-image: url("/icons/inbox-white.svg");
 }
 
 .gallery .button--image:nth-child(3):hover .icon-span {
-  background-image: url("./icons/paper-plane-white.svg");
+  background-image: url("/icons/paper-plane-white.svg");
 }
 
 .gallery .button--image:nth-child(3) {
