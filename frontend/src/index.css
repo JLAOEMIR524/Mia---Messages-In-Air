@@ -439,6 +439,7 @@ main.imageEditor>div:last-child .button--image {
   overflow-wrap: break-word;
   word-break: break-word;
   padding: 0;
+  padding-right: 8px;
 }
 
 .overlay-text {
@@ -449,6 +450,7 @@ main.imageEditor>div:last-child .button--image {
   word-break: break-word;
   max-height: 80%;
   overflow-y: auto;
+  padding-right: 8px;
 }
 
 /* Rechte Spalte */
@@ -461,6 +463,7 @@ main.imageEditor>div:last-child .button--image {
   text-align: left;
   padding-right: var(--space-sm);
   padding-bottom: var(--space-sm);
+
 }
 
 .overlay-stamp {
@@ -471,8 +474,8 @@ main.imageEditor>div:last-child .button--image {
 
 .overlay-address-field p {
   width: 100%;
-  font-size: clamp(6px, 3.8cqw, 15px);
-  padding-top: 5px;
+  margin-left: var(--space-sm);
+  font-size: clamp(6px, 3cqw, 15px);
 }
 
 .address-label {
