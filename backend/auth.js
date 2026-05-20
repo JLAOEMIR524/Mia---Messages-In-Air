@@ -2,7 +2,6 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./db.js";
 import { sendNotification } from "./mail/sendMail.js";
-import { request } from "http";
 import crypto from "crypto";
 
 const isProd = process.env.NODE_ENV === "production";
@@ -16,8 +15,8 @@ export const auth = betterAuth({
   secret: process.env.BETTER_AUTH_SECRET,
   trustedOrigins: [process.env.FRONTEND_URL ?? "http://localhost:5173"],
 
-  advanced:{
-    crossSubDomainCookies:{
+  advanced: {
+    crossSubDomainCookies: {
       enabled: isProd,
       domain: isProd ? ".mia.jlaoemir.at" : undefined,
     },
@@ -26,7 +25,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     autoSignIn: true,
-    sendResetPassword: async ({ user, url, token }, request) => {
+    sendResetPassword: async ({ user, url }) => {
       void sendNotification(
         "Mia: Reset Password",
         user.id,
@@ -35,7 +34,7 @@ export const auth = betterAuth({
         `Click the link to reset your password: ${url}`,
       );
     },
-    onPasswordReset: async ({ user }, request) => {
+    onPasswordReset: async ({ user }) => {
       console.log(`Password for user ${user.email} has been reset.`);
     },
   },

@@ -392,7 +392,7 @@ export function Editor() {
             Back
           </button>
           <button
-            className={`button button--image  ${"delete" === currentBar ? "button--selected" : ""}`}
+            className={`button button--image ${"delete" === currentBar ? "button--selected" : ""}`}
             onMouseOver={() => setFocus("delete")}
             onMouseOut={() => setFocus(null)}
             onClick={deleteSelected}

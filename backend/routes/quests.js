@@ -1,7 +1,7 @@
 import { Router } from "express";
 const router = Router();
-import { prisma } from "../db.js"; 
-import { auth } from "../auth.js"; 
+import { prisma } from "../db.js";
+import { auth } from "../auth.js";
 
 router.get("/api/quests", async (req, res) => {
   try {
@@ -48,8 +48,8 @@ router.get("/api/user/quests", async (req, res) => {
       include: {
         quest: true,
       },
-      orderBy: { 
-        createdAt: "asc" 
+      orderBy: {
+        createdAt: "asc",
       },
     });
 
@@ -58,7 +58,7 @@ router.get("/api/user/quests", async (req, res) => {
       id: postcard.id,
       title: postcard.quest?.title || "Unbekannte Quest",
       description: postcard.quest?.description || "",
-      earnedXp: postcard.xp, 
+      earnedXp: postcard.xp,
     }));
 
     res.json({

@@ -10,7 +10,7 @@ import stickersRouter from "./routes/stickers.js";
 import securityRouter from "./routes/security.js";
 import userRouter from "./routes/user.js";
 import updateUserRouter from "./routes/updateUser.js";
-import userPostcardRouter from "./routes/userPostcard.js"; 
+import userPostcardRouter from "./routes/userPostcard.js";
 import { unsubscribeMail } from "./mail/unsubscribeMail.js";
 import moderationRoutes from "./routes/moderation.js";
 
@@ -42,7 +42,7 @@ app.use("/api/user", userPostcardRouter);
 app.get("/unsubscribe", (req, res) => {
   const token = req.query.token;
   unsubscribeMail(token);
-  res.redirect(frontendUrl)
+  res.redirect(frontendUrl);
 });
 
 app.post("/unsubscribe", (req, res) => {

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { prisma } from "../db.js";
-import { auth } from "../auth.js"; 
+import { auth } from "../auth.js";
 const router = Router();
 
 router.get("/api/user/stats", async (req, res) => {
@@ -17,16 +17,16 @@ router.get("/api/user/stats", async (req, res) => {
 
     const user = await prisma.user.findUnique({
       where: { id: userId },
-      select: { xp: true, name: true }
+      select: { xp: true, name: true },
     });
 
     // separate counts for sent/received cards to show on the dashboard
     const sentPostcardsCount = await prisma.postcard.count({
-      where: { creatorId: userId }
+      where: { creatorId: userId },
     });
 
     const receivedPostcardsCount = await prisma.postcard.count({
-      where: { receiverId: userId }
+      where: { receiverId: userId },
     });
 
     res.status(200).json({
@@ -34,9 +34,8 @@ router.get("/api/user/stats", async (req, res) => {
       name: user?.name || "Guest",
       xp: user?.xp || 0,
       sentCount: sentPostcardsCount,
-      receivedCount: receivedPostcardsCount
+      receivedCount: receivedPostcardsCount,
     });
-
   } catch (error) {
     console.error("Error fetching user stats:", error);
     res.status(500).json({ error: "Internal Server Error" });

@@ -1,17 +1,12 @@
 import { Router } from "express";
 const router = Router();
-import { PrismaClient } from "@prisma/client";
 import { prisma } from "../db.js";
 import { auth } from "../auth.js";
 import { Filter } from "bad-words";
 import { analyzePostcard } from "../utils/postcardAnalyzer.js";
 import crypto from "node:crypto";
 import LanguageDetect from "languagedetect";
-import {
-  sendNotification,
-  sendPostcardNotification,
-} from "../mail/sendMail.js";
-import { error } from "node:console";
+import { sendPostcardNotification } from "../mail/sendMail.js";
 const lngDetector = new LanguageDetect();
 
 // Quest IDs that allow shorter messages
@@ -19,7 +14,8 @@ const SHORT_QUEST_IDS = [8, 10, 14, 16, 20, 24, 30, 36, 49, 59, 62, 68];
 
 router.post("/api/postcards", async (req, res) => {
   try {
-    const { questId, image, text, greeting, location, receiverAddress } = req.body;
+    const { questId, image, text, greeting, location, receiverAddress } =
+      req.body;
 
     if (typeof image !== "string" || image.length === 0) {
       return res.status(400).json({ ok: false, error: "no_image" });
@@ -37,7 +33,7 @@ router.post("/api/postcards", async (req, res) => {
 
     const creatorId = session.user.id;
     const numericQuestId = questId ? Number(questId) : null;
-    
+
     // Set dynamic minimum text length based on the specific quest type
     const isShortQuest = SHORT_QUEST_IDS.includes(numericQuestId);
     const minLength = isShortQuest ? 10 : 99;
@@ -98,7 +94,7 @@ router.post("/api/postcards", async (req, res) => {
 
       const wordsInText = text
         .toLowerCase()
-        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+        .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "")
         .split(/\s+/);
 
       const englishWordCount = wordsInText.filter((word) =>
@@ -256,13 +252,17 @@ router.post("/api/postcards", async (req, res) => {
 
     // Notifies the Receiver of the Postcard per email(only the postcard is sent)
     if (receiverEmail && receiverName) {
-      sendPostcardNotification(receiverEmail, receiverId, receiverName, result.postcard.id);
+      sendPostcardNotification(
+        receiverEmail,
+        receiverId,
+        receiverName,
+        result.postcard.id,
+      );
     }
   } catch (error) {
     console.error("Error saving postcard to DB:", error);
     res.status(500).json({ error: "Error saving the postcard" });
   }
 });
-
 
 export default router;

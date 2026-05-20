@@ -1,5 +1,3 @@
-import express from "express";
-import { userInfo } from "node:os";
 import { Resend } from "resend";
 import { prisma } from "../db.js";
 
@@ -36,9 +34,9 @@ async function sendMail({ to, templateId, variables }, id) {
 
   // Error for Rate limit
   if (error) {
-    const isRateLimit = 
-      error.statusCode === 422 || 
-      error.message?.toLowerCase().includes("rate limit") || 
+    const isRateLimit =
+      error.statusCode === 422 ||
+      error.message?.toLowerCase().includes("rate limit") ||
       error.message?.toLowerCase().includes("daily limit");
 
     if (isRateLimit) {

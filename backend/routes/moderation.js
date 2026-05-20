@@ -4,9 +4,7 @@ import multer from "multer";
 import { prisma } from "../db.js";
 import crypto from "node:crypto";
 import FormData from "form-data";
-import { error } from "node:console";
 import { auth } from "../auth.js";
-import { isTest } from "better-auth";
 
 // Maximum allowed probability (0.0 to 1.0) for each category before it gets blocked
 const THRESHOLDS = {

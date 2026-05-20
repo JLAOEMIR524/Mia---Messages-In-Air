@@ -17,11 +17,9 @@ router.get("/api/addresses/random", async (req, res) => {
     const count = await prisma.address.count();
 
     if (count === 0) {
-      return res
-        .status(404)
-        .json({
-          error: "There are no recipient addresses in the database.",
-        });
+      return res.status(404).json({
+        error: "There are no recipient addresses in the database.",
+      });
     }
 
     // Get a random record by skipping a random number of rows

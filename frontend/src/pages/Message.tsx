@@ -9,7 +9,7 @@ import {
   type AddressType,
   type LocationSuggestion,
 } from "../api/locationApi";
-import { usePreview } from "../context/PreviewContext";
+import { usePreview } from "../hooks/usePreview";
 
 export interface QuestType {
   id: number;
@@ -231,9 +231,11 @@ export function Message() {
           analysis: result.analysis,
         },
       });
-    } catch (error: any) {
-      console.error("Error while sending:", error);
-      alert(`Validation Error: ${error.message}`);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Error while sending:", error);
+        alert(`Validation Error: ${error.message}`);
+      }
     } finally {
       setIsSending(false);
     }

@@ -1,5 +1,3 @@
-import express from "express";
-import { userInfo } from "node:os";
 import { prisma } from "../db.js";
 
 export async function unsubscribeMail(token) {

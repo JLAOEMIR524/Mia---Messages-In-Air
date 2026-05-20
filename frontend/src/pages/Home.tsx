@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { NavBarTop } from "../components/NavbarTop";
 import { Link } from "react-router-dom";
 import { Preview } from "../components/Preview";
-import { usePreview } from "../context/PreviewContext";
+import { usePreview } from "../hooks/usePreview";
 
 export function Home() {
   const { previewOpen, setPreviewOpen } = usePreview();

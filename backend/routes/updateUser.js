@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { prisma } from "../db.js";
-import { auth } from "../auth.js"; 
+import { auth } from "../auth.js";
 
 const router = Router();
 
@@ -34,11 +34,13 @@ router.put("/api/user/update", async (req, res) => {
 
     // Check if email is already taken by another user
     const existingUser = await prisma.user.findUnique({
-      where: { email: cleanEmail }
+      where: { email: cleanEmail },
     });
 
     if (existingUser && existingUser.id !== userId) {
-      return res.status(400).json({ error: "Email is already in use by another account" });
+      return res
+        .status(400)
+        .json({ error: "Email is already in use by another account" });
     }
 
     const fullName = `${cleanFirstName} ${cleanLastName}`;
@@ -63,7 +65,6 @@ router.put("/api/user/update", async (req, res) => {
         email: updatedUser.email,
       },
     });
-
   } catch (error) {
     console.error("Error updating user profile:", error);
     res.status(500).json({ error: "Internal Server Error" });

@@ -1,6 +1,5 @@
-import express, { Router } from "express";
+import express from "express";
 import crypto from "crypto";
-import { sendNotification } from "../mail/sendMail.js";
 
 const router = express.Router();
 

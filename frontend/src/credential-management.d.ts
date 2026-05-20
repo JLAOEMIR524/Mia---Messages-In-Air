@@ -11,7 +11,7 @@ interface PasswordCredential extends Credential {
   readonly iconURL: string;
 }
 
-declare var PasswordCredential: {
+declare const PasswordCredential: {
   prototype: PasswordCredential;
   new (data: PasswordCredentialData): PasswordCredential;
   new (form: HTMLFormElement): PasswordCredential;

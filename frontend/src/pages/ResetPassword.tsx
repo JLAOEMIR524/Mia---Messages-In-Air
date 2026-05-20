@@ -7,18 +7,13 @@ export function ResetPassword() {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [token, setToken] = useState<string | null>(null);
+  const token = new URLSearchParams(window.location.search).get("token");
   const navigate = useNavigate();
 
   // Safely extracts the token from the URL on component mount
   useEffect(() => {
-    const urlToken = new URLSearchParams(window.location.search).get("token");
-    if (!urlToken) {
-      navigate("/login");
-    } else {
-      setToken(urlToken);
-    }
-  }, [navigate]);
+    if (!token) navigate("/login");
+  }, [token, navigate]);
 
   async function handleReset() {
     setLoading(true);

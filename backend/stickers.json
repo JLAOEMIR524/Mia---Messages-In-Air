@@ -1,44 +1,244 @@
 {
   "stickers": [
-    { "name": "Airplane", "fileName": "airplane.avif", "requiredXp": 0, "description": "An airplane" },
-    { "name": "Beach", "fileName": "beach.avif", "requiredXp": 50, "description": "A tropical beach" },
-    { "name": "Car", "fileName": "car.avif", "requiredXp": 100, "description": "A red sports car" },
-    { "name": "Books", "fileName": "books.avif", "requiredXp": 200, "description": "A stack of books" },
-    { "name": "Bouquet of Flowers", "fileName": "bouquet_of_flowers.avif", "requiredXp": 300, "description": "A bouquet of flowers" },
-    { "name": "Christmas Tree", "fileName": "christmas_tree.avif", "requiredXp": 400, "description": "A decorated Christmas tree" },
-    { "name": "Laptop", "fileName": "laptop.avif", "requiredXp": 600, "description": "A laptop computer" },
-    { "name": "World", "fileName": "world.avif", "requiredXp": 800, "description": "Planet Earth" },
-    { "name": "Eyes", "fileName": "eyes.avif", "requiredXp": 900, "description": "A pair of cartoon eyes" },
-    { "name": "Four-Leaf Clover", "fileName": "four_leaf_clover.avif", "requiredXp": 1000, "description": "A green four-leaf clover" },
-    { "name": "French Fries", "fileName": "french_fries.avif", "requiredXp": 1100, "description": "A carton of french fries" },
-    { "name": "Frog", "fileName": "frog.avif", "requiredXp": 1200, "description": "A cute green frog" },
-    { "name": "Smiling Face", "fileName": "smiling_face.avif", "requiredXp": 1300, "description": "A happy smiling face emoji" },
-    { "name": "Burger", "fileName": "burger.avif", "requiredXp": 1400, "description": "A hamburger" },
-    { "name": "Poop", "fileName": "poop.avif", "requiredXp": 1500, "description": "A smiling poop emoji" },
-    { "name": "Chick", "fileName": "chick.avif", "requiredXp": 1600, "description": "A fluffy yellow chick" },
-    { "name": "Red Heart", "fileName": "red_heart.avif", "requiredXp": 1700, "description": "A red heart" },
-    { "name": "House", "fileName": "house.avif", "requiredXp": 1800, "description": "A small family house" },
-    { "name": "Angel Face", "fileName": "angel_face.avif", "requiredXp": 1900, "description": "A smiling angel face emoji" },
-    { "name": "Tears of Joy Face", "fileName": "tears_of_joy_face.avif", "requiredXp": 2000, "description": "A laughing face emoji with tears" },
-    { "name": "Nail Polish", "fileName": "nail_polish.avif", "requiredXp": 2100, "description": "Pink nail polish" },
-    { "name": "Musical Notes", "fileName": "musical_notes.avif", "requiredXp": 2200, "description": "Floating musical notes" },
-    { "name": "Palm Tree", "fileName": "palm_tree.avif", "requiredXp": 2300, "description": "A tropical palm tree" },
-    { "name": "Pizza", "fileName": "pizza.avif", "requiredXp": 2400, "description": "A slice of pepperoni pizza" },
-    { "name": "Purple Heart", "fileName": "purple_heart.avif", "requiredXp": 2500, "description": "A purple heart" },
-    { "name": "Rainbow", "fileName": "rainbow.avif", "requiredXp": 2600, "description": "A colorful rainbow" },
-    { "name": "Rainbow Flag", "fileName": "rainbow_flag.avif", "requiredXp": 2700, "description": "A pride rainbow flag" },
-    { "name": "Rose", "fileName": "rose.avif", "requiredXp": 2800, "description": "A single red rose" },
-    { "name": "Shopping Bags", "fileName": "shopping_bags.avif", "requiredXp": 2900, "description": "Colorful shopping bags" },
-    { "name": "Face with Hearts", "fileName": "smiling_face_with_hearts.avif", "requiredXp": 3000, "description": "A smiling face emoji surrounded by hearts" },
-    { "name": "Mountain", "fileName": "mountain.avif", "requiredXp": 3100, "description": "A snow-covered mountain peak" },
-    { "name": "Snowman", "fileName": "snowman.avif", "requiredXp": 3200, "description": "A friendly snowman" },
-    { "name": "Soccer Ball", "fileName": "soccer_ball.avif", "requiredXp": 3300, "description": "A soccer ball" },
-    { "name": "Star", "fileName": "star.avif", "requiredXp": 3400, "description": "A shining yellow star" },
-    { "name": "Train", "fileName": "train.avif", "requiredXp": 3500, "description": "A high-speed train" },
-    { "name": "Sun", "fileName": "sun.avif", "requiredXp": 3600, "description": "A bright yellow sun" },
-    { "name": "Water Drops", "fileName": "water_drops.avif", "requiredXp": 3700, "description": "Splashing water droplets" },
-    { "name": "Party Popper", "fileName": "party_popper.avif", "requiredXp": 3800, "description": "A party popper exploding with confetti" },
-    { "name": "100 Percent", "fileName": "hundred.avif", "requiredXp": 3900, "description": "100 Percent" },
-    { "name": "Trophy", "fileName": "trophy.avif", "requiredXp": 4000, "description": "A golden trophy cup" }
+    {
+      "name": "Airplane",
+      "fileName": "airplane.avif",
+      "requiredXp": 0,
+      "description": "An airplane"
+    },
+    {
+      "name": "Beach",
+      "fileName": "beach.avif",
+      "requiredXp": 50,
+      "description": "A tropical beach"
+    },
+    {
+      "name": "Car",
+      "fileName": "car.avif",
+      "requiredXp": 100,
+      "description": "A red sports car"
+    },
+    {
+      "name": "Books",
+      "fileName": "books.avif",
+      "requiredXp": 200,
+      "description": "A stack of books"
+    },
+    {
+      "name": "Bouquet of Flowers",
+      "fileName": "bouquet_of_flowers.avif",
+      "requiredXp": 300,
+      "description": "A bouquet of flowers"
+    },
+    {
+      "name": "Christmas Tree",
+      "fileName": "christmas_tree.avif",
+      "requiredXp": 400,
+      "description": "A decorated Christmas tree"
+    },
+    {
+      "name": "Laptop",
+      "fileName": "laptop.avif",
+      "requiredXp": 600,
+      "description": "A laptop computer"
+    },
+    {
+      "name": "World",
+      "fileName": "world.avif",
+      "requiredXp": 800,
+      "description": "Planet Earth"
+    },
+    {
+      "name": "Eyes",
+      "fileName": "eyes.avif",
+      "requiredXp": 900,
+      "description": "A pair of cartoon eyes"
+    },
+    {
+      "name": "Four-Leaf Clover",
+      "fileName": "four_leaf_clover.avif",
+      "requiredXp": 1000,
+      "description": "A green four-leaf clover"
+    },
+    {
+      "name": "French Fries",
+      "fileName": "french_fries.avif",
+      "requiredXp": 1100,
+      "description": "A carton of french fries"
+    },
+    {
+      "name": "Frog",
+      "fileName": "frog.avif",
+      "requiredXp": 1200,
+      "description": "A cute green frog"
+    },
+    {
+      "name": "Smiling Face",
+      "fileName": "smiling_face.avif",
+      "requiredXp": 1300,
+      "description": "A happy smiling face emoji"
+    },
+    {
+      "name": "Burger",
+      "fileName": "burger.avif",
+      "requiredXp": 1400,
+      "description": "A hamburger"
+    },
+    {
+      "name": "Poop",
+      "fileName": "poop.avif",
+      "requiredXp": 1500,
+      "description": "A smiling poop emoji"
+    },
+    {
+      "name": "Chick",
+      "fileName": "chick.avif",
+      "requiredXp": 1600,
+      "description": "A fluffy yellow chick"
+    },
+    {
+      "name": "Red Heart",
+      "fileName": "red_heart.avif",
+      "requiredXp": 1700,
+      "description": "A red heart"
+    },
+    {
+      "name": "House",
+      "fileName": "house.avif",
+      "requiredXp": 1800,
+      "description": "A small family house"
+    },
+    {
+      "name": "Angel Face",
+      "fileName": "angel_face.avif",
+      "requiredXp": 1900,
+      "description": "A smiling angel face emoji"
+    },
+    {
+      "name": "Tears of Joy Face",
+      "fileName": "tears_of_joy_face.avif",
+      "requiredXp": 2000,
+      "description": "A laughing face emoji with tears"
+    },
+    {
+      "name": "Nail Polish",
+      "fileName": "nail_polish.avif",
+      "requiredXp": 2100,
+      "description": "Pink nail polish"
+    },
+    {
+      "name": "Musical Notes",
+      "fileName": "musical_notes.avif",
+      "requiredXp": 2200,
+      "description": "Floating musical notes"
+    },
+    {
+      "name": "Palm Tree",
+      "fileName": "palm_tree.avif",
+      "requiredXp": 2300,
+      "description": "A tropical palm tree"
+    },
+    {
+      "name": "Pizza",
+      "fileName": "pizza.avif",
+      "requiredXp": 2400,
+      "description": "A slice of pepperoni pizza"
+    },
+    {
+      "name": "Purple Heart",
+      "fileName": "purple_heart.avif",
+      "requiredXp": 2500,
+      "description": "A purple heart"
+    },
+    {
+      "name": "Rainbow",
+      "fileName": "rainbow.avif",
+      "requiredXp": 2600,
+      "description": "A colorful rainbow"
+    },
+    {
+      "name": "Rainbow Flag",
+      "fileName": "rainbow_flag.avif",
+      "requiredXp": 2700,
+      "description": "A pride rainbow flag"
+    },
+    {
+      "name": "Rose",
+      "fileName": "rose.avif",
+      "requiredXp": 2800,
+      "description": "A single red rose"
+    },
+    {
+      "name": "Shopping Bags",
+      "fileName": "shopping_bags.avif",
+      "requiredXp": 2900,
+      "description": "Colorful shopping bags"
+    },
+    {
+      "name": "Face with Hearts",
+      "fileName": "smiling_face_with_hearts.avif",
+      "requiredXp": 3000,
+      "description": "A smiling face emoji surrounded by hearts"
+    },
+    {
+      "name": "Mountain",
+      "fileName": "mountain.avif",
+      "requiredXp": 3100,
+      "description": "A snow-covered mountain peak"
+    },
+    {
+      "name": "Snowman",
+      "fileName": "snowman.avif",
+      "requiredXp": 3200,
+      "description": "A friendly snowman"
+    },
+    {
+      "name": "Soccer Ball",
+      "fileName": "soccer_ball.avif",
+      "requiredXp": 3300,
+      "description": "A soccer ball"
+    },
+    {
+      "name": "Star",
+      "fileName": "star.avif",
+      "requiredXp": 3400,
+      "description": "A shining yellow star"
+    },
+    {
+      "name": "Train",
+      "fileName": "train.avif",
+      "requiredXp": 3500,
+      "description": "A high-speed train"
+    },
+    {
+      "name": "Sun",
+      "fileName": "sun.avif",
+      "requiredXp": 3600,
+      "description": "A bright yellow sun"
+    },
+    {
+      "name": "Water Drops",
+      "fileName": "water_drops.avif",
+      "requiredXp": 3700,
+      "description": "Splashing water droplets"
+    },
+    {
+      "name": "Party Popper",
+      "fileName": "party_popper.avif",
+      "requiredXp": 3800,
+      "description": "A party popper exploding with confetti"
+    },
+    {
+      "name": "100 Percent",
+      "fileName": "hundred.avif",
+      "requiredXp": 3900,
+      "description": "100 Percent"
+    },
+    {
+      "name": "Trophy",
+      "fileName": "trophy.avif",
+      "requiredXp": 4000,
+      "description": "A golden trophy cup"
+    }
   ]
 }

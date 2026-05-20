@@ -2,6 +2,11 @@ import { Link, useLocation } from "react-router-dom";
 import { FeedbackCard } from "../components/SendCards";
 import { useEffect, useState } from "react";
 
+interface QuestItem {
+  name: string;
+  score: number;
+}
+
 interface LocationState {
   fromMessage?: boolean;
   analysis?: {
@@ -11,7 +16,7 @@ interface LocationState {
       capitalization: number;
       punctuation: number;
     };
-    questFulfillment: Array<{ name: string; score: number }>;
+    questFulfillment: Array<QuestItem>;
     xpCalculation: {
       baseXP: number;
       questXP: number;
@@ -76,7 +81,7 @@ export function Details() {
             {questFulfillment.length > 0 && (
               <>
                 <h2 className="text-xs">Quest Fulfillment:</h2>
-                {questFulfillment.map((item: any, index: number) => (
+                {questFulfillment.map((item: QuestItem, index: number) => (
                   <p key={index}>
                     {item.name}: {item.score}/5
                   </p>

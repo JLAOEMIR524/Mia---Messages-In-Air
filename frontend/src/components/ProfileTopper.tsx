@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface ProfileTopperProps {
   initials: string;
@@ -29,18 +29,12 @@ export function ProfileTopper({
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState(initialEmail);
-
   // Splits full name into first and last name
-  useEffect(() => {
-    if (name) {
-      const parts = name.split(" ");
-      setFirstName(parts[0] || "");
-      setLastName(parts.slice(1).join(" ") || "");
-    }
-  }, [name]);
+  const [firstName, setFirstName] = useState(() => name.split(" ")[0] || "");
+  const [lastName, setLastName] = useState(
+    () => name.split(" ").slice(1).join(" ") || "",
+  );
+  const [email, setEmail] = useState(initialEmail);
 
   // validation to prevent submitting empty fields
   const isInvalid = !firstName.trim() || !lastName.trim() || !email.trim();
