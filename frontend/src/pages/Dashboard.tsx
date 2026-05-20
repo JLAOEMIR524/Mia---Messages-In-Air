@@ -154,7 +154,11 @@ export function Dashboard() {
                   key={card.id}
                   titel={`To: Someone in the world`}
                   country={card.location}
-                  previewText={card.text}
+                  previewText={
+                    card.text.length > 80
+                      ? `${card.text.substring(0, 80)}...`
+                      : card.text
+                  }
                   statusIcon="./icons/email-white.svg"
                   to="/gallery"
                 />

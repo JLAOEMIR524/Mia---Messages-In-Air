@@ -1734,6 +1734,9 @@ a.button--image {
 
 .messagePreview__text {
   padding: 0;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .messagePreview__country p {
