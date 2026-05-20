@@ -131,7 +131,11 @@ export function Dashboard() {
                   key={card.id}
                   titel={`From: Someone to you`}
                   country={card.location}
-                  previewText={card.text}
+                  previewText={
+                    card.text.length > 80
+                      ? `${card.text.substring(0, 80)}...`
+                      : card.text
+                  }
                   to="/gallery"
                 />
               ))

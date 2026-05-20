@@ -959,6 +959,27 @@ a:hover {
   }
 }
 
+/* Pagination */
+.pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-sm);
+
+  button {
+    margin: 0;
+  }
+
+  .button[aria-disabled="true"] {
+    background-color: var(--color-disabled);
+    border-color: var(--color-gray-300);
+    color: var(--color-input-disabled-text);
+    cursor: not-allowed;
+  }
+}
+
+
 /* Quest Card */
 .questCard {
   height: min-content;
@@ -2319,6 +2340,10 @@ ol {
   }
 }
 
+.ImprintStepBack {
+  display: none;
+}
+
 /* Message Preview */
 .messagePreview {
   width: 100%;
@@ -2914,6 +2939,14 @@ ol {
     }
   }
 
+  .ImprintStepBack {
+    display: block;
+
+    img {
+      width: 30px;
+    }
+  }
+
   .postcardBack .message-container p.greeting {
     font-size: 1rem;
   }
@@ -3280,6 +3313,7 @@ ol {
 
   .loadQuestCard {
     min-width: 0;
+    width: 100%;
   }
 
   .questCard {
@@ -3461,7 +3495,7 @@ ol {
   }
 
   main.imageEditor>div:last-child .button--image {
-    left: 25%;
+    left: 20%;
   }
 
   .galleryContainer {

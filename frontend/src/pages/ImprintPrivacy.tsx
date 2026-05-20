@@ -24,6 +24,14 @@ export function ImprintPrivacy() {
       </Link>
 
       <div className="imprint-privacy-container">
+        <Link
+          to="#"
+          onClick={handleBack}
+          className="ImprintStepBack"
+          aria-label="go back"
+        >
+          <img src="./icons/arrow-back.svg" alt="" aria-hidden="true" />
+        </Link>
         <h1 className="text-l">Imprint & Privacy 📜</h1>
 
         <section className="imprint">
@@ -122,14 +130,16 @@ export function ImprintPrivacy() {
 
           <h3 className="text-s">Transfer of Data to Third Parties</h3>
           <p>
-            To fulfill your request, it may be necessary to forward your data to
-            third parties (e.g. content delivery networks, software providers,
-            etc.). Data is transferred exclusively on the basis of the GDPR, in
-            particular for contract fulfillment or with your prior consent. Some
-            recipients of your personal data may be located outside your country
-            or process your data there. The level of data protection in other
-            countries may not be equivalent to that of Austria. However, we only
-            transfer personal data to countries for which the EU Commission has
+            To fulfill your request, it may be necessary to . forward your data
+            to third parties. Specifically, uploaded images are processed
+            via the Sightengine API (Sightengine SAS, France) solely for the
+            purpose of content moderation and automated safety checks. Data is
+            transferred exclusively on the basis of the GDPR..., in particular
+            for contract fulfillment or with your prior consent. Some recipients
+            of your personal data may be located outside your country or process
+            your data there. The level of data protection in other countries may
+            not be equivalent to that of Austria. However, we only transfer
+            personal data to countries for which the EU Commission has
             determined an adequate level of data protection.
           </p>
 
@@ -150,14 +160,7 @@ export function ImprintPrivacy() {
 
           <h3 className="text-s">Cookies</h3>
           <p>
-            This website uses cookies. These are small text files stored on your
-            device via your browser. They do not cause any harm. Cookies are
-            used to make the website more user-friendly. Some cookies remain
-            stored on your device until you delete them, enabling us to
-            recognize your browser on your next visit. If you do not wish this,
-            you can configure your browser to inform you when cookies are set
-            and allow them only on a case-by-case basis. Disabling cookies may
-            limit the functionality of this website.
+           This website does not use any cookies.
           </p>
 
           <h3 className="text-s">Contact Details</h3>
