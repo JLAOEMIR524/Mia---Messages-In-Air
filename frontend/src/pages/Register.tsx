@@ -72,6 +72,18 @@ export function Register() {
           setLoading(false);
           setError(ctx.error.message);
         },
+        onSuccess: async () => {
+          //Save Credentials on Login 
+          if (window.PasswordCredential) {
+            const cred = new window.PasswordCredential({
+              id: email,
+              password: password,
+              name: `${firstName} ${lastName}`,
+            });
+            await navigator.credentials.store(cred);
+          }
+          setTimeout(() => navigate("/dashboard"), 100);
+        },
       },
     );
   };
