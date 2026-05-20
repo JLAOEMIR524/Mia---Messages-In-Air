@@ -91,7 +91,45 @@ export function Message() {
   };
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newText = e.target.value;
+    let newText = e.target.value;
+
+    if (newText.includes("\n")) {
+      const lines = newText.split("\n");
+
+      // Only apply the cleaning logic if there's actual multiline text
+      if (lines.length > 1) {
+        // Define how many line breaks we allow at the very end (3 breaks = up to 4 lines)
+        const maxAllowedBreaks = 3;
+
+        // Separate the main body lines from the protected sign-off lines at the end
+        const mainBodyLines = lines.slice(0, -(maxAllowedBreaks + 1));
+        const closingLines = lines.slice(-(maxAllowedBreaks + 1));
+
+        // It keeps a line only if it has text, or if it's empty but the previous line wasn't
+        const cleanedMainBody = mainBodyLines
+          .filter((line, index, arr) => {
+            return (
+              line.trim() !== "" || (index > 0 && arr[index - 1].trim() !== "")
+            );
+          })
+          .join("\n");
+
+        // Reassemble the text by putting the cleaned body and the closing lines back together
+        if (mainBodyLines.length > 0) {
+          // Prevent adding a double break if the body already ends with a break or closing starts empty
+          const separator =
+            cleanedMainBody.endsWith("\n") || closingLines[0] === ""
+              ? ""
+              : "\n";
+          newText = cleanedMainBody + separator + closingLines.join("\n");
+        } else {
+          newText = closingLines.join("\n");
+        }
+      }
+
+      newText = newText.replace(/\n{3,}/g, "\n\n");
+    }
+
     const prevLength = questText.length;
     const newLength = newText.length;
 
@@ -103,6 +141,7 @@ export function Message() {
     ) {
       setAnnouncement(`Below minimum length.`);
     }
+
     setQuestText(newText);
     localStorage.setItem("currentPostcardText", newText);
   };

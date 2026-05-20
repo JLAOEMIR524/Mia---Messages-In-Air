@@ -89,7 +89,15 @@ export function ProfileTopper({
           <img
             aria-hidden="true"
             alt=""
-            src={isHovered ? "./icons/edit-blue.svg" : "./icons/edit-white.svg"}
+            src={
+                isEditing
+                  ? isHovered
+                    ? "./icons/save-blue.svg"
+                    : "./icons/save-white.svg"
+                  : isHovered
+                    ? "./icons/edit-blue.svg"
+                    : "./icons/edit-white.svg"
+              }
           />
           {isEditing ? "Save" : "Edit"}
         </button>
