@@ -34,7 +34,17 @@ async function sendMail({ to, templateId, variables }, id) {
     },
   });
 
+  // Error for Rate limit
   if (error) {
+    const isRateLimit = 
+      error.statusCode === 422 || 
+      error.message?.toLowerCase().includes("rate limit") || 
+      error.message?.toLowerCase().includes("daily limit");
+
+    if (isRateLimit) {
+      throw new Error("Daily email limit reached. Emails are out for today.");
+    }
+
     throw new Error(`Resend Mail error: ${error.message}`);
   }
 
