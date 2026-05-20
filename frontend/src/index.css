@@ -2353,7 +2353,8 @@ ol {
 .leaflet-container {
   height: 500px;
   width: 100%;
-  margin-top: 0.8rem;
+  margin-top: var(--space-sm);
+  border-radius: var(--border-radius)
 }
 
 /*CityWrapper*/
