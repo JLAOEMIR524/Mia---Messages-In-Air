@@ -13,9 +13,12 @@ export interface LocationSuggestion {
 }
 
 export const fetchRandomAddressFromDB = async (): Promise<AddressType> => {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/addresses/random`, {
-    credentials: "include",
-  });
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/addresses/random`,
+    {
+      credentials: "include",
+    },
+  );
   if (!response.ok) {
     throw new Error("Failed to fetch receiver address from database.");
   }

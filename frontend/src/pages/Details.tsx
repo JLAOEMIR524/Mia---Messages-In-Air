@@ -73,11 +73,7 @@ export function Details() {
 
             {questFulfillment.length > 0 && (
               <>
-                <h2
-                  className="text-xs"
-                >
-                  Quest Fulfillment:
-                </h2>
+                <h2 className="text-xs">Quest Fulfillment:</h2>
                 {questFulfillment.map((item: any, index: number) => (
                   <p key={index}>
                     {item.name}: {item.score}/5

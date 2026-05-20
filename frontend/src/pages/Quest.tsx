@@ -28,7 +28,9 @@ export function Quest() {
     document.title = "Mia | Quest";
     const loadData = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/quests`);
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/quests`,
+        );
         if (!response.ok) throw new Error("Fehler beim Laden der Quests");
         const data = await response.json();
 
@@ -75,7 +77,6 @@ export function Quest() {
     localStorage.setItem("selectedQuest", JSON.stringify(quest));
     navigate("/editor", { state: { fromQuest: true } });
   };
-
 
   return (
     <main>

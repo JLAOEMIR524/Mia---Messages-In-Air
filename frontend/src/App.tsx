@@ -86,8 +86,8 @@ function AppContent() {
     "/quest",
   ];
 
-  const shouldShowNavbar = 
-    showNavbarPaths.includes(location.pathname) || 
+  const shouldShowNavbar =
+    showNavbarPaths.includes(location.pathname) ||
     (location.pathname === "/imprint" && !!session);
 
   return (

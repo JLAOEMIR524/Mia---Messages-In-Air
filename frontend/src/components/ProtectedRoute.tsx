@@ -7,7 +7,7 @@ export function ProtectedRoute({ children }: { children: ReactNode }) {
 
   if (isPending) return <p>Loading...</p>;
   if (!session) return <Navigate to={"/login"} />;
-  
+
   //This are all the child elements of the tag which should be handed over to the next instance:
-  return children; 
+  return children;
 }

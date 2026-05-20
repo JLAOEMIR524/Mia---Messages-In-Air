@@ -57,9 +57,12 @@ export function Profile() {
         setLoading(true);
         setError(null);
 
-        const statsRes = await fetch(`${import.meta.env.VITE_API_URL}/api/user/stats`, {
-          credentials: "include",
-        });
+        const statsRes = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/user/stats`,
+          {
+            credentials: "include",
+          },
+        );
 
         if (statsRes.ok) {
           const statsData = await statsRes.json();
@@ -79,9 +82,12 @@ export function Profile() {
           }
         }
 
-        const stickersRes = await fetch(`${import.meta.env.VITE_API_URL}/api/stickers`, {
-          credentials: "include",
-        });
+        const stickersRes = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/stickers`,
+          {
+            credentials: "include",
+          },
+        );
         if (!stickersRes.ok) {
           throw new Error(`Stickers Error status: ${stickersRes.status}`);
         }

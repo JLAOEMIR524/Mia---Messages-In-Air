@@ -41,9 +41,12 @@ export function StickerSelector({
     const fetchAvailableStickers = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/stickers`, {
-          credentials: "include",
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/stickers`,
+          {
+            credentials: "include",
+          },
+        );
         if (!response.ok) throw new Error("Failed to fetch stickers");
 
         const data = await response.json();

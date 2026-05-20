@@ -73,7 +73,7 @@ export function Register() {
           setError(ctx.error.message);
         },
         onSuccess: async () => {
-          //Save Credentials on Login 
+          //Save Credentials on Login
           if (window.PasswordCredential) {
             const cred = new window.PasswordCredential({
               id: email,

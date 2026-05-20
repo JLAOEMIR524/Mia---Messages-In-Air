@@ -10,9 +10,7 @@ export function CityBadge({
   return (
     <div className="city">
       <img src={icon} alt="" className="city__icon" aria-hidden="true" />
-      <span className="city__text">
-        {location}
-      </span>
+      <span className="city__text">{location}</span>
     </div>
   );
 }

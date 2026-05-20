@@ -34,9 +34,12 @@ export function ForgotPassword() {
     if (authError) {
       console.error("Password reset request failed:", authError);
 
-      if (authError.message?.includes("Daily email limit reached") || authError.status === 429) {
+      if (
+        authError.message?.includes("Daily email limit reached") ||
+        authError.status === 429
+      ) {
         setError(
-          "Our email system is out of tokens for today. We cannot send reset links right now. Please try again tomorrow!"
+          "Our email system is out of tokens for today. We cannot send reset links right now. Please try again tomorrow!",
         );
       } else {
         setError(authError.message || "An error occurred. Please try again.");
@@ -63,7 +66,11 @@ export function ForgotPassword() {
 
         <form onSubmit={handleReset}>
           {error && (
-            <p className="authenticationError" role="alert" style={{ marginBottom: "15px" }}>
+            <p
+              className="authenticationError"
+              role="alert"
+              style={{ marginBottom: "15px" }}
+            >
               {error}
             </p>
           )}
@@ -81,9 +88,9 @@ export function ForgotPassword() {
             disabled={loading}
           />
 
-          <button 
-            type="submit" 
-            className="button button--primary" 
+          <button
+            type="submit"
+            className="button button--primary"
             disabled={loading}
             style={{ marginTop: "15px", width: "100%" }}
           >
