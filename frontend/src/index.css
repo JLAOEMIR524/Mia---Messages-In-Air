@@ -325,7 +325,7 @@ a:focus {
     width: 20px;
     height: 20px;
     display: inline-block;
-    background-image: url("./icons/arrow-right-white.svg");
+    background-image: url("/icons/arrow-right-white.svg");
     background-size: contain;
     background-repeat: no-repeat;
   }
@@ -345,11 +345,11 @@ a:focus {
 }
 
 .button--image:disabled .icon-span {
-  background-image: url("./icons/arrow-right.svg");
+  background-image: url("/icons/arrow-right.svg");
 }
 
 .button--image:not(:disabled):hover .icon-span {
-  background-image: url("./icons/arrow-right-blue.svg");
+  background-image: url("/icons/arrow-right-blue.svg");
 }
 
 main.imageEditor>div:last-child .button--image {
