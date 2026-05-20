@@ -14,6 +14,7 @@ import {
 import { error } from "node:console";
 const lngDetector = new LanguageDetect();
 
+// Quest IDs that allow shorter messages
 const SHORT_QUEST_IDS = [8, 10, 14, 16, 20, 24, 30, 36, 49, 59, 62, 68];
 
 router.post("/api/postcards", async (req, res) => {
@@ -36,6 +37,8 @@ router.post("/api/postcards", async (req, res) => {
 
     const creatorId = session.user.id;
     const numericQuestId = questId ? Number(questId) : null;
+    
+    // Set dynamic minimum text length based on the specific quest type
     const isShortQuest = SHORT_QUEST_IDS.includes(numericQuestId);
     const minLength = isShortQuest ? 10 : 99;
 
@@ -67,11 +70,13 @@ router.post("/api/postcards", async (req, res) => {
       });
     }
 
+    // Detect language of the postcard text
     const scores = lngDetector.detect(text, 2);
     const bestMatch = scores[0] ? scores[0][0] : null;
 
     let isEnglish = bestMatch === "english";
 
+    // Fallback for short texts where automated language detection often fails
     if (!isEnglish && isShortQuest) {
       const commonEnglishWords = [
         "i",
@@ -100,6 +105,7 @@ router.post("/api/postcards", async (req, res) => {
         commonEnglishWords.includes(word),
       ).length;
 
+      // Force english to true if at least two basic english words are found
       if (englishWordCount >= 2) {
         isEnglish = true;
       }
@@ -166,6 +172,7 @@ router.post("/api/postcards", async (req, res) => {
     );
     const calculatedXP = analysis.xpCalculation.totalXP;
 
+    // Verify if the image was successfully checked by the sightengine
     const hash = crypto.createHash("sha256").update(image).digest("hex");
 
     const moderated = await prisma.moderatedImage.findUnique({
@@ -178,7 +185,7 @@ router.post("/api/postcards", async (req, res) => {
       });
     }
 
-    //Select a random user to recive the message
+    // Select a random user to receive the message (excluding the creator)
     const userCount = await prisma.user.count({
       where: {
         NOT: { id: creatorId },
@@ -207,6 +214,7 @@ router.post("/api/postcards", async (req, res) => {
       }
     }
 
+    // Run as transaction to guarantee data consistency across tables
     const result = await prisma.$transaction(async (tx) => {
       const postcard = await tx.postcard.create({
         data: {
@@ -232,6 +240,7 @@ router.post("/api/postcards", async (req, res) => {
         select: { id: true, name: true, xp: true },
       });
 
+      // Delete image from moderation table
       await tx.moderatedImage.delete({ where: { hash } });
 
       return { postcard, updatedUser };
@@ -245,7 +254,7 @@ router.post("/api/postcards", async (req, res) => {
       analysis: analysis,
     });
 
-    //Notifies the Receiver of the Postcard - only runs once the card is sent
+    // Notifies the Receiver of the Postcard per email(only the postcard is sent)
     if (receiverEmail && receiverName) {
       sendPostcardNotification(receiverEmail, receiverName, result.postcard.id);
     }

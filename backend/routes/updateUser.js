@@ -21,6 +21,7 @@ router.put("/api/user/update", async (req, res) => {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
+    // merge names because some parts still use name
     const fullName = `${firstName.trim()} ${lastName.trim()}`;
 
     const updatedUser = await prisma.user.update({

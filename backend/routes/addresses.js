@@ -5,6 +5,7 @@ import { auth } from "../auth.js";
 
 router.get("/api/addresses/random", async (req, res) => {
   try {
+    // Authenticate user via session headers
     const session = await auth.api.getSession({
       headers: req.headers,
     });
@@ -19,10 +20,11 @@ router.get("/api/addresses/random", async (req, res) => {
       return res
         .status(404)
         .json({
-          error: "Keine Empfänger-Adressen in der Datenbank vorhanden.",
+          error: "There are no recipient addresses in the database.",
         });
     }
 
+    // Get a random record by skipping a random number of rows
     const randomIndex = Math.floor(Math.random() * count);
 
     const randomAddress = await prisma.address.findFirst({

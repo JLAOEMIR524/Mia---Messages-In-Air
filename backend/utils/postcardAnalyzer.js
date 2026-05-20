@@ -7,6 +7,7 @@ export function analyzePostcard(text, questId, maxTotalXP, questTitle) {
 
   const SHORT_QUEST_IDS = [8, 10, 14, 16, 20, 24, 30, 36, 49, 59, 62, 68];
 
+  // automatically give max length score if selected quest is a short-text quest
   let lengthRating = 1;
   if (SHORT_QUEST_IDS.includes(questId)) {
     lengthRating = 5;
@@ -20,6 +21,7 @@ export function analyzePostcard(text, questId, maxTotalXP, questTitle) {
 
   let badWordsRating = 5;
 
+  // check if sentences start with a capital letter
   let capitalizationRating = 5;
   const sentencesForCaps = trimmedText.split(/[.!?]+\s+/);
   let capsErrors = 0;
@@ -30,6 +32,7 @@ export function analyzePostcard(text, questId, maxTotalXP, questTitle) {
     }
   });
 
+  // count lowercase i as a grammar error since it's English
   const smallIErrors = (trimmedText.match(/\bi\b/g) || []).length;
   capsErrors += smallIErrors;
 
@@ -38,6 +41,7 @@ export function analyzePostcard(text, questId, maxTotalXP, questTitle) {
   else if (capsErrors > 1) capitalizationRating = 3;
   else if (capsErrors > 0) capitalizationRating = 4;
 
+  // rate the text quality based on punctuation count and proper endings
   let punctuationRating = 1;
   const totalPunctuation = (trimmedText.match(/[.,!?]/g) || []).length;
   const endsWithPunctuation = /[.!?]$/.test(trimmedText);
@@ -51,6 +55,7 @@ export function analyzePostcard(text, questId, maxTotalXP, questTitle) {
   let questDetails = [];
   const qId = questId;
 
+  // handle specific logic and requirements for each quest
   switch (Number(qId)) {
     case 1: {
       const hasSun = /\bsun\b/i.test(trimmedText);

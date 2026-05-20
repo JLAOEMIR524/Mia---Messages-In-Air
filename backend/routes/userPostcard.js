@@ -15,6 +15,7 @@ router.get("/postcards", async (req, res) => {
 
     const userId = session.user.id;
 
+    // get all cards where the user is sender or the receiver
     const postcards = await prisma.postcard.findMany({
       where: {
         OR: [{ creatorId: userId }, { receiverId: userId }],
@@ -30,11 +31,13 @@ router.get("/postcards", async (req, res) => {
       orderBy: { id: "desc" },
     });
 
+    // extract unique locations
     const locationNames = [...new Set(postcards.map((p) => p.location))];
 
+    // look up coordinates for all unique cities and countries at the same time
     const [citiesFromDb, countriesFromDb] = await Promise.all([
       prisma.city.findMany({
-        where: { name: { in: locationNames, mode: "insensitive" } },
+        where: { name: { in: locationNames, mode: "insensitive" } }, // case-insensitive search (matches 'Berlin' even if typed 'berlin')
         include: { country: true },
       }),
       prisma.country.findMany({
@@ -42,6 +45,7 @@ router.get("/postcards", async (req, res) => {
       }),
     ]);
 
+    // attach coordinates and normalized country names to each postcard
     const postcardsWithCoordinates = postcards.map((postcard) => {
       const searchName = postcard.location.toLowerCase();
 
@@ -65,6 +69,7 @@ router.get("/postcards", async (req, res) => {
       return {
         ...postcard,
         countryName: dynamicCountryName,
+        // fallback to country coords if no specific city match was found
         latitude: cityDetails
           ? cityDetails.latitude
           : countryDetails

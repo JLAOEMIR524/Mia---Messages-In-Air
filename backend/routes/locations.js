@@ -16,10 +16,12 @@ router.get("/api/locations", async (req, res) => {
 
     const { q } = req.query;
 
+    // Return empty array early if search query is missing or empty
     if (!q || q.trim().length < 1) {
       return res.json([]);
     }
 
+    // Fetch cities and countries
     const [dbCities, dbCountries] = await Promise.all([
       prisma.city.findMany({
         where: { name: { contains: q, mode: "insensitive" } },
@@ -33,12 +35,14 @@ router.get("/api/locations", async (req, res) => {
       }),
     ]);
 
+    // Format and map types for the UI
     const cities = dbCities.map((c) => ({ name: c.name, type: "City" }));
     const countries = dbCountries.map((c) => ({
       name: c.name,
       type: "Country",
     }));
 
+    // results and cap at 8 total items
     const combinedResults = [...cities, ...countries].slice(0, 8);
 
     res.json(combinedResults);

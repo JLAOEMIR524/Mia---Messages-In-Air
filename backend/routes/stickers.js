@@ -29,6 +29,7 @@ router.get("/api/stickers", async (req, res) => {
       orderBy: { requiredXp: "asc" },
     });
 
+    // check who actually unlocked what based on current XP
     const processedStickers = allStickers.map((sticker) => {
       const isLocked = userXp < sticker.requiredXp;
 
@@ -38,6 +39,7 @@ router.get("/api/stickers", async (req, res) => {
         stickerSrc: `./stickers/${sticker.fileName}`,
         xpAmount: sticker.requiredXp,
         isLocked: isLocked,
+        // hide text and swap to lock icon if it's still locked
         description: isLocked ? "Locked" : sticker.description || sticker.name,
         iconSrc: isLocked ? "./icons/lock.svg" : "./icons/check.svg",
       };
