@@ -69,9 +69,12 @@ export function Gallery() {
     const fetchPostcards = async () => {
       try {
         setLoading(true);
-        const res = await fetch("http://localhost:3001/api/user/postcards", {
-          credentials: "include",
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/user/postcards`,
+          {
+            credentials: "include",
+          },
+        );
         if (res.ok) {
           const data = await res.json();
           setPostcards(data.postcards || []);
@@ -164,7 +167,7 @@ export function Gallery() {
 
               const imageSrc = card.image.startsWith("data:image")
                 ? card.image
-                : `http://localhost:3001${card.image}`;
+                : `${import.meta.env.VITE_API_URL}${card.image}`;
 
               return (
                 <div

@@ -52,5 +52,5 @@ app.post("/unsubscribe", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server läuft auf http://localhost:${PORT}`);
+  console.log(`Server is running on http://api.mia.jlaoemir with port ${PORT}`);
 });

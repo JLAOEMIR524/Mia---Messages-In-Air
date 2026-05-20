@@ -17,7 +17,7 @@ export function ForgotPassword() {
   async function handleReset() {
     await authClient.requestPasswordReset({
       email,
-      redirectTo: "http://localhost:5173/reset-password",
+      redirectTo: `${window.location.origin}/reset-password`,
     });
     navigate("/login");
   }

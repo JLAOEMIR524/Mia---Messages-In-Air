@@ -28,7 +28,7 @@ export function Quest() {
     document.title = "Mia | Quest";
     const loadData = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/quests");
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/quests`);
         if (!response.ok) throw new Error("Fehler beim Laden der Quests");
         const data = await response.json();
 

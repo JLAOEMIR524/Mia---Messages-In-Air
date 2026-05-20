@@ -57,7 +57,7 @@ export function Profile() {
         setLoading(true);
         setError(null);
 
-        const statsRes = await fetch("http://localhost:3001/api/user/stats", {
+        const statsRes = await fetch(`${import.meta.env.VITE_API_URL}/api/user/stats`, {
           credentials: "include",
         });
 
@@ -79,7 +79,7 @@ export function Profile() {
           }
         }
 
-        const stickersRes = await fetch("http://localhost:3001/api/stickers", {
+        const stickersRes = await fetch(`${import.meta.env.VITE_API_URL}/api/stickers`, {
           credentials: "include",
         });
         if (!stickersRes.ok) {
@@ -89,7 +89,7 @@ export function Profile() {
         setStickers(stickersData.stickers);
 
         const userQuestsRes = await fetch(
-          "http://localhost:3001/api/user/quests",
+          `${import.meta.env.VITE_API_URL}/api/user/quests`,
           {
             credentials: "include",
           },
@@ -161,7 +161,7 @@ export function Profile() {
             onEdit={async (updatedData) => {
               try {
                 const res = await fetch(
-                  "http://localhost:3001/api/user/update",
+                  `${import.meta.env.VITE_API_URL}/api/user/update`,
                   {
                     method: "PUT",
                     headers: {

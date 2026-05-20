@@ -13,7 +13,7 @@ export interface LocationSuggestion {
 }
 
 export const fetchRandomAddressFromDB = async (): Promise<AddressType> => {
-  const response = await fetch("http://localhost:3001/api/addresses/random", {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/addresses/random`, {
     credentials: "include",
   });
   if (!response.ok) {
@@ -28,7 +28,7 @@ export const searchLocationsFromDB = async (
   if (!query.trim()) return [];
 
   const response = await fetch(
-    `http://localhost:3001/api/locations?q=${encodeURIComponent(query)}`,
+    `${import.meta.env.VITE_API_URL}/api/locations?q=${encodeURIComponent(query)}`,
     {
       credentials: "include",
     },

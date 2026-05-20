@@ -40,7 +40,7 @@ export function Dashboard() {
       try {
         setLoading(true);
         const response = await fetch(
-          "http://localhost:3001/api/user/postcards",
+          `${import.meta.env.VITE_API_URL}/api/user/postcards`,
           {
             credentials: "include",
           },

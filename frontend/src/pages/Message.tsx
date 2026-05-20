@@ -199,7 +199,7 @@ export function Message() {
         receiverAddress: adress,
       };
 
-      const response = await fetch("http://localhost:3001/api/postcards", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/postcards`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
