@@ -131,9 +131,9 @@ export function ImprintPrivacy() {
           <h3 className="text-s">Transfer of Data to Third Parties</h3>
           <p>
             To fulfill your request, it may be necessary to . forward your data
-            to third parties. Specifically, uploaded images are processed
-            via the Sightengine API (Sightengine SAS, France) solely for the
-            purpose of content moderation and automated safety checks. Data is
+            to third parties. Specifically, uploaded images are processed via
+            the Sightengine API (Sightengine SAS, France) solely for the purpose
+            of content moderation and automated safety checks. Data is
             transferred exclusively on the basis of the GDPR..., in particular
             for contract fulfillment or with your prior consent. Some recipients
             of your personal data may be located outside your country or process
@@ -143,6 +143,31 @@ export function ImprintPrivacy() {
             determined an adequate level of data protection.
           </p>
 
+          <h3 className="text-s"> OpenStreetMap & Leaflet</h3>
+          <p>
+            This website uses the open-source mapping tool Leaflet to display
+            interactive maps. To render the map layout and details, visual data
+            ("map tiles") are loaded directly from the servers of OpenStreetMap
+            (OpenStreetMap Foundation, St John’s Innovation Centre, Cowley Road,
+            Cambridge, CB4 0WS, United Kingdom).
+          </p>
+          <p>
+            When you visit a page with an embedded map, your browser establishes
+            a direct connection to OpenStreetMap's servers. During this process,
+            your IP address and device information are transmitted to
+            OpenStreetMap. The use of this service is based on our legitimate
+            interest in providing a user-friendly and informative website in
+            accordance with Art. 6 (1) (f) GDPR. For more information on how
+            your data is handled, please refer to the privacy policy of
+            OpenStreetMap:{" "}
+            <a
+              href="https://wiki.osmfoundation.org/wiki/Privacy_Policy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://wiki.osmfoundation.org/wiki/Privacy_Policy
+            </a>
+          </p>
           <h3 className="text-s">Notification of Data Breaches</h3>
           <p>
             We strive to ensure that data breaches are identified early and,
@@ -159,9 +184,7 @@ export function ImprintPrivacy() {
           </p>
 
           <h3 className="text-s">Cookies</h3>
-          <p>
-           This website does not use any cookies.
-          </p>
+          <p>This website does not use any cookies.</p>
 
           <h3 className="text-s">Contact Details</h3>
           <p>
