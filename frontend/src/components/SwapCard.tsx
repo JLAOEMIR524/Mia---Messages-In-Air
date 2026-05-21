@@ -10,7 +10,7 @@ const SwapCard = ({
     <div className="swap">
       <div className={`stickerCard ${extraClass2}`}>
         <div className="sticker-container">
-          <img src={stickerSrc} alt={description} className="sticker-img" />
+          <img src={stickerSrc} alt="" className="sticker-img" />
         </div>
         <p className="description">{description}</p>
       </div>
