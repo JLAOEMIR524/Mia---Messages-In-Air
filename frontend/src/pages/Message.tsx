@@ -282,7 +282,7 @@ export function Message() {
               <h2 className="text-s">Greeting / Subject</h2>
             </label>
             <input
-              id="greeting-text"
+              id="message-greeting"
               type="text"
               className="quest-textarea"
               value={greetingText}
