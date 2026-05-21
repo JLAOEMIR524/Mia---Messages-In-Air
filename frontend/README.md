@@ -11,5 +11,4 @@ falls nix geht versuche:
 
 - npx prisma migrate reset
 
-
 -psql -U postgres -d mia
