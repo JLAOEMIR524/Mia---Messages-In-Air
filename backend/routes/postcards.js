@@ -2,7 +2,7 @@ import { Router } from "express";
 const router = Router();
 import { prisma } from "../db.js";
 import { auth } from "../auth.js";
-import { Filter } from "bad-words";
+import { filter } from "../utils/wordFilter.js";
 import { analyzePostcard } from "../utils/postcardAnalyzer.js";
 import crypto from "node:crypto";
 import LanguageDetect from "languagedetect";
@@ -20,8 +20,6 @@ router.post("/api/postcards", async (req, res) => {
     if (typeof image !== "string" || image.length === 0) {
       return res.status(400).json({ ok: false, error: "no_image" });
     }
-
-    const filter = new Filter();
 
     const session = await auth.api.getSession({
       headers: req.headers,

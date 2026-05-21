@@ -133,7 +133,7 @@ export function Gallery() {
         <button
           className={`button button--image gallery-filter ${filter === "all" ? "button--primary" : "button--secondary"}`}
           onClick={() => setFilter("all")}
-          aria-label="open all Postcards"
+          aria-label="show all Postcards"
         >
           <span className="icon-span" aria-hidden="true"></span>
           All Postcards
@@ -141,7 +141,7 @@ export function Gallery() {
         <button
           className={`button button--image gallery-filter ${filter === "received" ? "button--primary" : "button--secondary"}`}
           onClick={() => setFilter("received")}
-          aria-label="open received Postcards"
+          aria-label="show received Postcards"
         >
           <span className="icon-span" aria-hidden="true"></span>
           Received
@@ -149,7 +149,7 @@ export function Gallery() {
         <button
           className={`button button--image gallery-filter ${filter === "sent" ? "button--primary" : "button--secondary"}`}
           onClick={() => setFilter("sent")}
-          aria-label="open sent Postcards"
+          aria-label="show sent Postcards"
         >
           <span className="icon-span" aria-hidden="true"></span>
           Sent

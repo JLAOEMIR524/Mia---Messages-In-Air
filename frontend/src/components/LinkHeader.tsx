@@ -12,7 +12,7 @@ export function LinkHeader({
   icon,
   linkTo,
   // fallback text if no specific label is provided
-  linkText = "Show all",
+  linkText = "Show all Postcards",
 }: LinkHeaderProps) {
   return (
     <div className="linkHeader">
