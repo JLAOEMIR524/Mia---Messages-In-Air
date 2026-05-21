@@ -41,7 +41,6 @@ export function Profile() {
   const [error, setError] = useState<string | null>(null);
   const [userQuests, setUserQuests] = useState<Quest[]>([]);
   
-  // NUR DIESE ZEILE NEU: Hält die frisch bearbeiteten Daten bereit
   const [updatedUser, setUpdatedUser] = useState<{ firstName?: string; lastName?: string } | null>(null);
 
   const handleBack = () => {
