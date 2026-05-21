@@ -18,5 +18,5 @@ COPY . .
 ENV NODE_ENV=production
 EXPOSE 3001
 
-# Beim Start: Migrationen anwenden, dann Server starten
+# Beim Start: Migrationen anwenden, dann Server starten ohne seed
 CMD ["sh", "-c", "npx prisma migrate deploy && node index.js"]
