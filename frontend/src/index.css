@@ -685,6 +685,31 @@ input#fsrch:focus {
   width: 100%;
 }
 
+.login-options {
+  display: flex;
+  width: 100%;
+  gap: var(--space-sm);
+}
+
+.button--passskey{
+  display: flex;
+  justify-content: space-between;
+  background-color: black;
+  border: black;
+  padding: 0;
+  color: white !important;
+
+  &:hover{
+    background-color: black;
+    border: black;
+  }
+  
+  img {
+    height: 30px;
+    width: 30px !important;
+  }
+}
+
 /*Navbar not sidebar*/
 .navbar {
   display: flex;

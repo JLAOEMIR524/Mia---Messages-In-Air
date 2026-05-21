@@ -46,6 +46,22 @@ export function Login() {
     );
   };
 
+  //Starts the Passkey generation process
+  const handlePasskey = async () => {
+    await signIn.passkey({
+      /* autoFill: true, */
+      fetchOptions: {
+        onRequest: () => {
+          setLoading(true);
+        },
+        onError(ctx) {
+          setLoading(false);
+          setError(ctx.error.message);
+        },
+      },
+    });
+  };
+
   return (
     <main className="heaven">
       <Link to="/home" className="arrowBack" aria-label="go back">
@@ -84,13 +100,22 @@ export function Login() {
           />
         </form>
         <Link to="/password">Password forgotten?</Link>
-        <button
-          className="button button--primary"
-          disabled={loading}
-          onClick={handleLogin}
-        >
-          {loading ? "..." : "Sign In"}
-        </button>
+        <div className="login-options">
+          <button
+            className="button button--primary"
+            disabled={loading}
+            onClick={handleLogin}
+          >
+            {loading ? "..." : "Sign In"}
+          </button>
+          <button
+            className="button button--primary"
+            disabled={loading}
+            onClick={handlePasskey}
+          >
+            Passkey
+          </button>
+        </div>
         <div className="divider">
           <span>or</span>
         </div>
