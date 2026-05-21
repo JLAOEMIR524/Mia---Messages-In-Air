@@ -3,6 +3,7 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./db.js";
 import { sendNotification } from "./mail/sendMail.js";
 import crypto from "crypto";
+import { sendPasswordResetMail } from "./mail/resetMail.js";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -25,15 +26,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     autoSignIn: true,
-    sendResetPassword: async ({ user, url }) => {
-      void sendNotification(
-        "Mia: Reset Password",
-        user.id,
-        user.firstName,
-        user.email,
-        `Click the link to reset your password: ${url}`,
-      );
-    },
+    sendResetPassword: sendPasswordResetMail,
     onPasswordReset: async ({ user }) => {
       console.log(`Password for user ${user.email} has been reset.`);
     },
