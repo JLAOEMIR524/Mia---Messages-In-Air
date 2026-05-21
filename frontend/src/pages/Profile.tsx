@@ -40,6 +40,9 @@ export function Profile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [userQuests, setUserQuests] = useState<Quest[]>([]);
+  
+  // NUR DIESE ZEILE NEU: Hält die frisch bearbeiteten Daten bereit
+  const [updatedUser, setUpdatedUser] = useState<{ firstName?: string; lastName?: string } | null>(null);
 
   const handleBack = () => {
     navigate(-1);
@@ -122,6 +125,10 @@ export function Profile() {
   const unlockedStickers = stickers.filter((sticker) => !sticker.isLocked);
   const lockedStickers = stickers.filter((sticker) => sticker.isLocked);
 
+  // Gets the current values (either newly saved or from the session)
+  const currentFirstName = updatedUser?.firstName ?? session?.user?.firstName;
+  const currentLastName = updatedUser?.lastName ?? session?.user?.lastName;
+
   return (
     <main className="left profile">
       {loading ? (
@@ -146,13 +153,13 @@ export function Profile() {
 
           <ProfileTopper
             initials={
-              session?.user?.firstName && session?.user?.lastName
-                ? `${session.user.firstName.charAt(0).toUpperCase()}${session.user.lastName.charAt(0).toUpperCase()}`
+              currentFirstName && currentLastName
+                ? `${currentFirstName.charAt(0).toUpperCase()}${currentLastName.charAt(0).toUpperCase()}`
                 : "??"
             }
             name={
-              session
-                ? `${session.user.firstName} ${session.user.lastName}`
+              currentFirstName || currentLastName
+                ? `${currentFirstName ?? ""} ${currentLastName ?? ""}`
                 : "Guest"
             }
             email={session?.user.email}
@@ -191,6 +198,9 @@ export function Profile() {
 
                 const data = await res.json();
                 console.log("Successfully saved to database:", data);
+                
+                setUpdatedUser(updatedData);
+
               } catch (err) {
                 console.error("Database update failed:", err);
                 alert("Could not save profile data. Please try again later.");

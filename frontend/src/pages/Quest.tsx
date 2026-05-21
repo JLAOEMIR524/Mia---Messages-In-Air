@@ -118,8 +118,6 @@ export function Quest() {
             description={q.description}
             isSelected={selectedQuest?.id === q.id}
             onSelect={() => {
-              // Sets the clicked alternative quest as the active focused quest
-              setActiveQuest(q);
               setSelectedQuest(q);
             }}
           />
