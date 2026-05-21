@@ -1,5 +1,4 @@
 import { sendNotification } from "./sendMail.js";
-import { prisma } from "../db.js";
 
 export async function sendPasswordResetMail({ user, url }) {
   void sendNotification(

@@ -1,9 +1,9 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./db.js";
-import { sendNotification } from "./mail/sendMail.js";
 import crypto from "crypto";
 import { sendPasswordResetMail } from "./mail/resetMail.js";
+import { sendWelcomeMail } from "./mail/welcomeMail.js";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -52,15 +52,7 @@ export const auth = betterAuth({
   databaseHooks: {
     user: {
       create: {
-        after: async (user) => {
-          await sendNotification(
-            "Welcome to Mia. Your account has been created!",
-            user.id,
-            user.name,
-            user.email,
-            "Your accout has been created and we are more than happy to welcome you.",
-          );
-        },
+        after: sendWelcomeMail,
       },
     },
   },
