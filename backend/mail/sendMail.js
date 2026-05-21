@@ -27,7 +27,7 @@ async function sendMail({ to, templateId, variables }, id) {
       },
     },
     headers: {
-      "List-Unsubscribe": unsubscribeLink,
+      "List-Unsubscribe":`<${unsubscribeLink}>, <mailto:unsubscribe@mia.jlaoemir.at>`,
       "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
     },
   });
