@@ -34,7 +34,7 @@ export function Home() {
             <p>Just real, unexpected messages.</p>
           </div>
           <div className="button-flex homeButton">
-            <Link to="/login" className="button button--primary">
+            <Link to="/register" className="button button--primary">
               Start now
             </Link>
             <button

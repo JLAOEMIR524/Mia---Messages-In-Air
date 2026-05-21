@@ -380,7 +380,7 @@ export function Message() {
             title="✨ Tips for a great Postcard:"
             description={
               <ul style={{ listStyle: "none", padding: 0 }}>
-                <li>✓ Write your meessage in english!</li>
+                <li>✓ Write your meessage in english</li>
                 <li>✓ Read the task carefully and follow all rules</li>
                 <li>✓ Write a long enough text</li>
                 <li>✓ Avoid bad or inappropriate words</li>
