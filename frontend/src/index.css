@@ -174,7 +174,7 @@ a {
 }
 
 a:hover {
-  color: var(--color-blue-100);
+  color: var(--color-blue-400);
   border-bottom: var(--border-width) solid var(--color-blue-300);
 }
 

@@ -3,7 +3,6 @@ const SwapCard = ({
   description = "Star",
   xpAmount = 800,
   iconSrc = "./icons/Check.svg",
-  altText = "Plux",
   extraClass = "",
   extraClass2 = "",
 }) => {
@@ -17,7 +16,7 @@ const SwapCard = ({
       </div>
 
       <div className={`xpCard ${extraClass}`}>
-        <img src={iconSrc} alt={altText} />
+        <img src={iconSrc} alt="Sticker" aria-hidden="true" />
         <p>{xpAmount} XP</p>
       </div>
     </div>
