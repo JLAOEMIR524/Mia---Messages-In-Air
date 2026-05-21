@@ -241,7 +241,7 @@ export function Profile() {
                   className="swap-wrapper"
                   key={sticker.id}
                   tabIndex={0}
-                  role="img"
+                  role="button"
                   aria-label={`Locked Sticker: ${sticker.name}. Requires ${sticker.xpAmount} XP.`}
                 >
                   <SwapCard
