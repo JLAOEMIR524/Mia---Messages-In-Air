@@ -4,6 +4,7 @@ import { ProfileTopper } from "../components/ProfileTopper";
 import SwapCard from "../components/SwapCard";
 import { Link, useNavigate } from "react-router-dom";
 import { useSession } from "../api/auth-client";
+import { PasskeyContainer } from "../components/PasskeyContainer";
 
 interface UserStats {
   postcardsSent: number;
@@ -209,6 +210,8 @@ export function Profile() {
             }}
           />
 
+          <PasskeyContainer />
+
           <h2 className="text-m">Your Stickers</h2>
 
           <h3 className="text-s">Unlocked</h3>
@@ -265,14 +268,16 @@ export function Profile() {
               You haven't completed any quests yet. Send a postcard to start!
             </p>
           ) : (
-            [...userQuests].reverse().map((quest) => (
-              <BadgeCard
-                key={quest.id}
-                icon="./icons/star_shine.svg"
-                title={quest.title}
-                description={`${quest.description} (+${quest.earnedXp} XP)`}
-              />
-            ))
+            [...userQuests]
+              .reverse()
+              .map((quest) => (
+                <BadgeCard
+                  key={quest.id}
+                  icon="./icons/star_shine.svg"
+                  title={quest.title}
+                  description={`${quest.description} (+${quest.earnedXp} XP)`}
+                />
+              ))
           )}
         </>
       )}

@@ -20,6 +20,29 @@ export function Login() {
     };
   }, []);
 
+  //Starts the Passkey generation process
+  useEffect(() => {
+    const handlePasskey = async () => {
+      if (!window.PublicKeyCredential?.isConditionalMediationAvailable) return;
+
+      const available =
+        await PublicKeyCredential.isConditionalMediationAvailable();
+      if (!available) return;
+
+      await signIn.passkey({
+        autoFill: true,
+        fetchOptions: {
+          onError(ctx) {
+            setLoading(false);
+            setError(ctx.error.message);
+          },
+        },
+      });
+    };
+
+    handlePasskey();
+  }, []);
+
   // Redirects logged-in users directly to the dashboard
   useEffect(() => {
     if (session) {
@@ -46,22 +69,6 @@ export function Login() {
     );
   };
 
-  //Starts the Passkey generation process
-  const handlePasskey = async () => {
-    await signIn.passkey({
-      /* autoFill: true, */
-      fetchOptions: {
-        onRequest: () => {
-          setLoading(true);
-        },
-        onError(ctx) {
-          setLoading(false);
-          setError(ctx.error.message);
-        },
-      },
-    });
-  };
-
   return (
     <main className="heaven">
       <Link to="/home" className="arrowBack" aria-label="go back">
@@ -83,7 +90,7 @@ export function Login() {
             name="emailUser"
             type="email"
             placeholder="Type here..."
-            autoComplete="email"
+            autoComplete="email webauthn"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -93,29 +100,20 @@ export function Login() {
             id="password"
             name="password"
             type="password"
-            autoComplete="current-password"
+            autoComplete="current-password webauthn"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </form>
         <Link to="/password">Password forgotten?</Link>
-        <div className="login-options">
-          <button
-            className="button button--primary"
-            disabled={loading}
-            onClick={handleLogin}
-          >
-            {loading ? "..." : "Sign In"}
-          </button>
-          <button
-            className="button button--primary"
-            disabled={loading}
-            onClick={handlePasskey}
-          >
-            Passkey
-          </button>
-        </div>
+        <button
+          className="button button--primary"
+          disabled={loading}
+          onClick={handleLogin}
+        >
+          {loading ? "..." : "Sign In"}
+        </button>
         <div className="divider">
           <span>or</span>
         </div>

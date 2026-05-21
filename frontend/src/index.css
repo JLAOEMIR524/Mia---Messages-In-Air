@@ -685,31 +685,6 @@ input#fsrch:focus {
   width: 100%;
 }
 
-.login-options {
-  display: flex;
-  width: 100%;
-  gap: var(--space-sm);
-}
-
-.button--passskey{
-  display: flex;
-  justify-content: space-between;
-  background-color: black;
-  border: black;
-  padding: 0;
-  color: white !important;
-
-  &:hover{
-    background-color: black;
-    border: black;
-  }
-  
-  img {
-    height: 30px;
-    width: 30px !important;
-  }
-}
-
 /*Navbar not sidebar*/
 .navbar {
   display: flex;
@@ -2743,6 +2718,60 @@ ol {
   border: 0;
 }
 
+.passkeyContainer {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-evenly;
+  padding: var(--space-md);
+  border-radius: var(--border-radius);
+
+  background-color: var(--color-blue-700);
+
+  .seperationLine {
+    width: 1px;
+    height: 100%;
+
+    background-color: white;
+  }
+
+  img {
+    height: 50px;
+    justify-self: center;
+    align-self: center;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+
+    margin: 0;
+    padding: 0;
+
+    color: white;
+  }
+
+  .passkeyInfo {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  .button {
+    height: min-content;
+
+    margin: 0;
+    align-self: center;
+
+    background-color: white;
+    color: black;
+    border: none;
+
+    &:hover {
+      background-color: var(--color-gray-300);
+    }
+  }
+}
+
 @media print {
   nav {
     display: none !important;
@@ -3345,6 +3374,14 @@ ol {
           display: none;
         }
       }
+    }
+  }
+
+  .passkeyContainer {
+    flex-direction: column;
+    gap: var(--space-sm);
+    .passkeyInfo {
+      align-self: center;
     }
   }
 

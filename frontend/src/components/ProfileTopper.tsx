@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { authClient } from "../api/auth-client";
 
 interface ProfileTopperProps {
   initials: string;
@@ -58,15 +57,6 @@ export function ProfileTopper({
       setIsEditing(false);
     } else {
       setIsEditing(true);
-    }
-  };
-
-  const genPasskey = async () => {
-    const { error } = await authClient.passkey.addPasskey({
-      name: "example-passkey-name",
-    });
-    if (error) {
-      console.log(error);
     }
   };
 
@@ -244,8 +234,6 @@ export function ProfileTopper({
             />
             {isEditing ? "Save" : "Edit"}
           </button>
-          <button onClick={genPasskey}>Generate Passkey</button>
-
         </div>
 
         <div className="progress">
