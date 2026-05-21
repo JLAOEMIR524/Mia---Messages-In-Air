@@ -40,8 +40,11 @@ export function Profile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [userQuests, setUserQuests] = useState<Quest[]>([]);
-  
-  const [updatedUser, setUpdatedUser] = useState<{ firstName?: string; lastName?: string } | null>(null);
+
+  const [updatedUser, setUpdatedUser] = useState<{
+    firstName?: string;
+    lastName?: string;
+  } | null>(null);
 
   const handleBack = () => {
     navigate(-1);
@@ -197,9 +200,8 @@ export function Profile() {
 
                 const data = await res.json();
                 console.log("Successfully saved to database:", data);
-                
-                setUpdatedUser(updatedData);
 
+                setUpdatedUser(updatedData);
               } catch (err) {
                 console.error("Database update failed:", err);
                 alert("Could not save profile data. Please try again later.");
