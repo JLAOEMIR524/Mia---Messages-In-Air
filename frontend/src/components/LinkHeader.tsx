@@ -26,7 +26,7 @@ export function LinkHeader({
         <h2 className="text-xs">{title}</h2>
       </div>
 
-      <Link to={linkTo} className="linkHeader__link">
+      <Link to={linkTo} className="linkHeader__link" aria-label="Go to the gallery">
         {linkText}
         <img
           src="./icons/link-blue.svg"

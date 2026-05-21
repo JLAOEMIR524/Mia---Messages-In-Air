@@ -268,14 +268,14 @@ export function Editor() {
             onClick={() => setBar("color")}
             onMouseOver={() => setFocus("color")}
             onMouseOut={() => setFocus(null)}
-            aria-label="open color picker"
+            aria-label="open Backgroundcolor picker"
           >
             <img
               src={`./icons/colors${"color" === currentBar || focus === "color" ? "_blue" : "_white"}.svg`}
               alt=""
               aria-hidden="true"
             />
-            Colour
+            Background
           </button>
         </div>
         <div style={{ display: currentBar === "image" ? "block" : "none" }}>

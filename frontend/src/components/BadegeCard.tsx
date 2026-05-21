@@ -3,6 +3,7 @@ import { type ReactNode } from "react";
 interface BadgeCardProps {
   title: string;
   description: ReactNode;
+  xp?: number;
   icon?: string;
   isSelected?: boolean;
   onSelect?: () => void;
@@ -13,6 +14,7 @@ export function BadgeCard({
   title,
   description,
   icon,
+  xp,
   isSelected,
   onSelect,
   headingLevel: Tag = "h3",
@@ -39,7 +41,7 @@ export function BadgeCard({
 
       <hgroup>
         <Tag className="text-xs">{title}</Tag>
-        <div className="text--small">{description}</div>
+        <p className="text--small">{description} {xp && ` (+${xp} XP)`}</p>
       </hgroup>
     </div>
   );

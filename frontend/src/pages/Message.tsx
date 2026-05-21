@@ -271,6 +271,7 @@ export function Message() {
           {selectedQuest ? (
             <BadgeCard
               headingLevel="h2"
+              xp = {selectedQuest.xp}
               title={selectedQuest.title}
               description={selectedQuest.description}
             />
@@ -377,9 +378,10 @@ export function Message() {
           </div>
           <BadgeCard
             headingLevel="h2"
-            title="✨ Tips for more XP:"
+            title="✨ Tips for a great Postcard:"
             description={
               <ul style={{ listStyle: "none", padding: 0 }}>
+                <li>✓ Write your meessage in english</li>
                 <li>✓ Read the task carefully and follow all rules</li>
                 <li>✓ Write a long enough text</li>
                 <li>✓ Avoid bad or inappropriate words</li>

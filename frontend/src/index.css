@@ -166,7 +166,7 @@ main.left * {
 
 /* Links */
 a {
-  color: var(--color-primary);
+  color: var(--color-blue-600);
   text-decoration: none;
   border-bottom: var(--border-width) solid var(--color-primary);
   padding-bottom: 2px;
@@ -174,7 +174,7 @@ a {
 }
 
 a:hover {
-  color: var(--color-blue-100);
+  color: var(--color-blue-400);
   border-bottom: var(--border-width) solid var(--color-blue-300);
 }
 
@@ -1888,7 +1888,7 @@ a.button--image {
       border: none;
       font-size: 1.25rem;
 
-      color: var(--color-blue-400);
+      color: var(--color-blue-600);
       background-color: transparent;
       margin: 0 auto;
     }
@@ -3009,7 +3009,7 @@ ol {
         align-items: center;
         border-bottom: 2px solid var(--color-border);
         background-color: var(--color-white);
-        z-index: 101;
+        z-index: 1010;
       }
 
       nav {

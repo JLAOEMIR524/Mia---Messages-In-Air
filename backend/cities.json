@@ -356,6 +356,11 @@
       "location": { "longitude": -72.285215, "latitude": 18.971187 }
     },
     {
+      "name": "Hawaii",
+      "code": "US-HI",
+      "location": { "longitude": -155.5828, "latitude": 19.8968 }
+    },
+    {
       "name": "Honduras",
       "code": "HN",
       "location": { "longitude": -86.241905, "latitude": 15.199999 }
@@ -1996,6 +2001,11 @@
       "name": "Turku",
       "country": "FI",
       "location": { "longitude": 22.2666, "latitude": 60.4518 }
+    },
+    {
+      "name": "Honolulu",
+      "country": "US-HI",
+      "location": { "longitude": -157.8583, "latitude": 21.3069 }
     },
     {
       "name": "Cork",

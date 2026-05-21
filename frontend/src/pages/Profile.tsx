@@ -265,7 +265,7 @@ export function Profile() {
               You haven't completed any quests yet. Send a postcard to start!
             </p>
           ) : (
-            userQuests.map((quest) => (
+            [...userQuests].reverse().map((quest) => (
               <BadgeCard
                 key={quest.id}
                 icon="./icons/star_shine.svg"
