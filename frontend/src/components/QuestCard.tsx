@@ -7,6 +7,7 @@ interface QuestCardProps {
   onContinue: () => void;
   isSelected?: boolean;
   onSelect?: () => void;
+  xp?: number;
 }
 
 export function QuestCard({
@@ -15,6 +16,7 @@ export function QuestCard({
   onReload,
   onContinue,
   isSelected,
+  xp,
   onSelect,
 }: QuestCardProps) {
   return (
@@ -37,7 +39,7 @@ export function QuestCard({
         </button>
       </div>
 
-      <p>{description}</p>
+      <p>{description}  {xp && ` (+${xp} XP)`}</p>
 
       {/* Sends a state flag to the editor route so it knows user came from a quest */}
       <Link

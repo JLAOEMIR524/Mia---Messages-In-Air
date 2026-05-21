@@ -102,6 +102,7 @@ export function Quest() {
 
       <QuestCard
         title={activeQuest.title}
+        xp = {activeQuest.xp}
         description={activeQuest.description}
         onReload={handleReload}
         isSelected={selectedQuest?.id === activeQuest.id}
@@ -115,6 +116,7 @@ export function Quest() {
           <BadgeCard
             key={q.id}
             title={q.title}
+            xp={q.xp}
             description={q.description}
             isSelected={selectedQuest?.id === q.id}
             onSelect={() => {
