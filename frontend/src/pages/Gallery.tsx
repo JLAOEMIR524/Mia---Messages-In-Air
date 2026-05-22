@@ -52,6 +52,7 @@ export function Gallery() {
   const [postcards, setPostcards] = useState<Postcard[]>([]);
   const [filter, setFilter] = useState<"all" | "received" | "sent">("all");
   const [loading, setLoading] = useState(true);
+  const [flippedCards, setFlippedCards] = useState<number>(-1);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -172,11 +173,19 @@ export function Gallery() {
 
               return (
                 <div
-                  className="gallery-card-wrapper"
+                  className={`gallery-card-wrapper ${flippedCards === card.id ? "is-flipped" : ""}`}
                   key={card.id}
                   tabIndex={0}
-                  role="article"
+                  role="button"
+                  aria-pressed={flippedCards === card.id}
                   aria-label={`Postcard ${isSent ? `to ${card.receiverAddress?.name ?? "someone"}` : `from ${card.location}`}. Text: ${card.text}`}
+                  onClick={() => setFlippedCards(card.id)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setFlippedCards(card.id);
+                    }
+                  }}
                 >
                   <Card
                     image={imageSrc}
