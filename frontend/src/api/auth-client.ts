@@ -12,7 +12,7 @@ export const authClient = createAuthClient({
 
   plugins: [
     //Import the client passkey functionality
-    passkeyClient(), 
+    passkeyClient(),
     // Tell auth client that firstName and lastName actually exist on the user
     inferAdditionalFields({
       user: {

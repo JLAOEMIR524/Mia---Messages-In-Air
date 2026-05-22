@@ -4,7 +4,6 @@ import { ProfileTopper } from "../components/ProfileTopper";
 import SwapCard from "../components/SwapCard";
 import { Link, useNavigate } from "react-router-dom";
 import { useSession } from "../api/auth-client";
-import { PasskeyContainer } from "../components/PasskeyContainer";
 
 interface UserStats {
   postcardsSent: number;
@@ -209,8 +208,6 @@ export function Profile() {
               }
             }}
           />
-
-          <PasskeyContainer />
 
           <h2 className="text-m">Your Stickers</h2>
 

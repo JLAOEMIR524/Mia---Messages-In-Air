@@ -39,7 +39,9 @@ export function QuestCard({
         </button>
       </div>
 
-      <p>{description}  {xp && ` (+${xp} XP)`}</p>
+      <p>
+        {description} {xp && ` (+${xp} XP)`}
+      </p>
 
       {/* Sends a state flag to the editor route so it knows user came from a quest */}
       <Link

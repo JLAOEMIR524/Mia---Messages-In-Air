@@ -271,7 +271,7 @@ export function Message() {
           {selectedQuest ? (
             <BadgeCard
               headingLevel="h2"
-              xp = {selectedQuest.xp}
+              xp={selectedQuest.xp}
               title={selectedQuest.title}
               description={selectedQuest.description}
             />
