@@ -42,7 +42,7 @@ export function ProfileTopper({
 
   const genPasskey = async () => {
     const { error } = await authClient.passkey.addPasskey({
-      name: "example-passkey-name",
+      name: "Mia Passkey",
     });
     if (error) {
       console.log(error);
