@@ -251,6 +251,14 @@ export function Message() {
 
   return (
     <>
+        <div
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          className="sr-only"
+        >
+          {announcement}
+        </div>
       <main inert={previewOpen ? true : undefined}>
         <Link
           to="#"
@@ -271,7 +279,7 @@ export function Message() {
           {selectedQuest ? (
             <BadgeCard
               headingLevel="h2"
-              xp = {selectedQuest.xp}
+              xp={selectedQuest.xp}
               title={selectedQuest.title}
               description={selectedQuest.description}
             />
@@ -312,9 +320,6 @@ export function Message() {
               maxLength={700}
             />
             <p aria-hidden="true">Characters: {questText.length}/700</p>
-            <div role="status" className="sr-only">
-              {announcement}
-            </div>
           </div>
           <div className="flexbox">
             <label htmlFor="location-search">
