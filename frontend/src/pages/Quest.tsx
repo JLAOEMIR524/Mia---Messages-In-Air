@@ -102,7 +102,7 @@ export function Quest() {
 
       <QuestCard
         title={activeQuest.title}
-        xp = {activeQuest.xp}
+        xp={activeQuest.xp}
         description={activeQuest.description}
         onReload={handleReload}
         isSelected={selectedQuest?.id === activeQuest.id}

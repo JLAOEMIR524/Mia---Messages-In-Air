@@ -12,6 +12,7 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@better-auth/passkey": "^1.6.11",
     "better-auth": "^1.6.11",
     "konva": "^10.2.5",
     "leaflet": "^1.9.4",

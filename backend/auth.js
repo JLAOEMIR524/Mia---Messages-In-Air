@@ -4,6 +4,7 @@ import { prisma } from "./db.js";
 import crypto from "crypto";
 import { sendPasswordResetMail } from "./mail/resetMail.js";
 import { sendWelcomeMail } from "./mail/welcomeMail.js";
+import { passkey } from "@better-auth/passkey";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -48,6 +49,10 @@ export const auth = betterAuth({
       },
     },
   },
+
+  plugins: [
+    passkey()
+  ],
 
   databaseHooks: {
     user: {

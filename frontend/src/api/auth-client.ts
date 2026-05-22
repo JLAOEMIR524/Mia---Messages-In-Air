@@ -1,5 +1,6 @@
 import { createAuthClient } from "better-auth/react";
 import { inferAdditionalFields } from "better-auth/client/plugins";
+import { passkeyClient } from "@better-auth/passkey/client";
 
 export const authClient = createAuthClient({
   baseURL: import.meta.env.VITE_API_URL,
@@ -10,6 +11,8 @@ export const authClient = createAuthClient({
   },
 
   plugins: [
+    //Import the client passkey functionality
+    passkeyClient(),
     // Tell auth client that firstName and lastName actually exist on the user
     inferAdditionalFields({
       user: {
