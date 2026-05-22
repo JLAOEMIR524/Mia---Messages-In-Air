@@ -20,6 +20,29 @@ export function Login() {
     };
   }, []);
 
+  //Starts the Passkey generation process
+  useEffect(() => {
+    const handlePasskey = async () => {
+      if (!window.PublicKeyCredential?.isConditionalMediationAvailable) return;
+
+      const available =
+        await PublicKeyCredential.isConditionalMediationAvailable();
+      if (!available) return;
+
+      await signIn.passkey({
+        autoFill: true,
+        fetchOptions: {
+          onError(ctx) {
+            setLoading(false);
+            setError(ctx.error.message);
+          },
+        },
+      });
+    };
+
+    handlePasskey();
+  }, []);
+
   // Redirects logged-in users directly to the dashboard
   useEffect(() => {
     if (session) {
@@ -67,7 +90,7 @@ export function Login() {
             name="emailUser"
             type="email"
             placeholder="Type here..."
-            autoComplete="email"
+            autoComplete="email webauthn"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -77,7 +100,7 @@ export function Login() {
             id="password"
             name="password"
             type="password"
-            autoComplete="current-password"
+            autoComplete="current-password webauthn"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required

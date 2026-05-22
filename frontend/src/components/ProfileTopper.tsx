@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { authClient } from "../api/auth-client";
 
 interface ProfileTopperProps {
   initials: string;
@@ -38,6 +39,15 @@ export function ProfileTopper({
 
   // validation to prevent submitting empty fields
   const isInvalid = !firstName.trim() || !lastName.trim() || !email.trim();
+
+  const genPasskey = async () => {
+    const { error } = await authClient.passkey.addPasskey({
+      name: "example-passkey-name",
+    });
+    if (error) {
+      console.log("Passkey creation failed.");
+    }
+  };
 
   // Handles switching between edit mode and save mode
   const handleEditClick = () => {
@@ -201,39 +211,46 @@ export function ProfileTopper({
             <p>Postcards Sent: {postcardsSent}</p>
           </div>
 
-          <button
-            className="button button--image"
-            onClick={handleEditClick}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            aria-disabled={isEditing && isInvalid ? "true" : "false"}
-            aria-label={
-              isEditing
-                ? isInvalid
-                  ? "Save profile (disabled, required fields are empty)"
-                  : "Save profile"
-                : "Edit profile"
-            }
-            style={{
-              opacity: isEditing && isInvalid ? 0.5 : 1,
-              cursor: isEditing && isInvalid ? "not-allowed" : "pointer",
-            }}
-          >
-            <img
-              aria-hidden="true"
-              alt=""
-              src={
+          <div className="buttons-profile">
+            <button className="button button--secondary" onClick={genPasskey}>
+              <img aria-hidden="true" alt="" src={"./icons/passkey_blue.svg"} />
+              Generate Passkey
+            </button>
+
+            <button
+              className="button button--image"
+              onClick={handleEditClick}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+              aria-disabled={isEditing && isInvalid ? "true" : "false"}
+              aria-label={
                 isEditing
-                  ? isHovered
-                    ? "./icons/save-blue.svg"
-                    : "./icons/save-white.svg"
-                  : isHovered
-                    ? "./icons/edit-blue.svg"
-                    : "./icons/edit-white.svg"
+                  ? isInvalid
+                    ? "Save profile (disabled, required fields are empty)"
+                    : "Save profile"
+                  : "Edit profile"
               }
-            />
-            {isEditing ? "Save" : "Edit"}
-          </button>
+              style={{
+                opacity: isEditing && isInvalid ? 0.5 : 1,
+                cursor: isEditing && isInvalid ? "not-allowed" : "pointer",
+              }}
+            >
+              <img
+                aria-hidden="true"
+                alt=""
+                src={
+                  isEditing
+                    ? isHovered
+                      ? "./icons/save-blue.svg"
+                      : "./icons/save-white.svg"
+                    : isHovered
+                      ? "./icons/edit-blue.svg"
+                      : "./icons/edit-white.svg"
+                }
+              />
+              {isEditing ? "Save" : "Edit"}
+            </button>
+          </div>
         </div>
 
         <div className="progress">

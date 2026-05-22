@@ -15,6 +15,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@better-auth/passkey": "^1.6.11",
     "@prisma/client": "^6.19.3",
     "axios": "^1.16.1",
     "bad-words": "^4.0.0",

@@ -98,6 +98,7 @@ model User {
   createdPostcards  Postcard[] @relation(name: "PostcardCreator")
   receivedPostcards Postcard[] @relation(name: "PostcardReceiver")
   moderatedImages   ModeratedImage[] 
+  passkeys     Passkey[]
 
   @@map("user")
 }
@@ -156,4 +157,20 @@ model ModeratedImage {
   @@index([userId])
   @@index([createdAt])
   @@map("moderated_image")
+}
+
+model Passkey {
+	id String @id
+	name String?
+	publicKey String
+	user User @relation(fields: [userId], references: [id])
+	userId String
+	credentialID String
+	counter Int
+	deviceType String
+	backedUp Boolean
+	transports String?
+	createdAt DateTime? @db.Timestamptz(3)
+	aaguid String?
+	@@map("passkey")
 }

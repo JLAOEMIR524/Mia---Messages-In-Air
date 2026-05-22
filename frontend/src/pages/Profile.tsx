@@ -265,14 +265,16 @@ export function Profile() {
               You haven't completed any quests yet. Send a postcard to start!
             </p>
           ) : (
-            [...userQuests].reverse().map((quest) => (
-              <BadgeCard
-                key={quest.id}
-                icon="./icons/star_shine.svg"
-                title={quest.title}
-                description={`${quest.description} (+${quest.earnedXp} XP)`}
-              />
-            ))
+            [...userQuests]
+              .reverse()
+              .map((quest) => (
+                <BadgeCard
+                  key={quest.id}
+                  icon="./icons/star_shine.svg"
+                  title={quest.title}
+                  description={`${quest.description} (+${quest.earnedXp} XP)`}
+                />
+              ))
           )}
         </>
       )}

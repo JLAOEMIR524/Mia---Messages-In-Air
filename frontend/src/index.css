@@ -379,6 +379,22 @@ main.imageEditor > div:last-child .button--image {
   color: inherit;
 }
 
+/*Buttons Profiel*/
+.buttons-profile {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.buttons-profile .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 0;
+}
+
 /*Postcard Backflip*/
 .gallery-card-wrapper {
   position: relative;
@@ -1334,15 +1350,37 @@ main > .button:last-of-type {
     flex-direction: column;
     gap: var(--space-md);
 
-    div {
+    .profile-header-row {
       display: flex;
+      flex-direction: row;
       justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+      gap: var(--space-md);
+      flex-wrap: wrap;
 
       .profileInfos {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        flex: 1;
+        min-width: 200px;
         gap: var(--space-sm);
+      }
+
+      .buttons-profile {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: var(--space-sm);
+        flex: 0 1 auto;
+      }
+    }
+
+    @media (max-width: 1258px) {
+      .profile-header-row {
+        flex-direction: column-reverse;
+        gap: var(--space-sm);
+        align-items: flex-start;
       }
     }
 
@@ -1359,18 +1397,15 @@ main > .button:last-of-type {
       .progressBar {
         width: 100%;
         height: 10px;
-
         border-radius: var(--border-radius);
         overflow: hidden;
         box-sizing: border-box;
-
         border-width: 2px;
         border-style: solid;
         border-color: var(--color-blue-950);
 
         .progressFill {
           height: 100%;
-
           background-color: var(--color-blue-950);
         }
       }
@@ -2256,8 +2291,7 @@ ol {
   box-sizing: border-box;
   padding: var(--space-md);
   display: flex;
-  gap: var(--space-lg);
-
+  gap: var(--space-md);
   background: var(
     --Gradient,
     linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
@@ -2717,6 +2751,60 @@ ol {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.passkeyContainer {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-evenly;
+  padding: var(--space-md);
+  border-radius: var(--border-radius);
+
+  background-color: var(--color-blue-700);
+
+  .seperationLine {
+    width: 1px;
+    height: 100%;
+
+    background-color: white;
+  }
+
+  img {
+    height: 50px;
+    justify-self: center;
+    align-self: center;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+
+    margin: 0;
+    padding: 0;
+
+    color: white;
+  }
+
+  .passkeyInfo {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  .button {
+    height: min-content;
+
+    margin: 0;
+    align-self: center;
+
+    background-color: white;
+    color: black;
+    border: none;
+
+    &:hover {
+      background-color: var(--color-gray-300);
+    }
+  }
 }
 
 @media print {
@@ -3321,6 +3409,15 @@ ol {
           display: none;
         }
       }
+    }
+  }
+
+  .passkeyContainer {
+    flex-direction: column;
+    gap: var(--space-sm);
+
+    .passkeyInfo {
+      align-self: center;
     }
   }
 
