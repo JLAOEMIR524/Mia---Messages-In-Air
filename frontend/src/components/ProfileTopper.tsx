@@ -45,7 +45,7 @@ export function ProfileTopper({
       name: "example-passkey-name",
     });
     if (error) {
-      console.log("Passkey creation failed.");
+      console.log(error);
     }
   };
 
