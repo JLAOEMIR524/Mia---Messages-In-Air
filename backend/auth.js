@@ -51,7 +51,11 @@ export const auth = betterAuth({
   },
 
   plugins: [
-    passkey()
+    passkey({
+      rpID: isProd ? "mia.jlaoemir.at" : "localhost",
+      rpName: "MIA",
+      origin: process.env.FRONTEND_URL ?? "http://localhost:5173",
+    }),
   ],
 
   databaseHooks: {
