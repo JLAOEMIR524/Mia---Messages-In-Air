@@ -426,7 +426,8 @@ main.imageEditor>div:last-child .button--image {
 }
 
 .gallery-card-wrapper:hover .postcard-overlay-back,
-.gallery-card-wrapper:focus-within .postcard-overlay-back {
+.gallery-card-wrapper:focus-within .postcard-overlay-back,
+.gallery-card-wrapper.is-flipped .postcard-overlay-back {
   opacity: 1;
   visibility: visible;
 }

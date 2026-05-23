@@ -251,6 +251,14 @@ export function Message() {
 
   return (
     <>
+        <div
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          className="sr-only"
+        >
+          {announcement}
+        </div>
       <main inert={previewOpen ? true : undefined}>
         <Link
           to="#"
