@@ -53,6 +53,7 @@ export function Message() {
   const [showPreview, setShowPreview] = useState(false);
   const [adress, setAdress] = useState<AddressType | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isPreviewFromSend, setIsPreviewFromSend] = useState(false);
 
   const [isSending, setIsSending] = useState(false);
   const [searchResults, setSearchResults] = useState<LocationSuggestion[]>([]);
@@ -436,6 +437,7 @@ export function Message() {
             className="button button--image"
             onClick={() => {
               setShowPreview(true);
+              setIsPreviewFromSend(false);
               setPreviewOpen(true);
             }}
             aria-label="Preview the postcard"
@@ -462,7 +464,9 @@ export function Message() {
                 e.preventDefault();
                 return;
               }
-              handleSendPostcard();
+              setIsPreviewFromSend(true);
+              setShowPreview(true);
+              setPreviewOpen(true);
             }}
           >
             Send Postcard <span className="icon-span"></span>
@@ -474,8 +478,9 @@ export function Message() {
         onClose={() => {
           setShowPreview(false);
           setPreviewOpen(false);
+          setIsPreviewFromSend(false);
         }}
-        title="Preview"
+        title={isPreviewFromSend ? "Final Review" : "Preview"}
       >
         {cardFrontData && (
           <img
@@ -501,6 +506,24 @@ export function Message() {
               </p>
               <p>{adress.country}</p>
             </div>
+          </div>
+        )}
+        {isPreviewFromSend && (
+          <div className="previewActions" style={{ marginTop: "2rem", display: "flex", justifyContent: "center" }}>
+            <button
+              type="button"
+              className={`button button--image message ${isDisabled || isSending ? "is-disabled" : ""}`}
+              aria-disabled={isDisabled || isSending}
+              onClick={(e) => {
+                if (isDisabled || isSending) {
+                  e.preventDefault();
+                  return;
+                }
+                handleSendPostcard();
+              }}
+            >
+              Confirm & Send Now <span className="icon-span"></span>
+            </button>
           </div>
         )}
       </Preview>
