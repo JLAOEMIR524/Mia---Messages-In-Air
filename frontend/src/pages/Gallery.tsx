@@ -197,6 +197,14 @@ export function Gallery() {
                             : "From: Someone to you"}
                         </span>
                         <br />
+                        <span>
+                         {" "}
+                          {new Date(card.createdAt).toLocaleDateString(
+                            "en-US",
+                            { month: "long", day: "numeric", year: "numeric" },
+                          )}
+                        </span>{" "}
+                        <br />
                         <span>📍 {card.location}</span>
                       </>
                     }

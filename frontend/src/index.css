@@ -352,7 +352,7 @@ a:focus {
   background-image: url("/icons/arrow-right-blue.svg");
 }
 
-main.imageEditor > div:last-child .button--image {
+main.imageEditor>div:last-child .button--image {
   position: fixed;
   bottom: 2rem;
   left: 50%;
@@ -578,12 +578,26 @@ main.imageEditor > div:last-child .button--image {
   margin-bottom: -50px;
   font-weight: 600;
   color: var(--color-primary);
+  text-align: center;
 }
 
 div[aria-live="polite"] {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.caracters {
+  padding-top: 0;
+  margin-top: 0;
+  margin-bottom: var(--space-sm);
+  color: var(--color-error);
+  text-align: left;
+
 }
 
 /* Form Inputs */
@@ -1088,7 +1102,7 @@ a:hover {
   }
 }
 
-main > .button:last-of-type {
+main>.button:last-of-type {
   margin-top: var(--space-lg);
 }
 
@@ -1309,10 +1323,8 @@ main > .button:last-of-type {
   gap: var(--space-lg);
   margin: var(--space-sm) 0 var(--space-md) 0;
 
-  background: var(
-    --Gradient,
-    linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
-  );
+  background: var(--Gradient,
+      linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
   border-radius: var(--border-radius);
 
   .imageBlock {
@@ -1458,6 +1470,7 @@ main > .button:last-of-type {
 }
 
 @keyframes bounce {
+
   0%,
   20%,
   50%,
@@ -1599,6 +1612,46 @@ main > .button:last-of-type {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
+
+/*Editor unlock sticker*/
+.sticker-container.sticker--locked {
+  cursor: not-allowed;
+}
+
+.sticker-container.sticker--unlocked {
+  cursor: pointer;
+}
+
+.sticker--locked .sticker-img {
+  opacity: 0.35;
+  filter: blur(1px) grayscale(60%);
+}
+
+.sticker-locked-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: var(--border-radius);
+  pointer-events: none;
+}
+
+.sticker-xp-badge {
+  font-size: 15px;
+  background-color: var(--color-primary);
+  color: #fff;
+  padding: 0 var(--space-xs);
+  border-radius: var(--border-radius);
+  margin-top: var(--space-xs);
+  white-space: nowrap;
+}
+
 
 /* Load Quest Card */
 .loadQuestCard {
@@ -1752,10 +1805,8 @@ a.button--image {
   flex-shrink: 0;
   align-self: center;
   border-radius: var(--border-radius);
-  background: var(
-    --Gradient,
-    linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
-  );
+  background: var(--Gradient,
+      linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
 
   img {
     width: 30px;
@@ -1844,7 +1895,7 @@ a.button--image {
   flex: 1;
 }
 
-.linkHeader + .messagePreview {
+.linkHeader+.messagePreview {
   margin-top: -20px;
 }
 
@@ -1887,7 +1938,7 @@ a.button--image {
   padding: var(--space-lg) var(--space-xl);
   border-radius: var(--border-radius-large);
 
-  .xpDisplay > img {
+  .xpDisplay>img {
     height: 45px;
   }
 
@@ -1911,10 +1962,8 @@ a.button--image {
       align-items: center;
       border-radius: var(--border-radius);
 
-      background: var(
-        --Gradient,
-        linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
-      );
+      background: var(--Gradient,
+          linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
       color: white;
     }
 
@@ -1962,10 +2011,8 @@ a.button--image {
     align-items: center;
     border-radius: 90px;
 
-    background: var(
-      --Gradient,
-      linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
-    );
+    background: var(--Gradient,
+        linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
 
     img {
       width: 80px;
@@ -2032,13 +2079,13 @@ a.button.button--image.message.is-disabled .icon-span {
   width: 100%;
 
   &:not(.gallery):not(.homeButton) {
-    & > button:first-child {
+    &>button:first-child {
       color: var(--color-primary);
       background-color: white;
       border: 2px solid var(--color-primary);
     }
 
-    & > button:first-child .icon-span {
+    &>button:first-child .icon-span {
       width: 20px;
       height: 19px;
       display: inline-block;
@@ -2047,7 +2094,7 @@ a.button.button--image.message.is-disabled .icon-span {
       background-repeat: no-repeat;
     }
 
-    & > button:first-child:hover {
+    &>button:first-child:hover {
       background-color: var(--color-hover);
     }
   }
@@ -2129,10 +2176,8 @@ a.button.button--image.message.is-disabled .icon-span {
   }
 
   .questCard:first-child {
-    background: var(
-      --Gradient,
-      linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
-    );
+    background: var(--Gradient,
+        linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
     margin-top: 0;
     color: white;
 
@@ -2292,10 +2337,8 @@ ol {
   padding: var(--space-md);
   display: flex;
   gap: var(--space-md);
-  background: var(
-    --Gradient,
-    linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
-  );
+  background: var(--Gradient,
+      linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
   border-radius: var(--border-radius);
 
   .imageBlock {
@@ -2415,10 +2458,8 @@ ol {
 }
 
 .city {
-  background: var(
-    --Gradient,
-    linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%)
-  );
+  background: var(--Gradient,
+      linear-gradient(267deg, #38c871 5.75%, #2a93cc 94.25%));
   color: var(--color-white);
   padding: var(--space-sm) var(--space-sm);
   display: inline-flex;
@@ -3140,7 +3181,7 @@ ol {
         }
       }
 
-      > .logout {
+      >.logout {
         display: none;
       }
     }
@@ -3242,7 +3283,7 @@ ol {
     min-width: 500px;
   }
 
-  main.imageEditor > div:last-child .button--image {
+  main.imageEditor>div:last-child .button--image {
     left: 35%;
   }
 
@@ -3281,6 +3322,10 @@ ol {
         height: 50%;
       }
     }
+  }
+
+  .sticker-xp-badge {
+    font-size: 13px;
   }
 }
 
@@ -3482,7 +3527,7 @@ ol {
         font-size: 1.5rem;
       }
 
-      .previewTop > img {
+      .previewTop>img {
         width: 20px;
       }
     }
@@ -3521,7 +3566,7 @@ ol {
     }
   }
 
-  main.imageEditor > div:last-child .button--image {
+  main.imageEditor>div:last-child .button--image {
     left: 30%;
   }
 
@@ -3604,7 +3649,7 @@ ol {
     min-width: 320px;
   }
 
-  main.imageEditor > div:last-child .button--image {
+  main.imageEditor>div:last-child .button--image {
     left: 20%;
   }
 
@@ -3658,6 +3703,7 @@ ol {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
