@@ -23,26 +23,32 @@ export function StickerSelector({
   const [stickers, setStickers] = useState<Stickers[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // fetch stream filtering out locked assets
+  // Fetch unlocked stickers + one next locked teaser sticker
   useEffect(() => {
-    const fetchAvailableStickers = async () => {
+    const fetchStickersWithTeaser = async () => {
       try {
         setLoading(true);
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/stickers`,
-          {
-            credentials: "include",
-          },
+          { credentials: "include" },
         );
         if (!response.ok) throw new Error("Failed to fetch stickers");
 
         const data = await response.json();
+        const allStickers: Stickers[] = data.stickers || [];
 
-        const unlockedOnly = (data.stickers || []).filter(
-          (sticker: Stickers) => !sticker.isLocked,
-        );
+        const unlocked = allStickers.filter((s) => !s.isLocked);
+        const lockedSortedByXp = allStickers
+          .filter((s) => s.isLocked)
+          .sort((a, b) => a.xpAmount - b.xpAmount);
 
-        setStickers(unlockedOnly);
+        const nextLockedTeaser = lockedSortedByXp[0];
+
+        if (nextLockedTeaser) {
+          setStickers([...unlocked, nextLockedTeaser]);
+        } else {
+          setStickers(unlocked);
+        }
       } catch (err) {
         console.error("Error loading selector stickers:", err);
       } finally {
@@ -50,17 +56,21 @@ export function StickerSelector({
       }
     };
 
-    fetchAvailableStickers();
+    fetchStickersWithTeaser();
   }, []);
 
-  // Serializes runtime payload for HTML5 dataTransfer channel
   const handleDragStart = async (
     e: React.DragEvent<HTMLImageElement>,
-    src: string,
+    sticker: Stickers,
   ) => {
+    if (sticker.isLocked) {
+      e.preventDefault();
+      return;
+    }
+
     const payload: DragPayload = {
       type: "sticker",
-      src: src,
+      src: sticker.stickerSrc,
       width: STICKER_SIZE,
       height: STICKER_SIZE,
     };
@@ -72,7 +82,6 @@ export function StickerSelector({
     e.dataTransfer.effectAllowed = "copy";
   };
 
-  // Keyboard navigation controller
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent, index: number) => {
       if (stickers.length === 0) return;
@@ -99,10 +108,12 @@ export function StickerSelector({
         case "Enter":
         case " ":
           e.preventDefault();
-          onImageClick(
-            { src: stickers[index].stickerSrc, label: stickers[index].name },
-            STICKER_SIZE,
-          );
+          if (!stickers[index].isLocked) {
+            onImageClick(
+              { src: stickers[index].stickerSrc, label: stickers[index].name },
+              STICKER_SIZE,
+            );
+          }
           break;
       }
     },
@@ -114,8 +125,9 @@ export function StickerSelector({
   }
 
   if (stickers.length === 0) {
-    return <div className="galleryContainer">No stickers unlocked yet.</div>;
+    return <div className="galleryContainer">No stickers found.</div>;
   }
+
   return (
     <div
       className="galleryContainer"
@@ -123,33 +135,64 @@ export function StickerSelector({
       role="listbox"
     >
       <div className="gallery">
-        {stickers.map((sticker, i) => (
-          <div
-            className="barItem image"
-            key={sticker.id}
-            role="option"
-            aria-selected={focusIndex === i}
-            tabIndex={focusIndex === i ? 0 : -1} // Renders sequential focus to selected index only
-            ref={(element) => {
-              itemsRef.current[i] = element;
-            }}
-            onFocus={() => setFocusIndex(i)}
-            onKeyDown={(e) => handleKeyDown(e, i)}
-          >
-            <img
-              src={sticker.stickerSrc}
-              alt={sticker.description}
-              onDragStart={(e) => handleDragStart(e, sticker.stickerSrc)}
-              onClick={() =>
-                onImageClick(
-                  { src: sticker.stickerSrc, label: sticker.name },
-                  STICKER_SIZE,
-                )
-              }
-              draggable
-            />
-          </div>
-        ))}
+        {stickers.map((sticker, i) => {
+          const ariaLabel = sticker.isLocked
+            ? `Next Reward: ${sticker.name} - Locked. Requires ${sticker.xpAmount} XP.`
+            : sticker.description;
+
+          return (
+            <div
+              className={`barItem image sticker-container ${sticker.isLocked ? "sticker--locked" : "sticker--unlocked"}`}
+              key={sticker.id}
+              role="option"
+              aria-selected={focusIndex === i}
+              aria-label={ariaLabel}
+              tabIndex={focusIndex === i ? 0 : -1}
+              ref={(element) => {
+                itemsRef.current[i] = element;
+              }}
+              onFocus={() => setFocusIndex(i)}
+              onKeyDown={(e) => handleKeyDown(e, i)}
+              style={{ position: "relative" }}
+            >
+              <img
+                src={sticker.stickerSrc}
+                alt=""
+                aria-hidden="true"
+                className="sticker-img"
+                onDragStart={(e) => handleDragStart(e, sticker)}
+                onClick={() => {
+                  if (!sticker.isLocked) {
+                    onImageClick(
+                      { src: sticker.stickerSrc, label: sticker.name },
+                      STICKER_SIZE,
+                    );
+                  }
+                }}
+                draggable={!sticker.isLocked}
+              />
+
+              {sticker.isLocked && (
+                <div className="sticker-locked-overlay">
+                  <img
+                    src="./icons/lock.svg"
+                    alt=""
+                    aria-hidden="true"
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                      objectFit: "contain",
+                      display: "block",
+                    }}
+                  />
+                  <span className="sticker-xp-badge">
+                    {sticker.xpAmount} XP
+                  </span>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

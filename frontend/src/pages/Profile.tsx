@@ -233,7 +233,7 @@ export function Profile() {
             </div>
           </div>
 
-          <h3 className="text-s">Upcoming</h3>
+          <h3 className="text-s">Unlockable</h3>
           <div className="stickerComponent">
             <div className="stickerBox">
               {lockedStickers.map((sticker) => (

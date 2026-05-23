@@ -310,11 +310,23 @@ export function Message() {
               required
               minLength={minRequiredLength}
               maxLength={700}
+              aria-describedby={
+                questText.length > 0 && questText.length < minRequiredLength
+                  ? "msg-warning"
+                  : undefined
+              }
             />
             <p aria-hidden="true">Characters: {questText.length}/700</p>
             <div role="status" className="sr-only">
               {announcement}
             </div>
+            
+            {questText.length > 0 && questText.length < minRequiredLength && (
+              <p id="msg-warning" className="warning caracters" aria-live="polite">
+                Message is too short (needs at least {minRequiredLength}{" "}
+                characters)
+              </p>
+            )}
           </div>
           <div className="flexbox">
             <label htmlFor="location-search">
@@ -381,7 +393,7 @@ export function Message() {
             title="✨ Tips for a great Postcard:"
             description={
               <ul style={{ listStyle: "none", padding: 0 }}>
-                <li>✓ Write your meessage in english</li>
+                <li>✓ Your message must be written in english</li>
                 <li>✓ Read the task carefully and follow all rules</li>
                 <li>✓ Write a long enough text</li>
                 <li>✓ Avoid bad or inappropriate words</li>
@@ -391,20 +403,20 @@ export function Message() {
             }
           />
         </form>
-        <div aria-live="polite">
+        <div aria-hidden="true">
           {!greetingText.trim() && (
-            <p id="greeting-warning" className="warning">
+            <p className="warning">
               Please enter a Greeting or Subject
             </p>
           )}
           {questText.length < minRequiredLength && (
-            <p id="msg-warning" className="warning">
+            <p className="warning">
               Your Message is too short (needs at least {minRequiredLength}{" "}
               characters)
             </p>
           )}
           {!selectedLocation && (
-            <p id="loc-warning" className="warning">
+            <p className="warning">
               Please select a Location
             </p>
           )}
@@ -425,8 +437,7 @@ export function Message() {
           <button
             type="button"
             aria-describedby={
-              (questText.length < minRequiredLength ? "msg-warning " : "") +
-              (!selectedLocation ? "loc-warning" : "")
+              (questText.length < minRequiredLength ? "msg-warning " : "")
             }
             className={`button button--image message ${isDisabled || isSending ? "is-disabled" : ""}`}
             disabled={isDisabled || isSending}
@@ -460,6 +471,7 @@ export function Message() {
 
             <img src="./Stamp.png" alt="Postal stamp" />
             <div className="adress">
+              <p className="text-bold">To:</p>
               <p>{adress.name}</p>
               <p>{adress.street}</p>
               <p>
