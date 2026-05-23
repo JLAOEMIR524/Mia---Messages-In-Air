@@ -251,14 +251,14 @@ export function Message() {
 
   return (
     <>
-        <div
-          role="status"
-          aria-live="polite"
-          aria-atomic="true"
-          className="sr-only"
-        >
-          {announcement}
-        </div>
+      <div
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+      >
+        {announcement}
+      </div>
       <main inert={previewOpen ? true : undefined}>
         <Link
           to="#"
@@ -320,19 +320,16 @@ export function Message() {
               maxLength={700}
               aria-describedby={
                 questText.length > 0 && questText.length < minRequiredLength
-                  ? "msg-warning"
+                  ? "err-text"
                   : undefined
               }
             />
             <p aria-hidden="true">Characters: {questText.length}/700</p>
-            <div role="status" className="sr-only">
-              {announcement}
-            </div>
-            
+
             {questText.length > 0 && questText.length < minRequiredLength && (
-              <p id="msg-warning" className="warning caracters" aria-live="polite">
-                Message is too short (needs at least {minRequiredLength}{" "}
-                characters)
+              <p id="err-text" className="warning caracters">
+                Your Message is too short (needs at least {minRequiredLength}{" "}
+                characters).
               </p>
             )}
           </div>
@@ -411,24 +408,29 @@ export function Message() {
             }
           />
         </form>
-        <div aria-hidden="true">
+        <div
+          id="form-errors"
+          role="status"
+          aria-live="polite"
+          className="warning-container"
+        >
           {!greetingText.trim() && (
-            <p className="warning">
-              Please enter a Greeting or Subject
+            <p id="err-greeting" className="warning">
+              Please enter a Greeting or Subject.
             </p>
           )}
           {questText.length < minRequiredLength && (
-            <p className="warning">
-              Your Message is too short (needs at least {minRequiredLength}{" "}
-              characters)
+            <p id="err-text-bottom" className="warning">
+              Your Message is too short (needs at least {minRequiredLength} characters).
             </p>
           )}
           {!selectedLocation && (
-            <p className="warning">
-              Please select a Location
+            <p id="err-location" className="warning">
+              Please select a Location.
             </p>
           )}
         </div>
+
         <div className="button-flex">
           <button
             className="button button--image"
@@ -444,12 +446,24 @@ export function Message() {
 
           <button
             type="button"
-            aria-describedby={
-              (questText.length < minRequiredLength ? "msg-warning " : "")
-            }
             className={`button button--image message ${isDisabled || isSending ? "is-disabled" : ""}`}
-            disabled={isDisabled || isSending}
-            onClick={handleSendPostcard}
+            aria-disabled={isDisabled || isSending}
+            aria-describedby={
+              [
+                !greetingText.trim() ? "err-greeting" : "",
+                questText.length < minRequiredLength ? "err-text-bottom" : "",
+                !selectedLocation ? "err-location" : "",
+              ]
+                .filter(Boolean)
+                .join(" ") || undefined
+            }
+            onClick={(e) => {
+              if (isDisabled || isSending) {
+                e.preventDefault();
+                return;
+              }
+              handleSendPostcard();
+            }}
           >
             Send Postcard <span className="icon-span"></span>
           </button>
