@@ -271,9 +271,9 @@ export function Message() {
         </Link>
         <Step currentStep={3} totalSteps={3} />
         <h1 className="text-l">Write Your Message 💌</h1>
-        <p>
-          Share your thoughts with a stranger somewhere in the world. Make sure
-          to follow the prompts from the quest.
+        <p className="center-text">
+          Share your thoughts with a stranger somewhere in the world.
+          We provided some tipps for you - make sure to read them.
         </p>
 
         <form
