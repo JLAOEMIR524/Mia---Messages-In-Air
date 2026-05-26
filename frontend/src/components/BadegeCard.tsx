@@ -41,9 +41,9 @@ export function BadgeCard({
 
       <hgroup>
         <Tag className="text-xs">{title}</Tag>
-        <p className="text--small">
+        <div className="text--small">
           {description} {xp && ` (+${xp} XP)`}
-        </p>
+        </div>
       </hgroup>
     </div>
   );
