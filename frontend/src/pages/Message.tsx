@@ -271,7 +271,10 @@ export function Message() {
         </Link>
         <Step currentStep={3} totalSteps={3} />
         <h1 className="text-l">Write Your Message 💌</h1>
-        <p>Share your thoughts with a stranger somewhere in the world</p>
+        <p>
+          Share your thoughts with a stranger somewhere in the world. Make sure
+          to follow the prompts from the quest.
+        </p>
 
         <form
           className="container-messages"
@@ -422,7 +425,8 @@ export function Message() {
           )}
           {questText.length < minRequiredLength && (
             <p id="err-text-bottom" className="warning">
-              Your Message is too short (needs at least {minRequiredLength} characters).
+              Your Message is too short (needs at least {minRequiredLength}{" "}
+              characters).
             </p>
           )}
           {!selectedLocation && (
@@ -509,7 +513,14 @@ export function Message() {
           </div>
         )}
         {isPreviewFromSend && (
-          <div className="previewActions" style={{ marginTop: "2rem", display: "flex", justifyContent: "center" }}>
+          <div
+            className="previewActions"
+            style={{
+              marginTop: "2rem",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <button
               type="button"
               className={`button button--image message ${isDisabled || isSending ? "is-disabled" : ""}`}
