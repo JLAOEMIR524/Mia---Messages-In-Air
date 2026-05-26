@@ -28,13 +28,13 @@ export function Editor() {
   const [bgColor, setBgColor] = useState<string>("#ffffff");
   const navigate = useNavigate();
   const presetColors = [
-    "#fcffa7",
-    "#ffe0bc",
-    "#ffd0d0",
-    "#f1d1f0",
-    "#d2d4ff",
-    "#d6ffc5",
-    "#c5fff3",
+    { value: "#fcffa7", name: "pastell yellow" },
+    { value: "#ffe0bc", name: "pastell orange" },
+    { value: "#ffd0d0", name: "pastell red" },
+    { value: "#f1d1f0", name: "pastell purple" },
+    { value: "#d2d4ff", name: "pastell royal blue" },
+    { value: "#d6ffc5", name: "pastell green" },
+    { value: "#c5fff3", name: "pastell ocean blue" },
   ];
 
   const {
@@ -309,20 +309,20 @@ export function Editor() {
             >
               {presetColors.map((color) => (
                 <button
-                  key={color}
+                  key={color.value}
                   type="button"
                   className="barItem"
-                  aria-label={`Colour ${color}`}
+                  aria-label={`Colour ${color.name}`}
                   style={{
-                    backgroundColor: color,
+                    backgroundColor: color.value,
                     borderRadius: "12px",
                     border:
-                      color === bgColor
+                      color.value === bgColor
                         ? "3px solid var(--color-primary)"
                         : "none",
                     cursor: "pointer",
                   }}
-                  onClick={() => setBgColor(color)}
+                  onClick={() => setBgColor(color.value)}
                 />
               ))}
               <div style={{ width: "20px" }} aria-hidden="true" />
