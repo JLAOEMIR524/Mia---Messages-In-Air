@@ -17,6 +17,15 @@ const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 400;
 const MOVE_STEP_LARGE = 15;
 const MOVE_STEP_SMALL = 5;
+const presetColors = [
+  { value: "#fcffa7", name: "pastell yellow" },
+  { value: "#ffe0bc", name: "pastell orange" },
+  { value: "#ffd0d0", name: "pastell red" },
+  { value: "#f1d1f0", name: "pastell purple" },
+  { value: "#d2d4ff", name: "pastell royal blue" },
+  { value: "#d6ffc5", name: "pastell green" },
+  { value: "#c5fff3", name: "pastell ocean blue" },
+];
 
 export function Editor() {
   const [moderationLoading, setModerationLoading] = useState(false);
@@ -27,16 +36,6 @@ export function Editor() {
   const { scale } = useResponsiveScale(CANVAS_WIDTH);
   const [bgColor, setBgColor] = useState<string>("#ffffff");
   const navigate = useNavigate();
-  const presetColors = [
-    { value: "#fcffa7", name: "pastell yellow" },
-    { value: "#ffe0bc", name: "pastell orange" },
-    { value: "#ffd0d0", name: "pastell red" },
-    { value: "#f1d1f0", name: "pastell purple" },
-    { value: "#d2d4ff", name: "pastell royal blue" },
-    { value: "#d6ffc5", name: "pastell green" },
-    { value: "#c5fff3", name: "pastell ocean blue" },
-  ];
-
   const {
     elements,
     selectedId,
