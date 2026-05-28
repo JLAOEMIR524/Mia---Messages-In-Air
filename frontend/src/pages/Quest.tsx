@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { BadgeCard } from "../components/BadegeCard";
 import { QuestCard } from "../components/QuestCard";
 import { Step } from "../components/Step";
+import { LoadingBanner } from "../components/LoadingBanner";
 
 export interface QuestType {
   id: number;
@@ -58,15 +59,7 @@ export function Quest() {
 
   if (loading || !activeQuest) {
     return (
-      <p
-        style={{
-          margin: "auto",
-          textAlign: "center",
-          fontSize: "1.5rem",
-        }}
-      >
-        Loading Quests...
-      </p>
+      <LoadingBanner pageName="Gallery"/>
     );
   }
 

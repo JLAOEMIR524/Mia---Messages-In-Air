@@ -182,11 +182,11 @@ function AppContent() {
 }
 function App() {
   return (
-    <PreviewProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <PreviewProvider>
         <AppContent />
-      </BrowserRouter>
-    </PreviewProvider>
+      </PreviewProvider>
+    </BrowserRouter>
   );
 }
 

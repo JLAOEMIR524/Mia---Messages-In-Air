@@ -4,6 +4,7 @@ import { ProfileTopper } from "../components/ProfileTopper";
 import SwapCard from "../components/SwapCard";
 import { Link, useNavigate } from "react-router-dom";
 import { useSession } from "../api/auth-client";
+import { LoadingBanner } from "../components/LoadingBanner";
 
 interface UserStats {
   postcardsSent: number;
@@ -134,7 +135,7 @@ export function Profile() {
   return (
     <main className="left profile">
       {loading ? (
-        <div className="loadingState">Loading Profile...</div>
+        <LoadingBanner pageName="Profile"/>
       ) : error ? (
         <div className="errorState">{error}</div>
       ) : (
