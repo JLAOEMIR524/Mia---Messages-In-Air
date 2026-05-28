@@ -4,6 +4,7 @@ import { MessagePreview } from "../components/MessagePreviewCard";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSession } from "../api/auth-client";
+import { LoadingBanner } from "../components/LoadingBanner";
 
 interface BackendPostcard {
   id: number;
@@ -82,7 +83,7 @@ export function Dashboard() {
   if (loading) {
     return (
       <main className="left">
-        <p>Loading Dashboard...</p>
+        <LoadingBanner pageName="Dashboard"/>
       </main>
     );
   }
