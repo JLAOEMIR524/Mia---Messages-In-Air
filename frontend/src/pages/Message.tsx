@@ -10,6 +10,7 @@ import {
   type LocationSuggestion,
 } from "../api/locationApi";
 import { usePreview } from "../hooks/usePreview";
+import { Popup } from "../components/Popup";
 
 export interface QuestType {
   id: number;
@@ -17,6 +18,15 @@ export interface QuestType {
   description: string;
   xp: number;
 }
+
+const WAIT_TIME = 5;
+const actions = [
+  "Sending Postcard ...",
+  "Spellchecking ...",
+  "Language Detection ...",
+  "Quest Evaluation ...",
+  "Picking Recipient ...",
+];
 
 export function Message() {
   const [announcement, setAnnouncement] = useState("");
@@ -214,9 +224,16 @@ export function Message() {
 
       const result = await response.json();
 
+      setShowPreview(false);
+      setPreviewOpen(false);
+      setIsPreviewFromSend(false);
+
       if (!response.ok) {
         throw new Error(result.error || "Error saving the postcard.");
       }
+
+      //Waits until the loading animation finishes
+      await new Promise((resolve) => setTimeout(resolve, WAIT_TIME * 1000));
 
       console.log("Postcard successfully saved:", result);
 
@@ -245,7 +262,7 @@ export function Message() {
   if (isSending) {
     return (
       <div className="full-page-loading">
-        <p>Checking content & sending... ⏳</p>
+        <Popup actions={actions} time={WAIT_TIME} />
       </div>
     );
   }

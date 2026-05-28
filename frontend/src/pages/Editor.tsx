@@ -12,6 +12,7 @@ import type {
   DragPayload,
   UploadedImage,
 } from "../types/CanvasTypes";
+import { Popup } from "../components/Popup";
 
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 400;
@@ -25,6 +26,13 @@ const presetColors = [
   { value: "#d2d4ff", name: "pastell royal blue" },
   { value: "#d6ffc5", name: "pastell green" },
   { value: "#c5fff3", name: "pastell ocean blue" },
+];
+//How long the popup should wait minnimally.
+const WAIT_TIME = 4;
+const messages = [
+  "Sending Image ...",
+  "Evaluating Imgage Safety ...",
+  "Processing Image ...",
 ];
 
 export function Editor() {
@@ -94,6 +102,9 @@ export function Editor() {
 
       const result = await res.json();
 
+      //Waits until the loading animation finishes
+      await new Promise((resolve) => setTimeout(resolve, WAIT_TIME * 1000));
+
       if (result.ok) {
         navigate("/message", { state: { fromEditor: true } });
       } else {
@@ -103,7 +114,9 @@ export function Editor() {
       }
     } catch (e) {
       console.error("Moderation error: ", e);
-      setModerationError("Something went wrong. Please try again.");
+      setModerationError(
+        "Something went wrong. Please check your connection and try again.",
+      );
     } finally {
       setModerationLoading(false);
     }
@@ -420,30 +433,34 @@ export function Editor() {
           )}
         </div>
       </div>
-      <div style={{ cursor: "pointer", marginTop: "2.5rem" }}>
-        {IsPostcardEmpty ? (
-          <button
-            className="button button--image"
-            disabled
-            aria-describedby="empty-canvas-warning"
-          >
-            Continue to Message
-            <span className="icon-span"></span>
-          </button>
-        ) : (
-          <Link
-            to="/message"
-            className="button button--image"
-            onClick={async (e) => {
-              e.preventDefault();
-              await handlePageSwitch();
-            }}
-          >
-            {moderationLoading ? "Checking image..." : "Continue to Message"}
-            <span className="icon-span"></span>
-          </Link>
-        )}
-      </div>
+      {moderationLoading ? (
+        <Popup actions={messages} time={WAIT_TIME} />
+      ) : (
+        <div style={{ cursor: "pointer", marginTop: "2.5rem" }}>
+          {IsPostcardEmpty ? (
+            <button
+              className="button button--image"
+              disabled
+              aria-describedby="empty-canvas-warning"
+            >
+              Continue to Message
+              <span className="icon-span"></span>
+            </button>
+          ) : (
+            <Link
+              to="/message"
+              className="button button--image"
+              onClick={async (e) => {
+                e.preventDefault();
+                await handlePageSwitch();
+              }}
+            >
+              Continue to Message
+              <span className="icon-span"></span>
+            </Link>
+          )}
+        </div>
+      )}
     </main>
   );
 }

@@ -9,6 +9,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
+import { LoadingBanner } from "../components/LoadingBanner";
 
 const DefaultIcon = L.icon({
   iconUrl: markerIcon,
@@ -158,7 +159,7 @@ export function Gallery() {
       </div>
 
       {loading ? (
-        <div className="loadingState">Loading Gallery...</div>
+        <LoadingBanner pageName="Gallery"/>
       ) : filteredPostcards.length === 0 ? (
         <p className="noDataState">No postcards found in this category.</p>
       ) : (

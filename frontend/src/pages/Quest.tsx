@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { BadgeCard } from "../components/BadegeCard";
 import { QuestCard } from "../components/QuestCard";
 import { Step } from "../components/Step";
+import { LoadingBanner } from "../components/LoadingBanner";
 
 export interface QuestType {
   id: number;
@@ -58,15 +59,7 @@ export function Quest() {
 
   if (loading || !activeQuest) {
     return (
-      <p
-        style={{
-          margin: "auto",
-          textAlign: "center",
-          fontSize: "1.5rem",
-        }}
-      >
-        Loading Quests...
-      </p>
+      <LoadingBanner pageName="Gallery"/>
     );
   }
 
@@ -98,7 +91,7 @@ export function Quest() {
       <Step currentStep={1} totalSteps={3} />
 
       <h1 className="text-l">Choose Your Creative Quest ✨</h1>
-      <p>Each quest inspires your postcard and makes it special</p>
+      <p className="center-text">Each quest inspires the message of your postcard and makes it special</p>
 
       <QuestCard
         title={activeQuest.title}
