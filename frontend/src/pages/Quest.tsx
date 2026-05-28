@@ -91,7 +91,7 @@ export function Quest() {
       <Step currentStep={1} totalSteps={3} />
 
       <h1 className="text-l">Choose Your Creative Quest ✨</h1>
-      <p>Each quest inspires your postcard and makes it special</p>
+      <p className="center-text">Each quest inspires the message of your postcard and makes it special</p>
 
       <QuestCard
         title={activeQuest.title}

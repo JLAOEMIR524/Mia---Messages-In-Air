@@ -9,7 +9,7 @@ export function ImprintPrivacy() {
   };
 
   useEffect(() => {
-    document.title = "Mia | Imprint & Privavy";
+    document.title = "Mia | Imprint & Privacy";
   }, []);
 
   return (
@@ -33,15 +33,15 @@ export function ImprintPrivacy() {
           <img src="./icons/arrow-back.svg" alt="" aria-hidden="true" />
         </Link>
         <h1 className="text-l">Imprint & Privacy 📜</h1>
-
         <section className="imprint">
           <p>
-            This website is a project of the MMT degree program at Salzburg
-            University of Applied Sciences.
+            This website is a non-commercial student project of the MMT
+            (Multimedia Technology) degree program at Salzburg University of
+            Applied Sciences and is intended exclusively for academic purposes.
           </p>
 
           <div className="contact-info">
-            <strong>The persons responsible for the content are:</strong>
+            <strong>Persons responsible for the content (jointly):</strong>
             <br />
             Julian Obermeier
             <br />
@@ -53,8 +53,23 @@ export function ImprintPrivacy() {
             <br />
             Salzburg University of Applied Sciences
             <br />
-            Urstein Süd 1<br />
+            Urstein Süd 1
+            <br />
             5412 Puch bei Hallein
+            <br />
+            Austria
+          </div>
+
+          <div className="contact-info">
+            <strong>Contact:</strong>
+            <br />
+            <a href="mailto:jobermeier.mmt-b2024@fh-salzburg.ac.at">
+              jobermeier.mmt-b2024@fh-salzburg.ac.at
+            </a>
+            <br />
+            <a href="mailto:sschorn.mmt-b2024@fh-salzburg.ac.at">
+              sschorn.mmt-b2024@fh-salzburg.ac.at
+            </a>
           </div>
         </section>
 
@@ -64,102 +79,181 @@ export function ImprintPrivacy() {
           <div className="note">
             <p>
               <strong>Note:</strong> This website was created as part of a
-              project at Salzburg University of Applied Sciences and is intended
-              exclusively for academic purposes.
+              student project at Salzburg University of Applied Sciences and is
+              intended exclusively for academic purposes. Last updated: 28 May
+              2026.
             </p>
           </div>
 
-          <h3 className="text-s">Personal Data</h3>
+          <h3 className="text-s">1. Controller</h3>
           <p>
-            We collect, process, and use your personal data only with your
-            consent or authorization, or in order to fulfill agreed purposes, or
-            where another legal basis in accordance with the GDPR applies. This
-            is done in compliance with data protection and civil law
-            regulations. Only personal data that is necessary for the
-            performance and processing of our services, or that you voluntarily
-            provide to us, is collected. Personal data includes all data
-            relating to an identified or identifiable person, such as name,
-            address, email address, telephone number, date of birth, age,
-            gender, social security number, video recordings, photos, voice
-            recordings, and biometric data such as fingerprints.
+            Jointly responsible (Art. 26 GDPR) for the processing of personal
+            data on this website are Julian Obermeier and Sonja Schorn.
           </p>
 
-          <h3 className="text-s">Access and Deletion</h3>
+          <h3 className="text-s">2. What data we collect and why</h3>
+
           <p>
-            As a customer or data subject, you have the right at any time to
-            obtain information about your stored personal data, its origin and
-            recipients, and the purpose of data processing. You also have the
-            right to rectification, data portability, objection, restriction of
-            processing, as well as blocking or deletion of incorrect or
-            unlawfully processed data.
-          </p>
-          <p>
-            If your personal data changes, we kindly ask you to inform us
-            accordingly. You may revoke your consent to the use of your personal
-            data at any time. Requests for information, deletion, correction,
-            objection, and/or data portability (provided this does not involve
-            disproportionate effort) can be addressed to the contact details
-            listed below. If you believe that the processing of your personal
-            data violates applicable data protection law or that your data
-            protection rights have been infringed in any other way, you may
-            lodge a complaint with the competent supervisory authority. In
-            Austria, this is the Data Protection Authority.
+            <strong>Account data.</strong> When you create an account we store:
+            an internal user ID, your first name, last name, display name, email
+            address, an XP (experience points) counter, an internal unsubscribe
+            token, your email notification preference, and timestamps for
+            creation and last update. For authentication we store either a
+            hashed password or, if you set one up, your passkey credential
+            information (public key, credential ID, device type, sign counter
+            and related metadata). Legal basis: Art. 6 (1) (b) GDPR (performance
+            of a contract / pre-contractual measures at your request).
           </p>
 
-          <h3 className="text-s">Data Security</h3>
           <p>
-            The protection of your personal data is ensured through appropriate
-            organizational and technical measures. These measures are intended
-            in particular to protect against unauthorized, unlawful, or
-            accidental access, processing, loss, use, and manipulation. Despite
-            our efforts to maintain a high standard of care, it cannot be ruled
-            out that information transmitted over the internet may be accessed
-            or used by third parties. Therefore, we accept no liability for the
-            disclosure of information caused by errors in data transmission not
-            attributable to us and/or unauthorized access by third parties (e.g.
-            hacking of email accounts or telephones, interception of faxes).
+            <strong>Session data.</strong> While you are signed in, our
+            authentication library (better-auth) creates a session record
+            containing a session token, your IP address, your user-agent string,
+            and an expiry timestamp. This is used to keep you signed in and to
+            protect against session hijacking. Sessions expire automatically.
+            Legal basis: Art. 6 (1) (b) GDPR (login function) and Art. 6 (1) (f)
+            GDPR (security of the service).
           </p>
 
-          <h3 className="text-s">Use of Data</h3>
           <p>
-            We will not process the data provided to us for purposes other than
-            those covered by your request, your consent, or other provisions in
-            accordance with the GDPR. An exception applies to use for
-            statistical purposes, provided the data has been anonymized.
+            <strong>Postcard content.</strong> When you create a postcard, we
+            store the composed image, a greeting, the message text, your chosen
+            sender location (country or city), a fictional receiver address
+            generated by us, the achieved XP value, and a creation timestamp.
+            Postcards are linked to you as the creator and, after delivery, to
+            the recipient. Legal basis: Art. 6 (1) (b) GDPR.
           </p>
 
-          <h3 className="text-s">Transfer of Data to Third Parties</h3>
           <p>
-            To fulfill your request, it may be necessary to . forward your data
-            to third parties. Specifically, uploaded images are processed via
-            the Sightengine API (Sightengine SAS, France) solely for the purpose
-            of content moderation and automated safety checks. Data is
-            transferred exclusively on the basis of the GDPR..., in particular
-            for contract fulfillment or with your prior consent. Some recipients
-            of your personal data may be located outside your country or process
-            your data there. The level of data protection in other countries may
-            not be equivalent to that of Austria. However, we only transfer
-            personal data to countries for which the EU Commission has
-            determined an adequate level of data protection.
+            <strong>Image moderation hashes.</strong> For each postcard image we
+            store a one-way cryptographic hash together with your user ID. This
+            lets us avoid re-checking the same image twice and helps detect
+            abusive patterns. The hash cannot be reversed into the original
+            image. Legal basis: Art. 6 (1) (f) GDPR (protecting users from
+            inappropriate content).
           </p>
 
-          <h3 className="text-s"> OpenStreetMap & Leaflet</h3>
           <p>
-            This website uses the open-source mapping tool Leaflet to display
-            interactive maps. To render the map layout and details, visual data
-            ("map tiles") are loaded directly from the servers of OpenStreetMap
-            (OpenStreetMap Foundation, St John’s Innovation Centre, Cowley Road,
-            Cambridge, CB4 0WS, United Kingdom).
+            <strong>Email content.</strong> Emails we send through our mail
+            provider (Resend) contain your email address and your first name for
+            the salutation. Postcard notification emails additionally include an
+            unsubscribe link with a unique token that lets you turn off
+            notifications without logging in. Password reset emails contain a
+            single-use reset token. See section 5.
+          </p>
+
+          <h3 className="text-s">3. Hosting</h3>
+          <p>
+            The application runs on an in-house Dokploy server operated by
+            Salzburg University of Applied Sciences (Urstein Süd 1, 5412 Puch
+            bei Hallein, Austria), including a PostgreSQL database on the same
+            machine. Apart from the session data described in section 2 (which
+            is created by our authentication library), we do not log additional
+            access data in our own application code. The underlying server and
+            network infrastructure of the university may process technical
+            access data (e.g. IP addresses, timestamps) for operating and
+            securing the network; we have no insight into these logs. Legal
+            basis: Art. 6 (1) (f) GDPR.
+          </p>
+
+          <h3 className="text-s">4. Cloudflare</h3>
+          <p>
+            The frontend domain <code>mia.jlaoemir.at</code> is proxied through
+            Cloudflare (Cloudflare, Inc., 101 Townsend St, San Francisco, CA
+            94107, USA). This means all requests to the frontend pass through
+            Cloudflare's network. Cloudflare may set short-lived technical
+            cookies (e.g. <code>__cf_bm</code> for bot management) and processes
+            connection data such as your IP address for content delivery, DDoS
+            mitigation and bot detection. Cloudflare is certified under the
+            EU–US Data Privacy Framework, so transfers to the United States rely
+            on the EU Commission's adequacy decision (Art. 45 GDPR).
+            Cloudflare's privacy policy:{" "}
+            <a
+              href="https://www.cloudflare.com/privacypolicy/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://www.cloudflare.com/privacypolicy/
+            </a>
+            . Legal basis: Art. 6 (1) (f) GDPR (security and reliable
+            operation).
           </p>
           <p>
-            When you visit a page with an embedded map, your browser establishes
-            a direct connection to OpenStreetMap's servers. During this process,
-            your IP address and device information are transmitted to
-            OpenStreetMap. The use of this service is based on our legitimate
-            interest in providing a user-friendly and informative website in
-            accordance with Art. 6 (1) (f) GDPR. For more information on how
-            your data is handled, please refer to the privacy policy of
-            OpenStreetMap:{" "}
+            Our backend domain <code>api.mia.jlaoemir.at</code> uses Cloudflare
+            for DNS resolution only and is not proxied; Cloudflare therefore
+            only sees DNS lookups, not the contents of your requests.
+          </p>
+
+          <h3 className="text-s">5. Resend (email delivery)</h3>
+          <p>
+            We use Resend (Resend, Inc., 2261 Market Street #5039, San
+            Francisco, CA 94114, USA) to send transactional emails: postcard
+            arrival notifications, password reset emails and email verification.
+            Transmitted to Resend are your email address, your first name (for
+            the salutation), an unsubscribe token for postcard notifications,
+            and, for password resets, a single-use reset token. You can opt out
+            of email notifications at any time through the unsubscribe link in
+            every email. Transactional messages such as password reset and email
+            verification cannot be disabled, as they are required to operate
+            your account. Resend is certified under the EU–US Data Privacy
+            Framework, so transfers to the United States rely on the EU
+            Commission's adequacy decision (Art. 45 GDPR). Resend's privacy
+            policy:{" "}
+            <a
+              href="https://resend.com/legal/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://resend.com/legal/privacy-policy
+            </a>
+            . Legal basis: Art. 6 (1) (b) GDPR.
+          </p>
+
+          <h3 className="text-s">6. Sightengine (image moderation)</h3>
+          <p>
+            Every postcard image you submit is forwarded to Sightengine
+            (Sightengine SAS, 16 rue Joubert, 75009 Paris, France) for automated
+            moderation against not-safe-for-work and otherwise inappropriate
+            content. We do not transmit your name, email or any other account
+            information. Sightengine is processed within the European Union - no
+            third-country transfer takes place. Sightengine's privacy policy:{" "}
+            <a
+              href="https://sightengine.com/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://sightengine.com/privacy
+            </a>
+            . Legal basis: Art. 6 (1) (f) GDPR (protecting users from harmful
+            content).
+          </p>
+
+          <h3 className="text-s">7. HaveIBeenPwned (password security)</h3>
+          <p>
+            When you sign up or change your password, we check whether your
+            chosen password has appeared in known data breaches using the
+            HaveIBeenPwned Pwned Passwords API (operated by Troy Hunt,
+            Australia, and delivered via Cloudflare's edge network). We use the
+            k-anonymity method: only the first five characters of the SHA-1 hash
+            of your password are sent — never the password itself or your full
+            hash. This prefix mathematically cannot be linked back to your
+            password or to you personally. No personal data within the meaning
+            of Art. 4 (1) GDPR is transferred. Legal basis: Art. 6 (1) (f) GDPR
+            (account security).
+          </p>
+
+          <h3 className="text-s">8. OpenStreetMap & Leaflet</h3>
+          <p>
+            We use the open-source mapping library Leaflet to display
+            interactive maps. The map tiles are loaded directly from the servers
+            of the OpenStreetMap Foundation (St John's Innovation Centre, Cowley
+            Road, Cambridge, CB4 0WS, United Kingdom). When you visit a page
+            containing a map, your browser establishes a direct connection to
+            these servers, transmitting your IP address and basic device
+            information. The map does not request your geolocation; it only
+            displays locations that you and other users have manually chosen
+            when sending postcards. The United Kingdom is covered by an adequacy
+            decision of the EU Commission. OpenStreetMap's privacy policy:{" "}
             <a
               href="https://wiki.osmfoundation.org/wiki/Privacy_Policy"
               target="_blank"
@@ -167,42 +261,128 @@ export function ImprintPrivacy() {
             >
               https://wiki.osmfoundation.org/wiki/Privacy_Policy
             </a>
-          </p>
-          <h3 className="text-s">Notification of Data Breaches</h3>
-          <p>
-            We strive to ensure that data breaches are identified early and,
-            where necessary, promptly reported to you and/or the competent
-            supervisory authority, including the relevant categories of affected
-            data.
+            . Legal basis: Art. 6 (1) (f) GDPR.
           </p>
 
-          <h3 className="text-s">Data Retention</h3>
+          <h3 className="text-s">9. Postcards and recipients</h3>
           <p>
-            We do not retain data longer than necessary to fulfill our
-            contractual or legal obligations or to defend against potential
-            liability claims.
+            The purpose of Mia is to deliver postcards to other users of the
+            platform. When a postcard you created is delivered, the recipient
+            sees the image, the greeting, the message text and a fictional
+            receiver address generated by us — no real address is shown. The
+            recipient does not see your name, your email or your user ID.
+          </p>
+          <p>
+            Please do not include personally identifying information about
+            yourself or third parties in your postcard image or text, as this
+            content will be shared with another user of the platform.
           </p>
 
-          <h3 className="text-s">Cookies</h3>
-          <p>This website does not use any cookies.</p>
-
-          <h3 className="text-s">Contact Details</h3>
+          <h3 className="text-s">10. Cookies and local storage</h3>
           <p>
-            The protection of your data is very important to us. You can contact
-            us at any time using the details below for questions or to withdraw
-            your consent.
+            <strong>Session cookie.</strong> better-auth sets a session cookie
+            when you sign in. This cookie is strictly necessary to keep you
+            logged in and to protect your session. Under § 165 (3) TKG 2021 and
+            Art. 6 (1) (b) GDPR, strictly necessary cookies do not require
+            consent.
+          </p>
+          <p>
+            <strong>Local storage.</strong> We use your browser's local storage
+            to temporarily save the postcard you are currently editing (image,
+            message text and chosen sender country) so that you don't lose your
+            work if you reload the page. better-auth additionally stores a
+            client identifier in local storage for session handling. Local
+            storage is not transmitted to any third party and you can clear it
+            manually at any time through your browser settings.
+          </p>
+          <p>
+            Cloudflare may additionally set short-lived technical cookies as
+            described in section 4.
+          </p>
+
+          <h3 className="text-s">11. Data retention</h3>
+          <p>
+            Account data is retained for as long as your account exists. Session
+            records expire automatically. Image moderation hashes are retained
+            for as long as your Postcard is not sent. Postcards remain in our
+            database for as long as the project is operated, so that recipients
+            can continue to view postcards they have received. 
+          </p>
+          <p>
+            If you request deletion of your account, we will remove your
+            personal account data (including passkeys and image moderation
+            hashes linked to your user ID) and disconnect the postcards you sent
+            and received from your identity. The postcards themselves remain
+            stored without a link to you so that other users can still view what
+            they received. Please keep in mind that those images may still
+            reveal your identity. If you also want the postcards you created to
+            be deleted in full, please tell us so when you make your request and
+            we will remove them. A request to delete postcards separately from
+            an account deletion or especially after your account has been
+            deleted is not possible and will be rejected. This is since they are
+            no longer linked to you at that point.
+          </p>
+
+          <h3 className="text-s">12. Your rights</h3>
+          <p>
+            Under the GDPR, you have the right to obtain information about the
+            personal data we hold about you (Art. 15), to have inaccurate data
+            corrected (Art. 16), to have your data deleted (Art. 17), to
+            restrict processing (Art. 18), to data portability (Art. 20), to
+            object to processing based on our legitimate interests (Art. 21),
+            and to withdraw any consent you have given with effect for the
+            future (Art. 7 (3)). Because there is currently no self-service
+            deletion button in your profile, please contact us at the email
+            addresses below; we will process your request without undue delay.
+          </p>
+          <p>
+            If you believe that your data protection rights have been infringed,
+            you can lodge a complaint with the Austrian Data Protection
+            Authority (Datenschutzbehörde, Barichgasse 40–42, 1030 Vienna,{" "}
+            <a
+              href="https://www.dsb.gv.at"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://www.dsb.gv.at
+            </a>
+            ).
+          </p>
+
+          <h3 className="text-s">13. Data security</h3>
+          <p>
+            We protect your data with appropriate organizational and technical
+            measures, including encrypted transport (HTTPS), hashed passwords,
+            and access controls on the database. Despite these measures,
+            transmission over the internet cannot be guaranteed to be completely
+            secure, and we accept no liability for unauthorized access by third
+            parties that is not attributable to us.
+          </p>
+
+          <h3 className="text-s">14. Data breach notification</h3>
+          <p>
+            We strive to identify data breaches early. Where a breach is likely
+            to result in a risk to your rights and freedoms, we will notify you
+            and the competent supervisory authority in accordance with Art. 33
+            and Art. 34 GDPR.
+          </p>
+
+          <h3 className="text-s">15. Contact</h3>
+          <p>
+            For any data protection request — access, correction, deletion, data
+            portability or to withdraw consent — please contact us:
           </p>
           <p>
             <strong>Julian Obermeier and Sonja Schorn</strong>
             <br />
             Urstein Süd 1, 5412 Puch bei Hallein, Austria
             <br />
-            <a href="mailto:sschorn.mmt-b2024@fh-salzburg.ac.at">
-              sschorn.mmt-b2024@fh-salzburg.ac.at
-            </a>
-            <br />
             <a href="mailto:jobermeier.mmt-b2024@fh-salzburg.ac.at">
               jobermeier.mmt-b2024@fh-salzburg.ac.at
+            </a>
+            <br />
+            <a href="mailto:sschorn.mmt-b2024@fh-salzburg.ac.at">
+              sschorn.mmt-b2024@fh-salzburg.ac.at
             </a>
           </p>
         </section>

@@ -224,6 +224,10 @@ export function Message() {
 
       const result = await response.json();
 
+      setShowPreview(false);
+      setPreviewOpen(false);
+      setIsPreviewFromSend(false);
+
       if (!response.ok) {
         throw new Error(result.error || "Error saving the postcard.");
       }
@@ -238,10 +242,6 @@ export function Message() {
       localStorage.removeItem("currentPostcardGreeting");
       localStorage.removeItem("currentPostcardText");
       localStorage.removeItem("selectedLocation");
-
-      setShowPreview(false);
-      setPreviewOpen(false);
-      setIsPreviewFromSend(false);
 
       navigate("/send", {
         state: {
