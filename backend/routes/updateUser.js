@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { prisma } from "../db.js";
 import { auth } from "../auth.js";
+import validator from 'validator';
 
 const router = Router();
 
@@ -26,9 +27,8 @@ router.put("/api/user/update", async (req, res) => {
     const cleanFirstName = firstName.trim();
     const cleanLastName = lastName.trim();
 
-    // regex validation for email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(cleanEmail)) {
+    // validation for email format
+    if (!validator.isEmail(cleanEmail)) {
       return res.status(400).json({ error: "Invalid email format" });
     }
 
