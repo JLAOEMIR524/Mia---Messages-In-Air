@@ -51,14 +51,14 @@ export function NavBar({ inert }: NavBarProps) {
           {/* Show the right logo version depending on mobile / desktop / back button */}
           {!isMobile ? (
             <Link to="/dashboard" tabIndex={-1}>
-              <img className="logo" src="./Logo.png" alt="Mia Logo" />
+              <img className="logo" src="./Logo.png" alt="Mia Dashboard" />
             </Link>
           ) : isDashboard ? (
             <Link to="/dashboard" tabIndex={-1}>
               <img
                 className="logo"
                 src="./Logo_without_text.png"
-                alt="Mia Logo"
+                alt="Mia Dashboard"
               />
             </Link>
           ) : (
@@ -81,7 +81,7 @@ export function NavBar({ inert }: NavBarProps) {
           <button
             className={`hamburger-menu ${isOpen ? "active" : ""}`}
             onClick={() => setIsOpen(!isOpen)}
-            aria-label="Burger-menu open"
+            aria-label="Main-menu open"
             aria-expanded={isOpen}
             aria-hidden={isMobile ? "false" : "true"}
             tabIndex={isMobile ? 1 : -1}

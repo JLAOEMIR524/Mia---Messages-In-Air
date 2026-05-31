@@ -307,6 +307,21 @@ export function Message() {
           ) : (
             <p>No quest selected.</p>
           )}
+
+          <BadgeCard
+            headingLevel="h2"
+            title="✨ Tips for a great Postcard:"
+            description={
+              <ul style={{ listStyle: "none", padding: 0 }}>
+                <li>✓ Your message must be written in english</li>
+                <li>✓ Read the task carefully and follow all rules</li>
+                <li>✓ Write a long enough text</li>
+                <li>✓ Avoid bad or inappropriate words</li>
+                <li>✓ Use correct capitalisation</li>
+                <li>✓ Pay attention to punctuation</li>
+              </ul>
+            }
+          />
           <div className="flexbox">
             <label htmlFor="message-greeting">
               <h2 className="text-s">Greeting / Subject</h2>
@@ -414,20 +429,6 @@ export function Message() {
                 )}
             </div>
           </div>
-          <BadgeCard
-            headingLevel="h2"
-            title="✨ Tips for a great Postcard:"
-            description={
-              <ul style={{ listStyle: "none", padding: 0 }}>
-                <li>✓ Your message must be written in english</li>
-                <li>✓ Read the task carefully and follow all rules</li>
-                <li>✓ Write a long enough text</li>
-                <li>✓ Avoid bad or inappropriate words</li>
-                <li>✓ Use correct capitalisation</li>
-                <li>✓ Pay attention to punctuation</li>
-              </ul>
-            }
-          />
         </form>
         <div
           id="form-errors"

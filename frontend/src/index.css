@@ -594,7 +594,7 @@ div[aria-live="polite"] {
 .caracters {
   padding-top: 0;
   margin-top: 0;
-  margin-bottom: var(--space-sm);
+  margin-bottom:0;
   color: var(--color-error);
   text-align: left;
 }
@@ -658,7 +658,6 @@ select.success {
 }
 
 label:has(+ input:user-invalid)::before {
-  content: "✖ ";
   color: var(--color-error);
 }
 

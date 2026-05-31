@@ -4,7 +4,7 @@ export const NavBarTop = () => {
   return (
     <nav className="navbar">
       <Link to="/home" className="nav-logo-top">
-        <img src="/Logo_without_text.png" alt="Mia Logo" />
+        <img src="/Logo_without_text.png" alt="Mia Dashboard" />
       </Link>
 
       <Link to="/login" className="nav-login" aria-label="login">
