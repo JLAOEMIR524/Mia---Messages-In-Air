@@ -54,7 +54,6 @@ export async function sendPostcardNotification(
   recipientMail,
   id,
   recipientName,
-  cardId,
 ) {
   return sendMail(
     {
@@ -62,7 +61,6 @@ export async function sendPostcardNotification(
       templateId: "notification",
       variables: {
         Receiver_username: recipientName,
-        Postcard_url: cardId,
       },
     },
     id,

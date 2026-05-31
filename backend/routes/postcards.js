@@ -254,7 +254,6 @@ router.post("/api/postcards", async (req, res) => {
         receiverEmail,
         receiverId,
         receiverName,
-        result.postcard.id,
       );
     }
   } catch (error) {
