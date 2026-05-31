@@ -687,6 +687,9 @@ input#fsrch {
   outline: none;
 }
 
+label[for="location-search"] h2 {
+   margin-top: 0;
+}
 .search-icon {
   position: absolute;
   right: 12px;
