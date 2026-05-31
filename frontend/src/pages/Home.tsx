@@ -49,7 +49,7 @@ export function Home() {
           </div>
           <Link to="/login" aria-hidden="true" tabIndex={-1}>
             <img
-              src="./icons/letter-blue.svg"
+              src="/icons/letter-blue.svg"
               alt="Icon Mail"
               className="email-icon"
               aria-hidden="true"
