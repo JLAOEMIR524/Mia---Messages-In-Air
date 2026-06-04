@@ -551,7 +551,7 @@ export function Message() {
                 handleSendPostcard();
               }}
             >
-              Confirm & Send Now <span className="icon-span"></span>
+              Confirm & Send Now<span className="icon-span"></span>
             </button>
           </div>
         )}
