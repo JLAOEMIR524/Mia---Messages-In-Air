@@ -31,9 +31,7 @@ const renderMessage = async () => {
       <Message />
     </MemoryRouter>,
   );
-  await waitFor(() =>
-    expect(fetchRandomAddressFromDB).toHaveBeenCalled()
-  );
+  await waitFor(() => expect(fetchRandomAddressFromDB).toHaveBeenCalled());
 };
 
 test("shows error after typing short message", async () => {
@@ -43,7 +41,7 @@ test("shows error after typing short message", async () => {
 
   const input = screen.getByLabelText(/your message/i);
 
-  await user.type(input, "short text");
+  await act(async () => await user.type(input, "short text"));
 
   const errors = screen.getAllByText(/your message is too short/i, {
     exact: false,
@@ -57,7 +55,7 @@ test("allows user to search and select a location", async () => {
 
   const locationInput = screen.getByPlaceholderText(/search city or country/i);
 
-  await user.type(locationInput, "Ber");
+  await act(async () => await user.type(locationInput, "Ber"));
 
   const option = await screen.findByRole("option", { name: /berlin/i });
   expect(option).toBeInTheDocument();
@@ -73,7 +71,10 @@ test("character count matches actual char amout", async () => {
   await renderMessage();
 
   const input = screen.getByLabelText(/your message/i);
-  await user.type(input, "this is a text which is exactly 45 chars long");
+  await act(
+    async () =>
+      await user.type(input, "this is a text which is exactly 45 chars long"),
+  );
 
   expect(
     screen.getByText((_content, element) => {
@@ -87,7 +88,10 @@ test("user chan't proceed if the text box is insufficcently filled", async () =>
 
   await renderMessage();
   const input = screen.getByLabelText(/your message/i);
-  await user.type(input, "this is a text which is exactly 55 chars long");
+  await act(
+    async () =>
+      await user.type(input, "this is a text which is exactly 55 chars long"),
+  );
 
   const continueButton = screen.getByRole("button", { name: /Send Postcard/i });
 
