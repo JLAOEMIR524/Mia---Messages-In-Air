@@ -1,0 +1,19 @@
+# .gitlab-ci.yml
+stages:
+  - test
+
+# Frontend testen
+frontend-test:
+  stage: test
+  image: node:20
+  cache:
+    key: frontend
+    paths:
+      - frontend/node_modules/
+  before_script:
+    - cd frontend
+    - npm ci
+  variables:
+    VITE_API_URL: "http://localhost:3001"
+  script:
+    - npm test
