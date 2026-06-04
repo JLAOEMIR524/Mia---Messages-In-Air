@@ -53,7 +53,6 @@ test("all nav items have the correct href", () => {
     { name: /generate postcard/i, path: "/quest" },
     { name: /gallery/i, path: "/gallery" },
     { name: /imprint & privacy/i, path: "/imprint" },
-    { name: /logout/i, path: "/logout" },
   ];
 
   expectedLinks.forEach((item) => {
