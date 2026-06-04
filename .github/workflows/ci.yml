@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  frontend-test:
+    runs-on: ubuntu-latest
+
+    env:
+      VITE_API_URL: "http://localhost:3001"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Node.js 20 setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: frontend/node_modules/
+          key: frontend-${{ hashFiles('frontend/package-lock.json') }}
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Tests ausführen
+        working-directory: frontend
+        run: npm test
