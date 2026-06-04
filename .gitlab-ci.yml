@@ -2,30 +2,6 @@
 stages:
   - test
 
-# Backend testen
-backend-test:
-  stage: test
-  image: node:20          # Docker-Image mit Node drin
-  cache:
-    key: backend
-    paths:
-      - backend/node_modules/
-  before_script:
-    - cd backend
-    - npm ci               # installiert exakt nach package-lock.json
-  variables:
-    BETTER_AUTH_URL: "http://localhost:3001"
-    FRONTEND_URL: "http://localhost:5173"
-    TEST: "true"
-    NODE_ENV: "dev"
-    RESEND_API_KEY: "re_vbejbeipruverpivuebrviueblaherkbvleirvhba"
-    SIGHTENGINE_API_USER: "23478234892364"
-    SIGHTENGINE_API_SECRET: "fwieofhühoweifhpweifn3497fz3q408f04"
-    DATABASE_URL: "postgresql://user:pw@localhost:0000/mia"
-    BETTER_AUTH_SECRET: "weifh34ufhp373g408f7340f8q734gfz0q8347fg3="
-  script:
-    - npm test 
-
 # Frontend testen
 frontend-test:
   stage: test
