@@ -306,7 +306,7 @@ export function ImprintPrivacy() {
             records expire automatically. Image moderation hashes are retained
             for as long as your Postcard is not sent. Postcards remain in our
             database for as long as the project is operated, so that recipients
-            can continue to view postcards they have received. 
+            can continue to view postcards they have received.
           </p>
           <p>
             If you request deletion of your account, we will remove your

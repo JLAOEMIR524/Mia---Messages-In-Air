@@ -1,8 +1,8 @@
 interface LoadingBannerProps {
-    pageName: string
+  pageName: string;
 }
 
-export function LoadingBanner({pageName}: LoadingBannerProps) {
+export function LoadingBanner({ pageName }: LoadingBannerProps) {
   return (
     <div className="loadingState">
       <p>Loading {pageName}</p>

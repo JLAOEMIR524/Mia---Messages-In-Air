@@ -6,7 +6,7 @@ import { LoadingBanner } from "./LoadingBanner";
 export function ProtectedRoute({ children }: { children: ReactNode }) {
   const { data: session, isPending } = useSession();
 
-  if (isPending) return <LoadingBanner pageName=""/>;
+  if (isPending) return <LoadingBanner pageName="" />;
   if (!session) return <Navigate to={"/login"} />;
 
   //This are all the child elements of the tag which should be handed over to the next instance:

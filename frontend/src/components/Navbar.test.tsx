@@ -39,12 +39,11 @@ test("closes mobile menu after clicking a nav item", async () => {
   expect(sidebar?.classList.contains("is-open")).toBe(false);
 });
 
-
 test("all nav items have the correct href", () => {
   render(
     <MemoryRouter>
       <NavBar />
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 
   const expectedLinks = [

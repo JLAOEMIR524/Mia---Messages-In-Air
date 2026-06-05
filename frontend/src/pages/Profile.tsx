@@ -135,7 +135,7 @@ export function Profile() {
   return (
     <main className="left profile">
       {loading ? (
-        <LoadingBanner pageName="Profile"/>
+        <LoadingBanner pageName="Profile" />
       ) : error ? (
         <div className="errorState">{error}</div>
       ) : (

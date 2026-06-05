@@ -10,7 +10,7 @@ export function PreviewProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     setPreviewOpen(false);
   }, [location.pathname]);
-  
+
   return (
     <PreviewContext.Provider value={{ previewOpen, setPreviewOpen }}>
       {children}

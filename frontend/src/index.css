@@ -594,7 +594,7 @@ div[aria-live="polite"] {
 .caracters {
   padding-top: 0;
   margin-top: 0;
-  margin-bottom:0;
+  margin-bottom: 0;
   color: var(--color-error);
   text-align: left;
 }
@@ -688,7 +688,7 @@ input#fsrch {
 }
 
 label[for="location-search"] h2 {
-   margin-top: 0;
+  margin-top: 0;
 }
 .search-icon {
   position: absolute;
@@ -2907,7 +2907,6 @@ ol {
     padding: 0;
   }
 }
-
 
 @keyframes l1 {
   to {

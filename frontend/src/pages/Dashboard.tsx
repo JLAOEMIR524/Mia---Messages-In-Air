@@ -72,7 +72,7 @@ export function Dashboard() {
   if (loading) {
     return (
       <main className="left">
-        <LoadingBanner pageName="Dashboard"/>
+        <LoadingBanner pageName="Dashboard" />
       </main>
     );
   }

@@ -58,9 +58,7 @@ export function Quest() {
   };
 
   if (loading || !activeQuest) {
-    return (
-      <LoadingBanner pageName="Gallery"/>
-    );
+    return <LoadingBanner pageName="Gallery" />;
   }
 
   // Filters out the active focused quest to show 3 alternative options
@@ -91,7 +89,9 @@ export function Quest() {
       <Step currentStep={1} totalSteps={3} />
 
       <h1 className="text-l">Choose Your Creative Quest ✨</h1>
-      <p className="center-text">Each quest inspires the message of your postcard and makes it special</p>
+      <p className="center-text">
+        Each quest inspires the message of your postcard and makes it special
+      </p>
 
       <QuestCard
         title={activeQuest.title}
