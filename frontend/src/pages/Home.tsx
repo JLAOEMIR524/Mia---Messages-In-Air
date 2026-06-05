@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { NavBarTop } from "../components/NavbarTop";
 import { Link } from "react-router-dom";
 import { Preview } from "../components/Preview";
@@ -16,8 +16,6 @@ export function Home() {
       document.body.classList.remove("background-heaven");
     };
   }, []);
-
-  const [showPreview, setShowPreview] = useState(false);
 
   return (
     <>
@@ -40,7 +38,6 @@ export function Home() {
             <button
               className="button button--secondary"
               onClick={() => {
-                setShowPreview(true);
                 setPreviewOpen(true);
               }}
             >
@@ -58,9 +55,8 @@ export function Home() {
         </section>
       </main>
       <Preview
-        isOpen={showPreview}
+        isOpen={previewOpen}
         onClose={() => {
-          setShowPreview(false);
           setPreviewOpen(false);
         }}
         title="The Idea Behind Mia"
@@ -99,7 +95,6 @@ export function Home() {
             to="/imprint"
             className="impressum-link"
             onClick={() => {
-              setShowPreview(false);
               setPreviewOpen(false);
             }}
           >

@@ -60,7 +60,6 @@ export function Message() {
     () => localStorage.getItem("selectedLocation") ?? "",
   );
 
-  const [showPreview, setShowPreview] = useState(false);
   const [adress, setAdress] = useState<AddressType | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isPreviewFromSend, setIsPreviewFromSend] = useState(false);
@@ -224,7 +223,6 @@ export function Message() {
 
       const result = await response.json();
 
-      setShowPreview(false);
       setPreviewOpen(false);
       setIsPreviewFromSend(false);
 
@@ -458,7 +456,6 @@ export function Message() {
           <button
             className="button button--image"
             onClick={() => {
-              setShowPreview(true);
               setIsPreviewFromSend(false);
               setPreviewOpen(true);
             }}
@@ -487,7 +484,6 @@ export function Message() {
                 return;
               }
               setIsPreviewFromSend(true);
-              setShowPreview(true);
               setPreviewOpen(true);
             }}
           >
@@ -496,9 +492,8 @@ export function Message() {
         </div>
       </main>
       <Preview
-        isOpen={showPreview}
+        isOpen={previewOpen}
         onClose={() => {
-          setShowPreview(false);
           setPreviewOpen(false);
           setIsPreviewFromSend(false);
         }}
