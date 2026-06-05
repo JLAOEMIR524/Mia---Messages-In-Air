@@ -18,13 +18,26 @@ frontend-test:
   script:
     - npm test
 
-lint:
+lint-frontend:
   image: node:20
   stage: test
   cache:
     paths:
-      - node_modules/
-    key: $CI_COMMIT_REF_SLUG
+      - frontend/node_modules/
+    key: frontend-$CI_COMMIT_REF_SLUG
   script:
+    - cd frontend
+    - npm ci
+    - npm run lint
+
+lint-backend:
+  image: node:20
+  stage: test
+  cache:
+    paths:
+      - backend/node_modules/
+    key: backend-$CI_COMMIT_REF_SLUG
+  script:
+    - cd backend
     - npm ci
     - npm run lint
