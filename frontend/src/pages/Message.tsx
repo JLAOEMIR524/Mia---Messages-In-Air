@@ -275,7 +275,7 @@ export function Message() {
       >
         {announcement}
       </div>
-      <main inert={previewOpen ? true : undefined}>
+      <main inert={previewOpen}>
         <Link
           to="#"
           onClick={handleBack}

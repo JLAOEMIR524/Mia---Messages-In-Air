@@ -20,7 +20,7 @@ export function Home() {
   return (
     <>
       {/* Blocks the background when the preview is open */}
-      <main className="heaven" inert={previewOpen ? true : undefined}>
+      <main className="heaven" inert={previewOpen}>
         <NavBarTop />
         <section className="Home">
           <h1>
