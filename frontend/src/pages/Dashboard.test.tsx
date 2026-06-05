@@ -35,8 +35,9 @@ describe("The postcard filter", () => {
       expect(document.querySelectorAll(".dashboard-column")).toHaveLength(2);
     });
 
-    const [recivedCards, sentCards] =
-      document.querySelectorAll(".dashboard-column");
+    const [recivedCards, sentCards] = document.querySelectorAll(
+      ".dashboard-column",
+    ) as NodeListOf<HTMLElement>;
 
     const expectedReviced = mockPostcards
       .filter((element) => !element.sentByMe)
