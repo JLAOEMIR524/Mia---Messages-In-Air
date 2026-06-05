@@ -10,6 +10,7 @@ import L from "leaflet";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import { LoadingBanner } from "../components/LoadingBanner";
+import { MapResizeHandler } from "../helpers/invalidateMapSize";
 
 const DefaultIcon = L.icon({
   iconUrl: markerIcon,
@@ -347,6 +348,7 @@ export function Gallery() {
 
       <h2 className="text-m">Postcard Map</h2>
       <MapContainer center={position} zoom={4}>
+        <MapResizeHandler/>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

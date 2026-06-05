@@ -30,6 +30,7 @@ router.get("/postcards", async (req, res) => {
         text: true,
         xp: true,
         creatorId: true,
+        receiverAddress: true,
       },
       orderBy: { id: "desc" },
     });
