@@ -17,3 +17,14 @@ frontend-test:
     VITE_API_URL: "http://localhost:3001"
   script:
     - npm test
+
+lint:
+  image: node:20
+  stage: test
+  cache:
+    paths:
+      - node_modules/
+    key: $CI_COMMIT_REF_SLUG
+  script:
+    - npm ci
+    - npm run lint
