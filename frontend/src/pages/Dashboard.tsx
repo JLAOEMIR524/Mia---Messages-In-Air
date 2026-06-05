@@ -15,16 +15,6 @@ interface BackendPostcard {
   createdAt?: string;
   countryName?: string;
   sentByMe: boolean;
-
-  creator?: {
-    firstName: string;
-    lastName: string;
-  };
-
-  receiver?: {
-    firstName: string;
-    lastName: string;
-  };
 }
 
 export function Dashboard() {
