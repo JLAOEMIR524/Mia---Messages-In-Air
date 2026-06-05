@@ -213,6 +213,7 @@ export function analyzePostcard(text, questId, maxTotalXP, questTitle) {
         "mint",
         "maroon",
         "crimson",
+        "rainbow",
         "scarlet",
         "ruby",
         "magenta",
