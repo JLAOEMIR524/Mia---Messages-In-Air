@@ -63,7 +63,7 @@ router.get("/postcards", async (req, res) => {
         (c) => c.name.toLowerCase() === searchName,
       );
 
-      let dynamicCountryName = null;
+      let dynamicCountryName;
       if (cityDetails && cityDetails.country) {
         dynamicCountryName = cityDetails.country.name;
       } else if (countryDetails) {

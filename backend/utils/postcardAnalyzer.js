@@ -8,7 +8,7 @@ export function analyzePostcard(text, questId, maxTotalXP, questTitle) {
   const SHORT_QUEST_IDS = [8, 10, 14, 16, 20, 24, 30, 36, 49, 59, 62, 68];
 
   // automatically give max length score if selected quest is a short-text quest
-  let lengthRating = 1;
+  let lengthRating;
   if (SHORT_QUEST_IDS.includes(questId)) {
     lengthRating = 5;
   } else {
@@ -52,7 +52,7 @@ export function analyzePostcard(text, questId, maxTotalXP, questTitle) {
   else if (totalPunctuation === 0 && !endsWithPunctuation)
     punctuationRating = 0;
 
-  let questDetails = [];
+  let questDetails;
   const qId = questId;
 
   // handle specific logic and requirements for each quest

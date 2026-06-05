@@ -250,11 +250,7 @@ router.post("/api/postcards", async (req, res) => {
 
     // Notifies the Receiver of the Postcard per email(only the postcard is sent)
     if (receiverEmail && receiverName) {
-      sendPostcardNotification(
-        receiverEmail,
-        receiverId,
-        receiverName,
-      );
+      sendPostcardNotification(receiverEmail, receiverId, receiverName);
     }
   } catch (error) {
     console.error("Error saving postcard to DB:", error);

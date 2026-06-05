@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { BadgeCard } from "../components/BadegeCard";
 import { Step } from "../components/Step";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,15 +11,18 @@ import {
 } from "../api/locationApi";
 import { usePreview } from "../hooks/usePreview";
 import { Popup } from "../components/Popup";
+import { cleanPostcardtext } from "../helpers/cleanPostcardText";
 
-export interface QuestType {
+//Interfaces
+interface QuestType {
   id: number;
   title: string;
   description: string;
   xp: number;
 }
 
-const WAIT_TIME = 5;
+//Parameters
+const LOAD_WAIT_TIME = 5;
 const actions = [
   "Sending Postcard ...",
   "Spellchecking ...",
@@ -27,60 +30,54 @@ const actions = [
   "Quest Evaluation ...",
   "Picking Recipient ...",
 ];
+const shortQuestIds = [8, 10, 14, 16, 24, 30, 36, 49, 59, 62, 68];
 
 export function Message() {
-  const [announcement, setAnnouncement] = useState("");
+  const [ariaLiveAnnouncement, setAriaLiveAnnouncement] = useState("");
+
   const { previewOpen, setPreviewOpen } = usePreview();
+  const [showSearchDropdown, setShowSearchDropdown] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+
   const [greetingText, setGreetingText] = useState<string>(
     () => localStorage.getItem("currentPostcardGreeting") ?? "",
   );
-
-  const [questText, setQuestText] = useState<string>(
-    () => localStorage.getItem("currentPostcardText") ?? "",
-  );
-
-  const [selectedQuest, setSelectedQuest] = useState<QuestType | null>(null);
-
-  useEffect(() => {
+  const selectedQuest = useMemo<QuestType | null>(() => {
     const saved = localStorage.getItem("selectedQuest");
-    if (saved) {
-      try {
-        setSelectedQuest(JSON.parse(saved) as QuestType);
-      } catch (e) {
-        console.error("Error parsing the quest:", e);
-      }
+    if (!saved) return null;
+    try {
+      return JSON.parse(saved) as QuestType;
+    } catch (e) {
+      console.error("Error while parsing the quest:", e);
+      return null;
     }
   }, []);
+  const [cardText, setCardText] = useState<string>(
+    () => localStorage.getItem("currentPostcardText") ?? "",
+  );
+  const [cardFrontData] = useState(() => localStorage.getItem("card"));
 
   const [selectedLocation, setSelectedLocation] = useState<string | null>(() =>
     localStorage.getItem("selectedLocation"),
   );
 
-  const [searchTerm, setSearchTerm] = useState<string>(
+  const [searchResults, setSearchResults] = useState<LocationSuggestion[]>([]);
+  const [locationSearchTerm, setLocationSearchTerm] = useState<string>(
     () => localStorage.getItem("selectedLocation") ?? "",
   );
 
   const [adress, setAdress] = useState<AddressType | null>(null);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [isPreviewFromSend, setIsPreviewFromSend] = useState(false);
 
-  const [isSending, setIsSending] = useState(false);
-  const [searchResults, setSearchResults] = useState<LocationSuggestion[]>([]);
+  const [isSendPreview, setIsSendPreview] = useState(false);
 
-  const cardFrontData = localStorage.getItem("card");
-  const cardText = localStorage.getItem("currentPostcardText");
-  const cardLocation = localStorage.getItem("selectedLocation");
-  const cardGreeting = localStorage.getItem("currentPostcardGreeting");
-
-  const shortQuestIds = [8, 10, 14, 16, 24, 30, 36, 49, 59, 62, 68];
   const isShortQuest = selectedQuest
     ? shortQuestIds.includes(Number(selectedQuest.id))
     : false;
   const minRequiredLength = isShortQuest ? 10 : 100;
 
-  const isDisabled =
+  const sendAllowed =
     !selectedLocation ||
-    questText.length < minRequiredLength ||
+    cardText.length < minRequiredLength ||
     !greetingText.trim() ||
     isSending;
 
@@ -101,66 +98,35 @@ export function Message() {
   };
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    let newText = e.target.value;
+    const newText = cleanPostcardtext(e.target.value);
 
-    if (newText.includes("\n")) {
-      const lines = newText.split("\n");
-
-      // Only apply the cleaning logic if there's actual multiline text
-      if (lines.length > 1) {
-        // Define how many line breaks we allow at the very end (3 breaks = up to 4 lines)
-        const maxAllowedBreaks = 3;
-
-        // Separate the main body lines from the protected sign-off lines at the end
-        const mainBodyLines = lines.slice(0, -(maxAllowedBreaks + 1));
-        const closingLines = lines.slice(-(maxAllowedBreaks + 1));
-
-        // It keeps a line only if it has text, or if it's empty but the previous line wasn't
-        const cleanedMainBody = mainBodyLines
-          .filter((line, index, arr) => {
-            return (
-              line.trim() !== "" || (index > 0 && arr[index - 1].trim() !== "")
-            );
-          })
-          .join("\n");
-
-        // Reassemble the text by putting the cleaned body and the closing lines back together
-        if (mainBodyLines.length > 0) {
-          // Prevent adding a double break if the body already ends with a break or closing starts empty
-          const separator =
-            cleanedMainBody.endsWith("\n") || closingLines[0] === ""
-              ? ""
-              : "\n";
-          newText = cleanedMainBody + separator + closingLines.join("\n");
-        } else {
-          newText = closingLines.join("\n");
-        }
-      }
-
-      newText = newText.replace(/\n{3,}/g, "\n\n");
-    }
-
-    const prevLength = questText.length;
+    const prevLength = cardText.length;
     const newLength = newText.length;
 
     if (prevLength < minRequiredLength && newLength >= minRequiredLength) {
-      setAnnouncement(`Minimum of ${minRequiredLength} characters reached.`);
+      setAriaLiveAnnouncement(
+        `Minimum of ${minRequiredLength} characters reached.`,
+      );
     } else if (
       prevLength >= minRequiredLength &&
       newLength < minRequiredLength
     ) {
-      setAnnouncement(`Below minimum length.`);
+      setAriaLiveAnnouncement(`Below minimum length.`);
     }
 
-    setQuestText(newText);
+    setCardText(newText);
     localStorage.setItem("currentPostcardText", newText);
   };
 
   useEffect(() => {
     const triggerSearch = async () => {
-      if (searchTerm.length > 0 && !selectedLocation) {
+      if (locationSearchTerm.length === 0) {
+        setSearchResults([]);
+        return;
+      }
+      if (!selectedLocation) {
         try {
-          const results = await searchLocationsFromDB(searchTerm);
+          const results = await searchLocationsFromDB(locationSearchTerm);
           setSearchResults(results);
         } catch (error) {
           console.error("Error loading locations:", error);
@@ -172,12 +138,12 @@ export function Message() {
       triggerSearch();
     }, 300);
     return () => clearTimeout(delayDebounce);
-  }, [searchTerm, selectedLocation]);
+  }, [locationSearchTerm, selectedLocation]);
 
   const handleSelect = (name: string) => {
     setSelectedLocation(name);
-    setSearchTerm(name);
-    setShowDropdown(false);
+    setLocationSearchTerm(name);
+    setShowSearchDropdown(false);
     localStorage.setItem("selectedLocation", name);
   };
 
@@ -195,7 +161,7 @@ export function Message() {
   }, []);
 
   const handleSendPostcard = async () => {
-    if (isDisabled || isSending) return;
+    if (sendAllowed || isSending) return;
 
     try {
       setIsSending(true);
@@ -204,7 +170,7 @@ export function Message() {
         questId: selectedQuest?.id,
         image: localStorage.getItem("card"),
         greeting: greetingText,
-        text: questText,
+        text: cardText,
         location: selectedLocation,
         receiverAddress: adress,
       };
@@ -224,14 +190,16 @@ export function Message() {
       const result = await response.json();
 
       setPreviewOpen(false);
-      setIsPreviewFromSend(false);
+      setIsSendPreview(false);
 
       if (!response.ok) {
         throw new Error(result.error || "Error saving the postcard.");
       }
 
       //Waits until the loading animation finishes
-      await new Promise((resolve) => setTimeout(resolve, WAIT_TIME * 1000));
+      await new Promise((resolve) =>
+        setTimeout(resolve, LOAD_WAIT_TIME * 1000),
+      );
 
       console.log("Postcard successfully saved:", result);
 
@@ -260,7 +228,7 @@ export function Message() {
   if (isSending) {
     return (
       <div className="full-page-loading">
-        <Popup actions={actions} time={WAIT_TIME} />
+        <Popup actions={actions} time={LOAD_WAIT_TIME} />
       </div>
     );
   }
@@ -273,7 +241,7 @@ export function Message() {
         aria-atomic="true"
         className="sr-only"
       >
-        {announcement}
+        {ariaLiveAnnouncement}
       </div>
       <main inert={previewOpen}>
         <Link
@@ -344,7 +312,7 @@ export function Message() {
             <textarea
               id="message-text"
               className="quest-textarea"
-              value={questText}
+              value={cardText}
               onChange={handleTextChange}
               autoComplete="off"
               placeholder="Write something ..."
@@ -353,14 +321,14 @@ export function Message() {
               minLength={minRequiredLength}
               maxLength={700}
               aria-describedby={
-                questText.length > 0 && questText.length < minRequiredLength
+                cardText.length > 0 && cardText.length < minRequiredLength
                   ? "err-text"
                   : undefined
               }
             />
-            <p aria-hidden="true">Characters: {questText.length}/700</p>
+            <p aria-hidden="true">Characters: {cardText.length}/700</p>
 
-            {questText.length > 0 && questText.length < minRequiredLength && (
+            {cardText.length > 0 && cardText.length < minRequiredLength && (
               <p id="err-text" className="warning caracters">
                 Your Message is too short (needs at least {minRequiredLength}{" "}
                 characters).
@@ -377,13 +345,13 @@ export function Message() {
                   id="location-search"
                   type="text"
                   autoComplete="off"
-                  value={searchTerm}
+                  value={locationSearchTerm}
                   onChange={(e) => {
-                    setSearchTerm(e.target.value);
+                    setLocationSearchTerm(e.target.value);
                     setSelectedLocation(null);
-                    setShowDropdown(true);
+                    setShowSearchDropdown(true);
                   }}
-                  onFocus={() => setShowDropdown(true)}
+                  onFocus={() => setShowSearchDropdown(true)}
                   placeholder="Search City or Country..."
                   required
                 />
@@ -395,11 +363,11 @@ export function Message() {
                 />
               </div>
 
-              {showDropdown && searchResults.length > 0 && (
+              {showSearchDropdown && searchResults.length > 0 && (
                 <ul className="search-results" role="listbox">
-                  {searchResults.map((loc, index) => (
+                  {searchResults.map((loc) => (
                     <li
-                      key={index}
+                      key={`${loc.name}-${loc.type}`}
                       role="option"
                       tabIndex={0}
                       onClick={() => handleSelect(loc.name)}
@@ -417,7 +385,7 @@ export function Message() {
               )}
 
               {!selectedLocation &&
-                searchTerm.length > 2 &&
+                locationSearchTerm.length > 2 &&
                 searchResults.length === 0 && (
                   <p
                     style={{ color: "var(--color-primary)", fontSize: "1rem" }}
@@ -439,7 +407,7 @@ export function Message() {
               Please enter a Greeting or Subject.
             </p>
           )}
-          {questText.length < minRequiredLength && (
+          {cardText.length < minRequiredLength && (
             <p id="err-text-bottom" className="warning">
               Your Message is too short (needs at least {minRequiredLength}{" "}
               characters).
@@ -456,7 +424,7 @@ export function Message() {
           <button
             className="button button--image"
             onClick={() => {
-              setIsPreviewFromSend(false);
+              setIsSendPreview(false);
               setPreviewOpen(true);
             }}
             aria-label="Preview the postcard"
@@ -467,23 +435,23 @@ export function Message() {
 
           <button
             type="button"
-            className={`button button--image message ${isDisabled || isSending ? "is-disabled" : ""}`}
-            aria-disabled={isDisabled || isSending}
+            className={`button button--image message ${sendAllowed || isSending ? "is-disabled" : ""}`}
+            aria-disabled={sendAllowed || isSending}
             aria-describedby={
               [
                 !greetingText.trim() ? "err-greeting" : "",
-                questText.length < minRequiredLength ? "err-text-bottom" : "",
+                cardText.length < minRequiredLength ? "err-text-bottom" : "",
                 !selectedLocation ? "err-location" : "",
               ]
                 .filter(Boolean)
                 .join(" ") || undefined
             }
             onClick={(e) => {
-              if (isDisabled || isSending) {
+              if (sendAllowed || isSending) {
                 e.preventDefault();
                 return;
               }
-              setIsPreviewFromSend(true);
+              setIsSendPreview(true);
               setPreviewOpen(true);
             }}
           >
@@ -495,9 +463,9 @@ export function Message() {
         isOpen={previewOpen}
         onClose={() => {
           setPreviewOpen(false);
-          setIsPreviewFromSend(false);
+          setIsSendPreview(false);
         }}
-        title={isPreviewFromSend ? "Final Review" : "Preview"}
+        title={isSendPreview ? "Final Review" : "Preview"}
       >
         {cardFrontData && (
           <img
@@ -506,10 +474,10 @@ export function Message() {
             alt="Your Postcard"
           />
         )}
-        {cardText && cardLocation && adress && (
+        {cardText && locationSearchTerm && adress && (
           <div className="postcardBack">
             <div className="message-container">
-              {cardGreeting && <p className="greeting">{cardGreeting}</p>}
+              {greetingText && <p className="greeting">{greetingText}</p>}
               <p className="message">{cardText}</p>
             </div>
 
@@ -525,7 +493,7 @@ export function Message() {
             </div>
           </div>
         )}
-        {isPreviewFromSend && (
+        {isSendPreview && (
           <div
             className="previewActions"
             style={{
@@ -536,10 +504,10 @@ export function Message() {
           >
             <button
               type="button"
-              className={`button button--image message ${isDisabled || isSending ? "is-disabled" : ""}`}
-              aria-disabled={isDisabled || isSending}
+              className={`button button--image message ${sendAllowed || isSending ? "is-disabled" : ""}`}
+              aria-disabled={sendAllowed || isSending}
               onClick={(e) => {
-                if (isDisabled || isSending) {
+                if (sendAllowed || isSending) {
                   e.preventDefault();
                   return;
                 }

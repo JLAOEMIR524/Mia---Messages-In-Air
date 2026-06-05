@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { prisma } from "../db.js";
 import { auth } from "../auth.js";
-import validator from 'validator';
+import validator from "validator";
 
 const router = Router();
 
