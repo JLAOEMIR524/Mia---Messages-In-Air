@@ -38,10 +38,7 @@ interface Postcard {
   };
   xp: number;
   createdAt: string;
-  creatorId: string;
-  receiverId: string | null;
-  creator: { firstName: string; lastName: string };
-  receiver?: { firstName: string; lastName: string } | null;
+  sentByMe: boolean;
 }
 
 const ITEMS_PER_PAGE = 6;
@@ -96,18 +93,14 @@ export function Gallery() {
     setCurrentPage(1);
   }, [filter]);
 
-  const currentUserId = session?.user?.id;
-
   const filteredPostcards = postcards.filter((card) => {
     if (filter === "sent") {
-      return card.creatorId === currentUserId;
+      return card.sentByMe === true;
     }
     if (filter === "received") {
-      return card.receiverId === currentUserId;
+      return card.sentByMe === false;
     }
-    return (
-      card.creatorId === currentUserId || card.receiverId === currentUserId
-    );
+    return true;
   });
 
   const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
@@ -159,14 +152,14 @@ export function Gallery() {
       </div>
 
       {loading ? (
-        <LoadingBanner pageName="Gallery"/>
+        <LoadingBanner pageName="Gallery" />
       ) : filteredPostcards.length === 0 ? (
         <p className="noDataState">No postcards found in this category.</p>
       ) : (
         <>
           <div className="card-grid">
             {paginatedPostcards.map((card) => {
-              const isSent = card.creatorId === currentUserId;
+              const isSent = card.sentByMe === true;
 
               const imageSrc = card.image.startsWith("data:image")
                 ? card.image
@@ -236,7 +229,7 @@ export function Gallery() {
                             <>
                               <p className="address-line">
                                 {card.receiverAddress?.name ??
-                                  `${card.receiver?.firstName ?? "Sparkle"} ${card.receiver?.lastName ?? "Twinkletoes"}`}
+                                  "Sparkle" + "Twinkletoes"}
                               </p>
                               <p className="address-line">
                                 {card.receiverAddress?.street ??
