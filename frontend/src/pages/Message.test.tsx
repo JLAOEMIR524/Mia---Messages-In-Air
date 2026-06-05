@@ -1,6 +1,6 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { test, expect, beforeEach, vi } from "vitest";
+import { test, expect, beforeEach, vi, describe } from "vitest";
 import "@testing-library/jest-dom";
 import { Message } from "./Message";
 import { MemoryRouter } from "react-router-dom";
@@ -34,68 +34,76 @@ const renderMessage = async () => {
   await waitFor(() => expect(fetchRandomAddressFromDB).toHaveBeenCalled());
 };
 
-test("shows error after typing short message", async () => {
-  const user = userEvent.setup();
+describe("Message text field tests", () => {
+  test("shows error after typing short message", async () => {
+    const user = userEvent.setup();
 
-  await renderMessage();
+    await renderMessage();
 
-  const input = screen.getByLabelText(/your message/i);
+    const input = screen.getByLabelText(/your message/i);
 
-  await act(async () => await user.type(input, "short text"));
+    await act(async () => await user.type(input, "short text"));
 
-  const errors = screen.getAllByText(/your message is too short/i, {
-    exact: false,
+    const errors = screen.getAllByText(/your message is too short/i, {
+      exact: false,
+    });
+    expect(errors.length).toBeGreaterThanOrEqual(1);
   });
-  expect(errors.length).toBeGreaterThanOrEqual(1);
+
+  test("character count matches actual char amout", async () => {
+    const user = userEvent.setup();
+
+    await renderMessage();
+
+    const input = screen.getByLabelText(/your message/i);
+    await act(
+      async () =>
+        await user.type(input, "this is a text which is exactly 45 chars long"),
+    );
+
+    expect(
+      screen.getByText((_content, element) => {
+        return element?.textContent === "Characters: 45/700";
+      }),
+    ).toBeInTheDocument();
+  });
+
+  test("user chan't proceed if the text box is insufficcently filled", async () => {
+    const user = userEvent.setup();
+
+    await renderMessage();
+    const input = screen.getByLabelText(/your message/i);
+    await act(
+      async () =>
+        await user.type(input, "this is a text which is exactly 55 chars long"),
+    );
+
+    const continueButton = screen.getByRole("button", {
+      name: /Send Postcard/i,
+    });
+
+    expect(continueButton).toHaveClass("is-disabled");
+  });
 });
 
-test("allows user to search and select a location", async () => {
-  const user = userEvent.setup();
-  await renderMessage();
+describe("Location search Tests", () => {
+  test("allows user to search and select a location", async () => {
+    const user = userEvent.setup();
+    await renderMessage();
 
-  const locationInput = screen.getByPlaceholderText(/search city or country/i);
+    const locationInput = screen.getByPlaceholderText(
+      /search city or country/i,
+    );
 
-  await act(async () => await user.type(locationInput, "Ber"));
+    await act(async () => await user.type(locationInput, "Ber"));
 
-  const option = await screen.findByRole("option", { name: /berlin/i });
-  expect(option).toBeInTheDocument();
+    const option = await screen.findByRole("option", { name: /berlin/i });
+    expect(option).toBeInTheDocument();
 
-  await user.click(option);
+    await user.click(option);
 
-  expect(locationInput).toHaveValue("Berlin");
-});
-
-test("character count matches actual char amout", async () => {
-  const user = userEvent.setup();
-
-  await renderMessage();
-
-  const input = screen.getByLabelText(/your message/i);
-  await act(
-    async () =>
-      await user.type(input, "this is a text which is exactly 45 chars long"),
-  );
-
-  expect(
-    screen.getByText((_content, element) => {
-      return element?.textContent === "Characters: 45/700";
-    }),
-  ).toBeInTheDocument();
-});
-
-test("user chan't proceed if the text box is insufficcently filled", async () => {
-  const user = userEvent.setup();
-
-  await renderMessage();
-  const input = screen.getByLabelText(/your message/i);
-  await act(
-    async () =>
-      await user.type(input, "this is a text which is exactly 55 chars long"),
-  );
-
-  const continueButton = screen.getByRole("button", { name: /Send Postcard/i });
-
-  expect(continueButton).toHaveClass("is-disabled");
+    expect(locationInput).toHaveValue("Berlin");
+  });
 });
 
 /* test("user can proceed if the text box is sufficcently filled", async () => {

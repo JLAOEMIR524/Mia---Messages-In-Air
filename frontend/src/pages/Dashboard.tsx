@@ -14,6 +14,7 @@ interface BackendPostcard {
   text: string;
   createdAt?: string;
   countryName?: string;
+  sentByMe: boolean;
 
   creator?: {
     firstName: string;
@@ -63,8 +64,6 @@ export function Dashboard() {
     fetchPostcards();
   }, [session]);
 
-  const currentUserId = session?.user?.id;
-
   // Filters duplicates (case-insensitive) for the country count
   const uniqueCountriesCount = new Set(
     postcards
@@ -73,11 +72,11 @@ export function Dashboard() {
   ).size;
 
   const sentCards = postcards
-    .filter((card) => card.creatorId === currentUserId)
+    .filter((card) => card.sentByMe === true)
     .sort((a, b) => b.id - a.id);
 
   const receivedCards = postcards
-    .filter((card) => card.receiverId === currentUserId)
+    .filter((card) => card.sentByMe === false)
     .sort((a, b) => b.id - a.id);
 
   if (loading) {

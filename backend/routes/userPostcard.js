@@ -20,13 +20,16 @@ router.get("/postcards", async (req, res) => {
       where: {
         OR: [{ creatorId: userId }, { receiverId: userId }],
       },
-      include: {
-        creator: {
-          select: { firstName: true, lastName: true },
-        },
-        receiver: {
-          select: { firstName: true, lastName: true },
-        },
+      select: {
+        id: true,
+        createdAt: true,
+        image: true,
+        location: true,
+        questId: true,
+        greeting: true,
+        text: true,
+        xp: true,
+        creatorId: true,
       },
       orderBy: { id: "desc" },
     });
@@ -47,6 +50,8 @@ router.get("/postcards", async (req, res) => {
 
     // attach coordinates and normalized country names to each postcard
     const postcardsWithCoordinates = postcards.map((postcard) => {
+      const { creatorId, ...safeFields } = postcard;
+
       const searchName = postcard.location.toLowerCase();
 
       const cityDetails = citiesFromDb.find(
@@ -67,19 +72,11 @@ router.get("/postcards", async (req, res) => {
       }
 
       return {
-        ...postcard,
+        ...safeFields,
+        sentByMe: creatorId === userId,
         countryName: dynamicCountryName,
-        // fallback to country coords if no specific city match was found
-        latitude: cityDetails
-          ? cityDetails.latitude
-          : countryDetails
-            ? countryDetails.latitude
-            : null,
-        longitude: cityDetails
-          ? cityDetails.longitude
-          : countryDetails
-            ? countryDetails.longitude
-            : null,
+        latitude: cityDetails?.latitude ?? countryDetails?.latitude ?? null,
+        longitude: cityDetails?.longitude ?? countryDetails?.longitude ?? null,
       };
     });
 

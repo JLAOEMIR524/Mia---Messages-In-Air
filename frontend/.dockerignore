@@ -5,3 +5,4 @@ dist
 .md
 .prettierrc
 eslint.config.js
+.test.tsx
