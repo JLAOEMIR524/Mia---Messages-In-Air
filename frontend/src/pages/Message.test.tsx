@@ -106,7 +106,7 @@ describe("Location search Tests", () => {
   });
 });
 
-/* test("user can proceed if the text box is sufficcently filled", async () => {
+test("user can proceed if the text box is sufficcently filled", async () => {
   const user = userEvent.setup();
 
   render(
@@ -115,21 +115,25 @@ describe("Location search Tests", () => {
     </MemoryRouter>,
   );
 
-  const input = screen.getByLabelText(/your message/i);
+  const greetingImputField = screen.getByLabelText(/Greeting \/ Subject/i);
+  await user.type(greetingImputField, "Dear Stranger");
+
+  const messageImputField = screen.getByLabelText(/your message/i);
   await user.type(
-    input,
+    messageImputField,
     "this is a text which is exactly 171 chars long and therefore should technically be logn enough to let a user proceed to the next step eg. the end of the postcard generator",
   );
 
-  const location = screen.getByLabelText(/Where are you writing from?/i);
-  await user.type(location, "Salzburg");
-
-  //Click on the Salzburg button and should then be able to continue (button is activated)
+  const locationInput = screen.getByPlaceholderText(/search city or country/i);
+  await user.type(locationInput, "Salzburg");
+  await act(async () => await user.type(locationInput, "Ber"));
+  const option = await screen.findByRole("option", { name: /berlin/i });
+  expect(option).toBeInTheDocument();
+  await user.click(option);
 
   const continueButton = screen.getByRole("button", {
-    name: /Confirm & Send Now/i,
+    name: /Send Postcard/i,
   });
 
   expect(continueButton).not.toHaveClass("is-disabled");
 });
- */
