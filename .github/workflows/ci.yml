@@ -10,6 +10,10 @@ jobs:
   frontend-test:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      pull-requests: write
+
     env:
       VITE_API_URL: "http://localhost:3001"
 
