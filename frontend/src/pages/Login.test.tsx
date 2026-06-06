@@ -25,7 +25,7 @@ vi.mock("../api/auth-client", () => ({
 describe("Login Component", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-
+    
     Object.defineProperty(window, "PublicKeyCredential", {
       writable: true,
       value: {
@@ -33,68 +33,63 @@ describe("Login Component", () => {
       },
     });
 
-    vi.mocked(useSession).mockReturnValue({ data: null } as any);
+    vi.mocked(useSession).mockReturnValue({ data: null } as ReturnType<typeof useSession>);
   });
 
   it("should render initial form fields correctly", () => {
     render(
       <MemoryRouter>
         <Login />
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
-    expect(
-      screen.getByRole("heading", { name: /welcome back!/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /welcome back!/i })).toBeInTheDocument();
     expect(screen.getByLabelText(/e-mail:/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: /sign in/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /sign in/i })).toBeInTheDocument();
   });
 
   it("should trigger redirect if user session already exists", () => {
-    vi.mocked(useSession).mockReturnValue({
-      data: { user: { name: "Mia" } },
-    } as any);
+    const mockSessionActive = { data: { user: { name: "Mia" } } } as unknown as ReturnType<typeof useSession>;
+    vi.mocked(useSession).mockReturnValue(mockSessionActive);
 
     render(
       <MemoryRouter>
         <Login />
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
     expect(mockNavigate).toHaveBeenCalledWith("/dashboard");
   });
 
-  it("should call Better Auth with correct credentials on submit", async () => {
+  it("should call signIn.email API with correct credentials on submit", async () => {
     render(
       <MemoryRouter>
         <Login />
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
-    fireEvent.change(screen.getByLabelText(/e-mail:/i), {
-      target: { value: "test@example.com" },
-    });
-    fireEvent.change(screen.getByLabelText(/password/i), {
-      target: { value: "password123" },
-    });
+    fireEvent.change(screen.getByLabelText(/e-mail:/i), { target: { value: "test@example.com" } });
+    fireEvent.change(screen.getByLabelText(/password/i), { target: { value: "password123" } });
 
     fireEvent.click(screen.getByRole("button", { name: /sign in/i }));
 
     expect(signIn.email).toHaveBeenCalledWith(
       { email: "test@example.com", password: "password123" },
-      expect.any(Object),
+      expect.any(Object)
     );
   });
 
   it("should render error message when backend API returns an error", async () => {
+    type SignInEmailArgs = Parameters<typeof signIn.email>;
+    
     vi.mocked(signIn.email).mockImplementation((_credentials, options) => {
-      if (options?.onError) {
-        options.onError({
-          error: { message: "Invalid credentials" },
-        } as any);
+      const errorOptions = options as Extract<SignInEmailArgs[1], { onError?: unknown }>;
+      
+      if (errorOptions?.onError) {
+        errorOptions.onError({
+          error: { message: "Invalid credentials" }
+        } as unknown as Parameters<NonNullable<typeof errorOptions.onError>>[0]);
       }
       return Promise.resolve();
     });
@@ -102,21 +97,17 @@ describe("Login Component", () => {
     render(
       <MemoryRouter>
         <Login />
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
-    fireEvent.change(screen.getByLabelText(/e-mail:/i), {
-      target: { value: "wrong@example.com" },
-    });
-    fireEvent.change(screen.getByLabelText(/password/i), {
-      target: { value: "wrongpass" },
-    });
+    fireEvent.change(screen.getByLabelText(/e-mail:/i), { target: { value: "wrong@example.com" } });
+    fireEvent.change(screen.getByLabelText(/password/i), { target: { value: "wrongpass" } });
     fireEvent.click(screen.getByRole("button", { name: /sign in/i }));
 
     const errorAlert = await screen.findByRole("alert");
     expect(errorAlert).toBeInTheDocument();
     expect(errorAlert).toHaveTextContent("Error: Invalid credentials");
-
+    
     expect(screen.getByLabelText(/password/i)).toHaveValue("");
   });
 });
