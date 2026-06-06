@@ -40,3 +40,18 @@ Commit: 46745f64e9095fce98885e433adb76af97fc0463 & ff078bbe43053e065161e4874bd6e
 ## Quest Component
 ### Was wurde getestet?
 - Test 1: Der Test stellt sicher, dass der Weiter-Button blockiert ist und die visuelle Warnung "Please select a quest to continue" anzeigt wird, solange keine Quest gewählt wurde.
+- Test 2: Überprüft die State-Transition bei einer User-Interaktion; klickt der User auf eine alternative Quest-Karte, verschwindet die Validierungswarnung und der Weiter-Button wird freigeschaltet.
+- Test 3: Kontrolliert, ob die ausgewählte Quest beim Klick auf den Button als JSON-String im Local Storage hinterlegt wird.
+- Test 4: Bestätigt, dass der "Choose this Quest"-Button innerhalb der primären Quest-Karte den Validierungs-Schritt überspringt, die Karte sofort im LocalStorage speichert und den User direkt an den `/editor` weiterleitet.
+- Test 5: Simuliert die Interaktion mit dem Reload-Button und verifiziert, dass die App die fokussierte Quest erfolgreich austauscht und den UI-Inhalt für den User sichtbar aktualisiert.
+
+Commit: 626bc24e9bddc4c23bdc04b67b7e98a941c6dba2 & 
+
+### Schwierigkeit dabei:
+Die Quest sind "Unvorhersebar. Weil Math.random() jedes Mal anders ist, wussten wir nie, welche Quest beim Testen als aktive Hauptquest oben landet. Der Test war also ein reines Glücksspiel und ist ständig random fehlgeschlagen.
+
+Um das zu fixen, haben wir Math.random() im beforeEach fest auf 0.1 gesetzt. Dadurch wurde die Sortierung zwar stabil, aber irgendiwe komisch: Durch den festen Wert rutschte plötzlich immer standardmäßig Quest Vier nach oben, was wir erst mal durch Suchen herausfinden mussten.
+
+**Der Reload-Button**
+Der Button soll die Quests ja neu mischen. Da Math.random() durch unser Setup aber wie eingefroren auf 0.1 stand, passierte beim Klick auf den Button visuell überhaupt nichts. Die Quests blieben in exakt derselben Reihenfolge und die alte Hauptquest blieb oben kleben.
+Lösung: Wir mussten tricksen und dem Mock sagen: Beim ersten Laden gibst du 0.1 aus (damit Quest Vier oben steht), aber sobald der User auf den Reload-Button klickt, gibst du 0.9 aus. Durch diesen kontrollierten Tausch der Werte wurde das Array im Testlauf deterministisch neu sortiert. Quest Vier rutschte dadurch nach unten in die weiteren Quests, sodass wir die veränderte Reihenfolge erfolgreich mittels queryByRole überprüfen konnten.
