@@ -27,3 +27,6 @@ Was wurde getestet? (Edge Cases)
 
 Commit: e3e9cf9eb832854091e3b3020a8544b015765d46 & 15b3e28b2230afc1ff4e5df7c56c7f5b213c7088
 
+## Profile Component
+### Was wurde getestet
+- Test 1: Der Test erzwingt über fetchSpy.mockRejectedValueOnce() einen Netzwerkfehler, um zu überprüfen, ob die Fehlermeldung "Profile data could not be loaded. Please try again later." korrekt anzeigt wird.
