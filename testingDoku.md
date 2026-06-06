@@ -30,3 +30,8 @@ Commit: e3e9cf9eb832854091e3b3020a8544b015765d46 & 15b3e28b2230afc1ff4e5df7c56c7
 ## Profile Component
 ### Was wurde getestet
 - Test 1: Der Test erzwingt über fetchSpy.mockRejectedValueOnce() einen Netzwerkfehler, um zu überprüfen, ob die Fehlermeldung "Profile data could not be loaded. Please try again later." korrekt anzeigt wird.
+- Test 2: Der Test simuliert erfolgreiche API-Antworten für Stats, Sticker sowie Quests und prüft, ob die User-Daten (Name, E-Mail mittels flexibler Regex) korrekt im DOM landen und die UI-Komponenten ordnungsgemäß gerendert werden.
+- Test 3: Es wird überprüft, ob bei einem leeren Quest-Array der vordefinierte Empty-State-Text "You haven't completed any quests yet. Send a postcard to start!" erscheint.
+- Test 4: Prüft die korrekte Filterung und Trennung der Sticker im Frontend, indem er schaut, ob freigeschaltete Sticker (isLocked: false) barrierefrei als Bild (role="img") und gesperrte Sticker (isLocked: true) als Interaktions-Button (role="button") ausgegeben werden.
+
+Commit: 
