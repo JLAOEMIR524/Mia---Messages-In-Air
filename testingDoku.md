@@ -127,3 +127,17 @@ Commit: 3ceb1865f1c72eccf9587b07fe75fd238a8eb684
 - Test 2: Testet den `useEffect`-Hook, der den Login-Status überwacht. Wenn `useSession()` bereits gültige User-Daten zurückgibt, wird sichergestellt, dass der User direkt ohne erneutes Einloggen zum `/dashboard` umgeleitet wird.
 - Test 3: Simuliert die Benutzereingabe gültiger Zugangsdaten und das anschließende Klicken des "Sign In"-Buttons. Es wird überprüft, ob die Login-Methode des Better Auth synchron mit den exakt eingetippten Formulardaten aufgerufen wird.
 - Test 4: Simuliert eine fehlerhafte Server-Antwort (z. B. falsches Passwort). Der Test stellt sicher, dass eine barrierefreie Fehlermeldung via ARIA-Live-Response (`role="alert"`) dynamisch eingeblendet wird und das Passwort-Eingabefeld aus Sicherheitsgründen automatisch gelöscht wird.
+
+## Register Component
+
+### Was wurde getestet?
+
+- Test 1: Stellt sicher, dass alle für die Registrierung erforderlichen Felder (Vorname, Nachname, E-Mail, Passwort und Passwortwiederholung) sowie der Absende-Button zugänglich gerendert werden.
+- Test 2: Geben Nutzer zwei unterschiedliche Passwörter ein, bricht die Komponente den Vorgang sofort ab, rendert eine Fehlermeldung und blockiert nachfolgende API-Anfragen.
+- Test 3: Meldet die API über `isPwned: true`, dass das gewählte Passwort in Datenlecks aufgetaucht ist, wird eine entsprechende Warnung (Unsafe password) ausgegeben und die Registrierung gestoppt.
+- Test 4: Sind alle Validierungen grün, wird überprüft, ob die Registrierungsdaten exakt ausgelesen, Vor- und Nachname korrekt zu einem `name`-String zusammengefügt und an die Methode `signUp.email` übergeben werden.
+- Test 5: Simuliert das erfolgreiche `onSuccess`-Event des Auth-Clients. Der Test stellt sicher, dass der asynchrone Prozess reibungslos durchläuft und der User nach einer kurzen Verzögerung direkt auf das `/dashboard` weitergeleitet wird.
+- Test 6: Testet das Verhalten, wenn das Registrierungs-SDK ein `onError`-Event gibt (z. B. weil die E-Mail-Adresse bereits vergeben ist). Es wird geschaut, dass die Komponente den Zustand abfängt, den Ladebalken stoppt und die Server-Fehlermeldung für den User sichtbar darstellt.
+
+### Schwierigkeit dabei:
+Für die Passwort-Sicherheitsabfrage wird die native `fetch`-API des Browsers verwendet, um eine POST-Anfrage an ein Sicherheits-Backend zu senden. In einer isolierten Testumgebung existiert dieser Endpunkt jedoch nicht. Ein einfaches Mocken des Auth-Clients reichte hier nicht aus. Gelöst haben wir das, indem wir die globale `fetch`-Funktion des gesamten Test-Browsers mit `vi.stubGlobal("fetch", ...)` quasi gekapert haben. Dadurch konnten wir der Komponente im Test genau vorspün, was wir gerade brauchen: Einmal ein unsicheres Passwort (`isPwned: true`) und einmal ein absolut sicheres Passwort (`isPwned: false`), um beide Szenarien abzufangen.
