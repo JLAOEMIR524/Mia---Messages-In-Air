@@ -6,14 +6,14 @@ import { MemoryRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 
 vi.mock("react-leaflet", () => ({
-  MapContainer: ({ children }: any) => (
+  MapContainer: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="mock-map">{children}</div>
   ),
   TileLayer: () => <div />,
-  Marker: ({ children }: any) => (
+  Marker: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="mock-marker">{children}</div>
   ),
-  Popup: ({ children }: any) => <div>{children}</div>,
+  Popup: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }));
 
 vi.mock("../helpers/invalidateMapSize", () => ({

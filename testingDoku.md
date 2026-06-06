@@ -25,5 +25,5 @@ Was wurde getestet? (Edge Cases)
 - Test 3: Filter-Logik über Buttons. Nach dem Klick auf den "Sent"-Filter über userEvent.click() darf nur noch die gesendete Postkarte im DOM existieren, während die empfangene Karte aus der Übersicht weg muss.
 - Test 4: Da die Postkarten-Wrapper interaktive Elemente mit role="button" sind, müssen sie sich barrierefrei bedienen lassen. Der Test fokussiert die Karte, simuliert das Drücken der Leertaste (user.keyboard(" ")) und prüft über das Attribut aria-pressed="true", ob die Karte erfolgreich umgedreht wurde.
 
-Commit: e3e9cf9eb832854091e3b3020a8544b015765d46 & 
+Commit: e3e9cf9eb832854091e3b3020a8544b015765d46 & 15b3e28b2230afc1ff4e5df7c56c7f5b213c7088
 
