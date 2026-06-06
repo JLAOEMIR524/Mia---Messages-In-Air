@@ -34,4 +34,9 @@ Commit: e3e9cf9eb832854091e3b3020a8544b015765d46 & 15b3e28b2230afc1ff4e5df7c56c7
 - Test 3: Es wird überprüft, ob bei einem leeren Quest-Array der vordefinierte Empty-State-Text "You haven't completed any quests yet. Send a postcard to start!" erscheint.
 - Test 4: Prüft die korrekte Filterung und Trennung der Sticker im Frontend, indem er schaut, ob freigeschaltete Sticker (isLocked: false) barrierefrei als Bild (role="img") und gesperrte Sticker (isLocked: true) als Interaktions-Button (role="button") ausgegeben werden.
 
-Commit: 
+Commit: 46745f64e9095fce98885e433adb76af97fc0463 & ff078bbe43053e065161e4874bd6ec272e5ee288
+
+
+## Quest Component
+### Was wurde getestet?
+- Test 1: Der Test stellt sicher, dass der Weiter-Button blockiert ist und die visuelle Warnung "Please select a quest to continue" anzeigt wird, solange keine Quest gewählt wurde.
