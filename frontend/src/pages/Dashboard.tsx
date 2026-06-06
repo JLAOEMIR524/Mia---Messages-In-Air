@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSession } from "../api/auth-client";
 import { LoadingBanner } from "../components/LoadingBanner";
+import {
+  getUniqueCountriesCount,
+  filterAndSortPostcards,
+} from "../../utils/dashboardHelpers";
 
 interface BackendPostcard {
   id: number;
@@ -55,19 +59,9 @@ export function Dashboard() {
   }, [session]);
 
   // Filters duplicates (case-insensitive) for the country count
-  const uniqueCountriesCount = new Set(
-    postcards
-      .map((card) => card.countryName || card.location)
-      .map((name) => name.trim().toLowerCase()),
-  ).size;
-
-  const sentCards = postcards
-    .filter((card) => card.sentByMe === true)
-    .sort((a, b) => b.id - a.id);
-
-  const receivedCards = postcards
-    .filter((card) => card.sentByMe === false)
-    .sort((a, b) => b.id - a.id);
+  const uniqueCountriesCount = getUniqueCountriesCount(postcards);
+  const sentCards = filterAndSortPostcards(postcards, true);
+  const receivedCards = filterAndSortPostcards(postcards, false);
 
   if (loading) {
     return (
