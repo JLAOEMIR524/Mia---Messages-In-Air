@@ -20,6 +20,10 @@ Die React-Leaflet-Karte (<MapContainer />) crasht in JSDOM-Testumgebungen, weil 
 Wir haben Leaflet komplett über vi.mock mit einfachen HTML-Platzhaltern gestunnt.
 
 Was wurde getestet? (Edge Cases)
-Wenn der User noch überhaupt keine Postkarten gesendet oder empfangen hat, darf die App nicht crashen oder unendlich laden. Der test
-prüft, ob die Komponente den Text "No postcards found in this category." rendert.
+- Test 1: Wenn der User noch überhaupt keine Postkarten gesendet oder empfangen hat, darf die App nicht crashen oder unendlich laden. Der test prüft, ob die Komponente den Text "No postcards found in this category." rendert.
+- Test 2: Überprüft, ob die Komponente Postkarten aus der API korrekt verarbeitet und die Texte (z. B. "Grüße aus Salzburg", "Hallo vom Strand") sichtbar auf dem Bildschirm anzeigt.
+- Test 3: Filter-Logik über Buttons. Nach dem Klick auf den "Sent"-Filter über userEvent.click() darf nur noch die gesendete Postkarte im DOM existieren, während die empfangene Karte aus der Übersicht weg muss.
+- Test 4: Da die Postkarten-Wrapper interaktive Elemente mit role="button" sind, müssen sie sich barrierefrei bedienen lassen. Der Test fokussiert die Karte, simuliert das Drücken der Leertaste (user.keyboard(" ")) und prüft über das Attribut aria-pressed="true", ob die Karte erfolgreich umgedreht wurde.
+
+Commit: e3e9cf9eb832854091e3b3020a8544b015765d46 & 
 
