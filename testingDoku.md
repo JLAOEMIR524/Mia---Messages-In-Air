@@ -45,7 +45,7 @@ Commit: 46745f64e9095fce98885e433adb76af97fc0463 & ff078bbe43053e065161e4874bd6e
 - Test 4: Bestätigt, dass der "Choose this Quest"-Button innerhalb der primären Quest-Karte den Validierungs-Schritt überspringt, die Karte sofort im LocalStorage speichert und den User direkt an den `/editor` weiterleitet.
 - Test 5: Simuliert die Interaktion mit dem Reload-Button und verifiziert, dass die App die fokussierte Quest erfolgreich austauscht und den UI-Inhalt für den User sichtbar aktualisiert.
 
-Commit: 626bc24e9bddc4c23bdc04b67b7e98a941c6dba2 & 
+Commit: 626bc24e9bddc4c23bdc04b67b7e98a941c6dba2 & 694368a09125e3ce93f145a5a5c473d3b410334d
 
 ### Schwierigkeit dabei:
 Die Quest sind "Unvorhersebar. Weil Math.random() jedes Mal anders ist, wussten wir nie, welche Quest beim Testen als aktive Hauptquest oben landet. Der Test war also ein reines Glücksspiel und ist ständig random fehlgeschlagen.
@@ -55,3 +55,10 @@ Um das zu fixen, haben wir Math.random() im beforeEach fest auf 0.1 gesetzt. Dad
 **Der Reload-Button**
 Der Button soll die Quests ja neu mischen. Da Math.random() durch unser Setup aber wie eingefroren auf 0.1 stand, passierte beim Klick auf den Button visuell überhaupt nichts. Die Quests blieben in exakt derselben Reihenfolge und die alte Hauptquest blieb oben kleben.
 Lösung: Wir mussten tricksen und dem Mock sagen: Beim ersten Laden gibst du 0.1 aus (damit Quest Vier oben steht), aber sobald der User auf den Reload-Button klickt, gibst du 0.9 aus. Durch diesen kontrollierten Tausch der Werte wurde das Array im Testlauf deterministisch neu sortiert. Quest Vier rutschte dadurch nach unten in die weiteren Quests, sodass wir die veränderte Reihenfolge erfolgreich mittels queryByRole überprüfen konnten.
+-> Siehe issue 694368a09125e3ce93f145a5a5c473d3b410334d
+
+## Editor Component
+### Was wurde getestet?
+-Test 1: Der Test stellt sicher, dass der Weiter-Button blockiert ist und die visuelle Warnung "Please add some content to your postcard to continue" angezeigt wird, solange das Postkarten-Array komplett leer ist, also wenn noch keine Sticker oder Fotos auf der Karte sind.
+
+Test 2: Überprüft, ob beim Klick auf die verschiedenen Buttons (Photos, Stickers, Background) die entsprechende CSS-Klasse button--selected dynamisch vergeben bzw. entzogen wird, um dem User den aktiven "Modus" visuell anzuzeigen.
