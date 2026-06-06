@@ -62,3 +62,14 @@ Lösung: Wir mussten tricksen und dem Mock sagen: Beim ersten Laden gibst du 0.1
 -Test 1: Der Test stellt sicher, dass der Weiter-Button blockiert ist und die visuelle Warnung "Please add some content to your postcard to continue" angezeigt wird, solange das Postkarten-Array komplett leer ist, also wenn noch keine Sticker oder Fotos auf der Karte sind.
 
 Test 2: Überprüft, ob beim Klick auf die verschiedenen Buttons (Photos, Stickers, Background) die entsprechende CSS-Klasse button--selected dynamisch vergeben bzw. entzogen wird, um dem User den aktiven "Modus" visuell anzuzeigen.
+
+- Test 3 & 4: Getestet wird sowohl der "Happy Path" (erfolgreiche API-Antwort, Speichern der Canvas-Daten im LocalStorage und korrekte Weiterleitung) als auch der "Unhappy Path" (Erkennung unangemessener Inhalte), bei dem die Navigation blockiert und eine entsprechende Fehlermeldung via ARIA-Live-Response (`role="alert"`) ausgegeben wird.
+
+- Test 5, 6 & 7: Verifiziert die Registrierung der globalen Keydown-Events. Es wird simuliert, ob bei einem selektierten Element die Shortcuts für das Löschen (`Backspace`/`Delete`), das Verschieben der Bildebenen (`F`/`B`) und das Deselektieren (`Escape`) die jeweils korrekten Funktionen des `usePostcard`-Hooks fehlerfrei auslösen.
+
+### Schwierigkeit dabei:
+- virtuelle Browser-Umgebung (JSDOM): JSDOM kennt manche moderne Browser-Funktionen einfach nicht. Meine Popup-Komponente hat window.matchMedia() aufgerufen, um abzufragen, ob der User Animationen reduziert haben möchte. Da JSDOM diese Funktion nicht besitzt, stürzte der komplette Test mit einem TypeError ab. Wir mussten dem Testfenster manuell beibringen, was matchMedia ist (ein sogenannter Polyfill oder Global Mock).
+- Für den API-Test mussten wir die Zeit manipulieren (vi.useFakeTimers()), um nicht echte 4 Sekunden warten zu müssen, bis die Weiterleitung passiert.
+Das Problem: Das moderne userEvent wartet nach einem Klick darauf, dass der Browser Events verarbeitet. Die Tests liefen in eine Endlosschleife und brachen nach 5 Sekunden mit einem Timeout ab. Die Lösung war der Wechsel auf fireEvent.click(), das den Klick einfach direkt und synchron ins DOM schießt, ohne auf die Zeitschleife zu achten.
+- Die Editor-Komponente nutzt useRef, um direkt auf das Canvas zuzugreifen und das Bild per .toDataURL() zu exportieren.
+In einem Test existiert dieses Canvas gar nicht richtig. Wenn der Code versucht, das Bild zu exportieren, schlug das fehl mit der Meldung: Moderation error: No stage Detected. Weil kein Canvas da war, wurde localStorage mit null befüllt, und der Test schlug fehl. Wir mussten React.useRef und die Canvas-Komponente mocken, damit der Editor glaubt, er hätte gerade ein echtes Bild exportiert.
