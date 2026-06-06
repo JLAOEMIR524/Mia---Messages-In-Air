@@ -1,6 +1,6 @@
-# Testdoku
+# Testdoku Mia (Julian und Sonja)
 
-## Dashboard Helpers (Unit Tests)
+## Dashboard Helpers
 
 ### Was haben wir geändert?
 
@@ -128,6 +128,8 @@ Commit: 3ceb1865f1c72eccf9587b07fe75fd238a8eb684
 - Test 3: Simuliert die Benutzereingabe gültiger Zugangsdaten und das anschließende Klicken des "Sign In"-Buttons. Es wird überprüft, ob die Login-Methode des Better Auth synchron mit den exakt eingetippten Formulardaten aufgerufen wird.
 - Test 4: Simuliert eine fehlerhafte Server-Antwort (z. B. falsches Passwort). Der Test stellt sicher, dass eine barrierefreie Fehlermeldung via ARIA-Live-Response (`role="alert"`) dynamisch eingeblendet wird und das Passwort-Eingabefeld aus Sicherheitsgründen automatisch gelöscht wird.
 
+Commit: bd6716f3c10ac8efc516ca4512d4e76ef795b82f
+
 ## Register Component
 
 ### Was wurde getestet?
@@ -140,4 +142,16 @@ Commit: 3ceb1865f1c72eccf9587b07fe75fd238a8eb684
 - Test 6: Testet das Verhalten, wenn das Registrierungs-SDK ein `onError`-Event gibt (z. B. weil die E-Mail-Adresse bereits vergeben ist). Es wird geschaut, dass die Komponente den Zustand abfängt, den Ladebalken stoppt und die Server-Fehlermeldung für den User sichtbar darstellt.
 
 ### Schwierigkeit dabei:
+
 Für die Passwort-Sicherheitsabfrage wird die native `fetch`-API des Browsers verwendet, um eine POST-Anfrage an ein Sicherheits-Backend zu senden. In einer isolierten Testumgebung existiert dieser Endpunkt jedoch nicht. Ein einfaches Mocken des Auth-Clients reichte hier nicht aus. Gelöst haben wir das, indem wir die globale `fetch`-Funktion des gesamten Test-Browsers mit `vi.stubGlobal("fetch", ...)` quasi gekapert haben. Dadurch konnten wir der Komponente im Test genau vorspün, was wir gerade brauchen: Einmal ein unsicheres Passwort (`isPwned: true`) und einmal ein absolut sicheres Passwort (`isPwned: false`), um beide Szenarien abzufangen.
+
+Commit: 1d3d68e5b0029bf98a0a5e8b18d2657c527e1184
+
+## ForgotPassword Component
+
+### Was wurde getestet?
+
+- Test 1: Prüft, ob die Überschrift, das E-Mail-Eingabefeld, der Absende-Button sowie der Rückweg-Link ("Back to Log In") richtig gerendert werden.
+- Test 2: Simuliert die Eingabe einer E-Mail-Adresse und den Klick auf "Send Link". Es wird geschaut, ob der `authClient` mit der korrekten E-Mail und der passenden `redirectTo`-URL gefeuert wird und ob der User nach erfolgreichem Absenden automatisch zur `/login`-Seite zurückgebracht wird.
+- Test 3: Simuliert eine Standard-Fehlermeldung vom Auth-Server (z. B. "User not found"). Der Test stellt sicher, dass die genaue Fehlermeldung via `role="alert"` auf dem Bildschirm ausgegeben wird und keine Weiterleitung stattfindet.
+- Test 4: Testet die integrierte Sonderlogik für den Fall, dass das tägliche E-Mail-Limit des Systems erschöpft ist (`status: 429`). Es wird überprüft, ob die Komponente die technische Fehlermeldung abfängt und stattdessen den freundlichen, erweiterten Hilfetext für den Nutzer anzeigt
