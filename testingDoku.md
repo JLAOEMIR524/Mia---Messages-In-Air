@@ -85,3 +85,18 @@ Commit: 9f16ded04d76ea5cac16abdef7fee02312d4e188 & 88f961b9ccf65177034fa184204dc
 
 ### Schwierigkeit dabei:
 Die eingebundene Komponente `<Confetti />` steuert visuelle Effekte bei und horcht auf globale Window-Resize-Events, um sich dynamisch anzupassen. In JSDOM führt dies zu unnötigem Performance-Overhead und potenziellen Timeouts, da Layout-Berechnungen simuliert werden müssen. Als Lösung wurde die gesamte `react-confetti`-Bibliothek mittels `vi.mock()` durch eine schlankere Mock-Komponente ersetzt, da sie für die eigentliche Business-Logik irrelevant ist.
+
+Commit: 4b8c4bae5877decc608fdc8e58caad8ec1eecfc2
+
+## Details Component
+### Was wurde getestet?
+- Test 1: Überprüft, ob alle verschachtelten Metriken des Analyse-Ergebnisses (`length`, `badWords`, `capitalization`, `punctuation`) fehlerfrei ausgelesen und formatiert dargestellt werden. Zudem wird sichergestellt, dass das Array für die erfüllten Quests (`questFulfillment`) korrekt gemappt und ausgegeben wird.
+- Test 2:  Stellt sicher, dass die Komponente bei einem direkten Seiten-Reload stabil bleibt. Falls der flüchtige Router-State verloren geht (`null`), greift die Komponente erfolgreich auf das im `sessionStorage` hinterlegte JSON-Backup zurück.
+- Test 3: Testet das Defensiv-Verhalten der Komponente für den Fall, dass weder im Router-State noch im `sessionStorage` Daten auffindbar sind. Es wird verifiziert, dass die Komponente nicht abstürzt, sondern vordefinierte Fallback-Werte (`0/5` bzw. `+0 XP`) rendert und die Quest-Sektion komplett ausblendet.
+- Test 4: Überprüft den `onContinue`-Handler der eingebundenen `FeedbackCard`. Sobald der User die Detailansicht über den Button schließt, wird der temporäre Speicher (`sessionStorage`) geleert, um alte Daten der vorherigen Postkarten-Session zu löschen.
+
+### Schwierigkeit dabei:
+Im `onContinue`-Handler der Komponente wird die Navigation hart über `window.location.href = "/dashboard"` erzwungen. In JSDOM führt das direkte Überschreiben oder Löschen dieses Read-Only-Objekts zu strengen TypeScript-Fehlern. Die Lösung war der Einsatz von `vi.stubGlobal("location", mockLocation)`. Dadurch lässt sich das globale Objekt typsicher manipulieren und im `beforeEach`-Block über `vi.unstubAllGlobals()` vor jedem Testlauf automatisch wieder sauber aufräumen.
+
+Commit: 
+
