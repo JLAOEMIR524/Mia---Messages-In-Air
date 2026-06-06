@@ -155,3 +155,11 @@ Commit: 1d3d68e5b0029bf98a0a5e8b18d2657c527e1184
 - Test 2: Simuliert die Eingabe einer E-Mail-Adresse und den Klick auf "Send Link". Es wird geschaut, ob der `authClient` mit der korrekten E-Mail und der passenden `redirectTo`-URL gefeuert wird und ob der User nach erfolgreichem Absenden automatisch zur `/login`-Seite zurückgebracht wird.
 - Test 3: Simuliert eine Standard-Fehlermeldung vom Auth-Server (z. B. "User not found"). Der Test stellt sicher, dass die genaue Fehlermeldung via `role="alert"` auf dem Bildschirm ausgegeben wird und keine Weiterleitung stattfindet.
 - Test 4: Testet die integrierte Sonderlogik für den Fall, dass das tägliche E-Mail-Limit des Systems erschöpft ist (`status: 429`). Es wird überprüft, ob die Komponente die technische Fehlermeldung abfängt und stattdessen den freundlichen, erweiterten Hilfetext für den Nutzer anzeigt
+
+## Home Component
+
+### Was wurde getestet?
+
+- Test 1: Stellt sicher, dass das ("A postcard to a stranger..."), die Navigationsleiste sowie der Registrierungs-Button ("Start now") mit der korrekten Weiterleitungs-URL angezeigt werden.
+- Test 2: Überprüft den Klick auf den Button "Find out more". Es wird getestet, ob die Komponente das Event abfängt und den Hook-State anweist, die Preview zu öffnen (`setPreviewOpen(true)`).
+- Test 3: Simuliert das geöffnete Preview-Overlay. Ist die Infobox offen, muss der `main`-Inhalt im Hintergrund das HTML-Attribut `inert` erhalten. Dadurch wird sichergestellt, dass Tastaturnutzer und Screenreader nicht versehentlich Elemente im Hintergrund fokussieren können, während sie das Overlay lesen.
