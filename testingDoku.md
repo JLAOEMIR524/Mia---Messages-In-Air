@@ -73,3 +73,15 @@ Test 2: Überprüft, ob beim Klick auf die verschiedenen Buttons (Photos, Sticke
 Das Problem: Das moderne userEvent wartet nach einem Klick darauf, dass der Browser Events verarbeitet. Die Tests liefen in eine Endlosschleife und brachen nach 5 Sekunden mit einem Timeout ab. Die Lösung war der Wechsel auf fireEvent.click(), das den Klick einfach direkt und synchron ins DOM schießt, ohne auf die Zeitschleife zu achten.
 - Die Editor-Komponente nutzt useRef, um direkt auf das Canvas zuzugreifen und das Bild per .toDataURL() zu exportieren.
 In einem Test existiert dieses Canvas gar nicht richtig. Wenn der Code versucht, das Bild zu exportieren, schlug das fehl mit der Meldung: Moderation error: No stage Detected. Weil kein Canvas da war, wurde localStorage mit null befüllt, und der Test schlug fehl. Wir mussten React.useRef und die Canvas-Komponente mocken, damit der Editor glaubt, er hätte gerade ein echtes Bild exportiert.
+
+Commit: 9f16ded04d76ea5cac16abdef7fee02312d4e188 & 88f961b9ccf65177034fa184204dc81198f2a313
+
+## Send Komponente
+### Was wurde getestet? 
+- Test 1: Test simuliert den "Happy Path", bei dem die Komponente korrekte Analysedaten über den `location.state` des React-Routers übergeben bekommt. Es wird sichergestellt, dass die XP-Menge korrekt gerendert, das Sterne-Rating mathematisch richtig gerundet (`80%` $\rightarrow$ `4 von 5 Sternen`) und ein persistentes Backup im `sessionStorage` angelegt wird.
+- Test 2:  Simuliert Anwendungsfall, bei dem der User die Seite im Browser neu lädt. Da hierbei der flüchtige Router-State verloren geht (`null`), wird überprüft, ob die Komponente stabil bleibt und die Daten stattdessen fehlerfrei aus dem zuvor angelegten `sessionStorage`-Backup liest.
+- Test 3: Überprüft das Verhalten beim Verlassen der Seite über den Button "Back to Dashboard". Der Test stellt sicher, dass beim Klick der `sessionStorage` geleert wird, um alten Datenmüll zu vermeiden und anschließend eine saubere Weiterleitung zum Dashboard stattfindet.
+- Test 4:  Verifiziert, dass beim Klick auf "View Details" die `useNavigate`-Funktion mit dem korrekten Pfad (`/details`) aufgerufen wird und das aktuelle Analyse-Objekt im neuen Router-State vollständig mitgegeben wird.
+
+### Schwierigkeit dabei:
+Die eingebundene Komponente `<Confetti />` steuert visuelle Effekte bei und horcht auf globale Window-Resize-Events, um sich dynamisch anzupassen. In JSDOM führt dies zu unnötigem Performance-Overhead und potenziellen Timeouts, da Layout-Berechnungen simuliert werden müssen. Als Lösung wurde die gesamte `react-confetti`-Bibliothek mittels `vi.mock()` durch eine schlankere Mock-Komponente ersetzt, da sie für die eigentliche Business-Logik irrelevant ist.
