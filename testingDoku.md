@@ -1,5 +1,30 @@
 # Testdoku Mia (Julian und Sonja)
 
+# Was haben wir nicht getestet?
+
+- Keine echte Datenbank-Prüfung: Wir haben keine echten Netzwerkanfragen an die Live-Datenbank geschickt.
+  Wegen der Testpyramide haben wir diese Schnittstellen im Frontend bewusst isoliert gemockt, um schnelle UI-Tests zu garantieren.
+
+- Keine biometrische Hardware (Passkeys/TouchID): Da JSDOM keine physischen Geräte wie TouchID, FaceID oder USB-Sicherheitsschlüssel simulieren kann, wurde darauf verzichtet
+
+- Keine Details wie Passwort-Stärke oder Speicher-Logik: Wir haben uns auf die Kernfunktionen konzentriert. Wir testen im automatisierten Test beispielsweise nicht, ob das Passwort mindestens einen Großbuchstaben oder Sonderzeichen hat und wir prüfen auch nicht im Detail, ob der Browser das Passwort am Ende wirklich im lokalen Speicher oder im Session-Cookie ablegt. Das würde den Rahmen sprengen und wurde von uns manuell geschaut.
+
+# Wie haben wir getestet?
+
+Das Setup: Wir nutzen Vitest als schnellen Test-Runner zusammen mit der React Testing Library (RTL). Die Komponenten werden mithilfe des MemoryRouter gerendert, um Navigations-Zustände im Speicher zu simulieren.
+
+Statt interne Zustände (States) zu prüfen, testen wir das tatsächliche Verhalten. Wir befüllen Eingabefelder über fireEvent.change und lösen Aktionen über fireEvent.click aus.
+
+# Was war das Ziel unserer Tests?
+
+- Sicherzustellen, dass Kernfunktionen (wie die Benutzer-Authentifizierung) auch nach künftigen Code-Refactorings oder Paket-Updates fehlerfrei weiterarbeiten.
+- Das unser Main User Flow getestet ist
+- Sicherstellen, dass die App bei Falscheingaben oder Serverausfällen nicht abstürzt, sondern dem Nutzer barrierefreie Rückmeldungen (role="alert") anzeigt und Sicherheitsrelevantes (wie das Passwortfeld nach einem Fehlversuch) automatisch leert.
+
+# Welche Dinge mussten wir in unserer Codebase ändern, um gut testen zu können?
+
+Verzicht auf any wegen strikter ESLint-Regeln: Um die Regel @typescript-eslint/no-explicit-any in unserem Projekt nicht zu verletzen, mussten wir die Callback-Strukturen (onSuccess, onError) des Auth-Clients mithilfe von TypeScript-Utility-Typen (wie Parameters<typeof ...>) sauber typisieren.
+
 ## Dashboard Helpers
 
 ### Was haben wir geändert?
