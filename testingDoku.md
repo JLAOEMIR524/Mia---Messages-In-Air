@@ -2,12 +2,16 @@
 
 # Was haben wir nicht getestet?
 
-- Keine echte Datenbank-Prüfung: Wir haben keine echten Netzwerkanfragen an die Live-Datenbank geschickt.
-  Wegen der Testpyramide haben wir diese Schnittstellen im Frontend bewusst isoliert gemockt, um schnelle UI-Tests zu garantieren.
+- Keine echte Datenbank-Dinge: Wir haben keine echten Netzwerkanfragen an die Live-Datenbank geschickt.
+  Wegen der Testpyramide haben wir diese Schnittstellen im Frontend bewusst isoliert gemockt, um schnelle UI-Tests zu gewährleisten.
 
 - Keine biometrische Hardware (Passkeys/TouchID): Da JSDOM keine physischen Geräte wie TouchID, FaceID oder USB-Sicherheitsschlüssel simulieren kann, wurde darauf verzichtet
 
 - Keine Details wie Passwort-Stärke oder Speicher-Logik: Wir haben uns auf die Kernfunktionen konzentriert. Wir testen im automatisierten Test beispielsweise nicht, ob das Passwort mindestens einen Großbuchstaben oder Sonderzeichen hat und wir prüfen auch nicht im Detail, ob der Browser das Passwort am Ende wirklich im lokalen Speicher oder im Session-Cookie ablegt. Das würde den Rahmen sprengen und wurde von uns manuell geschaut.
+
+- Einige Komponenten, die rein visuell oder auch seltener als Hilfskompontnen verwendet werden.
+
+- Wir haben unseren Fokus eben auf unsere Erkentnisse aus dem User-Testing und den Main user Flow gelegt. WIr haben geschaut, wie sich Testuser verhalten und unserern Fokus darauf gelegt, das besser zu testen. Alle statischen Komponenten noch automatisiert zu testen hätte uns einen unnormalen hohen Aufwand gekostet und einen nicht allzu großen Mehrwert.
 
 # Wie haben wir getestet?
 
@@ -15,11 +19,13 @@ Das Setup: Wir nutzen Vitest als schnellen Test-Runner zusammen mit der React Te
 
 Statt interne Zustände (States) zu prüfen, testen wir das tatsächliche Verhalten. Wir befüllen Eingabefelder über fireEvent.change und lösen Aktionen über fireEvent.click aus.
 
+Wir haben uns gegen einen zentralen Test-Ordner entschieden. Stattdessen liegen unsere Testdateien (z. B. Dashboard.test.tsx) direkt neben der dazugehörigen Komponente (Dashboard.tsx). Diese Struktur entspricht mittlerweile auch dem modernen React-Standard.
+
 # Was war das Ziel unserer Tests?
 
 - Sicherzustellen, dass Kernfunktionen (wie die Benutzer-Authentifizierung) auch nach künftigen Code-Refactorings oder Paket-Updates fehlerfrei weiterarbeiten.
-- Das unser Main User Flow getestet ist
-- Sicherstellen, dass die App bei Falscheingaben oder Serverausfällen nicht abstürzt, sondern dem Nutzer barrierefreie Rückmeldungen (role="alert") anzeigt und Sicherheitsrelevantes (wie das Passwortfeld nach einem Fehlversuch) automatisch leert.
+- Das unser Main User Flow getestet ist. Das wir den Weg von ((Registrierung/Login $\rightarrow$ Dashboard $\rightarrow$ Quest wählen $\rightarrow$ Editor $\rightarrow$ Message schreiben $\rightarrow$ Postkarte senden & Details ansehen)) absichern. Und das das eben auch nach künftigen Code-Refactoring auch noch alles sicher funktioniert. Ohne das wir jedes mal code durchschauen müssen :)
+- Sicherstellen, dass die App bei Falscheingaben oder Serverausfällen nicht abstürzt, sondern dem Nutzer barrierefreie Rückmeldungen anzeigt und Sicherheitsrelevantes (wie das Passwortfeld nach einem Fehlversuch) automatisch leert.
 
 # Welche Dinge mussten wir in unserer Codebase ändern, um gut testen zu können?
 
@@ -181,6 +187,8 @@ Commit: 1d3d68e5b0029bf98a0a5e8b18d2657c527e1184
 - Test 3: Simuliert eine Standard-Fehlermeldung vom Auth-Server (z. B. "User not found"). Der Test stellt sicher, dass die genaue Fehlermeldung via `role="alert"` auf dem Bildschirm ausgegeben wird und keine Weiterleitung stattfindet.
 - Test 4: Testet die integrierte Sonderlogik für den Fall, dass das tägliche E-Mail-Limit des Systems erschöpft ist (`status: 429`). Es wird überprüft, ob die Komponente die technische Fehlermeldung abfängt und stattdessen den freundlichen, erweiterten Hilfetext für den Nutzer anzeigt
 
+Commit: 5e3b055c23caa6148ebc1e072294b984fb48129b
+
 ## Home Component
 
 ### Was wurde getestet?
@@ -188,3 +196,5 @@ Commit: 1d3d68e5b0029bf98a0a5e8b18d2657c527e1184
 - Test 1: Stellt sicher, dass das ("A postcard to a stranger..."), die Navigationsleiste sowie der Registrierungs-Button ("Start now") mit der korrekten Weiterleitungs-URL angezeigt werden.
 - Test 2: Überprüft den Klick auf den Button "Find out more". Es wird getestet, ob die Komponente das Event abfängt und den Hook-State anweist, die Preview zu öffnen (`setPreviewOpen(true)`).
 - Test 3: Simuliert das geöffnete Preview-Overlay. Ist die Infobox offen, muss der `main`-Inhalt im Hintergrund das HTML-Attribut `inert` erhalten. Dadurch wird sichergestellt, dass Tastaturnutzer und Screenreader nicht versehentlich Elemente im Hintergrund fokussieren können, während sie das Overlay lesen.
+
+Commit: 30b5f5f9b4cd82a6f46573e2f5a3515d7cf8bd58
