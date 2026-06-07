@@ -34,6 +34,9 @@ describe("Profile Component Tests", () => {
   });
 
   it("should show an error message when the profile data fetching fails", async () => {
+    //Prevemts react from logging the erros in this case and at the end resets this behaviour
+    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
     fetchSpy.mockRejectedValueOnce(new Error("Database disconnected"));
 
     render(
@@ -49,6 +52,8 @@ describe("Profile Component Tests", () => {
         ),
       ).toBeInTheDocument();
     });
+
+    consoleSpy.mockRestore();
   });
 
   it("should successfully render user stats, stickers, and completed quests", async () => {
@@ -146,30 +151,55 @@ describe("Profile Component Tests", () => {
 
   it("should correctly separate stickers into unlocked and locked sections based on their status", async () => {
     const mockStickers = [
-      { id: 1, name: "Frog", stickerSrc: "/sticker_1.png", xpAmount: 100, isLocked: false, description: "Unlocked", iconSrc: "/icon_1.png" },
-      { id: 2, name: "Rainbow", stickerSrc: "/sticker_2.png", xpAmount: 500, isLocked: true, description: "Locked", iconSrc: "/icon_2.png" },
+      {
+        id: 1,
+        name: "Frog",
+        stickerSrc: "/sticker_1.png",
+        xpAmount: 100,
+        isLocked: false,
+        description: "Unlocked",
+        iconSrc: "/icon_1.png",
+      },
+      {
+        id: 2,
+        name: "Rainbow",
+        stickerSrc: "/sticker_2.png",
+        xpAmount: 500,
+        isLocked: true,
+        description: "Locked",
+        iconSrc: "/icon_2.png",
+      },
     ];
 
     fetchSpy
-      .mockResolvedValueOnce({ ok: true, json: async () => ({ sentCount: 1, xp: 100 }) } as Response)
-      .mockResolvedValueOnce({ ok: true, json: async () => ({ stickers: mockStickers }) } as Response)
-      .mockResolvedValueOnce({ ok: true, json: async () => ({ quests: [] }) } as Response);
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ sentCount: 1, xp: 100 }),
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ stickers: mockStickers }),
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ quests: [] }),
+      } as Response);
 
     render(
       <MemoryRouter>
         <Profile />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     await screen.findByText("Your Profile 👤");
 
-    const unlockedSticker = screen.getByRole("img", { 
-      name: /Unlocked Sticker: Frog. Worth 100 XP./i 
+    const unlockedSticker = screen.getByRole("img", {
+      name: /Unlocked Sticker: Frog. Worth 100 XP./i,
     });
     expect(unlockedSticker).toBeInTheDocument();
 
-    const lockedSticker = screen.getByRole("button", { 
-      name: /Locked Sticker: Rainbow. Requires 500 XP./i 
+    const lockedSticker = screen.getByRole("button", {
+      name: /Locked Sticker: Rainbow. Requires 500 XP./i,
     });
     expect(lockedSticker).toBeInTheDocument();
   });
