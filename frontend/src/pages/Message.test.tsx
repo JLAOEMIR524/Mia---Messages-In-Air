@@ -1,6 +1,6 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { test, expect, beforeEach, vi, describe } from "vitest";
+import { expect, beforeEach, vi, describe, it } from "vitest";
 import "@testing-library/jest-dom";
 import { Message } from "./Message";
 import { MemoryRouter } from "react-router-dom";
@@ -35,7 +35,7 @@ const renderMessage = async () => {
 };
 
 describe("Message text field tests", () => {
-  test("shows error after typing short message", async () => {
+  it("shows error after typing short message", async () => {
     const user = userEvent.setup();
 
     await renderMessage();
@@ -50,7 +50,7 @@ describe("Message text field tests", () => {
     expect(errors.length).toBeGreaterThanOrEqual(1);
   });
 
-  test("character count matches actual char amout", async () => {
+  it("character count matches actual char amout", async () => {
     const user = userEvent.setup();
 
     await renderMessage();
@@ -68,7 +68,7 @@ describe("Message text field tests", () => {
     ).toBeInTheDocument();
   });
 
-  test("user chan't proceed if the text box is insufficcently filled", async () => {
+  it("user chan't proceed if the text box is insufficcently filled", async () => {
     const user = userEvent.setup();
 
     await renderMessage();
@@ -84,10 +84,44 @@ describe("Message text field tests", () => {
 
     expect(continueButton).toHaveClass("is-disabled");
   });
+
+  it("user can proceed if the text box is sufficcently filled", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <MemoryRouter>
+        <Message />
+      </MemoryRouter>,
+    );
+
+    const greetingImputField = screen.getByLabelText(/Greeting \/ Subject/i);
+    await user.type(greetingImputField, "Dear Stranger");
+
+    const messageImputField = screen.getByLabelText(/your message/i);
+    await user.type(
+      messageImputField,
+      "this is a text which is exactly 171 chars long and therefore should technically be logn enough to let a user proceed to the next step eg. the end of the postcard generator",
+    );
+
+    const locationInput = screen.getByPlaceholderText(
+      /search city or country/i,
+    );
+    await user.type(locationInput, "Salzburg");
+    await act(async () => await user.type(locationInput, "Ber"));
+    const option = await screen.findByRole("option", { name: /berlin/i });
+    expect(option).toBeInTheDocument();
+    await user.click(option);
+
+    const continueButton = screen.getByRole("button", {
+      name: /Send Postcard/i,
+    });
+
+    expect(continueButton).not.toHaveClass("is-disabled");
+  });
 });
 
 describe("Location search Tests", () => {
-  test("allows user to search and select a location", async () => {
+  it("allows user to search and select a location", async () => {
     const user = userEvent.setup();
     await renderMessage();
 
@@ -104,36 +138,4 @@ describe("Location search Tests", () => {
 
     expect(locationInput).toHaveValue("Berlin");
   });
-});
-
-test("user can proceed if the text box is sufficcently filled", async () => {
-  const user = userEvent.setup();
-
-  render(
-    <MemoryRouter>
-      <Message />
-    </MemoryRouter>,
-  );
-
-  const greetingImputField = screen.getByLabelText(/Greeting \/ Subject/i);
-  await user.type(greetingImputField, "Dear Stranger");
-
-  const messageImputField = screen.getByLabelText(/your message/i);
-  await user.type(
-    messageImputField,
-    "this is a text which is exactly 171 chars long and therefore should technically be logn enough to let a user proceed to the next step eg. the end of the postcard generator",
-  );
-
-  const locationInput = screen.getByPlaceholderText(/search city or country/i);
-  await user.type(locationInput, "Salzburg");
-  await act(async () => await user.type(locationInput, "Ber"));
-  const option = await screen.findByRole("option", { name: /berlin/i });
-  expect(option).toBeInTheDocument();
-  await user.click(option);
-
-  const continueButton = screen.getByRole("button", {
-    name: /Send Postcard/i,
-  });
-
-  expect(continueButton).not.toHaveClass("is-disabled");
 });

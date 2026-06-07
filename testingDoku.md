@@ -29,7 +29,8 @@ Wir haben uns gegen einen zentralen Test-Ordner entschieden. Stattdessen liegen 
 
 # Welche Dinge mussten wir in unserer Codebase ändern, um gut testen zu können?
 
-Verzicht auf any wegen strikter ESLint-Regeln: Um die Regel @typescript-eslint/no-explicit-any in unserem Projekt nicht zu verletzen, mussten wir die Callback-Strukturen (onSuccess, onError) des Auth-Clients mithilfe von TypeScript-Utility-Typen (wie Parameters<typeof ...>) sauber typisieren.
+- Verzicht auf any wegen strikter ESLint-Regeln: Um die Regel @typescript-eslint/no-explicit-any in unserem Projekt nicht zu verletzen, mussten wir die Callback-Strukturen (onSuccess, onError) des Auth-Clients mithilfe von TypeScript-Utility-Typen (wie Parameters<typeof ...>) sauber typisieren.
+- Mocking des Backends: Da nahezu jede komponente auf unser Backend zugreift um Daten zu fetchen mussten wir um funktionierende und vorhersehbare Tests zu gewährleisten. Dafür haben wir einerseits ein vollständig gemocktes Objekt für BetterAuth mit NutzerInnen-Daten und aber auch zahlreiche fetch-Requests die mit Mock-Daten befüllt wurden.
 
 ## Dashboard Helpers
 
@@ -47,6 +48,21 @@ Commit: a2156695f839ae02921149fa652772ef80d12e79
 
 - Test 1: Checkt, ob das System kapiert, dass location: "Berlin, Germany" und location: "Germany" dasselbe Land sind (Statistik muss genau 1 anzeigen).
 - Test 2: Erkennung, wenn das Backend den Ländernamen schon extra mitgibt (z. B. location: "Berlin", countryName: "Germany").
+
+## Dashboard Component
+
+### Was haben wir geändert
+
+- Um die Komponente zu testen mussten wir und die Response aus dem Backend und die Verarbeitung im Frontend ansehen und haben dabei bemerkt, dass das vollständige Postcard objekt das Frontend erreicht. Das hätte so nie passieren dürfen da sowohl die Projekterklärung als auch die Datenschutzerklärung eine Rückführbarkeit auf eine Person ausschließt. Deshalb musste die api im Backend umgestellt werden und auch im Frontend nachgebessert werden.
+
+### Was sind bestehende Fehlerquellen
+
+- Es ist geplant zusätzlich die Rückgabe des Servers zusätzlich zu minnifizieren da auf dem Dashboard die Rückgabe aller Postkarten mit Bild nicht nötig ist und die Response (und damit auch die Response-Time) linear ansteigt. Eine potenzielle lösung wäre die Werte direkt im Backend zu berechnen und maximal 3 Postkarten zurückzugeben. Für die Gallery gilt auch das selbe da die pagination keinen fetch beim einem Wechsel der Seite vorsieht sondern alles direkt lädt.
+
+### Was haben wir getestet?
+
+- Test 1: Überprüft ob die Statistiken der Postkarten (Gesendet, bekommen und die Anzahl der Länder) korrekt angezeigt werden.
+- Test 2: Überprüft ob die Sortierung in empfangene und versandte Karten korrekt ist.
 
 ## Gallery Component
 
@@ -198,3 +214,29 @@ Commit: 5e3b055c23caa6148ebc1e072294b984fb48129b
 - Test 3: Simuliert das geöffnete Preview-Overlay. Ist die Infobox offen, muss der `main`-Inhalt im Hintergrund das HTML-Attribut `inert` erhalten. Dadurch wird sichergestellt, dass Tastaturnutzer und Screenreader nicht versehentlich Elemente im Hintergrund fokussieren können, während sie das Overlay lesen.
 
 Commit: 30b5f5f9b4cd82a6f46573e2f5a3515d7cf8bd58
+
+## Message Component
+
+### Was haben wir geändert?
+
+- Die Message Componente war zuvor relativ lange und unleserlich geschrieben. Als lösung wurden Variablen lesbarer benannt, doppelte Erstellungen von Variablen entfernt (z.B. es gab 2 Variablen für den selben Zweck) und eine Hilfsfunktion ausgelagert.
+
+### Was wurde getestet?
+
+- Test 1: Überprüft ob ein Fehler angezeigt wird wenn man in das Message-Feld zu wenig schreibt.
+- Test 2: Überprüft ob die unter dem Textfelt angezeigte Anzahl an characters mit der getippten übereinstimmt.
+- Test 3: Stellt sicher, dass eine nutzende Person nicht fortfahren kann wenn Textboxen ungenügend gefüllt sind.
+- Test 4: Überprüft, dass man nur fortfahren kann wenn alle Eingaben (Greeting, Message und Location) ausreichend getätigt wurden.
+- Test 5: Stellt sicher, dass man nach der eingabe einer Stadt auch tatsächlich diese stadt wählen kann und sie dann richtig im Feld steht. Die optionen werden gemockt.
+
+### Schwierigkeit/Besonderheit dabei
+
+- Um das tippen eines echten users zu simulieren haben wirdas testing-library-plugin `user-event` verwendet. Es imitiert das tippen einer benutzenden Person. Das war wichtig da sonst das zählen der Characters nicht funktioniert hätte (der event listener darauf wäre nicht ausgelöst worden).
+- Da wir keine Datenbank haben währen des Tests werden 3 Städte für die Standortsuche gemockt indem wir `vi.mock` über die `../api/locationsApi` Schnittstelle legen und alle requests daran abfangen.
+- Da zwischen den Tests das Environment nicht rückgesetzt wird bleibt auch der localStorage erhalten. Damit tests sich nicht gegenseitig beeinflussen und im localStorage unerwartete dinge stehen wird das nach jedem Test ausgeführt:
+
+```javascript
+beforeEach(() => {
+  localStorage.clear();
+});
+```
