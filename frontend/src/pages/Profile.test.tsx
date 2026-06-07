@@ -35,7 +35,7 @@ describe("Profile Component Tests", () => {
 
   it("should show an error message when the profile data fetching fails", async () => {
     //Prevemts react from logging the erros in this case and at the end resets this behaviour
-    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const consoleSpy = vi.spyOn(console, "error");
 
     fetchSpy.mockRejectedValueOnce(new Error("Database disconnected"));
 
